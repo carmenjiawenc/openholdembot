@@ -26,6 +26,11 @@
 
 #include <wincrypt.h>
 
+// We don't define DLLMain() anywhere,
+// but got an error LNK2005 about duplicate definition.
+// Solution: https://stackoverflow.com/questions/343368/error-lnk2005-dllmain12-already-defined-in-msvcrt-lib#19930430
+extern "C" { int _afxForceUSRDLL; }
+
 HCRYPTPROV hCryptProv;
 typedef struct {
 	unsigned char digest[16];
