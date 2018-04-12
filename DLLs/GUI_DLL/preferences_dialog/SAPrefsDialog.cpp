@@ -27,12 +27,8 @@
 
 **********************************************************************/
 
-// SAPrefsDialog.cpp : implementation file
-//
-
-
-#include "..\..\..\OpenHoldem\resource.h"
 #include "SAPrefsDialog.h"
+#include "..\resource.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

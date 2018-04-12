@@ -12,9 +12,9 @@
 //
 //******************************************************************************
 
-#include "..\..\..\OpenHoldem\resource.h"
 #include "afxwin.h"
 #include "SAPrefsDialog.h"
+#include "..\resource.h"
 
 // CDlgSAPrefs12 dialog
 

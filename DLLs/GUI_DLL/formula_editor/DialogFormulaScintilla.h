@@ -14,8 +14,8 @@
 #include <afxcmn.h>
 #include <afxdlgs.h>
 #include <afxext.h>
-#include "..\..\..\OpenHoldem\resource.h"
 #include "ScintillaWnd.h"
+#include "..\resource.h"
 #include "..\Shared\winmgr\WinMgr.h"
 #include "..\Shared\winmgr\SizerBar.h"
 

@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -11,12 +12,8 @@
 //
 //******************************************************************************
 
-#ifndef INC_DIALOGSAPREFS17_H
-#define INC_DIALOGSAPREFS1_H
-
-#include "..\..\..\OpenHoldem\resource.h"
-
 #include "SAPrefsDialog.h"
+#include "..\resource.h"
 
 // CDlgSAPrefs17 dialog
 
@@ -47,6 +44,3 @@ public:
 	afx_msg void OnEnChangeMaxopponents();
 	afx_msg void OnBnClickedCheck1();
 };
-
-
-#endif //INC_DIALOGSAPREFS17_H

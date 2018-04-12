@@ -12,6 +12,7 @@
 //******************************************************************************
 
 #include "COpenHoldemStatusbar.h"
+#include "..\resource.h"
 #include "..\..\Symbols_DLL\CEngineContainer.h"
 #include "..\..\Symbols_DLL\CFunctionCollection.h"
 #include "..\..\Scraper_DLL\CBasicScraper.h"
@@ -23,7 +24,6 @@
 #include "..\..\Symbols_DLL\CSymbolEngineUserchair.h"
 #include "..\..\StringFunctions_DLL\string_functions.h"
 #include "..\..\Tablestate_DLL\TableState.h"
-#include "..\..\..\OpenHoldem\resource.h"
 
 COpenHoldemStatusbar::COpenHoldemStatusbar(CWnd *main_window) {
   _main_window = main_window;

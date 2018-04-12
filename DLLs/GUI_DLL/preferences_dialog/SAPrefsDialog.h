@@ -32,7 +32,7 @@
 #include <afxcmn.h>
 #include "SAPrefsStatic.h"
 #include "SAPrefsSubDlg.h"
-#include "..\..\..\OpenHoldem\resource.h"
+#include "..\resource.h"
 
 class pageStruct
 {

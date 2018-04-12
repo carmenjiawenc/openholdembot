@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -11,13 +12,9 @@
 //
 //******************************************************************************
 
-#ifndef INC_DIALOGSAPREFS7_H
-#define INC_DIALOGSAPREFS7_H
-
-#include "..\..\..\OpenHoldem\resource.h"
 #include "afxwin.h"
-
 #include "SAPrefsDialog.h"
+#include "..\resource.h"
 
 // CDlgSAPrefs7 dialog
 
@@ -40,6 +37,3 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 };
-
-
-#endif //INC_DIALOGSAPREFS7_H

@@ -21,10 +21,10 @@
 #include "..\Symbols_DLL\CSymbolEngineActiveDealtPlaying.h"
 #include "..\Symbols_DLL\CSymbolEngineTime.h"
 #include "..\Symbols_DLL\CSymbolEngineUserchair.h"
+#include "..\TableManagement_DLL\CAutoConnector.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
-#include "..\..\OpenHoldem\CAutoConnector.h"
 #include "..\..\OpenHoldem\CTableMapLoader.h"
 
 CProblemSolver::CProblemSolver()

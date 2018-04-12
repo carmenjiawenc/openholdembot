@@ -14,7 +14,7 @@
 
 #include <afxcmn.h>
 #include "SAPrefsDialog.h"
-#include "..\..\..\OpenHoldem\resource.h"
+#include "..\resource.h"
 
 // CDlgSAPrefs2 dialog
 

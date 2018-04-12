@@ -27,12 +27,8 @@
 
 **********************************************************************/
 
-// SAPrefsStatic.cpp : implementation file
-//
-
-
-#include "..\..\..\OpenHoldem\resource.h"
 #include "SAPrefsStatic.h"
+#include "..\resource.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

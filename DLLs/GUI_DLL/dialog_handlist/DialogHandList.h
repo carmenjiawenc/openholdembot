@@ -13,7 +13,7 @@
 //******************************************************************************
 
 #include <afxwin.h>
-#include "..\..\..\OpenHoldem\resource.h"
+#include "..\resource.h"
 #include "..\..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 class COHScriptList;

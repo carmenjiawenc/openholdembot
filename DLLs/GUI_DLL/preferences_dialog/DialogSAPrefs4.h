@@ -13,8 +13,8 @@
 //******************************************************************************
 
 #include <afxcmn.h>
-#include "..\..\..\OpenHoldem\resource.h"
 #include "SAPrefsDialog.h"
+#include "..\resource.h"
 
 // CDlgSAPrefs4 dialog
 

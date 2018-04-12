@@ -17,8 +17,8 @@
 #include <afxwin.h>
 #include "CFlagsToolbar.h"
 #include "MyCToolBar.h"
+#include "..\resource.h"
 #include "..\..\Symbols_DLL\CEngineContainer.h"
-#include "..\..\..\OpenHoldem\resource.h"
 
 #define ENT CSLock lock(m_critsec);
 

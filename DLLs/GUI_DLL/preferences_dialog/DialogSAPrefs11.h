@@ -13,10 +13,9 @@
 //******************************************************************************
 
 #include <afxcmn.h>
-#include "..\..\..\OpenHoldem\resource.h"
 #include "afxwin.h"
-
 #include "SAPrefsDialog.h"
+#include "..\resource.h"
 
 // DialogSAPrefs11 dialog
 

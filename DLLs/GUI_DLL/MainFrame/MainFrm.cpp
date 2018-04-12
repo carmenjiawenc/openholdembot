@@ -66,7 +66,8 @@
 ///#include "inlines/eval.h"
 ///#include "SAPrefsDialog.h"
 ///#include "Singletons.h"
-#include "..\..\..\OpenHoldem\CAutoConnector.h"
+#include "..\..\TableManagement_DLL\CAutoConnector.h"
+#include "..\..\TableManagement_DLL\CTableManagement.h"
 #include "..\..\..\OpenHoldem\OpenHoldem.h"
 #include "..\..\..\OpenHoldem\OpenHoldemDoc.h" /// here?
 
@@ -150,8 +151,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
   // OpenHoldem!!!!!
   ON_COMMAND(ID_APP_ABOUT, &COpenHoldemApp::OnAppAbout)
   // Standard file based document commands
-  ON_COMMAND(ID_FILE_NEW, &CWinApp::OnFileNew)
-  ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)
+  ///ON_COMMAND(ID_FILE_NEW, &CWinApp::OnFileNew)
+  ///ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)
 END_MESSAGE_MAP()
 
 // CMainFrame construction/destruction

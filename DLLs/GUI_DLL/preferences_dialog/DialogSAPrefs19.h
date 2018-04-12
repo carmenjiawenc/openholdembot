@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -11,14 +12,9 @@
 //
 //******************************************************************************
 
-#ifndef INC_DIALOGSAPREFS19_H
-#define INC_DIALOGSAPREFS19_H
-
-#include "..\..\..\OpenHoldem\resource.h"
 #include "afxwin.h"
-
 #include "SAPrefsDialog.h"
-
+#include "..\resource.h"
 
 // CDlgSAPrefs15 dialog
 
@@ -43,5 +39,3 @@ protected:
 public:
 	CButton _handhistory_generator_enable_Button;
 };
-
-#endif
