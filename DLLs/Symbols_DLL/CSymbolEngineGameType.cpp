@@ -57,7 +57,7 @@ void CSymbolEngineGameType::UpdateOnHeartbeat() {
       _gametype = scraped_limit;
       return;
   }
-  // No relia ble undo from scraper
+  // No reliable info from scraper
   // Let's do some guess-work, based on GUI-elements
   //
   // No reset to FL, because we want to remember previous guesses,
