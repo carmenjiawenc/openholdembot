@@ -99,10 +99,10 @@ void CSymbolEngineOpenPPLHandAndBoardExpression::UpdateOnHeartbeat() {
 }
 
 void CSymbolEngineOpenPPLHandAndBoardExpression::CheckForProbablyMistakenSpadesInsteadOfSuited(CString expression) {
-  if (!OpenHoldem()->FormulaParser()->IsParsing()) {
+  /*#if (!OpenHoldem()->FormulaParser()->IsParsing()) {
     // We want this check and warning only once at parse-time
     return;
-  }
+  }*/
   // This function must only be called if the prefix is hand$ or board$
   assert(expression.GetLength() >= CString("hand$").GetLength());
   // Now we are also sure, that we have enough input for the remaining operations...

@@ -26,12 +26,12 @@
 #include "..\Formula_DLL\CParseErrors.h"
 #include "..\Formula_DLL\CParseTreeTerminalNodeEndOfFunction.h"
 #include "..\Globals_DLL\globals.h"
+#include "..\PokerTracker_Query_Definitions\pokertracker_query_definitions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
-#include "..\..\PokerTracker_Query_Definitions\pokertracker_query_definitions.h"
 
 CSymbolEnginePokerTracker::CSymbolEnginePokerTracker()
 {
@@ -172,13 +172,13 @@ bool CSymbolEnginePokerTracker::EvaluateSymbol(const CString name, double *resul
 	}
 	int chair = 0;
 	if (!EngineContainer()->PokerTrackerThread()->IsConnected()) 	{
-		if (!EngineContainer()->symbol_engine_userchair()->userchair_confirmed() || OpenHoldem()->FormulaParser()->IsParsing()) {
+		/*#if (!EngineContainer()->symbol_engine_userchair()->userchair_confirmed() || OpenHoldem()->FormulaParser()->IsParsing()) {
 			// We are not yet seated or formula is getting parsed.
 			// Symbol-lookup happens, because of Formula-validation.
 			// Not a problem, if we do not yet have a DB-connection.
 			// Don't throw a warning here.
       write_log(Preferences()->debug_pokertracker(), "[PokerTracker] Not yet seated or formula parsing.\n");
-		} else {
+		} else*/ {
 			// We are seated and playing, use a PT-symbol,
       // but are noit connected to a database
       if (CParseTreeTerminalNodeEndOfFunction::evaluating_defailt_logic()) {

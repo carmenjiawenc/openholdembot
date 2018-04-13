@@ -102,7 +102,7 @@ void CSymbolEngineFormulaSwitching::LoadNewFormulaIfNeeded() {
     CFile::modeRead | CFile::shareDenyWrite);
   CArchive logic_archive(&logic_file, CArchive::load);
   assert(OpenHoldem()->FormulaParser() != NULL);
-  OpenHoldem()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic(logic_archive);
+  ///OpenHoldem()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic(logic_archive);
   write_log_separator(true, "");
   write_log(k_always_log_basic_information,
     "NEW FORMULA: %s\n",

@@ -169,11 +169,11 @@ void CFunctionCollection::Add(COHScriptObject *new_function) {
   }
   write_log(Preferences()->debug_formula(), 
 	  "[CFunctionCollection] Adding %s -> %i\n", name, new_function);
-  if (OpenHoldem()->FormulaParser()->IsParsingReadOnlyFunctionLibrary()) { 
+/*#  if (OpenHoldem()->FormulaParser()->IsParsingReadOnlyFunctionLibrary()) { 
     write_log(Preferences()->debug_formula(),
       "[CFunctionCollection] Making function read-only\n");
     new_function->SetAsReadOnlyLibraryFunction();
-  }
+  }*/
   _function_map[name] = new_function;
 }
 
@@ -729,10 +729,10 @@ bool CFunctionCollection::EvaluateSymbol(const CString name, double *result, boo
       }
       // Function does not exist
       *result = kUndefinedZero;
-      if (OpenHoldem()->FormulaParser()->IsParsing()) {
+/*#      if (OpenHoldem()->FormulaParser()->IsParsing()) {
         // EvaluateSymbol() got called as part of the parse-time-verification
         return false;
-      }
+      }*/
       // Runtime-evaluatzion
       // This symbol is something that HAS TO be evaluated here,
       // We didn't find it, so we treat it as zero/false/whatever.

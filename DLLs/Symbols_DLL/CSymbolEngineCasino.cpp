@@ -56,14 +56,14 @@ void CSymbolEngineCasino::UpdateOnMyTurn() {
 bool CSymbolEngineCasino::ConnectedToManualMode() {
   const int k_max_length_of_classname = 50;
 	char classname[k_max_length_of_classname] = "";
-  GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
+  ///GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
   return (strcmp(classname, "OpenHoldemManualMode") == 0);
 }
 
 bool CSymbolEngineCasino::ConnectedToOHReplay() {
   const int k_max_length_of_classname = 50;
 	char classname[k_max_length_of_classname] = "";
-  GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
+  ///GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
   return (strcmp(classname, "OHREPLAY") == 0);
 }
 
@@ -83,7 +83,7 @@ bool CSymbolEngineCasino::ConnectedToRealCasino() {
 bool CSymbolEngineCasino::ConnectedToBring() {
   const int k_max_length_of_classname = 50;
 	char classname[k_max_length_of_classname] = "";
-  GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
+  ///GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
   return (strcmp(classname, "BRING") == 0);
 }
 

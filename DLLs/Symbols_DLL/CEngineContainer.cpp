@@ -309,16 +309,16 @@ void CEngineContainer::EvaluateAll() {
 		// until OnConnection() got executed.
 		return;
 	}
-	if (FormulaParser() == NULL) {
+	/*#if (FormulaParser() == NULL) {
 		// No formula loaded
 		return;
-	}
-	if (FormulaParser()->IsParsing()) {
+	}*/
+	/*#if (FormulaParser()->IsParsing()) {
 		// Not safe to evaluate anything
 		return;
-	}
+	}*/
 	BetroundCalculator()->OnNewHeartbeat();
-	OpenHoldem()->HandresetDetector()->OnNewHeartbeat();
+	///OpenHoldem()->HandresetDetector()->OnNewHeartbeat();
 	// table-limits depend on betround
 	p_symbol_engine_tablelimits->CalcTableLimits();
 	// UpdateOnConnection() gets directly called by the auto-connector,
@@ -327,9 +327,9 @@ void CEngineContainer::EvaluateAll() {
 	// * UpdateOnHandreset()
 	// * UpdateOnNewRound()
 	// * UpdateOnMyTurn()
-	if (OpenHoldem()->HandresetDetector()->IsHandreset()) 	{
+	/*#if (OpenHoldem()->HandresetDetector()->IsHandreset()) 	{
 		UpdateOnHandreset();
-	}
+	}*/
 	if (BetroundCalculator()->IsNewBetround())	{
 		UpdateOnNewRound();
 	}
