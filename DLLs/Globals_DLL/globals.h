@@ -22,6 +22,7 @@
 #endif
 
 class CEngineContainer;
+
 class CFunctionCollection;
 class CGUI;
 class CPreferences;

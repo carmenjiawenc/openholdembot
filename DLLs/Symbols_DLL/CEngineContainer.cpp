@@ -309,11 +309,11 @@ void CEngineContainer::EvaluateAll() {
 		// until OnConnection() got executed.
 		return;
 	}
-	if (OpenHoldem()->FormulaParser() == NULL) {
+	if (FormulaParser() == NULL) {
 		// No formula loaded
 		return;
 	}
-	if (OpenHoldem()->FormulaParser()->IsParsing()) {
+	if (FormulaParser()->IsParsing()) {
 		// Not safe to evaluate anything
 		return;
 	}

@@ -133,3 +133,9 @@ CTableTitle *CTableState::TableTitle() {
   return &_table_title;
 }
 
+
+
+
+CTableState* TableState() {
+  return 0;
+} //!!!!!

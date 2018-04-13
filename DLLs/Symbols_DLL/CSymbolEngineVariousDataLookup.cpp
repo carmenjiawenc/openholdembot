@@ -55,7 +55,6 @@ CSymbolEngineVariousDataLookup::CSymbolEngineVariousDataLookup() {
   assert(SessionCounter() != NULL);
   assert(p_tablemap != NULL);
   assert(TableState()->TableTitle() != NULL);
-  assert(GUI()->WhiteInfoBox() != NULL);
   // Objects that are part of the GUI which runs in its own thread.
   // They might or might not yet be initialized.
   // We don#t wait here, as the GUI also waits at some point.

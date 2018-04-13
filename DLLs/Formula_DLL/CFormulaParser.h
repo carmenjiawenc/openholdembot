@@ -117,3 +117,5 @@ class CFormulaParser /*: public CSpaceOptimizedGlobalObject */{
   bool _is_parsing_debug_tab;
   COHScriptObject* _currently_parsed_function_or_list;
 };
+
+CFormulaParser* FormulaParser();

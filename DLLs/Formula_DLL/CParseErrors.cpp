@@ -120,7 +120,7 @@ void CParseErrors::MessageBox_Formula_Error(CString Message, CString Title) {
   if (Message.Right(1) != "\n") {
     Message += "\n";
   }
-  if (OpenHoldem()->FormulaParser()->IsParsing()) {
+  if (FormulaParser()->IsParsing()) {
     CParseErrors::Error(Message);
   }
   else {

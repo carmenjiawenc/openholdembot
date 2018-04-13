@@ -46,7 +46,7 @@
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\Symbols_DLL\CFunctionCollection.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
-#include "..\..\OpenHoldem\CWatchdog.h"
+///#include "..\..\OpenHoldem\CWatchdog.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
@@ -272,7 +272,7 @@ void CFormulaParser::ParseFormula(COHScriptObject* function_or_list_to_be_parsed
   // Unfortunatelly parsing some bot-loghic like the legendary
   // 20 MB Flopzilla code takes a bit longer than other instances
   // watchdog expects, that's why the parser regularly has to shout "ALIVE!"
-  OpenHoldem()->WatchDog()->MarkThisInstanceAsAlive();
+  ///OpenHoldem()->WatchDog()->MarkThisInstanceAsAlive();
   _function_name = function_or_list_to_be_parsed->name();
   _tokenizer.SetInputFunction(function_or_list_to_be_parsed);
   // No longer any check for end of file or end of function here.
@@ -1058,3 +1058,8 @@ void CFormulaParser::ParseDebugTab(CString function_text) {
   _is_parsing_debug_tab = false;
   LeaveParserCode();
 }
+
+
+CFormulaParser* FormulaParser() {
+  return 0;
+} //!!!!!

@@ -22,7 +22,6 @@
 #include "..\Debug_DLL\debug.h"
 #include "..\Formula_DLL\COHScriptList.h"
 #include "..\Globals_DLL\globals.h"
-#include "..\GUI_DLL\CGUI.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\TableState_DLL\CTableTitle.h"
@@ -130,7 +129,7 @@ EXE_IMPLEMENTS char* GetPlayerName(int chair) {
 }
 
 EXE_IMPLEMENTS char* GetTableTitle() {
-  return "";/// GUI()->OpenHoldemTitle()->GetTitle().GetBuffer();
+  return "";/// GUI()->OpenHoldemTitle()->GetTitle().GetBuffer(); -> tablestate
 }
 
 EXE_IMPLEMENTS void ParseHandList(const char* name_of_list, const char* list_body) {

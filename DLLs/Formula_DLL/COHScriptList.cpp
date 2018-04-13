@@ -200,7 +200,7 @@ void COHScriptList::Parse() {
   if (NeedsToBeParsed()) {
     write_log(Preferences()->debug_formula() || Preferences()->debug_parser(),
       "[CFunction] Parsing %s\n", _name);
-    OpenHoldem()->FormulaParser()->ParseFormula(this);
+    FormulaParser()->ParseFormula(this);
     MarkAsParsed();
   }
   else {
