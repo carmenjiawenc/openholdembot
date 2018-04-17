@@ -29,6 +29,7 @@
 #include "..\Symbols_DLL\CSymbolEngineHistory.h"
 #include "..\Symbols_DLL\CSymbolEngineRandom.h"
 #include "..\Symbols_DLL\CSymbolEngineTime.h"
+#include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\Tablestate_DLL\TableState.h"
 ///#include "..\CTableMap\CTableMapAccess.h"
 #include "..\WindowFunctions_DLL\window_functions.h"

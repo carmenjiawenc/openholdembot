@@ -12,12 +12,13 @@
 //******************************************************************************
 
 #include "BringKeyBoard.h"
-///#include "CAutoConnector.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\Symbols_DLL\CSymbolEngineCasino.h"
 #include "..\Symbols_DLL\CSymbolEngineAutoplayer.h"
+#include "..\TableManagement_DLL\CAutoConnector.h"
+#include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 ///#include "MainFrm.h"
 ///#include "CMyMutex.h"
