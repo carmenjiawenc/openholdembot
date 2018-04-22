@@ -13,7 +13,7 @@
 //******************************************************************************
 
 #ifdef SCRAPER_DLL_EXPORTS
-#define SCRAPER_DLL_API extern "C" __declspec(dllexport)
+#define SCRAPER_DLL_API __declspec(dllexport)
 #else
-#define SCRAPER_DLL_API extern "C" __declspec(dllimport)
+#define SCRAPER_DLL_API __declspec(dllimport)
 #endif

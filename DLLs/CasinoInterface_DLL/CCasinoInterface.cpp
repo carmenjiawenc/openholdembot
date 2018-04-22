@@ -133,7 +133,7 @@ bool CCasinoInterface::EnterChatMessage(CString &message) {
 	RECT			rect_chatbox;
 	POINT			cur_pos = {0};
 
-	/*#if (!p_tablemap_access->GetTableMapRect("chatbox", &rect_chatbox)) {
+	/*#if (!BasicScraper()->TablemapAccess()->GetTableMapRect("chatbox", &rect_chatbox)) {
 		write_log(Preferences()->debug_autoplayer(), "[CasinoInterface] Can't chat. No region defined.\n");
 		return false;
 	}*/

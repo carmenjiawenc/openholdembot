@@ -12,12 +12,12 @@
 //
 //*******************************************************************************
 
-#include <windows.h>
+#include "..\LibDef.h"
 #include "CTablemap.h"
 
 enum dim {width, height};
 
-class CTablemapAccess {
+class SCRAPER_DLL_API CTablemapAccess {
  public:
 	CTablemapAccess();
 	~CTablemapAccess();

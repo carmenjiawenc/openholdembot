@@ -22,6 +22,7 @@
 #include "..\Symbols_DLL\CSymbolEngineTime.h"
 #include "..\Symbols_DLL\CSymbolEngineUserchair.h"
 #include "..\TableManagement_DLL\CAutoConnector.h"
+#include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
@@ -37,7 +38,8 @@ const char *k_title_string = "Problem Solver";
 
 bool CProblemSolver::NoTableMapsInScraperFolder()
 {
-	return (OpenHoldem()->TableMapLoader()->NumberOfTableMapsLoaded() == 0);
+	///return (OpenHoldem()->TableMapLoader()->NumberOfTableMapsLoaded() == 0);
+  return false;
 }
 
 bool CProblemSolver::NotConnected()

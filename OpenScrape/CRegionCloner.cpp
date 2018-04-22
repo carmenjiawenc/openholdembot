@@ -90,8 +90,8 @@ CRegionCloner::~CRegionCloner()
 
 bool CRegionCloner::TableSizeUndefined()
 {
-	return false; /* !!! To do ((p_tablemap_access->GetClientSizeX() <= 0)
-		|| (p_tablemap_access->GetClientSizeY() <= 0)); */
+	return false; /* !!! To do ((BasicScraper()->TablemapAccess()->GetClientSizeX() <= 0)
+		|| (BasicScraper()->TablemapAccess()->GetClientSizeY() <= 0)); */
 }
 
 CString CRegionCloner::CreateName(CString prefix, int number, CString postfix)
@@ -114,7 +114,7 @@ void CRegionCloner::CalculateLinearRegions(STablemapRegion first_region, int num
 
 	int width_of_region = first_region.right - first_region.left;
   int target_size_X, dummy;
-  p_tablemap_access->GetClientSize("targetsize", &target_size_X, &dummy);
+  BasicScraper()->TablemapAccess()->GetClientSize("targetsize", &target_size_X, &dummy);
 	int space_for_remaining_regions = target_size_X;
 		- first_region.left // distance to the left of first region
 		- first_region.left // distance to the right of last region
@@ -142,7 +142,7 @@ void CRegionCloner::CalculateCircularRegions(STablemapRegion first_region, int n
 
   int target_size_X;
   int target_size_Y;
-  p_tablemap_access->GetClientSize("targetsize", &target_size_X, &target_size_Y);
+  BasicScraper()->TablemapAccess()->GetClientSize("targetsize", &target_size_X, &target_size_Y);
 
 	int center_x_of_region = 0.5 * (first_region.left + first_region.right);
 	int center_y_of_region = 0.5 * (first_region.top + first_region.bottom);
@@ -214,7 +214,7 @@ void CRegionCloner::CalculateCircularRegionsForFirstCloneableObject() {
 	STablemapRegion region_to_be_cloned;
 	// Find first cloneable region for position calculations
 	for (int i = 0; i<k_number_of_circular_cloneable_regions; i++) {
-		if (p_tablemap_access->GetTableMapRegion(
+		if (BasicScraper()->TablemapAccess()->GetTableMapRegion(
 			  circular_cloneable_regions[i][0], // name of region
 			  &region_to_be_cloned)) {
 			CalculateCircularRegions(region_to_be_cloned, kMaxNumberOfPlayers);
@@ -271,7 +271,7 @@ void CRegionCloner::ApplyNextCircularRegionPosition(
 void CRegionCloner::CloneCommonCards()
 {
 	STablemapRegion region_to_be_cloned;
-	if (!p_tablemap_access->GetTableMapRegion("region_to_be_cloned", &region_to_be_cloned))
+	if (!BasicScraper()->TablemapAccess()->GetTableMapRegion("region_to_be_cloned", &region_to_be_cloned))
 	{
 		return;
 	}
@@ -298,7 +298,7 @@ void CRegionCloner::CloneCircularCloneableRegions() {
 	STablemapRegion region_with_balance;
 	int balance_0_top, balance_0_left, balance_0_bottom, balance_0_right;
 
-	if (p_tablemap_access->GetTableMapRegion(
+	if (BasicScraper()->TablemapAccess()->GetTableMapRegion(
 			"p0balance", // get p0balance and its coordinates to calculate offsets
 			&region_to_be_cloned)) {
 		balance_0_top = region_to_be_cloned.top;
@@ -311,7 +311,7 @@ void CRegionCloner::CloneCircularCloneableRegions() {
 	}
 	for (int i=0; i<k_number_of_circular_cloneable_regions; ++i) {
 		// Clone a single region;
-		if (!p_tablemap_access->GetTableMapRegion(
+		if (!BasicScraper()->TablemapAccess()->GetTableMapRegion(
 			  circular_cloneable_regions[i][0], // name of region
 			  &region_to_be_cloned)) {
 			continue;
@@ -334,10 +334,10 @@ void CRegionCloner::CloneCircularCloneableRegions() {
 			CString s = "";
 			s.Format("p%dbalance", p);
 
-			if (p_tablemap_access->GetTableMapRegion(
+			if (BasicScraper()->TablemapAccess()->GetTableMapRegion(
 			      s, // if this region has balance then continue and clone
 			      &region_with_balance) 
-          && !p_tablemap_access->GetTableMapRegion(new_region.name, &existing_region)) {
+          && !BasicScraper()->TablemapAccess()->GetTableMapRegion(new_region.name, &existing_region)) {
 				new_region.top = region_with_balance.top - ( balance_0_top - region_to_be_cloned.top );
 				new_region.left = region_with_balance.left - ( balance_0_left - region_to_be_cloned.left );
 				new_region.bottom = new_region.top + (region_to_be_cloned.bottom-region_to_be_cloned.top );

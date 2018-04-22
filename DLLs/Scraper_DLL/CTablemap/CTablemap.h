@@ -109,7 +109,7 @@ typedef std::map<uint32_t, STablemapImage> IMap;
 typedef IMap::iterator IMapI;
 typedef IMap::const_iterator IMapCI;
 
-class CTablemap {
+class SCRAPER_DLL_API CTablemap {
 	friend class CTablemapAccess;
  public:
 	// public functions

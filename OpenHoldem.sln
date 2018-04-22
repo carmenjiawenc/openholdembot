@@ -76,7 +76,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TableState", "DLLs\TableSta
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "table_management", "DLLs\TableManagement_DLL\table_management.vcxproj", "{BFF9AF3C-0FDE-46B5-A2EA-2C077B353A78}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sesasion_counter", "DLLs\SessionCounter_DLL\sesasion_counter.vcxproj", "{AA2DCEE0-0BD5-4BC1-90BD-9FD1C1037AA5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "session_counter", "DLLs\SessionCounter_DLL\sesasion_counter.vcxproj", "{AA2DCEE0-0BD5-4BC1-90BD-9FD1C1037AA5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TableMapLoader", "DLLs\TableMapLoader_DLL\TableMapLoader.vcxproj", "{6148ACEA-4732-4B55-8284-6D06A207CE6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -541,6 +543,20 @@ Global
 		{AA2DCEE0-0BD5-4BC1-90BD-9FD1C1037AA5}.Template|Any CPU.Build.0 = Release|Win32
 		{AA2DCEE0-0BD5-4BC1-90BD-9FD1C1037AA5}.Template|Win32.ActiveCfg = Release|Win32
 		{AA2DCEE0-0BD5-4BC1-90BD-9FD1C1037AA5}.Template|Win32.Build.0 = Release|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Debug|Win32.Build.0 = Debug|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Release - Optimized|Any CPU.ActiveCfg = Release|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Release - Optimized|Any CPU.Build.0 = Release|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Release - Optimized|Win32.ActiveCfg = Release|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Release - Optimized|Win32.Build.0 = Release|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Release|Any CPU.ActiveCfg = Release|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Release|Win32.ActiveCfg = Release|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Release|Win32.Build.0 = Release|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Template|Any CPU.ActiveCfg = Release|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Template|Any CPU.Build.0 = Release|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Template|Win32.ActiveCfg = Release|Win32
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C}.Template|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -573,6 +589,7 @@ Global
 		{869175AB-75A6-4A8C-A524-AE25971C63E8} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
 		{BFF9AF3C-0FDE-46B5-A2EA-2C077B353A78} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
 		{AA2DCEE0-0BD5-4BC1-90BD-9FD1C1037AA5} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
+		{6148ACEA-4732-4B55-8284-6D06A207CE6C} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = 

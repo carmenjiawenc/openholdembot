@@ -25,6 +25,7 @@
 #include <afxwin.h>
 #include "LibDef.h"
 #include "CTablemap\CTablemap.h"
+#include "CTablemap\CTableMapAccess.h"
 
 //*******************************************************************************
 //
@@ -36,7 +37,7 @@ class CBasicScraper;
 
 // Accessor for the singleton of CBasicScraper
 // Singleton gets initialized via the accessor-function once needed
-CBasicScraper* BasicScraper();
+SCRAPER_DLL_API CBasicScraper* BasicScraper();
 
 SCRAPER_DLL_API class CBasicScraper {
 public:
@@ -47,8 +48,10 @@ public:
   // Loads a tablemap (and automatically unloads the previous one)
   CString ScrapeRegion(const CString name);
   CTablemap* Tablemap() { return &_tablemap; }
+  CTablemapAccess* TablemapAccess() { return &_tablemap_access; }
 private:
   CTablemap _tablemap;
+  CTablemapAccess _tablemap_access;
 };
 
 //*******************************************************************************

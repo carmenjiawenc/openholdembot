@@ -62,7 +62,7 @@
 //
 // https://msdn.microsoft.com/en-us/library/aa231853%28v=vs.60%29.aspx
 // macro redefinition
-#pragma warning(error:4005)   
+///!!!!!#pragma warning(error:4005)   
 // https://msdn.microsoft.com/en-us/library/aa231864%28v=vs.60%29.aspx
 // signed/unsigned mismatch
 #pragma warning(error:4018) 
