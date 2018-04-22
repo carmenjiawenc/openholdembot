@@ -340,3 +340,13 @@ void ResizeToTotalSize(HWND window, int new_width, int new_height) {
 void WinGetTitle(HWND window, char *title) {
   GetWindowText(window, title, MAX_WINDOW_TITLE);
 }
+
+bool CPopupHandler::WinIsOpenHoldem(HWND window) {
+  /*#DWORD PID;
+  if (!GetWindowThreadProcessId(window, &PID)) {
+    return false;
+  }
+  return (TableManagement()->SharedMem()->IsAnyOpenHoldemProcess(PID));
+  */
+  return false;
+}

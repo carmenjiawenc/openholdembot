@@ -204,6 +204,7 @@ void CSharedMem::VerifyMainMutexName() {
 	}
 }
 
+// !!!! Now probably unused
 bool CSharedMem::IsAnyOpenHoldemProcess(int PID) {
 	for (int i=0; i<MAX_SESSION_IDS; i++)	{
 		if (openholdem_PIDs[i] == PID) {

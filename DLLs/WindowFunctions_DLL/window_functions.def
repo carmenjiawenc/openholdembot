@@ -19,6 +19,7 @@ WinIsBring
 WinIsDesktop
 WinIsMaximized
 WinIsMinimized
+WinIsOpenHoldem
 WinIsOutOfScreen
 WinIsTaskbar
 WinIsProgramManager

@@ -26,9 +26,6 @@ public:
 	void HandleAllWindows();
 	// To be called by callback-function EnumProcPotentialPopups
 	void HandlePotentialPopup(HWND potential_popup, bool hard_kill);
-public:
-  // To be used by the auto-connector (temp!!!)
-  bool WinIsOpenHoldem(HWND window);
 private:
 	// To be called by instance 0
 	void MinimizeAllOnstartup();

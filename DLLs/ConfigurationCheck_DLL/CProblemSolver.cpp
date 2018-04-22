@@ -23,10 +23,10 @@
 #include "..\Symbols_DLL\CSymbolEngineUserchair.h"
 #include "..\TableManagement_DLL\CAutoConnector.h"
 #include "..\TableManagement_DLL\CTableManagement.h"
+#include "..\TableMapLoader_DLL\CTableMapLoader.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
-#include "..\..\OpenHoldem\CTableMapLoader.h"
 
 CProblemSolver::CProblemSolver()
 {}

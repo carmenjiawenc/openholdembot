@@ -38,13 +38,14 @@ WINDOW_FUNCTIONS_API void ResizeToTotalSize(HWND window, int new_width, int new_
 WINDOW_FUNCTIONS_API void TileSingleWindow(HWND this_window, HWND *null_terminated_list_of_other_windows);
 WINDOW_FUNCTIONS_API bool WinBelongsToExecutable(HWND window, const char* program_name);
 WINDOW_FUNCTIONS_API void WinGetTitle(HWND window, char *title);
+WINDOW_FUNCTIONS_API bool WinIsBring(HWND window);
 WINDOW_FUNCTIONS_API bool WinIsDesktop(HWND window);
 WINDOW_FUNCTIONS_API bool WinIsMaximized(HWND window);
 WINDOW_FUNCTIONS_API bool WinIsMinimized(HWND window);
-WINDOW_FUNCTIONS_API bool WinIsBring(HWND window);
+WINDOW_FUNCTIONS_API bool WinIsOpenHoldem(HWND window);
 WINDOW_FUNCTIONS_API bool WinIsOutOfScreen(HWND window);
-WINDOW_FUNCTIONS_API bool WinIsTaskbar(HWND window);
 WINDOW_FUNCTIONS_API bool WinIsProgramManager(HWND window);
+WINDOW_FUNCTIONS_API bool WinIsTaskbar(HWND window);
 WINDOW_FUNCTIONS_API bool WinIsTaskManager(HWND window);
 WINDOW_FUNCTIONS_API bool WinIsZeroSized(HWND window);
 

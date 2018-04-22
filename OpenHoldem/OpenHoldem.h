@@ -40,7 +40,6 @@ class COpenHoldemApp : public CWinApp {
 public:
 //  CHandresetDetector* HandresetDetector();
   CHeartbeatThread* HeartBeatThread(); //!!!!!
-//  CTableMapLoader*  TableMapLoader();
  private:
   void InitializeThreads();
 private:

@@ -20,7 +20,6 @@
 ///#include "CHeartbeatThread.h"
 ///#include "CIteratorThread.h"
 ///#include "COpenHoldemTitle.h"
-#include "CPopupHandler.h"
 #include "CSharedMem.h"
 ///#include "CTableMapLoader.h"
 #include "CTableManagement.h"
@@ -42,6 +41,7 @@
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\Symbols_DLL\CPokerTrackerThread.h"
+#include "..\TableMapLoader_DLL\CTableMapLoader.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 
@@ -113,9 +113,9 @@ bool CAutoConnector::IsConnectedToGoneWindow() {
 void CAutoConnector::Check_TM_Against_All_Windows_Or_TargetHWND(int tablemap_index, HWND targetHWnd) {
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Check_TM_Against_All_Windows(..)\n");
   if (targetHWnd == NULL) {
-		EnumWindows(EnumProcTopLevelWindowList, (LPARAM) tablemap_index);
+		///EnumWindows(EnumProcTopLevelWindowList, (LPARAM) tablemap_index);
   } else {
-		EnumProcTopLevelWindowList(targetHWnd, (LPARAM) tablemap_index);
+		///EnumProcTopLevelWindowList(targetHWnd, (LPARAM) tablemap_index);
   }
 }
 
@@ -193,7 +193,7 @@ BOOL CALLBACK EnumProcTopLevelWindowList(HWND hwnd, LPARAM lparam) {
 		// and the indexes will not match.
     if (TableManagement()->SharedMem()->PokerWindowAttached(hwnd)) {
       write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Window candidate already served: [%d]\n", hwnd);
-    } else if (popup_handler->WinIsOpenHoldem(hwnd)) { // !!! refactore, does not belong to popup-handler
+    } else if (WinIsOpenHoldem(hwnd)) { // !!! refactore, does not belong to popup-handler
       write_log(Preferences()->debug_popup_blocker(), "[CAutoConnector] Window belongs to OpenHoldem\n");
 		}	else {
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Adding window candidate to the list: [%d]\n", hwnd);
@@ -216,7 +216,7 @@ void CAutoConnector::WriteLogTableReset(CString event_and_reason) {
 		"%s"    // Version info already contains a newline
 		"==============================================\n",
     event_and_reason,
-		p_version_info->GetVersionInfo());
+		"v13.13.13\n" /*#p_version_info->GetVersionInfo()*/);
 }
 
 void CAutoConnector::FailedToConnectBecauseNoWindowInList() {
@@ -280,10 +280,10 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
   // Clear global list for holding table candidates
 	g_tlist.RemoveAll();
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Number of tablemaps loaded: %i\n",
-    OpenHoldem()->TablemapLoader()->NumberOfTableMapsLoaded());
-	for (int tablemap_index=0; tablemap_index<OpenHoldem()->TablemapLoader()->NumberOfTableMapsLoaded(); tablemap_index++) {
+    TableMapLoader()->NumberOfTableMapsLoaded());
+	for (int tablemap_index=0; tablemap_index<TableMapLoader()->NumberOfTableMapsLoaded(); tablemap_index++) {
 		write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Going to check TM nr. %d out of %d\n", 
-			tablemap_index, OpenHoldem()->TablemapLoader()->NumberOfTableMapsLoaded());
+			tablemap_index, TableMapLoader()->NumberOfTableMapsLoaded());
 		Check_TM_Against_All_Windows_Or_TargetHWND(tablemap_index, targetHWnd);
 	}
 	// Put global candidate table list in table select dialog variables
@@ -302,38 +302,39 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
 			set_attached_hwnd(g_tlist[SelectedItem].hwnd);
       CheckIfWindowMatchesMoreThanOneTablemap(attached_hwnd());
 			assert(p_tablemap != NULL);
-      CString tablemap_to_load = OpenHoldem()->TablemapLoader()->GetTablemapPathToLoad(g_tlist[SelectedItem].tablemap_index);
+      CString tablemap_to_load = TableMapLoader()->GetTablemapPathToLoad(g_tlist[SelectedItem].tablemap_index);
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Selected tablemap: %s\n", tablemap_to_load);
 			BasicScraper()->Tablemap()->LoadTablemap(tablemap_to_load);
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Tablemap successfully loaded\n");
   		// Create bitmaps
-			p_scraper->CreateBitmaps();
+			///BasicScraper()->CreateBitmaps();
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Scraper-bitmaps created\n");
       // Clear scraper fields
 			TableState()->Reset();
-      CasinoInterface()->Reset();
+      ///CasinoInterface()->Reset();
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Table state cleared\n");
       // Reset symbols
 			EngineContainer()->UpdateOnConnection();
       write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] UpdateOnConnection executed (during connection)\n");
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Going to continue with scraper output and scraper DLL\n");
       // Reset "ScraperOutput" dialog, if it is live
-			if (GUI()->DlgScraperOutput()) {
+			/*#if (GUI()->DlgScraperOutput()) {
 				GUI()->DlgScraperOutput()->Reset();
 			}
-			GUI()->FlagsToolbar()->ResetButtonsOnConnect();
+			GUI()->FlagsToolbar()->ResetButtonsOnConnect();*/
       // The main GUI gets created by another thread.
       // This can be slowed down if there are popups (parse-errors).
       // Handle the race-condition
-      WAIT_FOR_CONDITION(PMainframe() != NULL)
-      assert(PMainframe() != NULL);
+      // !!!!! create timer function unmain-frame instead
+      ///WAIT_FOR_CONDITION(PMainframe() != NULL)
+      ///assert(PMainframe() != NULL);
 			// Reset display
-			PMainframe()->ResetDisplay();
+			///PMainframe()->ResetDisplay();
       // log OH title bar text and table reset
       WriteLogTableReset("NEW CONNECTION");
-      OpenHoldem()->TablePositioner()->ResizeToTargetSize();
-			OpenHoldem()->TablePositioner()->PositionMyWindow();
-			p_autoplayer->EngageAutoPlayerUponConnectionIfNeeded();
+      TablePositioner()->ResizeToTargetSize();
+			TablePositioner()->PositionMyWindow();
+			///p_autoplayer->EngageAutoPlayerUponConnectionIfNeeded();
 		}
 	}
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Unlocking autoconnector-mutex\n");
@@ -356,7 +357,7 @@ void CAutoConnector::Disconnect(CString reason_for_disconnection) {
   CDlgScraperOutput::DestroyWindowSafely();
   // Make sure autoplayer is off
   write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Stopping autoplayer\n");
-  p_autoplayer->EngageAutoplayer(false);
+  ///p_autoplayer->EngageAutoplayer(false);
 	// Wait for mutex - "forever" if necessary, as we have to clean up.
 	ASSERT(_autoconnector_mutex->m_hObject != NULL); 
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Locking autoconnector-mutex\n");
@@ -371,18 +372,18 @@ void CAutoConnector::Disconnect(CString reason_for_disconnection) {
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Unlocking autoconnector-mutex\n");
 	_autoconnector_mutex->Unlock();	
 	// Delete bitmaps
-	p_scraper->DeleteBitmaps();
+	///BasicScraper()->DeleteBitmaps();
   // Clear scraper fields
 	TableState()->Reset();
-  CasinoInterface()->Reset();
+  ///CasinoInterface()->Reset();
 	// Reset symbols
 	EngineContainer()->UpdateOnConnection();
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] UpdateOnConnection executed (disconnection)\n");
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Going to continue with window title\n");
 	// Change window title
-	GUI()->OpenHoldemTitle()->UpdateTitle();
+	///GUI()->OpenHoldemTitle()->UpdateTitle();
 	// Reset Display 
-	PMainframe()->ResetDisplay();
+	///PMainframe()->ResetDisplay();
 	// Reset "ScraperOutput" dialog, if it is live
 	if (GUI()->DlgScraperOutput())	{
 		GUI()->DlgScraperOutput()->Reset();

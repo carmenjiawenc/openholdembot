@@ -66,14 +66,6 @@ void CPopupHandler::HandleAllWindows(bool hard_kill) {
 	EnumWindows(EnumProcPotentialPopups, LPARAM(hard_kill));
 }
 
-bool CPopupHandler::WinIsOpenHoldem(HWND window) {
-  DWORD PID;
-  if (!GetWindowThreadProcessId(window, &PID)) {
-    return false;
-  }
-  return (TableManagement()->SharedMem()->IsAnyOpenHoldemProcess(PID));
-}
-
 void CPopupHandler::HandlePotentialPopup(HWND potential_popup, bool hard_kill) {
 	char title[MAX_WINDOW_TITLE];
 	GetWindowText(potential_popup, title, MAX_WINDOW_TITLE);
