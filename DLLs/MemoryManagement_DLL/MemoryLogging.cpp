@@ -15,7 +15,6 @@
 #include <afx.h>
 #include <assert.h>
 #include <psapi.h>
-///#include "Windows.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
 
