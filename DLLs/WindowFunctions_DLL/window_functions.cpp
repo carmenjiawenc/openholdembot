@@ -44,9 +44,9 @@
 #include "window_functions.h"
 #include <assert.h>
 #include <math.h>
-#include <windows.h>
-#include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 #include "Psapi.h"
+#include "..\Files_DLL\Files.h"
+#include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 RECT desktop_dimensions;
 bool desktop_dimensions_calculated = false;
@@ -341,12 +341,32 @@ void WinGetTitle(HWND window, char *title) {
   GetWindowText(window, title, MAX_WINDOW_TITLE);
 }
 
-bool CPopupHandler::WinIsOpenHoldem(HWND window) {
-  /*#DWORD PID;
-  if (!GetWindowThreadProcessId(window, &PID)) {
+bool WinIsOpenHoldem(HWND window) {
+  DWORD Process_ID;
+  if (!GetWindowThreadProcessId(window, &Process_ID)) {
     return false;
   }
-  return (TableManagement()->SharedMem()->IsAnyOpenHoldemProcess(PID));
-  */
+  HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS | PROCESS_QUERY_INFORMATION |
+    PROCESS_VM_READ,
+    FALSE, 
+    Process_ID);
+  if (hProcess == NULL) {
+    return false;
+  }
+  HMODULE hMod;
+  char szProcessName[MAX_PATH];
+  GetModuleBaseName(hProcess,
+    hMod, 
+    szProcessName,
+    MAX_PATH);
+  CloseHandle(hProcess);
+  if (memcmp(szProcessName, "", 1) == 0) {
+    return false;
+  }
+  CString OpenHoldem_filename = ExecutableFilename();
+  assert(OpenHoldem_filename.GetLength() <= MAX_PATH);
+  if (memicmp(szProcessName, OpenHoldem_filename, OpenHoldem_filename.GetLength()) == 0) {
+    return true;
+  }
   return false;
 }

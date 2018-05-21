@@ -24,7 +24,7 @@
 #define WINDOW_FUNCTIONS_API __declspec(dllimport)
 #endif
 
-#include <windows.h>
+#include <afxwin.h>
 
 WINDOW_FUNCTIONS_API int CalculateTotalHeightForClientHeight(HWND window, int desired_client_height);
 WINDOW_FUNCTIONS_API int CalculateTotalWidthForClientWidth(HWND window, int desired_client_width);

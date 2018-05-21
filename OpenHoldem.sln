@@ -37,6 +37,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GamestateValidation", "DLLs\GamestateValidation_DLL\GamestateValidation.vcxproj", "{F7FC9500-4048-4E34-AD58-5DC7EB072198}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "window_functions", "DLLs\WindowFunctions_DLL\window_functions.vcxproj", "{E87D7887-ADDE-41DB-AA09-3DDAB950FAA5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6D9F9D81-4D08-4C57-A773-4B041360D150} = {6D9F9D81-4D08-4C57-A773-4B041360D150}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "string_functions", "DLLs\StringFunctions_DLL\string_functions.vcxproj", "{9A3A25E1-3045-4EC3-BE51-5BD55F1F94B9}"
 EndProject
