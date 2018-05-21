@@ -31,6 +31,17 @@ CPreferences::CPreferences() {
 CPreferences::~CPreferences() {
 }
 
+CPreferences* preferences = NULL;
+
+PREFERENCES_DLL_API CPreferences* Preferences() {
+  if (preferences == NULL) {
+    // Lazy initialization 
+    preferences = new CPreferences();
+  }
+  return preferences;
+}
+
+
 // registry keys 
 const char* k_registry_keys_for_numerical_values[k_prefs_last_numerical_value + 1] = {
   // bools
@@ -351,9 +362,6 @@ void CPreferences::WriteReg(const LPCTSTR registry_key, const double registry_va
   str.Format("%.2f", registry_value);
   WriteReg(registry_key, str);
 }
-
-///!!!!!
-PREFERENCES_DLL_API CPreferences* Preferences() { return NULL; }
 
 #define ENT CSLock lock(m_critsec);
 
