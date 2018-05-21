@@ -85,6 +85,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Numerical_Functions", "DLLs\Numerical_Functions_DLL\Numerical_Functions.vcxproj", "{64255B61-596E-4AD4-868A-7B35ADF07FF7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TableState", "DLLs\TableState_DLL\TableState.vcxproj", "{869175AB-75A6-4A8C-A524-AE25971C63E8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A4DEF05E-E072-493E-B282-84731D60BCF0} = {A4DEF05E-E072-493E-B282-84731D60BCF0}
+		{9A3A25E1-3045-4EC3-BE51-5BD55F1F94B9} = {9A3A25E1-3045-4EC3-BE51-5BD55F1F94B9}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "table_management", "DLLs\TableManagement_DLL\table_management.vcxproj", "{BFF9AF3C-0FDE-46B5-A2EA-2C077B353A78}"
 EndProject

@@ -16,7 +16,6 @@
 #include "Card.h"
 #include "CPlayer.h"
 #include "CScrapedMoney.h"
-///#include "..\..\OpenHoldem\CSpaceOptimizedGlobalObject.h"
 #include "CTableTitle.h"
 #include "LibDef.h"
 #include "SLimitInfo.h"
