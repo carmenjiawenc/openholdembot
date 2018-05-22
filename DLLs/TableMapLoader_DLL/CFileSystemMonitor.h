@@ -18,11 +18,11 @@
 //
 //******************************************************************************
 
-///#include "CSpaceOptimizedGlobalObject.h"
-
 #include <afxwin.h>
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class CFileSystemMonitor /*#: public CSpaceOptimizedGlobalObject */{
+class CFileSystemMonitor //!!!public CSpaceOptimizedGlobalObject */
+{
  public:
 	CFileSystemMonitor();
 	~CFileSystemMonitor();

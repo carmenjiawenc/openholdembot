@@ -19,7 +19,8 @@
 // or created with the editor
 const CString kNoSourceFileForThisCode = "no source file";
 
-class COHScriptObject/*#: public CSpaceOptimizedFormulaObject*/ {
+class COHScriptObject //!!!: public CSpaceOptimizedFormulaObject
+{
   friend class CFunctionCollection;
  public:
   COHScriptObject(); 

@@ -16,12 +16,7 @@
 #include "CTableMaploader.h"
 #include <afxwin.h>
 #include <map>
-///#include "CAutoConnector.h"
 #include "CFileSystemMonitor.h"
-///#include "CTablemapCompletenessChecker.h"
-///#include "CTablePointChecker.h"
-///#include "OpenHoldem.h"
-///#include "..\CTablemap\CTablemapAccess.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Files_DLL\Files.h"
 #include "..\Preferences_DLL\Preferences.h"
