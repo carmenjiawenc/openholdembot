@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -10,9 +11,6 @@
 // Purpose:
 //
 //******************************************************************************
-
-#ifndef INC_CCRITSEC_H
-#define INC_CCRITSEC_H
 
 class CCritSec
 {
@@ -50,5 +48,3 @@ private:
     
     CCritSec& m_section;
 };
-
-#endif //INC_CCRITSEC_H

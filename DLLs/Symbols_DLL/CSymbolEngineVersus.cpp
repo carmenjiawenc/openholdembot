@@ -12,6 +12,13 @@
 //
 //******************************************************************************
 
+// We got a couple of warnings
+// C1189	#error:  The C++ Standard Library forbids macroizing keywords. Enable warning C4005 to find the forbidden macro.	Symbols	C:\Program Files\Microsoft Visual Studio 14.0\VC\include\xkeycheck.h	250	
+// which probably where caused by include-order of windows-headers
+// and couldn't be solved.
+// Workaround:
+#define _ALLOW_KEYWORD_MACROS
+
 #include "CSymbolEngineVersus.h"
 #include <io.h>
 #include <fcntl.h>

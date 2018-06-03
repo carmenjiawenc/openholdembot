@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -13,11 +14,8 @@
 //
 //******************************************************************************
 
-#ifndef INC_CSYMBOLENGINECARDS_H
-#define INC_CSYMBOLENGINECARDS_H
-
-#include "CVirtualSymbolEngine.h"
 #include "..\..\pokereval\include\poker_defs.h"
+#include "CVirtualSymbolEngine.h"
 
 class CSymbolEngineCards: public CVirtualSymbolEngine {
 public:
@@ -113,5 +111,3 @@ private:
 	 // Card masks
 	CardMask heartsCards, diamondsCards, clubsCards, spadesCards;
 };
-
-#endif INC_CSYMBOLENGINECARDS_H
