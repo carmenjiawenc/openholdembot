@@ -13,10 +13,11 @@
 
 #include "COHScriptList.h"
 
-///#include "CardFunctions.h"
+///#include "..\CardFunctions.DLL\CardFunctions.h"
 #include "CFormulaParser.h"
 ///#include "CMemoryPool.h"
 #include "CParseErrors.h"
+#include "..\CardFunctions.DLL\CardFunctions.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
@@ -27,7 +28,6 @@
 #include  "..\TableState_DLL\TableState.h"
 #include  "..\TableState_DLL\CTableTitle.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
-#include "..\..\OpenHoldem\CardFunctions.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 
 COHScriptList::COHScriptList(

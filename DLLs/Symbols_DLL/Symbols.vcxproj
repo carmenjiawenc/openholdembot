@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBetroundCalculator.cpp" />
+    <ClCompile Include="CBlindGuesser.cpp" />
+    <ClCompile Include="CBlindLevels.cpp" />
     <ClCompile Include="CEngineContainer.cpp" />
     <ClCompile Include="CFunctionCollection.cpp" />
     <ClCompile Include="CPokerTrackerSiteID.cpp" />
@@ -68,6 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CBetroundCalculator.h" />
+    <ClInclude Include="CBlindGuesser.h" />
+    <ClInclude Include="CBlindLevels.h" />
     <ClInclude Include="CEngineContainer.h" />
     <ClInclude Include="CFunctionCollection.h" />
     <ClInclude Include="CPokerTrackerSiteID.h" />
@@ -182,11 +186,11 @@
       <AdditionalIncludeDirectories>E:\OpenHoldem\pokereval\include\inlines;E:\OpenHoldem\pokereval\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)TableState.dll</OutputFile>
+      <OutputFile>$(OutDir)Symbols.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)string_functions.lib;$(OutDir)window_functions.lib;$(OutDir)TableState.lib;$(OutDir)numerical_functions.lib;$(OutDir)CBasicScraper.lib;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)Preferences.lib;..\..\pokereval\Release\poker-eval.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;secur32.lib;$(OutDir)files.lib;$(OutDir)string_functions.lib;$(OutDir)window_functions.lib;$(OutDir)TableState.lib;$(OutDir)numerical_functions.lib;$(OutDir)CBasicScraper.lib;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)Preferences.lib;$(OutDir)CardFunctions.lib;$(OutDir)Formula.lib;$(OutDir)Debug.lib;..\..\lib\libpq.lib;..\..\pokereval\Release\poker-eval.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -201,13 +205,13 @@
       <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)TableState.dll</OutputFile>
+      <OutputFile>$(OutDir)Symbols.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)string_functions.lib;$(OutDir)window_functions.lib;$(OutDir)TableState.lib;$(OutDir)numerical_functions.lib;$(OutDir)CBasicScraper.lib;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)Preferences.lib;..\..\pokereval\Release\poker-eval.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;secur32.lib;$(OutDir)files.lib;$(OutDir)string_functions.lib;$(OutDir)window_functions.lib;$(OutDir)TableState.lib;$(OutDir)numerical_functions.lib;$(OutDir)CBasicScraper.lib;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)Preferences.lib;$(OutDir)CardFunctions.lib;$(OutDir)Formula.lib;$(OutDir)Debug.lib;..\..\lib\libpq.lib;..\..\pokereval\Release\poker-eval.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

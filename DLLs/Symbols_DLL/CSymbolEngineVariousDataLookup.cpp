@@ -74,6 +74,7 @@ void CSymbolEngineVariousDataLookup::UpdateOnConnection() {
 
 void CSymbolEngineVariousDataLookup::UpdateOnHandreset() {
   // Reset display
+  ///!!!!! not here -> heartbeat
   ///InvalidateRect(theApp.m_pMainWnd->GetSafeHwnd(), NULL, true);
 }
 

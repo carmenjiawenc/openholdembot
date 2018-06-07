@@ -25,6 +25,7 @@
 #include "CSymbolEngineCards.h"
 #include "CSymbolEngineIsOmaha.h"
 #include "CSymbolEngineUserchair.h"
+#include "..\CardFunctions.DLL\CardFunctions.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
@@ -32,7 +33,6 @@
 #include "..\Scraper_DLL\CTransform\CTransform.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Tablestate_DLL\TableState.h"
-#include "..\..\OpenHoldem\CardFunctions.h"
 ///#include "inlines/eval.h"
 
 CSymbolEnginePokerval::CSymbolEnginePokerval() {
@@ -1236,4 +1236,14 @@ CString CSymbolEnginePokerval::SymbolsProvided() {
   list_of_symbols += RangeOfSymbols("suitbitsplayer%d", StdDeck_Suit_FIRST, StdDeck_Suit_LAST);
   list_of_symbols += RangeOfSymbols("suitbitscommon%d", StdDeck_Suit_FIRST, StdDeck_Suit_LAST);
   return list_of_symbols;
+}
+
+CEngineContainer* engine_container = NULL;
+
+CEngineContainer* EngineContainer() {
+  if (engine_container == NULL) {
+    // Lazy initialization 
+    engine_container = new CEngineContainer;
+  }
+  return engine_container;
 }

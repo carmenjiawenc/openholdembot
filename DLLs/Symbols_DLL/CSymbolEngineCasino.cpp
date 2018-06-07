@@ -43,8 +43,6 @@ void CSymbolEngineCasino::UpdateOnConnection() {
 }
 
 void CSymbolEngineCasino::UpdateOnHandreset() {
-  // Reset display
-  InvalidateRect(theApp.m_pMainWnd->GetSafeHwnd(), NULL, true);
 }
 
 void CSymbolEngineCasino::UpdateOnNewRound() {

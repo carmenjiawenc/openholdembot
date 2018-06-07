@@ -12,19 +12,18 @@
 //
 //****************************************************************************** 
 
-#include "stdafx.h"
 #include "CBlindGuesser.h"
-
 #include "CBlindLevels.h"
 #include "CEngineContainer.h"
-
-#include "CScraper.h"
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include "CSymbolEngineDealerchair.h"
 #include "CSymbolEngineGameType.h"
 #include "CSymbolEngineHistory.h"
-#include "..\CTablemap\CTablemap.h"
-#include "..\DLLs\Tablestate_DLL\TableState.h"
+#include "..\Debug_DLL\debug.h"
+#include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
+#include "..\Tablestate_DLL\TableState.h"
 
 CBlindGuesser::CBlindGuesser() {
 }
@@ -175,15 +174,15 @@ void CBlindGuesser::GetFirstBlindDataFromBetsAtTheTable(double *sblind,
   // but this looks acceptable, because we have to guess only
   // verz few times and don't have to act at the verz first heartbeat
   // (because of stable frames).
-  int dealer = p_engine_container->symbol_engine_dealerchair()->dealerchair();
+  int dealer = EngineContainer()->symbol_engine_dealerchair()->dealerchair();
   // Exit on undefined or wrong dealer (outdated, from last hand)
   if ((dealer == kUndefined) || (TableState()->Player(dealer)->dealer() == false)) {
     return;
   }
   int first_chair = dealer + 1;
-  int last_chair = dealer + p_tablemap->nchairs();
+  int last_chair = dealer + nchairs();
   for (int i = first_chair; i <= last_chair; ++i) {
-    int normalized_chair = i % p_tablemap->nchairs();
+    int normalized_chair = i % nchairs();
     double players_bet = TableState()->Player(normalized_chair)->_bet.GetValue();
     if (players_bet <= 0) continue;
     if (first_bet_after_dealer <= 0) {
@@ -191,7 +190,7 @@ void CBlindGuesser::GetFirstBlindDataFromBetsAtTheTable(double *sblind,
       first_bet_after_dealer = players_bet;
       // Also check if the verz first player after dealer is betting,
       // which for sure excludes a missing small blind
-      if (normalized_chair == (first_chair % p_tablemap->nchairs())) {
+      if (normalized_chair == (first_chair % nchairs())) {
         first_chair_immediatelly_after_dealer_betting = true;
       }
     }
@@ -201,12 +200,12 @@ void CBlindGuesser::GetFirstBlindDataFromBetsAtTheTable(double *sblind,
       break;
     }
   }
-  assert(p_engine_container->symbol_engine_active_dealt_playing() != NULL);
+  assert(EngineContainer()->symbol_engine_active_dealt_playing() != NULL);
   // Checking for reversed blinds.
   // Using 0.61% here to support limits like 0.15/0.25
   if ((second_bet_after_dealer < 0.61 * first_bet_after_dealer) &&
 	  (second_bet_after_dealer > 0.0) &&
-    p_engine_container->symbol_engine_active_dealt_playing()->nplayersdealt() == 2) {
+    EngineContainer()->symbol_engine_active_dealt_playing()->nplayersdealt() == 2) {
     // Special handling for reveresed blinds headsup
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=19102
     write_log(Preferences()->debug_table_limits(),

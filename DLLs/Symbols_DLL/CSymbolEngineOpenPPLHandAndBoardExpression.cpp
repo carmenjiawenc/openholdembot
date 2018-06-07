@@ -12,19 +12,18 @@
 //******************************************************************************
 
 #include "CSymbolEngineOpenPPLHandAndBoardExpression.h"
-///#include "CardFunctions.h"
 #include "CEngineContainer.h"
 ///#include "CFormulaParser.h"
 ///#include "CParseErrors.h"
 #include "CSymbolEngineCards.h"
 #include "CSymbolEngineIsOmaha.h"
 #include "CSymbolEnginePokerval.h"
+#include "..\CardFunctions.DLL\CardFunctions.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\StringFunctions_DLL\string_functions.h"
-#include "..\..\OpenHoldem\CardFunctions.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 
 const int prime_coded_card_ranks[k_rank_ace+1] = {
