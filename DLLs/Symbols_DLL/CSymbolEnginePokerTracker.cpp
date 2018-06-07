@@ -180,7 +180,7 @@ bool CSymbolEnginePokerTracker::EvaluateSymbol(const CString name, double *resul
       write_log(Preferences()->debug_pokertracker(), "[PokerTracker] Not yet seated or formula parsing.\n");
 		} else*/ {
 			// We are seated and playing, use a PT-symbol,
-      // but are noit connected to a database
+      // but are not connected to a database
       if (CParseTreeTerminalNodeEndOfFunction::evaluating_defailt_logic()) {
         // Not a problem
         // The default-bot uses PT-symbols,

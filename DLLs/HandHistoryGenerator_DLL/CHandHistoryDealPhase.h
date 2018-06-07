@@ -29,6 +29,7 @@ class CHandHistoryDealPhase: public CVirtualSymbolEngine {
 	void UpdateOnNewRound();
 	void UpdateOnMyTurn();
 	void UpdateOnHeartbeat();
+  void UpdateAfterAutoplayerAction(int autoplayer_action_code) {}
  public:
 	// Public accessors
 	bool EvaluateSymbol(const CString name, double *result, bool log = false);

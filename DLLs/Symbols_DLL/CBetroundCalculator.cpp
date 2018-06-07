@@ -91,3 +91,13 @@ int CBetroundCalculator::PreviousRound() {
   }
   return betround() - 1;
 }
+
+CBetroundCalculator* betround_calculator = NULL;
+
+CBetroundCalculator* BetroundCalculator() {
+  if (betround_calculator == NULL) {
+    // Lazy initialization 
+    betround_calculator = new CBetroundCalculator;
+  }
+  return betround_calculator;
+}

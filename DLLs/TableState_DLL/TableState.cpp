@@ -133,9 +133,12 @@ CTableTitle *CTableState::TableTitle() {
   return &_table_title;
 }
 
-
-
+CTableState* table_state = NULL;
 
 CTableState* TableState() {
-  return 0;
-} //!!!!!
+  if (table_state == NULL) {
+    // Lazy initialization
+    table_state = new CTableState;
+  }
+  return table_state;
+}

@@ -14,7 +14,7 @@
 #include "CHandHistoryShowdown.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Symbols_DLL\CBetroundCalculator.h"
-#include "..\Symbols_DLL\CEngineContainer.h"
+///#include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\Symbols_DLL\CSymbolEngineUserchair.h"
 #include "..\Tablestate_DLL\TableState.h"
 
@@ -22,7 +22,7 @@ CHandHistoryShowdown::CHandHistoryShowdown() {
 	// The values of some symbol-engines depend on other engines.
 	// As the engines get later called in the order of initialization
 	// we assure correct ordering by checking if they are initialized.
-	assert(EngineContainer()->symbol_engine_userchair() != NULL);
+	///assert(EngineContainer()->symbol_engine_userchair() != NULL);
   UpdateOnHandreset();
 }
 
@@ -48,10 +48,10 @@ void CHandHistoryShowdown::UpdateOnMyTurn() {
 
 bool AnyOpponentsCardsVisible() {
   for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); ++i) {
-    if (i == EngineContainer()->symbol_engine_userchair()->userchair()) {
+    ///if (i == EngineContainer()->symbol_engine_userchair()->userchair()) {
       // Not an opponent
       continue;
-    }
+    ///}
     if (TableState()->Player(i)->HasKnownCards()) {
       return true;
     }

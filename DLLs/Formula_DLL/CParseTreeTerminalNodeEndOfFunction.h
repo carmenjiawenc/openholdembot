@@ -14,8 +14,9 @@
 #pragma once
 
 #include "CParsetreeTerminalNodeIdentifier.h"
+#include "LibDef.h"
 
-class CParseTreeTerminalNodeEndOfFunction: public CParseTreeTerminalNodeIdentifier {
+FORMULA_DLL_API class CParseTreeTerminalNodeEndOfFunction: public CParseTreeTerminalNodeIdentifier {
   friend class CFormulaParser;
   friend class CParseTreeRotator;
  public:

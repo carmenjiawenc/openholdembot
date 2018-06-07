@@ -22,21 +22,28 @@
 
 class CVirtualSymbolEngine/*!!!!!!!: public CSpaceOptimizedGlobalObject */{
  public:
-	CVirtualSymbolEngine();
-	virtual ~CVirtualSymbolEngine();
+  CVirtualSymbolEngine() {}
+  virtual ~CVirtualSymbolEngine() {}
  public:
-  virtual void InitOnStartup();
-	virtual void UpdateOnConnection();
-	virtual void UpdateOnHandreset();
-	virtual void UpdateOnNewRound();
-	virtual void UpdateOnMyTurn();
-	virtual void UpdateOnHeartbeat();
-  virtual void UpdateAfterAutoplayerAction(int autoplayer_action_code);
+  virtual void InitOnStartup() {}
+	virtual void UpdateOnConnection() {}
+	virtual void UpdateOnHandreset() {}
+	virtual void UpdateOnNewRound() {}
+	virtual void UpdateOnMyTurn() {}
+	virtual void UpdateOnHeartbeat() {}
+  virtual void UpdateAfterAutoplayerAction(int autoplayer_action_code) {}
  public:
   void WarnIfSymbolRequiresMyTurn(CString name);
   void WarnIfSymbolIsHoldemOnly(CString name);
  public:
-	virtual bool EvaluateSymbol(const CString name, double *result, bool log = false);
+	virtual bool EvaluateSymbol(const CString name, double *result, bool log = false) {
+    // We don't provide any symbols
+    return false;
+  }
+ public:  
 	// To build a list of identifiers for the editor
-	virtual CString SymbolsProvided();
+	virtual CString SymbolsProvided() {
+    // Default for symbol-engines that don't provide any symbols
+    return "";
+  }
 };

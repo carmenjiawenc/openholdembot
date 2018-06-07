@@ -19,43 +19,6 @@
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 
-CVirtualSymbolEngine::CVirtualSymbolEngine()
-{}
-
-CVirtualSymbolEngine::~CVirtualSymbolEngine()
-{}
-
-void CVirtualSymbolEngine::InitOnStartup()
-{}
-
-void CVirtualSymbolEngine::UpdateOnConnection()
-{}
-
-void CVirtualSymbolEngine::UpdateOnHandreset()
-{}
-
-void CVirtualSymbolEngine::UpdateOnNewRound()
-{}
-
-void CVirtualSymbolEngine::UpdateOnMyTurn()
-{}
-
-void CVirtualSymbolEngine::UpdateOnHeartbeat()
-{}
-
-void CVirtualSymbolEngine::UpdateAfterAutoplayerAction(int autoplayer_action_code)
-{}
-
-bool CVirtualSymbolEngine::EvaluateSymbol(const CString name, double *result, bool log /* = false */) {
-	// We don't provide any symbols
-	return false;
-}
-
-CString CVirtualSymbolEngine::SymbolsProvided() {
-  // Default for symbol-engines that don't provide any symbols
-  return "";
-}
-
 void CVirtualSymbolEngine::WarnIfSymbolRequiresMyTurn(CString name) {
   /*#if (OpenHoldem()->FormulaParser()->IsParsing()) {
     // No error-message while parsing,

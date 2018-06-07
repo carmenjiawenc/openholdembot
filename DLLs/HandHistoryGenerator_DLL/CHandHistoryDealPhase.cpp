@@ -26,10 +26,10 @@ CHandHistoryDealPhase::CHandHistoryDealPhase() {
 	// The values of some symbol-engines depend on other engines.
 	// As the engines get later called in the order of initialization
 	// we assure correct ordering by checking if they are initialized.
-	assert(EngineContainer()->symbol_engine_active_dealt_playing() != NULL);
+	/*#assert(EngineContainer()->symbol_engine_active_dealt_playing() != NULL);
   assert(EngineContainer()->symbol_engine_chip_amounts() != NULL);
   assert(EngineContainer()->symbol_engine_dealerchair() != NULL);
-  assert(EngineContainer()->symbol_engine_tablelimits() != NULL);
+  assert(EngineContainer()->symbol_engine_tablelimits() != NULL);*/
   // No dependency to CHandHistoryWriter as this modules
   // does not compute any symbols but collects our data.
 }
@@ -54,6 +54,7 @@ void CHandHistoryDealPhase::UpdateOnMyTurn() {
 }
 
 void CHandHistoryDealPhase::UpdateOnHeartbeat() {
+  /*#
   if (_job_done) return;
 ///  if (BETROUND > kBetroundPreflop) {
     // Can only happen when we join a table
@@ -111,7 +112,7 @@ void CHandHistoryDealPhase::UpdateOnHeartbeat() {
       bigblind_seen = true;
       continue;
     }
-  }
+  }*/
 }
 
 bool CHandHistoryDealPhase::EvaluateSymbol(const CString name, double *result, bool log /* = false */) {

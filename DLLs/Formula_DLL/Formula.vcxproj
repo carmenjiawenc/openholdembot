@@ -58,6 +58,7 @@
     <ClInclude Include="CShankySymbolNameTranslator.h" />
     <ClInclude Include="CTokenizer.h" />
     <ClInclude Include="Formula.h" />
+    <ClInclude Include="LibDef.h" />
     <ClInclude Include="TokenizerConstants.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

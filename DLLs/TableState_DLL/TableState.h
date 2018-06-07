@@ -61,4 +61,4 @@ private:
   CTableTitle _table_title;
 };
 
-CTableState* TableState(); //!!!!!
+TABLESTATE_DLL_API CTableState* TableState();

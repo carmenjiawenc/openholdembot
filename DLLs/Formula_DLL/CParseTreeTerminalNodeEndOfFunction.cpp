@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define FORMULA_DLL_EXPORTS
+
  #include "CParseTreeTerminalNodeEndOfFunction.h"
 ///#include "CMemoryPool.h"
 #include "COHScriptObject.h"

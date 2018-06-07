@@ -1,3 +1,4 @@
+#pragma once 
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -7,6 +8,12 @@
 //
 //******************************************************************************
 //
-// Purpose: 
+// Purpose: single import/export macro for all header-files
 //
 //******************************************************************************
+
+#ifdef FORMULA_DLL_EXPORTS
+#define FORMULA_DLL_API extern "C" __declspec(dllexport)
+#else
+#define FORMULA_DLL_API extern "C" __declspec(dllimport)
+#endif
