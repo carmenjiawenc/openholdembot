@@ -63,11 +63,11 @@
 #include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
-#include "..\HandHistoryGenerator_DLL\CHandHistoryAction.h"
-#include "..\HandHistoryGenerator_DLL\CHandHistoryDealPhase.h"
-#include "..\HandHistoryGenerator_DLL\CHandHistoryShowdown.h"
-#include "..\HandHistoryGenerator_DLL\CHandHistoryUncontested.h"
-#include "..\HandHistoryGenerator_DLL\CHandHistoryWriter.h"
+///#include "..\HandHistoryGenerator_DLL\CHandHistoryAction.h"
+///#include "..\HandHistoryGenerator_DLL\CHandHistoryDealPhase.h"
+///#include "..\HandHistoryGenerator_DLL\CHandHistoryShowdown.h"
+///#include "..\HandHistoryGenerator_DLL\CHandHistoryUncontested.h"
+///#include "..\HandHistoryGenerator_DLL\CHandHistoryWriter.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\SessionCounter_DLL\CSessionCounter.h"
 #include "..\..\OpenHoldem\CHandresetDetector.h"
@@ -261,7 +261,7 @@ void CEngineContainer::CreateSymbolEngines() {
   // we can add the hand-history-generator modules.
   // Order of insertion has order of later usage.
   // CHandHistoryDealPhase
-  p_handhistory_deal_phase = new CHandHistoryDealPhase;
+  /*#p_handhistory_deal_phase = new CHandHistoryDealPhase;
   AddSymbolEngine(p_handhistory_deal_phase);
   // CHandHistoryAction
   p_handhistory_action = new CHandHistoryAction;
@@ -274,7 +274,7 @@ void CEngineContainer::CreateSymbolEngines() {
   AddSymbolEngine(p_handhistory_showdown);
   // CHandHistoryWriter
   p_handhistory_writer = new CHandHistoryWriter;
-  AddSymbolEngine(p_handhistory_writer);
+  AddSymbolEngine(p_handhistory_writer);*/
   // CSymbolEngineFormulaSwitching
   // Very last, as it will be used extremely rarely
   InitOnStartup();

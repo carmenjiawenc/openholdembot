@@ -85,6 +85,10 @@ inline void AdaptValueToMinMaxRange(double *value, double min, double max) {
 // returns a random number in the range 0..n-1
 NUMERICAL_FUNCTIONS_DLL_API int Random(int n);
 
+///!!!!! Gaussian, not normal?
+NUMERICAL_FUNCTIONS_DLL_API double RandomNormal(const double m, const double s);
+NUMERICAL_FUNCTIONS_DLL_API double RandomNormalScaled(const double scale, const double m, const double s);
+
 // Rounds value to N units
 // Default unit is 1.0 (integer)
 NUMERICAL_FUNCTIONS_DLL_API double Rounding(double value, double unit = 1.0);

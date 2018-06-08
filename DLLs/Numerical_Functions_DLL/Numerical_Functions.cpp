@@ -83,3 +83,25 @@ double Rounding(double value, double unit /* = 1.0 */) {
   double rounded_value = n_units * unit;
   return rounded_value;
 }
+
+// random number - 0 -> scale, with normal distribution
+// ignore results outside 3.5 stds from the mean
+double RandomNormalScaled(const double scale, const double m, const double s) {
+  double res = -99;
+  while (res < -3.5 || res > 3.5) res = RandomNormal(m, s);
+  return (res / 3.5*s + 1) * (scale / 2.0);
+}
+
+double RandomNormal(const double m, const double s) {
+  /* mean m, standard deviation s */
+  double x1 = 0., x2 = 0., w = 0., y1 = 0., y2 = 0.;
+  do {
+    x1 = 2.0 * ((double)rand() / (double)RAND_MAX) - 1.0;
+    x2 = 2.0 * ((double)rand() / (double)RAND_MAX) - 1.0;
+    w = x1 * x1 + x2 * x2;
+  } while (w >= 1.0);
+  w = sqrt((-2.0 * log(w)) / w);
+  y1 = x1 * w;
+  y2 = x2 * w;
+  return(m + y1 * s);
+}

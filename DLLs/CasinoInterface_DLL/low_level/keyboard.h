@@ -12,11 +12,11 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
+
 int SendString(const HWND hwnd, const RECT rect, const CString s, const bool use_comma);
 int SendKey(const HWND hwnd, const RECT rect, UINT vkey);
 void ProcessMessage(const char *message, const void *param);
 
 const POINT RandomizeClickLocation(const RECT rect);
 const void GetClickPoint(const int x, const int y, const int rx, const int ry, POINT *p);
-const double RandomNormalScaled(const double scale, const double m, const double s);
-const double RandomNormal(const double m, const double s);

@@ -35,7 +35,7 @@ class CSymbolEngineAutoplayer: public CVirtualSymbolEngine {
   CString SymbolsProvided();
  public:
 	int  myturnbits()    { return _myturnbits; }
-	bool ismyturn()      { return ((_myturnbits & k_my_turn_bits_fold_call_raise) != 0); }
+	bool ismyturn()      { return ((_myturnbits & k_my_turn_bits_fold_call_raise) != 0); } //!!! at least two buttons
 	bool issittingin()   { return _issittingin; }
 	bool issittingout()  { return !issittingin(); }
 	bool isautopost()		 { return _isautopost; }

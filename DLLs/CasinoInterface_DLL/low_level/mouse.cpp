@@ -33,9 +33,9 @@
 #define _WIN32_IE 0x0600	// Change this to the appropriate value to target other versions of IE.
 #endif
 
-#include <windows.h>
 #include <math.h>
 #include "mouse.h"
+#include "..\..\Numerical_Functions_DLL\Numerical_Functions.h"
 
 int MouseClick(const HWND hwnd, const RECT rect, const MouseButton button, const int clicks)
 {
@@ -172,31 +172,3 @@ const void GetClickPoint(const int x, const int y, const int rx, const int ry, P
 	p->x = x + (int) (RandomNormalScaled(2*rx, 0, 1) + 0.5) - (rx);
 	p->y = y + (int) (RandomNormalScaled(2*ry, 0, 1) + 0.5) - (ry);
 }
-
-// random number - 0 -> scale, with normal distribution
-// ignore results outside 3.5 stds from the mean
-const double RandomNormalScaled(const double scale, const double m, const double s) 
-{
-	double res = -99;
-	while (res < -3.5 || res > 3.5) res = RandomNormal(m, s);
-	return (res / 3.5*s + 1) * (scale / 2.0);
-}
-
-const double RandomNormal(const double m, const double s) 
-{
-	/* mean m, standard deviation s */
-	double x1 = 0., x2 = 0., w = 0., y1 = 0., y2 = 0.;
-
-	do {
-		x1 = 2.0 * ((double) rand()/(double) RAND_MAX) - 1.0;
-		x2 = 2.0 * ((double) rand()/(double) RAND_MAX) - 1.0;
-		w = x1 * x1 + x2 * x2;
-	} while ( w >= 1.0 );
-
-	w = sqrt( (-2.0 * log( w ) ) / w );
-	y1 = x1 * w;
-	y2 = x2 * w;
-
-	return( m + y1 * s ); 
-
-} 

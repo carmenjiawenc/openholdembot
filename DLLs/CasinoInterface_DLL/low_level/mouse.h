@@ -12,6 +12,8 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
+
 enum MouseButton { MouseLeft, MouseMiddle, MouseRight };
 
 int MouseClick(const HWND hwnd, const RECT rect, const MouseButton button, const int clicks);
@@ -20,5 +22,3 @@ void ProcessMessage(const char *message, const void *param);
 
 const POINT RandomizeClickLocation(const RECT rect);
 const void GetClickPoint(const int x, const int y, const int rx, const int ry, POINT *p);
-const double RandomNormalScaled(const double scale, const double m, const double s);
-const double RandomNormal(const double m, const double s);
