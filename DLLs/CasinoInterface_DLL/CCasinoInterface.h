@@ -51,6 +51,15 @@ class CCasinoInterface /*: public CSpaceOptimizedGlobalObject */{
   CAutoplayerButton* BetsizeConfirmationButton();
  public:
   bool AllinOptionAvailable();
+ public:
+  bool ConnectedToManualMode();
+  bool ConnectedToOHReplay();
+  bool ConnectedToOfflineSimulation();
+  bool ConnectedToRealCasino();
+  bool ConnectedToBring();
+  bool ConnectedToDDPoker();
+ private:
+  bool SitenameContainsCasinoIdentifier(const char *casino);
  protected:
   // To be used by the scraper
   CAutoplayerButton _technical_autoplayer_buttons[k_max_number_of_buttons];

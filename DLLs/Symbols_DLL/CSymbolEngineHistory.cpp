@@ -23,6 +23,8 @@
 #include "..\Numerical_Functions_DLL\FloatingPoint_Comparisions.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
 
@@ -220,7 +222,7 @@ void CSymbolEngineHistory::CalculateHistory() {
 			EngineContainer()->symbol_engine_active_dealt_playing()->nplayersplaying();
 	}
   double maxbet = 0.0;
-	for (int i=0; i<nchairs(); i++)	{
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)	{
 		// Be careful: in some cases it might be that name user folds,
 		// but "Fold" gets displayed where formerly his bet got displayed.
 		// This may lead to ugly mis-scrapes, that's why he have to check

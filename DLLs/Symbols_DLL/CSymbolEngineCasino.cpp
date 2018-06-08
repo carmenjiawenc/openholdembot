@@ -51,50 +51,6 @@ void CSymbolEngineCasino::UpdateOnNewRound() {
 void CSymbolEngineCasino::UpdateOnMyTurn() {
 }
 
-bool CSymbolEngineCasino::ConnectedToManualMode() {
-  const int k_max_length_of_classname = 50;
-	char classname[k_max_length_of_classname] = "";
-  ///GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
-  return (strcmp(classname, "OpenHoldemManualMode") == 0);
-}
-
-bool CSymbolEngineCasino::ConnectedToOHReplay() {
-  const int k_max_length_of_classname = 50;
-	char classname[k_max_length_of_classname] = "";
-  ///GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
-  return (strcmp(classname, "OHREPLAY") == 0);
-}
-
-bool CSymbolEngineCasino::ConnectedToOfflineSimulation() {
-  return (ConnectedToManualMode()
-    || ConnectedToOHReplay()
-    || ConnectedToDDPoker()
-    || SitenameContainsCasinoIdentifier("pokeracademy")
-    || SitenameContainsCasinoIdentifier("pokerth")
-    || SitenameContainsCasinoIdentifier("pokersnowie"));
-}
-
-bool CSymbolEngineCasino::ConnectedToRealCasino() {
-  return (!ConnectedToOfflineSimulation());
-}
-
-bool CSymbolEngineCasino::ConnectedToBring() {
-  const int k_max_length_of_classname = 50;
-	char classname[k_max_length_of_classname] = "";
-  ///GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
-  return (strcmp(classname, "BRING") == 0);
-}
-
-bool CSymbolEngineCasino::ConnectedToDDPoker() {
-  return SitenameContainsCasinoIdentifier("ddpoker");
-}
-
-bool CSymbolEngineCasino::SitenameContainsCasinoIdentifier(const char *casino) {
-  CString sitename = BasicScraper()->Tablemap()->sitename();
-  sitename.MakeLower();
-  return (sitename.Find(casino) >= 0);
-}
-
 bool CSymbolEngineCasino::EvaluateSymbol(const CString name, double *result, bool log /* = false */) {
   FAST_EXIT_ON_OPENPPL_SYMBOLS(name);
   // CHAIRS 1(2)
@@ -104,9 +60,9 @@ bool CSymbolEngineCasino::EvaluateSymbol(const CString name, double *result, boo
     else return false;
   }
   // GENERAL
-  else if (memcmp(name, "nchairs", 7) == 0 && strlen(name) == 7)	*result = 3;/// nchairs();
+  else if (memcmp(name, "nchairs", 7) == 0 && strlen(name) == 7)	*result = 3;/// BasicScraper()->Tablemap()->nchairs();
   //PROFILE
-  else if (memcmp(name, "sitename$", 9)==0)	*result = SitenameContainsCasinoIdentifier(name.Mid(9));
+  ///else if (memcmp(name, "sitename$", 9)==0)	*result = SitenameContainsCasinoIdentifier(name.Mid(9));
   else if (memcmp(name, "network$", 8)==0)	*result = BasicScraper()->Tablemap()->network().Find(name.Mid(8))!=-1;
   else {
     *result = kUndefined;

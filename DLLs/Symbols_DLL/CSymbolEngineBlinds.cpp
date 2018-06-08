@@ -20,6 +20,8 @@
 #include "CSymbolEngineUserchair.h"
 #include "CSymbolEngineTableLimits.h"
 #include "..\Globals_DLL\globals.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\Tablestate_DLL\TableState.h"
 
 CSymbolEngineBlinds::CSymbolEngineBlinds()
@@ -110,9 +112,9 @@ void CSymbolEngineBlinds::CalculateBlinds()
 			_playersblindbits = k_exponents[EngineContainer()->symbol_engine_userchair()->userchair()];
 		}
 
-		for (int i=DEALER_CHAIR+1; i<DEALER_CHAIR+nchairs(); i++)
+		for (int i=DEALER_CHAIR+1; i<DEALER_CHAIR+BasicScraper()->Tablemap()->nchairs(); i++)
 		{
-			int chair = i%nchairs();
+			int chair = i%BasicScraper()->Tablemap()->nchairs();
 			double p_bet = TableState()->Player(chair)->_bet.GetValue();
 
 			// search SB
@@ -136,9 +138,9 @@ void CSymbolEngineBlinds::CalculateBlinds()
 		// Restrictions : 3 or less players were dealt or last bb is active
 		if (sbchair == kUndefined && (EngineContainer()->symbol_engine_active_dealt_playing()->playersdealtbits() < 3 || (bbchair == EngineContainer()->symbol_engine_userchair()->userchair() && EngineContainer()->symbol_engine_positions()->nchairsdealtright() == 1)))
 		{
-			for (int i=DEALER_CHAIR+1; i<DEALER_CHAIR+nchairs(); i++)
+			for (int i=DEALER_CHAIR+1; i<DEALER_CHAIR+BasicScraper()->Tablemap()->nchairs(); i++)
 			{
-				int chair = i%nchairs();
+				int chair = i%BasicScraper()->Tablemap()->nchairs();
 				double p_bet = TableState()->Player(chair)->_bet.GetValue();
 
 				// 1st caller/raiser after dealer is sb

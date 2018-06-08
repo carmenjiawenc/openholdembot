@@ -20,6 +20,8 @@
 #include "CSymbolEngineUserchair.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\Tablestate_DLL\TableState.h"
 
 CSymbolEnginePositions::CSymbolEnginePositions()
@@ -75,9 +77,9 @@ void CSymbolEnginePositions::CalculateNChairsDealtLeftRight() {
 
 	bool found_userchair = false;
 	for (int i=DEALER_CHAIR+1; 
-		  i<=DEALER_CHAIR+nchairs();
+		  i<=DEALER_CHAIR+BasicScraper()->Tablemap()->nchairs();
 		  i++) {
-		int next_chair = i%nchairs();
+		int next_chair = i%BasicScraper()->Tablemap()->nchairs();
 		double p_bet = TableState()->Player(next_chair)->_bet.GetValue();
 
 		if (next_chair == EngineContainer()->symbol_engine_userchair()->userchair())	{
@@ -99,9 +101,9 @@ void CSymbolEnginePositions::CalculatePositionForTheRaiser() {
 	_dealpositionrais = 0;
 
 	for (int i=DEALER_CHAIR+1; 
-		  i<=(DEALER_CHAIR+nchairs());
+		  i<=(DEALER_CHAIR+BasicScraper()->Tablemap()->nchairs());
 		  i++) {
-		int next_chair = i%nchairs();
+		int next_chair = i%BasicScraper()->Tablemap()->nchairs();
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=20746
 		if (IsBitSet(EngineContainer()->symbol_engine_active_dealt_playing()->playersplayingbits(), next_chair)) {
 			_betpositionrais++;
@@ -123,9 +125,9 @@ void CSymbolEnginePositions::CalculatePositionsForTheUserchair() {
 	_callposition = 0;
 
 	for (int i=DEALER_CHAIR+1; 
-		  i<=DEALER_CHAIR+nchairs();
+		  i<=DEALER_CHAIR+BasicScraper()->Tablemap()->nchairs();
 		  i++) {
-		int next_chair = i%nchairs();
+		int next_chair = i%BasicScraper()->Tablemap()->nchairs();
 		if (IsBitSet(EngineContainer()->symbol_engine_active_dealt_playing()->playersplayingbits(), next_chair))	{
 			_betposition++;
 		}
@@ -139,8 +141,8 @@ void CSymbolEnginePositions::CalculatePositionsForTheUserchair() {
 	}
 
 	int raischair = EngineContainer()->symbol_engine_raisers()->raischair();
-	for (int i=raischair+1; i<=raischair+nchairs(); i++) 	{
-		int next_chair = i%nchairs();
+	for (int i=raischair+1; i<=raischair+BasicScraper()->Tablemap()->nchairs(); i++) 	{
+		int next_chair = i%BasicScraper()->Tablemap()->nchairs();
 		if (IsBitSet(EngineContainer()->symbol_engine_active_dealt_playing()->nplayersdealt(), next_chair)) 	{
 			_callposition++;
 		}

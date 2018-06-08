@@ -251,9 +251,6 @@ private:
   CHandHistoryWriter *p_handhistory_writer;
 };
 
-//!!!!!!! TEMP
-int nchairs();
-
 CEngineContainer* EngineContainer();
 
 CFunctionCollection* FunctionCollection();

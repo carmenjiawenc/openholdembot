@@ -141,7 +141,7 @@ int CSymbolEngineChairs::UTGChair() {
 
 int CSymbolEngineChairs::SmallStackChair() {
   int result = kUndefined;
-  int nchairs = 10;/// nchairs();
+  int nchairs = 10;/// BasicScraper()->Tablemap()->nchairs();
   int userchair = EngineContainer()->symbol_engine_userchair()->userchair();
   // Init with huge number that we will never see in practice
   double smallest_stack = 999999999999;
@@ -164,7 +164,7 @@ int CSymbolEngineChairs::SmallStackChair() {
 
 int CSymbolEngineChairs::BigStackChair() {
   int result = kUndefined;
-  int nchairs = 10; /// nchairs();
+  int nchairs = 10; /// BasicScraper()->Tablemap()->nchairs();
   int userchair = EngineContainer()->symbol_engine_userchair()->userchair();
   double biggest_stack = 0.0;
   for (int i = 0; i < nchairs; ++i) {

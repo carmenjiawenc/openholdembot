@@ -76,7 +76,7 @@ bool CSymbolEngineMTTInfo::EvaluateSymbol(const CString name, double *result, bo
 
 // If any of these are true then we are connected to a MTT
 bool CSymbolEngineMTTInfo::ConnectedToMTT() {
-  int nchairs = 10;//#nchairs() = 10;///#nchairs()
+  int nchairs = 10;//#BasicScraper()->Tablemap()->nchairs() = 10;///#BasicScraper()->Tablemap()->nchairs()
   return (_mtt_number_entrants.GetValue() > nchairs
     || _mtt_players_remaining.GetValue() > nchairs
 	  || _mtt_paid_places.GetValue() > nchairs

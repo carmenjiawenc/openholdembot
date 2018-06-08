@@ -20,6 +20,8 @@
 #include "..\Numerical_Functions_DLL\FloatingPoint_Comparisions.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Tablestate_DLL\TableState.h"
 
@@ -100,24 +102,24 @@ void CSymbolEngineChipAmounts::SetBalanceAtStartOfSessionConditionally() {
 
 void CSymbolEngineChipAmounts::CalculateStacks() {
 	// simple bubble sort for 10 stack values
-	for (int i=0; i<nchairs(); i++)	{
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)	{
 		if (TableState()->Player(i)->HasAnyCards()) 	{
       _stack[i] = TableState()->Player(i)->_balance.GetValue();
 		}	else {
 			_stack[i] = 0;
 		}
 	}
-	for (int i=0; i<nchairs()-1; i++)	{
-		for (int j=i+1; j<nchairs(); j++)	{
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs()-1; i++)	{
+		for (int j=i+1; j<BasicScraper()->Tablemap()->nchairs(); j++)	{
 			if (_stack[i] < _stack[j]) {
 				SwapDoubles(&_stack[i], &_stack[j]);
 			}
 		}
 	}
-	for (int i=0; i<nchairs(); i++)	{
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)	{
 		assert(_stack[i] >= 0);									
 	}
-	for (int i=nchairs(); i<kMaxNumberOfPlayers; i++)	{
+	for (int i=BasicScraper()->Tablemap()->nchairs(); i<kMaxNumberOfPlayers; i++)	{
 		_stack[i] = 0;
 	}
 }
@@ -126,7 +128,7 @@ void CSymbolEngineChipAmounts::CalculatePots() {
 	_pot = 0;
 	_potplayer = 0;
 	_potcommon = 0;
-	for (int i=0; i<nchairs(); i++) {
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++) {
     assert(TableState()->Player(i)->_bet.GetValue() >= 0.0);
 		_potplayer += TableState()->Player(i)->_bet.GetValue();	
 	}
@@ -178,7 +180,7 @@ void CSymbolEngineChipAmounts::CalculateAmountsToCallToRaise() {
     _call = balance;
   }
 	next_largest_bet = 0;
-	for (int i=0; i<nchairs(); i++)	{
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)	{
 		if (TableState()->Player(i)->_bet.GetValue() != largest_bet 
 			  && TableState()->Player(i)->_bet.GetValue() > next_largest_bet) 	{
 			next_largest_bet = TableState()->Player(i)->_bet.GetValue();
@@ -214,7 +216,7 @@ void CSymbolEngineChipAmounts::CalculateBetsToCallToRaise() {
 
 double CSymbolEngineChipAmounts::Largestbet() {
 	double largest_bet = 0.0;
-	for (int i=0; i<nchairs(); ++i)	{
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); ++i)	{
     if ((BetroundCalculator()->betround() == kBetroundPreflop)
         && (TableState()->Player(i)->PostingBothBlinds())) {
       // Does not count as largest bet

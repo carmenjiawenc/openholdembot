@@ -18,6 +18,8 @@
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\Tablestate_DLL\TableState.h"
 
 CSymbolEngineDealerchair::CSymbolEngineDealerchair() {
@@ -56,8 +58,8 @@ void CSymbolEngineDealerchair::UpdateOnMyTurn() {
 
 void CSymbolEngineDealerchair::UpdateOnHeartbeat() {
 	write_log(Preferences()->debug_symbolengine(), "nchairs: %d\n", 
-		nchairs());
-	for (int i=0; i<nchairs(); i++)	{
+		BasicScraper()->Tablemap()->nchairs());
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)	{
 		if (TableState()->Player(i)->dealer())	{
 			write_log(Preferences()->debug_symbolengine(), "Setting dealerchair to %d\n", i);
 			_dealerchair = i;					
@@ -77,7 +79,7 @@ void CSymbolEngineDealerchair::UpdateOnHeartbeat() {
 }
 
 int CSymbolEngineDealerchair::SmallBlindChair() {
-  for (int i = 0; i < nchairs(); i++) {
+  for (int i = 0; i < BasicScraper()->Tablemap()->nchairs(); i++) {
     if (TableState()->Player(i)->_bet.GetValue() == EngineContainer()->symbol_engine_tablelimits()->sblind()) {
       return i;
     }
@@ -86,9 +88,9 @@ int CSymbolEngineDealerchair::SmallBlindChair() {
 }
 
 int CSymbolEngineDealerchair::RightHandActiveChair(int chair) {
-  for (int i = (nchairs() - 1); i >= 0; --i) {
+  for (int i = (BasicScraper()->Tablemap()->nchairs() - 1); i >= 0; --i) {
     int next_chair = chair + i;
-    next_chair %= nchairs();
+    next_chair %= BasicScraper()->Tablemap()->nchairs();
     if (TableState()->Player(next_chair)->active()) {
       return next_chair;
     }

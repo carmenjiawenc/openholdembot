@@ -21,6 +21,8 @@
 #include "..\Globals_DLL\globals.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
@@ -119,8 +121,8 @@ void CSymbolEngineActiveDealtPlaying::CalculateDealtBits() {
 	bool big_blind_found = false;
 	bool first_non_blind_with_cards_found = false;
 
-	for (int i=0; i<nchairs(); i++) {
-		int chair_to_consider = (DEALER_CHAIR + i + 1) % nchairs();
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++) {
+		int chair_to_consider = (DEALER_CHAIR + i + 1) % BasicScraper()->Tablemap()->nchairs();
 		bool this_player_got_dealt = false;
     // Players with cards are always "dealt",
     // independent of the rest of following complicated logic,

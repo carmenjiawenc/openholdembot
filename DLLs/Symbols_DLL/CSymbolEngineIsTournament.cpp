@@ -27,9 +27,10 @@
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\StringFunctions_DLL\string_functions.h"
-#include "..\Scraper_DLL\CTablemap\CTablemap.h"
 
 const double k_lowest_bigblind_ever_seen_in_tournament           = 10.0;
 const double k_large_bigblind_probably_later_table_in_tournament = 500.0;
@@ -198,7 +199,7 @@ bool CSymbolEngineIsTournament::BetsAndBalancesAreTournamentLike() {
   // This condition does unfortunatelly only work for the first and final table in an MTT,
   // not necessarily for other late tables (fractional bets, uneven sums).
   double sum_of_all_chips = 0.0;
-  for (int i=0; i<nchairs(); i++) {
+  for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++) {
 	  if (TableState()->Player(i)->active()==true) {
 	    sum_of_all_chips += TableState()->Player(i)->_balance.GetValue();
 		  sum_of_all_chips += TableState()->Player(i)->_bet.GetValue();}
@@ -232,7 +233,7 @@ bool CSymbolEngineIsTournament::AntesPresent() {
 		return false;
 	}
 	int players_with_antes = 0;
-	for (int i=0; i<nchairs(); i++) {
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++) {
 		double players_bet = TableState()->Player(i)->_bet.GetValue();
 		if ((players_bet > 0) && (players_bet < EngineContainer()->symbol_engine_tablelimits()->sblind())) {
 			players_with_antes++;
@@ -291,12 +292,12 @@ void CSymbolEngineIsTournament::TryToDetectTournament() {
 	}
   // If we play at DDPoker the game is a tournament,
   // even though it can~t be detected by titlestring.
-  if (EngineContainer()->symbol_engine_casino()->ConnectedToDDPoker()) {
+  /*#if (EngineContainer()->symbol_engine_casino()->ConnectedToDDPoker()) {
     write_log(Preferences()->debug_istournament(), "[CSymbolEngineIsTournament] DDPoker tournament\n");
     _istournament    = true;
 		_decision_locked = true;
 		return;
-  }
+  }*/
   // If the title-string looks like a tournament then it is a tournament.
   // This should be checked before the size of the blinds,
   // because incorrectly detecting a cash-game as tournament
@@ -334,10 +335,10 @@ void CSymbolEngineIsTournament::TryToDetectTournament() {
   // If it is ManualMode, then we detect it by title-string "tourney".
   // High blinds (default) don~t make it a tournament.
   // Therefore don't continue.
-  if (EngineContainer()->symbol_engine_casino()->ConnectedToManualMode()) {
+  /*#if (EngineContainer()->symbol_engine_casino()->ConnectedToManualMode()) {
 		write_log(Preferences()->debug_istournament(), "[CSymbolEngineIsTournament] ManualMode, but no tournament identifier\n");
     return;
-  }
+  }*/
 	// If there are antes then it is a tournament.
 	if (AntesPresent())	{
 		write_log(Preferences()->debug_istournament(), "[CSymbolEngineIsTournament] Game with antes; therefore tournament\n");

@@ -111,7 +111,7 @@ int CSymbolEngineICM::GetChairFromDealPos(const char* name)
 {
 	int	sym_nplayersseated =	EngineContainer()->symbol_engine_active_dealt_playing()->nplayersseated();
 	int	sym_dealerchair =		EngineContainer()->symbol_engine_dealerchair()->dealerchair();
-  int nchairs = 3;/// nchairs();
+  int nchairs = 3;/// BasicScraper()->Tablemap()->nchairs();
 	int	chair = -1;
 
 		if (strcmp(name,"SB")==0)

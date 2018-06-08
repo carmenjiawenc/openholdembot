@@ -267,3 +267,47 @@ void CCasinoInterface::SendKey(const char ascii_key) {
   input[1] = '\0';
   SendString(TableManagement()->AutoConnector()->attached_hwnd(), r_null, input, false);
 }
+
+bool CCasinoInterface::ConnectedToManualMode() {
+  const int k_max_length_of_classname = 50;
+  char classname[k_max_length_of_classname] = "";
+  ///GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
+  return (strcmp(classname, "OpenHoldemManualMode") == 0);
+}
+
+bool CCasinoInterface::ConnectedToOHReplay() {
+  const int k_max_length_of_classname = 50;
+  char classname[k_max_length_of_classname] = "";
+  ///GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
+  return (strcmp(classname, "OHREPLAY") == 0);
+}
+
+bool CCasinoInterface::ConnectedToOfflineSimulation() {
+  return (ConnectedToManualMode()
+    || ConnectedToOHReplay()
+    || ConnectedToDDPoker()
+    || SitenameContainsCasinoIdentifier("pokeracademy")
+    || SitenameContainsCasinoIdentifier("pokerth")
+    || SitenameContainsCasinoIdentifier("pokersnowie"));
+}
+
+bool CCasinoInterface::ConnectedToRealCasino() {
+  return (!ConnectedToOfflineSimulation());
+}
+
+bool CCasinoInterface::ConnectedToBring() {
+  const int k_max_length_of_classname = 50;
+  char classname[k_max_length_of_classname] = "";
+  ///GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
+  return (strcmp(classname, "BRING") == 0);
+}
+
+bool CCasinoInterface::ConnectedToDDPoker() {
+  return SitenameContainsCasinoIdentifier("ddpoker");
+}
+
+bool CCasinoInterface::SitenameContainsCasinoIdentifier(const char *casino) {
+  CString sitename = BasicScraper()->Tablemap()->sitename();
+  sitename.MakeLower();
+  return (sitename.Find(casino) >= 0);
+}

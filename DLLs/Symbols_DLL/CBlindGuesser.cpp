@@ -180,9 +180,9 @@ void CBlindGuesser::GetFirstBlindDataFromBetsAtTheTable(double *sblind,
     return;
   }
   int first_chair = dealer + 1;
-  int last_chair = dealer + nchairs();
+  int last_chair = dealer + BasicScraper()->Tablemap()->nchairs();
   for (int i = first_chair; i <= last_chair; ++i) {
-    int normalized_chair = i % nchairs();
+    int normalized_chair = i % BasicScraper()->Tablemap()->nchairs();
     double players_bet = TableState()->Player(normalized_chair)->_bet.GetValue();
     if (players_bet <= 0) continue;
     if (first_bet_after_dealer <= 0) {
@@ -190,7 +190,7 @@ void CBlindGuesser::GetFirstBlindDataFromBetsAtTheTable(double *sblind,
       first_bet_after_dealer = players_bet;
       // Also check if the verz first player after dealer is betting,
       // which for sure excludes a missing small blind
-      if (normalized_chair == (first_chair % nchairs())) {
+      if (normalized_chair == (first_chair % BasicScraper()->Tablemap()->nchairs())) {
         first_chair_immediatelly_after_dealer_betting = true;
       }
     }

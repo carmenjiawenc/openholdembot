@@ -27,6 +27,8 @@
 #include "CSymbolEngineUserchair.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Tablestate_DLL\CPlayer.h"
 #include "..\Tablestate_DLL\TableState.h"
@@ -83,8 +85,8 @@ void CSymbolEngineChecksBetsFolds::CalculateNOpponentsCheckingBettingFolded() {
 	_nopponentsbetting  = 0;
 	_nopponentsfolded   = 0;
 	_nopponentschecking = 0;
-  assert(nchairs() <= kMaxNumberOfPlayers);
-	for (int i=0; i<nchairs(); i++)	{
+  assert(BasicScraper()->Tablemap()->nchairs() <= kMaxNumberOfPlayers);
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)	{
 		double current_players_bet = TableState()->Player(i)->_bet.GetValue();
 		if (current_players_bet < RaisersBet()
         && TableState()->Player(i)->HasAnyCards())	{
@@ -120,7 +122,7 @@ double CSymbolEngineChecksBetsFolds::RaisersBet() {
 	// The raisers bet is simply the largest bet at the table.
 	// So we don't have to know the raisers chair for that.
 	double result = 0;
-	for (int i=0; i<nchairs(); i++)	{
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)	{
 		double current_players_bet = TableState()->Player(i)->_bet.GetValue();
 		if (current_players_bet > result && TableState()->Player(i)->HasAnyCards()) 	{
 			result = current_players_bet;
@@ -132,7 +134,7 @@ double CSymbolEngineChecksBetsFolds::RaisersBet() {
 void CSymbolEngineChecksBetsFolds::CalculateFoldBits() {
 	// foldbits (very late, as they depend on the dealt symbols)
 	int new_foldbits = 0;
-	for (int i=0; i<nchairs(); i++)	{
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)	{
 		if (!TableState()->Player(i)->HasAnyCards()) {
 			new_foldbits |= k_exponents[i];
 		}

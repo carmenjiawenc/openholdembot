@@ -30,13 +30,4 @@ class CSymbolEngineCasino: public CVirtualSymbolEngine {
  public:
 	bool EvaluateSymbol(const CString name, double *result, bool log = false);
 	CString SymbolsProvided();
- public:
-  bool ConnectedToManualMode();
-  bool ConnectedToOHReplay();
-  bool ConnectedToOfflineSimulation();
-  bool ConnectedToRealCasino();
-  bool ConnectedToBring();
-  bool ConnectedToDDPoker();
- private:
-  bool SitenameContainsCasinoIdentifier(const char *casino);
 };
