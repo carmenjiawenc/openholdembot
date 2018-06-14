@@ -26,6 +26,7 @@
 //
 // We chose the first solution for its simplicity
 
+#include <afxwin.h>
 #include <time.h>
 #include "..\..\Shared\CCritSec\CCritSec.h"
 

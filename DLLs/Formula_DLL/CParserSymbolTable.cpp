@@ -14,11 +14,11 @@
 
 #include "CParserSymbolTable.h"
 #include "CFunction.h"
+#include "CFunctionCollection.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CFunctionCollection.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 
 CParserSymbolTable *p_parser_symbol_table = NULL;

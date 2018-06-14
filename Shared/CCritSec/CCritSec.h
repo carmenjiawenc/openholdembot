@@ -12,25 +12,23 @@
 //
 //******************************************************************************
 
-class CCritSec
-{
+class CCritSec {
 public:
-    CCritSec()
-        { ::InitializeCriticalSectionAndSpinCount(&m_rep, 4000); }
-    ~CCritSec()
-        { ::DeleteCriticalSection(&m_rep); }
+  CCritSec()
+      { ::InitializeCriticalSectionAndSpinCount(&m_rep, 4000); }
+  ~CCritSec()
+      { ::DeleteCriticalSection(&m_rep); }
     
-    void Enter()
-        { ::EnterCriticalSection(&m_rep); }
-    void Leave()
-        { ::LeaveCriticalSection(&m_rep); }
-    
+  void Enter()
+      { ::EnterCriticalSection(&m_rep); }
+  void Leave()
+      { ::LeaveCriticalSection(&m_rep); }
 private:
-    // copy ops are private to prevent copying
-    CCritSec(const CCritSec&);
-    CCritSec& operator=(const CCritSec&);
+  // copy ops are private to prevent copying
+  CCritSec(const CCritSec&);
+  CCritSec& operator=(const CCritSec&);
     
-    CRITICAL_SECTION m_rep;
+  CRITICAL_SECTION m_rep;
 };
 
 class CSLock

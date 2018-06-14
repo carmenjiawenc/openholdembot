@@ -15,7 +15,6 @@
     <ClCompile Include="CBlindGuesser.cpp" />
     <ClCompile Include="CBlindLevels.cpp" />
     <ClCompile Include="CEngineContainer.cpp" />
-    <ClCompile Include="CFunctionCollection.cpp" />
     <ClCompile Include="CPokerTrackerSiteID.cpp" />
     <ClCompile Include="CPokerTrackerThread.cpp" />
     <ClCompile Include="CSymbolEngineActiveDealtPlaying.cpp" />
@@ -72,7 +71,6 @@
     <ClInclude Include="CBlindGuesser.h" />
     <ClInclude Include="CBlindLevels.h" />
     <ClInclude Include="CEngineContainer.h" />
-    <ClInclude Include="CFunctionCollection.h" />
     <ClInclude Include="CPokerTrackerSiteID.h" />
     <ClInclude Include="CPokerTrackerThread.h" />
     <ClInclude Include="CSymbolEngineActiveDealtPlaying.h" />

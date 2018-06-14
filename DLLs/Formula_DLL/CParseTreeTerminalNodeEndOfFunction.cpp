@@ -13,7 +13,8 @@
 
 #define FORMULA_DLL_EXPORTS
 
- #include "CParseTreeTerminalNodeEndOfFunction.h"
+#include "CParseTreeTerminalNodeEndOfFunction.h"
+#include "CFunctionCollection.h"
 ///#include "CMemoryPool.h"
 #include "COHScriptObject.h"
 #include "CTokenizer.h"
@@ -21,7 +22,6 @@
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CFunctionCollection.h"
 
 // static
 bool CParseTreeTerminalNodeEndOfFunction::_evaluating_defailt_logic = false;

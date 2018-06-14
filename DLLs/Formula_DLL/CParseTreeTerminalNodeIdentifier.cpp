@@ -17,6 +17,7 @@
 #include <math.h>
 ///#include "CAutoplayerTrace.h"
 ///#include "CMemoryPool.h"
+#include "CFunctionCollection.h"
 #include "CParserSymbolTable.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
@@ -25,7 +26,6 @@
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CFunctionCollection.h"
 #include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
 #include "..\Symbols_DLL\CSymbolEngineMemorySymbols.h"
 #include "..\Symbols_DLL\CSymbolEngineOpenPPLUserVariables.h"

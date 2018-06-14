@@ -60,7 +60,6 @@
 #include "CSymbolEngineVariousDataLookup.h"
 #include "CSymbolEngineVersus.h"
 #include "UnknownSymbols.h"
-#include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
 ///#include "..\HandHistoryGenerator_DLL\CHandHistoryAction.h"
@@ -73,8 +72,8 @@
 #include "..\..\OpenHoldem\CHandresetDetector.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 
-#include "..\Symbols_DLL\CBetroundCalculator.h" //!!!
-
+//!!!
+#include "..\CasinoInterface_DLL\CCasinoInterface.h"
 /*##include "CAutoplayerTrace.h"
 
 #include "CFormulaParser.h"

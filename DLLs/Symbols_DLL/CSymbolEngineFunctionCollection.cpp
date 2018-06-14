@@ -7,41 +7,45 @@
 //
 //******************************************************************************
 //
-// Purpose:
+// Purpose: Providing a list of build-in higher-level OpenPPL-symbols
+//   and user-defined functions and lists. 
+//
+//   * CFunctionCollection (Formula.DLL) provides the actual functionality
+//   * CSymbolEngineFunctionCollection (Symbols.DLL) provides the integration into the symbol-engine
 //
 //******************************************************************************
 
-#include "CFunctionCollection.h"
+#include "CSymbolEngineFunctionCollection.h"
+#include "CFunction.h"
+#include "CParseErrors.h"
+#include "CSelftestParserEvaluator.h" // there???
 ///#include "CAutoplayerTrace.h"
 ///#include "CDebugTab.h"
-#include "CEngineContainer.h"
+///#include "CEngineContainer.h"
 ///#include "CFormulaParser.h"
 ///#include "CParserSymbolTable.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Formula_DLL\CFunction.h"
-#include "..\Formula_DLL\CParseErrors.h"
-#include "..\Formula_DLL\CSelftestParserEvaluator.h" // there???
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 
-CFunctionCollection *p_function_collection = NULL;
+CSymbolEngineFunctionCollection *p_function_collection = NULL;
 
-CFunctionCollection::CFunctionCollection(){
+CSymbolEngineFunctionCollection::CSymbolEngineFunctionCollection(){
   SetFormulaName("NoName");
   _path = "";
   _openPPL_library_loaded = false;
   DeleteAll(true, true);
 }
 
-CFunctionCollection::~CFunctionCollection() {
+CSymbolEngineFunctionCollection::~CSymbolEngineFunctionCollection() {
   DeleteAll(true, true);
   assert(_function_map.size() == 0);
 }
 
-void CFunctionCollection::DeleteAll(bool delete_read_only_library_functions, bool delete_user_defined) {
+void CSymbolEngineFunctionCollection::DeleteAll(bool delete_read_only_library_functions, bool delete_user_defined) {
   write_log(Preferences()->debug_formula(), 
-    "[CFunctionCollection] DeleteAll()\n");
+    "[CSymbolEngineFunctionCollection] DeleteAll()\n");
   COHScriptObject *p_nextObject = GetFirst();
   while (p_nextObject != NULL) {
     bool needs_deletion = false;
@@ -57,7 +61,7 @@ void CFunctionCollection::DeleteAll(bool delete_read_only_library_functions, boo
     }
     if (needs_deletion) {
       write_log(Preferences()->debug_formula(),
-        "[CFunctionCollection] Going to delete %s\n", p_nextObject->name());
+        "[CSymbolEngineFunctionCollection] Going to delete %s\n", p_nextObject->name());
       Delete(p_nextObject->name());
     }
     p_nextObject = GetNext();
@@ -70,7 +74,7 @@ void CFunctionCollection::DeleteAll(bool delete_read_only_library_functions, boo
   }
 }
 
-bool CFunctionCollection::CheckForOutdatedFunction(CString name) {
+bool CSymbolEngineFunctionCollection::CheckForOutdatedFunction(CString name) {
   if (name == "f$alli") {
     CParseErrors::Error("f$alli got replaced by f$allin.\n");
     return true;
@@ -107,7 +111,7 @@ bool CFunctionCollection::CheckForOutdatedFunction(CString name) {
   return false;
 }
 
-bool CFunctionCollection::CheckForMisspelledOpenPPLMainFunction(CString name) {
+bool CSymbolEngineFunctionCollection::CheckForMisspelledOpenPPLMainFunction(CString name) {
   // OpenPPL main-functions are the only ones 
   // that have to be created by the user and get only called by OH
   // and nowhere got checked.
@@ -129,7 +133,7 @@ bool CFunctionCollection::CheckForMisspelledOpenPPLMainFunction(CString name) {
   return false;
 }
 
-void CFunctionCollection::Add(COHScriptObject *new_function) {
+void CSymbolEngineFunctionCollection::Add(COHScriptObject *new_function) {
   CSLock lock(m_critsec);
   assert(new_function != NULL);
   CString name = new_function->name();
@@ -145,7 +149,7 @@ void CFunctionCollection::Add(COHScriptObject *new_function) {
   }
   if (name == "") {
     write_log(Preferences()->debug_formula(), 
-	    "[CFunctionCollection] Invalid empty name\n");
+	    "[CSymbolEngineFunctionCollection] Invalid empty name\n");
     return;
   }
 #ifdef _DEBUG
@@ -158,26 +162,26 @@ void CFunctionCollection::Add(COHScriptObject *new_function) {
 #endif
   if (Exists(name)) {
     write_log(Preferences()->debug_formula(), 
-	    "[CFunctionCollection] Name %s already exists. Deleting it\n", name);
+	    "[CSymbolEngineFunctionCollection] Name %s already exists. Deleting it\n", name);
     Delete(name);
   }
   if (CheckForOutdatedFunction(name) || CheckForMisspelledOpenPPLMainFunction(name)) {
     // Ignore it
     write_log(Preferences()->debug_formula(), 
-      "[CFunctionCollection] Ignoring bad function %s\n", name);
+      "[CSymbolEngineFunctionCollection] Ignoring bad function %s\n", name);
     return;
   }
   write_log(Preferences()->debug_formula(), 
-	  "[CFunctionCollection] Adding %s -> %i\n", name, new_function);
+	  "[CSymbolEngineFunctionCollection] Adding %s -> %i\n", name, new_function);
 /*#  if (OpenHoldem()->FormulaParser()->IsParsingReadOnlyFunctionLibrary()) { 
     write_log(Preferences()->debug_formula(),
-      "[CFunctionCollection] Making function read-only\n");
+      "[CSymbolEngineFunctionCollection] Making function read-only\n");
     new_function->SetAsReadOnlyLibraryFunction();
   }*/
   _function_map[name] = new_function;
 }
 
-bool CFunctionCollection::Exists(CString name) {
+bool CSymbolEngineFunctionCollection::Exists(CString name) {
   CSLock lock(m_critsec);
   std::map<CString, COHScriptObject*>::iterator it; 
   it = _function_map.find(name); 
@@ -186,9 +190,9 @@ bool CFunctionCollection::Exists(CString name) {
 
 // Generates smart error-messages on failure
 // To be used by the parser
-void CFunctionCollection::VerifyExistence(CString name) {
+void CSymbolEngineFunctionCollection::VerifyExistence(CString name) {
   write_log(Preferences()->debug_formula(),
-    "[CFunctionCollection] VerifyExistence: %s\n", name);
+    "[CSymbolEngineFunctionCollection] VerifyExistence: %s\n", name);
   // The OpenPPL-symbol "Random" is no longer implemented in the library
   // but as a built-in symbol to prevent symbol-caching.
   // Therefore we don't want to check if it is "missing" in the library.
@@ -199,7 +203,7 @@ void CFunctionCollection::VerifyExistence(CString name) {
   // First (and most common) case: simple symbol
   if (Exists(name)) {
     write_log(Preferences()->debug_formula(),
-      "[CFunctionCollection] VerifyExistence: symbol exists in function collection\n");
+      "[CSymbolEngineFunctionCollection] VerifyExistence: symbol exists in function collection\n");
     return;
   }
   // Second case: multiplexed function or OpenPPL-symbol
@@ -207,12 +211,12 @@ void CFunctionCollection::VerifyExistence(CString name) {
   // !!!!! false result on unknown symbol
   if (EngineContainer()->EvaluateSymbol(name, &dummy_result)) {
     write_log(Preferences()->debug_formula(),
-      "[CFunctionCollection] VerifyExistence: symbol exists in engine container\n");
+      "[CSymbolEngineFunctionCollection] VerifyExistence: symbol exists in engine container\n");
     return;
   }
   // Error: function does not exist
   write_log(Preferences()->debug_formula(),
-    "[CFunctionCollection] VerifyExistence: symbol does not exist\n");
+    "[CSymbolEngineFunctionCollection] VerifyExistence: symbol does not exist\n");
   CString message;
   message.Format("Function used but never defined: %s\n\n", name);
   CString similar_name = GetSimilarNameWithDifferentCases(name);
@@ -230,7 +234,7 @@ void CFunctionCollection::VerifyExistence(CString name) {
   MessageBox_Interactive(message, "Error", 0);
 }
 
-CString CFunctionCollection::GetSimilarNameWithDifferentCases(CString function_name) {
+CString CSymbolEngineFunctionCollection::GetSimilarNameWithDifferentCases(CString function_name) {
   function_name.MakeLower();
   COHScriptObject *p_nextObject = GetFirst();
   while (p_nextObject != NULL) {
@@ -244,7 +248,7 @@ CString CFunctionCollection::GetSimilarNameWithDifferentCases(CString function_n
   return "";
 }
 
-COHScriptObject *CFunctionCollection::LookUp(CString name) {
+COHScriptObject *CSymbolEngineFunctionCollection::LookUp(CString name) {
   CSLock lock(m_critsec);
   if (name == "f$debug") {
     // Lookup of the special function f$debug
@@ -254,39 +258,39 @@ COHScriptObject *CFunctionCollection::LookUp(CString name) {
     assert(p_debug_tab != NULL);
     return NULL; /// p_debug_tab;
   }
-  write_log(Preferences()->debug_formula(), "[CFunctionCollection] Lookup %s\n", name); 
+  write_log(Preferences()->debug_formula(), "[CSymbolEngineFunctionCollection] Lookup %s\n", name); 
   std::map<CString, COHScriptObject*>::iterator it; 
   it = _function_map.find(name); 
   if (it == _function_map.end()) {
     // Function or list does not exist
-    write_log(Preferences()->debug_formula(), "[CFunctionCollection] Function does not exist\n");
+    write_log(Preferences()->debug_formula(), "[CSymbolEngineFunctionCollection] Function does not exist\n");
     return NULL;
   }
   return it->second;
 }
 
-double CFunctionCollection::Evaluate(CString function_name, bool log /* = false */) {
+double CSymbolEngineFunctionCollection::Evaluate(CString function_name, bool log /* = false */) {
   CSLock lock(m_critsec);
   double result = kUndefined;
   EvaluateSymbol(function_name, &result, log);
   return result;
 }
 
-double CFunctionCollection::EvaluateAutoplayerFunction(int function_code) {
+double CSymbolEngineFunctionCollection::EvaluateAutoplayerFunction(int function_code) {
   CString function_name = k_standard_function_names[function_code];
   assert(function_name != "");
   return Evaluate(function_name, true);
 }
 
-bool CFunctionCollection::EvaluatesToBinaryNumber(CString function_name) {
+bool CSymbolEngineFunctionCollection::EvaluatesToBinaryNumber(CString function_name) {
   COHScriptObject *p_function = LookUp(function_name);
   if (p_function == NULL) return false;
   return p_function->EvaluatesToBinaryNumber();
 }
 
-void CFunctionCollection::SetEmptyDefaultBot() {
+void CSymbolEngineFunctionCollection::SetEmptyDefaultBot() {
   write_log(Preferences()->debug_formula(), 
-    "[CFunctionCollection] SetEmptyDefaultBot()\n");
+    "[CSymbolEngineFunctionCollection] SetEmptyDefaultBot()\n");
   CSLock lock(m_critsec);
   DeleteAll(false, true);
   SetFormulaName("NoName");
@@ -298,9 +302,9 @@ void CFunctionCollection::SetEmptyDefaultBot() {
   ExecuteSelftest();
 }
 
-void CFunctionCollection::ExecuteSelftest() {
+void CSymbolEngineFunctionCollection::ExecuteSelftest() {
   write_log(Preferences()->debug_formula(), 
-    "[CFunctionCollection] Executing self-test\n");
+    "[CSymbolEngineFunctionCollection] Executing self-test\n");
   /*!!!!!if (FunctionCollection()->Exists(kSelftestName)) {
     //
     return;
@@ -320,9 +324,9 @@ void CFunctionCollection::ExecuteSelftest() {
   FunctionCollection()->Delete(kSelftestName);
 }
 
-void CFunctionCollection::CheckForDefaultFormulaEntries() {
+void CSymbolEngineFunctionCollection::CheckForDefaultFormulaEntries() {
   write_log(Preferences()->debug_formula(), 
-    "[CFunctionCollection] CheckForDefaultFormulaEntries(\n");
+    "[CSymbolEngineFunctionCollection] CheckForDefaultFormulaEntries(\n");
   CSLock lock(m_critsec);
   // Header comment
   CreateEmptyDefaultFunctionIfFunctionDoesNotExist(CString("notes"));
@@ -356,7 +360,7 @@ void CFunctionCollection::CheckForDefaultFormulaEntries() {
     CString(k_standard_function_names[k_prwin_number_of_iterations]));
 }
 
-void CFunctionCollection::SetAutoplayerFunctionValue(int function_code, double value) {
+void CSymbolEngineFunctionCollection::SetAutoplayerFunctionValue(int function_code, double value) {
   CString function_name = k_standard_function_names[function_code];
   assert(function_name != "");
   CFunction *p_function = (CFunction *)LookUp(function_name);
@@ -364,10 +368,10 @@ void CFunctionCollection::SetAutoplayerFunctionValue(int function_code, double v
   p_function->SetValue(value);
 }
 
-void CFunctionCollection::CreateEmptyDefaultFunctionIfFunctionDoesNotExist(CString &function_name) {
+void CSymbolEngineFunctionCollection::CreateEmptyDefaultFunctionIfFunctionDoesNotExist(CString &function_name) {
   if (Exists(function_name)) {
     write_log(Preferences()->debug_formula(), 
-      "[CFunctionCollection] Function already exists : %s\n", function_name);
+      "[CSymbolEngineFunctionCollection] Function already exists : %s\n", function_name);
 	  return;
   }
   // Formula not found.
@@ -439,7 +443,7 @@ void CFunctionCollection::CreateEmptyDefaultFunctionIfFunctionDoesNotExist(CStri
     function_text = " "; 
   }
   write_log(Preferences()->debug_formula(), 
-     "[CFunctionCollection] Adding default function: %s\n", function_name);
+     "[CSymbolEngineFunctionCollection] Adding default function: %s\n", function_name);
   // The added functions stays in the collection 
   // until a new profile gets loaded, until it gets overwritten]
   // or until the ebtire collection gets released
@@ -447,13 +451,13 @@ void CFunctionCollection::CreateEmptyDefaultFunctionIfFunctionDoesNotExist(CStri
   Add((COHScriptObject *)p_function);
 }
 
-COHScriptObject *CFunctionCollection::GetFirst() {
+COHScriptObject *CSymbolEngineFunctionCollection::GetFirst() {
   CSLock lock(m_critsec);
   enumerator_it = _function_map.begin();
   return GetNext();
 }
 
-COHScriptObject *CFunctionCollection::GetNext() {
+COHScriptObject *CSymbolEngineFunctionCollection::GetNext() {
   CSLock lock(m_critsec);
   if (enumerator_it == _function_map.end()) {
     // "end" points behind the last element
@@ -461,19 +465,19 @@ COHScriptObject *CFunctionCollection::GetNext() {
   }
   COHScriptObject *result = enumerator_it->second;
   write_log(Preferences()->debug_formula(),
-    "[CFunctionCollection] GetNext() %s -> %i\n",
+    "[CSymbolEngineFunctionCollection] GetNext() %s -> %i\n",
     enumerator_it->first, enumerator_it->second);
   enumerator_it++;
   return result;
 }
 
-void CFunctionCollection::ClearCache() {
+void CSymbolEngineFunctionCollection::ClearCache() {
   CSLock lock(m_critsec);
   COHScriptObject *p_oh_script_object = GetFirst();
   while (p_oh_script_object != NULL) {
     if (p_oh_script_object->IsFunction() || p_oh_script_object->IsOpenPPLSymbol()) {
      write_log(Preferences()->debug_formula(),
-        "[CFunctionCollection] Clearing cache of %s\n",
+        "[CSymbolEngineFunctionCollection] Clearing cache of %s\n",
         ((CFunction*)p_oh_script_object)->name());
       ((CFunction*)p_oh_script_object)->ClearCache();
     }
@@ -481,7 +485,7 @@ void CFunctionCollection::ClearCache() {
   }
 }
 
-void CFunctionCollection::Save(CArchive &ar) {
+void CSymbolEngineFunctionCollection::Save(CArchive &ar) {
   CSLock lock(m_critsec);
   // In case this is Shanky-style code we have to
   // show a warning and mark it as "custom"
@@ -543,13 +547,13 @@ void CFunctionCollection::Save(CArchive &ar) {
   }
 }
 
-void CFunctionCollection::SaveObject(
+void CSymbolEngineFunctionCollection::SaveObject(
     CArchive &ar, 
     COHScriptObject *function_or_list) {
   CSLock lock(m_critsec);
   if (function_or_list == NULL) {
     write_log(Preferences()->debug_formula(),
-      "[CFunctionCollection] Not saving NULL-function %s\n", FormulaName());
+      "[CSymbolEngineFunctionCollection] Not saving NULL-function %s\n", FormulaName());
     return;
   }
   // Don't save OpenPPL-symbols from the OpenPPL(-library
@@ -557,13 +561,13 @@ void CFunctionCollection::SaveObject(
   // to user-defined bot-logic files
   if (function_or_list->IsReadOnlyLibrarySymbol()) {
     write_log(Preferences()->debug_formula(),
-      "[CFunctionCollection] Not saving read-only %s\n", FormulaName());
+      "[CSymbolEngineFunctionCollection] Not saving read-only %s\n", FormulaName());
     return;
   }
   ar.WriteString(function_or_list->Serialize());
 }
 
-void CFunctionCollection::Dump() {
+void CSymbolEngineFunctionCollection::Dump() {
   COHScriptObject *p_oh_script_object = GetFirst();
   while (p_oh_script_object != NULL) {
     p_oh_script_object->Dump();
@@ -571,7 +575,7 @@ void CFunctionCollection::Dump() {
   }
 }
 
-bool CFunctionCollection::Rename(CString from_name, CString to_name) {
+bool CSymbolEngineFunctionCollection::Rename(CString from_name, CString to_name) {
   CSLock lock(m_critsec);
   COHScriptObject *object_to_rename = LookUp(from_name);
   if (object_to_rename == NULL) return false;
@@ -587,7 +591,7 @@ bool CFunctionCollection::Rename(CString from_name, CString to_name) {
   return true;
 }
 
-void CFunctionCollection::RemoveFromBinaryTree(CString function_name) {
+void CSymbolEngineFunctionCollection::RemoveFromBinaryTree(CString function_name) {
   CSLock lock(m_critsec);
   COHScriptObject *object_to_delete = LookUp(function_name);
   if (object_to_delete != NULL) {
@@ -595,14 +599,14 @@ void CFunctionCollection::RemoveFromBinaryTree(CString function_name) {
     it = _function_map.find(function_name);
     if (it != _function_map.end()) {
       write_log(Preferences()->debug_formula(),
-        "[CFunctionCollection] Removing %s from lookuo-table\n", function_name);
+        "[CSymbolEngineFunctionCollection] Removing %s from lookuo-table\n", function_name);
       // Remove it from the lookup-table...
       _function_map.erase(it);
     }
   }
 }
 
-void CFunctionCollection::Delete(CString name) {
+void CSymbolEngineFunctionCollection::Delete(CString name) {
   // The debug-tab must not be deleted.
   // It is a global object that is NOT in the function-collection
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=111&t=19616
@@ -616,7 +620,7 @@ void CFunctionCollection::Delete(CString name) {
   }
 }
 
-void CFunctionCollection::SetFunctionText(CString name, CString content, bool read_only_library_symbol /*= false */) {
+void CSymbolEngineFunctionCollection::SetFunctionText(CString name, CString content, bool read_only_library_symbol /*= false */) {
   CSLock lock(m_critsec);
   // Works for both functions and lists
   COHScriptObject *function = LookUp(name);
@@ -632,18 +636,18 @@ void CFunctionCollection::SetFunctionText(CString name, CString content, bool re
     Add(function); //!!!!! read_only_library_symbol
   } else {
     write_log(Preferences()->debug_formula(), 
-      "[CFunctionCollection] Setting function text for %s\n", name);
+      "[CSymbolEngineFunctionCollection] Setting function text for %s\n", name);
     function->SetText(content, read_only_library_symbol);
   }
 }
 
-bool CFunctionCollection::BotLogicCorrectlyParsed() {
+bool CSymbolEngineFunctionCollection::BotLogicCorrectlyParsed() {
   return (!CParseErrors::AnyError());
 }
 
-bool CFunctionCollection::ParseAll() {
+bool CSymbolEngineFunctionCollection::ParseAll() {
   write_log(Preferences()->debug_formula(), 
-    "[CFunctionCollection] ParseAll()\n");
+    "[CSymbolEngineFunctionCollection] ParseAll()\n");
   // Adding empty standard-functions
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=16230
   FunctionCollection()->CheckForDefaultFormulaEntries();
@@ -666,12 +670,12 @@ bool CFunctionCollection::ParseAll() {
   return true;
 }
 
-bool CFunctionCollection::IsOpenPPLProfile() {
+bool CSymbolEngineFunctionCollection::IsOpenPPLProfile() {
   // Since OpenHoldem version 12 OpenPPL is the default mode
   return (IsOHScriptProfile() == false);
 }
 
-bool CFunctionCollection::IsOHScriptProfile() {
+bool CSymbolEngineFunctionCollection::IsOHScriptProfile() {
   // A profile is OH-script if at least f$call exists
   // and f$call is not empty.
   // We chose f$call, because
@@ -685,27 +689,27 @@ bool CFunctionCollection::IsOHScriptProfile() {
   return (function_text.GetLength() > 1);
 }
 
-void CFunctionCollection::InitOnStartup() {
+void CSymbolEngineFunctionCollection::InitOnStartup() {
 }
 
-void CFunctionCollection::UpdateOnConnection() {
+void CSymbolEngineFunctionCollection::UpdateOnConnection() {
   ClearCache();
 }
 
-void CFunctionCollection::UpdateOnHandreset() {
+void CSymbolEngineFunctionCollection::UpdateOnHandreset() {
 }
 
-void CFunctionCollection::UpdateOnNewRound() {
+void CSymbolEngineFunctionCollection::UpdateOnNewRound() {
 }
 
-void CFunctionCollection::UpdateOnMyTurn() {
+void CSymbolEngineFunctionCollection::UpdateOnMyTurn() {
 }
 
-void CFunctionCollection::UpdateOnHeartbeat() {
+void CSymbolEngineFunctionCollection::UpdateOnHeartbeat() {
   ClearCache();
 }
 
-bool CFunctionCollection::EvaluateSymbol(const CString name, double *result, bool log /* = false */) {
+bool CSymbolEngineFunctionCollection::EvaluateSymbol(const CString name, double *result, bool log /* = false */) {
   CSLock lock(m_critsec);
   if (COHScriptObject::IsFunction(name)
       || COHScriptObject::IsList(name)
@@ -741,7 +745,7 @@ bool CFunctionCollection::EvaluateSymbol(const CString name, double *result, boo
       // who call ill-named OH-script-functions.
       if (log) {
         write_log(Preferences()->debug_auto_trace(),
-          "[CFunctionCollection] %s -> 0.000 [does not exist]\n", name);
+          "[CSymbolEngineFunctionCollection] %s -> 0.000 [does not exist]\n", name);
         ///p_autoplayer_trace->Add(name, *result);
       }
       return true;
@@ -754,7 +758,7 @@ bool CFunctionCollection::EvaluateSymbol(const CString name, double *result, boo
   return false;
 }
 
-CString CFunctionCollection::SymbolsProvided() {
+CString CSymbolEngineFunctionCollection::SymbolsProvided() {
   CString result;
   COHScriptObject *p_oh_script_object = GetFirst();
   while (p_oh_script_object != NULL) {

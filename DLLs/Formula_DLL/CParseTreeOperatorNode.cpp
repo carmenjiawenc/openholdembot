@@ -15,6 +15,7 @@
 #include <math.h>
 ///#include "CAutoplayerTrace.h"
 #include "CFunction.h"
+#include "CFunctionCollection.h"
 ///#include "CMemoryPool.h"
 #include "CParserSymbolTable.h"
 #include "CParseTreeTerminalNode.h"
@@ -27,7 +28,6 @@
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CFunctionCollection.h"
 #include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
 #include "..\Symbols_DLL\CSymbolEngineMemorySymbols.h"
 #include "..\Symbols_DLL\..\Symbols_DLL\CSymbolEngineOpenPPLUserVariables.h"

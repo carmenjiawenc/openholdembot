@@ -21,6 +21,7 @@
 #include <io.h>
 #include "CDebugTab.h"
 #include "CFunction.h"
+#include "CFunctionCollection.h"
 #include "COHScriptList.h"
 #include "COHScriptObject.h"
 #include "CParseErrors.h"
@@ -44,7 +45,6 @@
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Symbols_DLL\CSymbolengineOpenPPL.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CFunctionCollection.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 ///#include "..\..\OpenHoldem\CWatchdog.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
@@ -130,8 +130,8 @@ void CFormulaParser::ParseDefaultLibraries() {
   FunctionCollection()->SetOpenPPLLibraryLoaded(true);
   LoadOptionalFunctionLibrary(CustomLibraryPath());
   LoadDefaultBot();
-  // Check again after the custom library
-  EngineContainer()->symbol_engine_open_ppl()->VerifyExistenceOfOpenPPLInitializationInLibrary();
+  // Check again after the custom library, not here!!!
+  ///EngineContainer()->symbol_engine_open_ppl()->VerifyExistenceOfOpenPPLInitializationInLibrary();
   FunctionCollection()->ParseAll(); 
   _is_parsing_read_only_function_library = false;
   LeaveParserCode();

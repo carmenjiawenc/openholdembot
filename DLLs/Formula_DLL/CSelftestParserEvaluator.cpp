@@ -11,12 +11,9 @@
 //
 //******************************************************************************
 
-#include "stdafx.h"
 #include "CSelftestParserEvaluator.h"
-
-#include "CFunctionCollection.h"
-#include "CSymbolEngineMemorySymbols.h"
-#include "..\DLLs\WindowFunctions_DLL\window_functions.h"
+#include "..\Preferences_DLL\Preferences.h"
+#include "..\WindowFunctions_DLL\window_functions.h"
 
 CSelftestParserEvaluator::CSelftestParserEvaluator() {
 }
@@ -25,12 +22,12 @@ CSelftestParserEvaluator::~CSelftestParserEvaluator() {
 }
 
 void CSelftestParserEvaluator::Test() {
-  if (!p_function_collection->Exists(kSelftestName)) {
+  ///if (!p_function_collection->Exists(kSelftestName)) {
     MessageBox_Error_Warning("Can't find selftest-function\n"
       "Please get in contact with the developmen team.\n");
     return;
-  }
-  double result = p_function_collection->Evaluate(kSelftestName);
+  ///}
+  double result = -42; ///p_function_collection->Evaluate(kSelftestName);
   if (result != kSelftestExpectedResult) {
     CString message;
     message.Format("Selftest failed.\n"

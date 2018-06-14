@@ -187,10 +187,6 @@ bool CCasinoInterface::UseSliderForAllin() {
   return _allin_slider.SlideAllin();
 }
 
-bool CCasinoInterface::IsMyTurn() {
-  return (NumberOfVisibleAutoplayerButtons() >= k_min_buttons_needed_for_my_turn);
-}
-
 CAutoplayerButton* CCasinoInterface::LogicalAutoplayerButton(int autoplayer_function_code) {
   switch (autoplayer_function_code) {
     // Betpot_buttons
@@ -310,4 +306,10 @@ bool CCasinoInterface::SitenameContainsCasinoIdentifier(const char *casino) {
   CString sitename = BasicScraper()->Tablemap()->sitename();
   sitename.MakeLower();
   return (sitename.Find(casino) >= 0);
+}
+
+
+
+bool CCasinoInterface::IsMyTurn() {
+  return (NumberOfVisibleAutoplayerButtons() >= k_min_buttons_needed_for_my_turn);
 }

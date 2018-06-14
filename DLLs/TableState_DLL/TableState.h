@@ -45,6 +45,9 @@ public:
   bool ShowdownCardsVisible();
   bool AntesVisible();
 public:
+  int  NumberOfVisibleAutoplayerButtons();
+  bool IsMyTurn();
+public:
   CTableTitle *TableTitle();
 public:
   bool set_pot(int sidepot_index, CString new_value);

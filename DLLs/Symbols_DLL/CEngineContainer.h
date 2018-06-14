@@ -252,5 +252,3 @@ private:
 };
 
 CEngineContainer* EngineContainer();
-
-CFunctionCollection* FunctionCollection();

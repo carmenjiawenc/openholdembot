@@ -8,7 +8,11 @@
 //
 //******************************************************************************
 //
-// Purpose: Hash table for OH-script objects (functions and lists)
+// Purpose:  Providing a list of build-in higher-level OpenPPL-symbols
+//   and user-defined functions and lists. 
+//
+//   * CFunctionCollection (Formula.DLL) provides the actual functionality
+//   * CSymbolEngineFunctionCollection (Symbols.DLL) provides the integration into the symbol-engine
 //
 //******************************************************************************
 
@@ -24,14 +28,14 @@ class COHScriptObject;
 // * reset-functions 
 // * Evaluate()-function,
 // * SymbolsProvided() for syntax-highlighting
-class CFunctionCollection: public CVirtualSymbolEngine {
+class CSymbolEngineFunctionCollection: public CVirtualSymbolEngine {
   friend class CAutoplayerFunctions;
   friend class CBetsizeInputBox;
   friend class CCasinoInterface;
   friend class CFormulaParser;
  public:
-  CFunctionCollection();
-  virtual ~CFunctionCollection();
+  CSymbolEngineFunctionCollection();
+  virtual ~CSymbolEngineFunctionCollection();
  public:
   bool EvaluateSymbol(const CString name, double *result, bool log = false);
   double Evaluate(CString function_name, bool log = false);

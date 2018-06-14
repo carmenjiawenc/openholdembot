@@ -16,6 +16,7 @@
     <ClCompile Include="CFormulaFileSplitter.cpp" />
     <ClCompile Include="CFormulaParser.cpp" />
     <ClCompile Include="CFunction.cpp" />
+    <ClCompile Include="CFunctionCollection.cpp" />
     <ClCompile Include="COHScriptList.cpp" />
     <ClCompile Include="COHScriptObject.cpp" />
     <ClCompile Include="CParseErrors.cpp" />
@@ -30,6 +31,7 @@
     <ClCompile Include="CParseTreeTerminalNodeIdentifier.cpp" />
     <ClCompile Include="CParseTreeTerminalNodeNumber.cpp" />
     <ClCompile Include="CParseTreeTerminalNodeUserVariable.cpp" />
+    <ClCompile Include="CSelftestParserEvaluator.cpp" />
     <ClCompile Include="CShankySymbolNameTranslator.cpp" />
     <ClCompile Include="CTokenizer.cpp" />
     <ClCompile Include="Formula.cpp" />
@@ -41,6 +43,7 @@
     <ClInclude Include="CFormulaFileSplitter.h" />
     <ClInclude Include="CFormulaParser.h" />
     <ClInclude Include="CFunction.h" />
+    <ClInclude Include="CFunctionCollection.h" />
     <ClInclude Include="COHScriptList.h" />
     <ClInclude Include="COHScriptObject.h" />
     <ClInclude Include="CParseErrors.h" />
@@ -55,6 +58,7 @@
     <ClInclude Include="CParseTreeTerminalNodeIdentifier.h" />
     <ClInclude Include="CParseTreeTerminalNodeNumber.h" />
     <ClInclude Include="CParseTreeTerminalNodeUserVariable.h" />
+    <ClInclude Include="CSelftestParserEvaluator.h" />
     <ClInclude Include="CShankySymbolNameTranslator.h" />
     <ClInclude Include="CTokenizer.h" />
     <ClInclude Include="Formula.h" />
@@ -119,7 +123,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Preferences.lib;$(OutDir)TableState.lib;$(OutDir)string_functions.lib;$(OutDir)window_functions.lib;$(OutDir)CBasicScraper.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)CardFunctions.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Preferences.lib;$(OutDir)TableState.lib;$(OutDir)string_functions.lib;$(OutDir)window_functions.lib;$(OutDir)CBasicScraper.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -140,7 +144,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Preferences.lib;$(OutDir)TableState.lib;$(OutDir)string_functions.lib;;$(OutDir)window_functions.lib;$(OutDir)CBasicScraper.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)CardFunctions.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Preferences.lib;$(OutDir)TableState.lib;$(OutDir)string_functions.lib;;$(OutDir)window_functions.lib;$(OutDir)CBasicScraper.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
