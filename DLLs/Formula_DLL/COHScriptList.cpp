@@ -22,9 +22,6 @@
 #include "..\Globals_DLL\globals.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\Preferences_DLL\Preferences.h"
-#include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CSymbolEngineCards.h"
-#include "..\Symbols_DLL\CSymbolEnginePokerval.h"
 #include  "..\TableState_DLL\TableState.h"
 #include  "..\TableState_DLL\CTableTitle.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
@@ -191,9 +188,14 @@ double COHScriptList::Evaluate(bool log /* = false */) {
   write_log(Preferences()->debug_formula(), 
     "[COHScriptList] Evaluating list %s\n", _name); 
   if (!TableState()->User()->HasKnownCards()) return false;
-  return IsOnList(EngineContainer()->symbol_engine_pokerval()->rankhiplayer(),
-    EngineContainer()->symbol_engine_pokerval()->rankloplayer(),
-    EngineContainer()->symbol_engine_cards()->issuited());
+  ///???
+  int first_rank = TableState()->User()->hole_cards(0)->GetOpenHoldemRank();
+  int second_rank = TableState()->User()->hole_cards(1)->GetOpenHoldemRank();
+  bool is_suited = (TableState()->User()->hole_cards(0)->GetSuit()
+    == TableState()->User()->hole_cards(1)->GetSuit());
+  return IsOnList(first_rank,
+    second_rank,
+    is_suited);
 }
 
 void COHScriptList::Parse() {
