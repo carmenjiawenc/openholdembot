@@ -95,7 +95,7 @@ void CDebugTab::AddExpression(CString expression_text, TPParseTreeNode expressio
 void* CDebugTab::operator new(size_t size) {
   assert(PMemoryPoolParser() != NULL);
   write_log(Preferences()->debug_memory_usage(), "[CDebugTab] Allocating %i bytes\n", size);
-  return p_memory_pool_global->Allocate(size);
+  return MemoryPoolGlobal()->Allocate(size);
 }
 
 CString CDebugTab::function_text() {

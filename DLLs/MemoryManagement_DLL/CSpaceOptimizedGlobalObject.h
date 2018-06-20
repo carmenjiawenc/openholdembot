@@ -23,8 +23,8 @@ class CSpaceOptimizedGlobalObject {
   ~CSpaceOptimizedGlobalObject() {}
  public:
   void* operator new(size_t size) {
-    assert(p_memory_pool_global != NULL);
-    return p_memory_pool_global->Allocate(size);
+    assert(MemoryPoolGlobal() != NULL);
+    return MemoryPoolGlobal()->Allocate(size);
   }
  public:
   void operator delete(void* ptr) {}

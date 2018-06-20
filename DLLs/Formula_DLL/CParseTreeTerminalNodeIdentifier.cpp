@@ -29,7 +29,6 @@
 #include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
 #include "..\Symbols_DLL\CSymbolEngineMemorySymbols.h"
 #include "..\Symbols_DLL\CSymbolEngineOpenPPLUserVariables.h"
-#include "..\Symbols_DLL\CSymbolEngineTableLimits.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 #include "TokenizerConstants.h"
 

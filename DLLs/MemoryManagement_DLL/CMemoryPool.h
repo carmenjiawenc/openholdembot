@@ -43,13 +43,13 @@ MEMORY_MANAGEMENT_DLL_API class  CMemoryPool {
   CArray <void*, void*> _memory_blocks;
 };
 
-extern CMemoryPool *p_memory_pool_tablemaps;
-extern CMemoryPool *p_memory_pool_scraper;
-extern CMemoryPool *p_memory_pool_user_logic;
-extern CMemoryPool *p_memory_pool_library_logic;
-extern CMemoryPool *p_memory_pool_global;
+MEMORY_MANAGEMENT_DLL_API CMemoryPool* MemoryPoolTablemaps();
+MEMORY_MANAGEMENT_DLL_API CMemoryPool* MemoryPoolScraper();
+MEMORY_MANAGEMENT_DLL_API CMemoryPool* MemoryPoolUserLogic();
+MEMORY_MANAGEMENT_DLL_API CMemoryPool* MemoryPoolLibraryLogic();
+MEMORY_MANAGEMENT_DLL_API CMemoryPool* MemoryPoolGlobal();
 
-// Selects either p_memory_pool_library_logic or p_memory_pool_user_logic
-// p_memory_pool_library_logic stays till the very end
-// p_memory_pool_user_logic will be thrown away when we load a new formula
-MEMORY_MANAGEMENT_DLL_API CMemoryPool *PMemoryPoolParser(bool for_read_only_openppl_library_and_default_bot);
+// Selects either MemoryPoolLibraryLogic() or MemoryPoolUserLogic()
+// MemoryPoolLibraryLogic() stays till the very end
+// MemoryPoolUserLogic() will be thrown away when we load a new formula
+MEMORY_MANAGEMENT_DLL_API CMemoryPool* PMemoryPoolParser(bool for_read_only_openppl_library_and_default_bot);

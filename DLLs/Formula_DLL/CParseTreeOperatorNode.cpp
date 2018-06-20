@@ -31,7 +31,6 @@
 #include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
 #include "..\Symbols_DLL\CSymbolEngineMemorySymbols.h"
 #include "..\Symbols_DLL\..\Symbols_DLL\CSymbolEngineOpenPPLUserVariables.h"
-#include "..\Symbols_DLL\CSymbolEngineTableLimits.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 

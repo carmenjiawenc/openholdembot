@@ -29,31 +29,28 @@
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 
-CMemoryPool *p_memory_pool_tablemaps = NULL;
-CMemoryPool *p_memory_pool_scraper = NULL;
-CMemoryPool *p_memory_pool_user_logic = NULL;
-CMemoryPool *p_memory_pool_library_logic = NULL;
-CMemoryPool *p_memory_pool_global = NULL;
-
 void CreateMemoryPools() {
-  assert(p_memory_pool_tablemaps == NULL);
-  assert(p_memory_pool_scraper == NULL);
-  assert(p_memory_pool_user_logic == NULL);
-  assert(p_memory_pool_library_logic == NULL);
-  assert(p_memory_pool_global == NULL);
-  p_memory_pool_tablemaps = new CMemoryPool;
-  p_memory_pool_scraper = new CMemoryPool;
-  p_memory_pool_user_logic = new CMemoryPool;
-  p_memory_pool_library_logic = new CMemoryPool;
-  p_memory_pool_global = new CMemoryPool;
+  /*#
+  assert(MemoryPoolTablemaps() == NULL);
+  assert(MemoryPoolScraper() == NULL);
+  assert(MemoryPoolUserLogic() == NULL);
+  assert(MemoryPoolLibraryLogic() == NULL);
+  assert(MemoryPoolGlobal() == NULL);
+  MemoryPoolTablemaps() = new CMemoryPool;
+  MemoryPoolScraper() = new CMemoryPool;
+  MemoryPoolUserLogic() = new CMemoryPool;
+  MemoryPoolLibraryLogic() = new CMemoryPool;
+  MemoryPoolGlobal() = new CMemoryPool;
+  */
 }
 
 void DeleteAllMemoryPools() {
-  delete p_memory_pool_tablemaps;
-  delete p_memory_pool_scraper;
-  delete p_memory_pool_user_logic;
-  delete p_memory_pool_library_logic;
-  delete p_memory_pool_global;
+  /*#
+  delete MemoryPoolTablemaps();
+  delete MemoryPoolScraper();
+  delete MemoryPoolUserLogic();
+  delete MemoryPoolLibraryLogic();
+  delete MemoryPoolGlobal();*/
 }
 
 // 64 KB = 1 default block at 64-bit-Windows 
@@ -141,9 +138,36 @@ void CMemoryPool::AlignNextMemoryBlock() {
 CMemoryPool *PMemoryPoolParser(bool for_read_only_openppl_library_and_default_bot) {
   assert(OpenHoldem()->FormulaParser() != NULL);
   if (for_read_only_openppl_library_and_default_bot) {
-    assert(p_memory_pool_library_logic != NULL);
-    return p_memory_pool_library_logic;
+    assert(MemoryPoolLibraryLogic() != NULL);
+    return MemoryPoolLibraryLogic();
   }
-  assert(p_memory_pool_user_logic != NULL);
-  return p_memory_pool_user_logic;
+  assert(MemoryPoolUserLogic() != NULL);
+  return MemoryPoolUserLogic();
 }
+
+CMemoryPool memory_pool_tablemaps;
+CMemoryPool memory_pool_scraper;
+CMemoryPool memory_pool_user_logic;
+CMemoryPool memory_pool_library_logic;
+CMemoryPool memory_pool_global;
+
+CMemoryPool* MemoryPoolTablemaps() {
+  return &memory_pool_tablemaps;
+}
+
+CMemoryPool* MemoryPoolScraper() {
+  return &memory_pool_scraper;
+}
+
+CMemoryPool* MemoryPoolUserLogic() {
+  return &memory_pool_user_logic;
+}
+
+CMemoryPool* MemoryPoolLibraryLogic() {
+  return &memory_pool_library_logic;
+}
+
+CMemoryPool* MemoryPoolGlobal() {
+  return &memory_pool_global;
+}
+

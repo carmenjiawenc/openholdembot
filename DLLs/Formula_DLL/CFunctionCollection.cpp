@@ -68,10 +68,10 @@ void CFunctionCollection::DeleteAll(bool delete_read_only_library_functions, boo
     p_nextObject = GetNext();
   }
   if (delete_read_only_library_functions) {
-    ///p_memory_pool_library_logic->ReleaseAll();
+    ///MemoryPoolLibraryLogic()->ReleaseAll();
   }
   if (delete_user_defined) {
-    ///p_memory_pool_user_logic->ReleaseAll();
+    ///MemoryPoolUserLogic()->ReleaseAll();
   }
 }
 
