@@ -23,10 +23,6 @@
 #include "..\Debug_DLL\debug.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\StringFunctions_DLL\string_functions.h"
-#include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
-#include "..\Symbols_DLL\CSymbolEngineMemorySymbols.h"
-#include "..\Symbols_DLL\CSymbolEngineOpenPPLUserVariables.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 
 CParseTreeTerminalNodeFixedAction::CParseTreeTerminalNodeFixedAction(

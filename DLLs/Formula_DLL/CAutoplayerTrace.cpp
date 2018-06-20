@@ -20,10 +20,6 @@
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
-#include "..\Symbols_DLL\CBetroundCalculator.h"
-#include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CSymbolEnginePrwin.h"
-#include "..\Symbols_DLL\CSymbolEngineUserchair.h"
 #include "..\Tablestate_DLL\TableState.h"
 
 #define ENT CSLock lock(m_critsec);

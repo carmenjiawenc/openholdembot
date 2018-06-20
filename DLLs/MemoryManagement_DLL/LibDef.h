@@ -13,7 +13,7 @@
 //******************************************************************************
 
 #ifdef MEMORY_MANAGEMENT_DLL_EXPORTS
-#define MEMORY_MANAGEMENT_DLL_API extern "C" __declspec(dllexport)
+#define MEMORY_MANAGEMENT_DLL_API __declspec(dllexport)
 #else
-#define MEMORY_MANAGEMENT_DLL_API extern "C" __declspec(dllimport)
+#define MEMORY_MANAGEMENT_DLL_API __declspec(dllimport)
 #endif

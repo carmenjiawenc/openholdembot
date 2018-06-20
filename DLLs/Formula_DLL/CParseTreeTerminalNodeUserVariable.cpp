@@ -23,10 +23,8 @@
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\StringFunctions_DLL\string_functions.h"
-#include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
-#include "..\Symbols_DLL\CSymbolEngineMemorySymbols.h"
-#include "..\Symbols_DLL\CSymbolEngineOpenPPLUserVariables.h"
+#include "..\UserVariables_DLL\CMemorySymbolsCollection.h"
+#include "..\UserVariables_DLL\COpenPPLUserVariablesCollection.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 
 CParseTreeTerminalNodeUserVariable::CParseTreeTerminalNodeUserVariable(
@@ -46,7 +44,7 @@ double CParseTreeTerminalNodeUserVariable::Evaluate(bool log /* = false */){
 		_node_type, name);
   ///p_autoplayer_trace->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
   if (name.Left(4).MakeLower() == "user") {
-    EngineContainer()->symbol_engine_openppl_user_variables()->Set(name);
+    OpenPPLUserVariablesCollection()->Set(name);
     return true;
   }
   // Covering both me_st_ and me_inc_ here.
@@ -55,7 +53,7 @@ double CParseTreeTerminalNodeUserVariable::Evaluate(bool log /* = false */){
   // Also me_add_ amd me_sub_ since openHoldem 11.1.0.
   if (name.Left(3) == "me_") {
     double temp_result;
-    EngineContainer()->symbol_engine_memory_symbols()->EvaluateSymbol(name,
+    MemorySymbolsCollection()->EvaluateSymbol(name,
       &temp_result, true);
     return temp_result;
   }

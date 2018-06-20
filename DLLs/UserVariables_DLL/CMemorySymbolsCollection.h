@@ -17,7 +17,7 @@
 #include <map>
 #include "LibDef.h"
 
-USER_VARIABLES__DLL_API class CMemorySymbolsCollection {
+class USER_VARIABLES__DLL_API CMemorySymbolsCollection {
  public:
   CMemorySymbolsCollection();
   ~CMemorySymbolsCollection();

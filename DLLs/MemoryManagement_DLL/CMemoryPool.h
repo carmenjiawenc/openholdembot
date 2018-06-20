@@ -22,7 +22,7 @@
 MEMORY_MANAGEMENT_DLL_API void CreateMemoryPools();
 MEMORY_MANAGEMENT_DLL_API void DeleteAllMemoryPools();
 
-MEMORY_MANAGEMENT_DLL_API class  CMemoryPool {
+class MEMORY_MANAGEMENT_DLL_API CMemoryPool {
  public:
   CMemoryPool();
   ~CMemoryPool();

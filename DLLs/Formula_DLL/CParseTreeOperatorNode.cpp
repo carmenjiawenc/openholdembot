@@ -27,10 +27,6 @@
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\StringFunctions_DLL\string_functions.h"
-#include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
-#include "..\Symbols_DLL\CSymbolEngineMemorySymbols.h"
-#include "..\Symbols_DLL\..\Symbols_DLL\CSymbolEngineOpenPPLUserVariables.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 

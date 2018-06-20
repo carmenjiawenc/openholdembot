@@ -24,10 +24,6 @@
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\StringFunctions_DLL\string_functions.h"
-#include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
-#include "..\Symbols_DLL\CSymbolEngineMemorySymbols.h"
-#include "..\Symbols_DLL\CSymbolEngineOpenPPLUserVariables.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 #include "TokenizerConstants.h"
 

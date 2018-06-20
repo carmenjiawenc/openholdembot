@@ -24,8 +24,6 @@
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\StringFunctions_DLL\string_functions.h"
-#include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 CParseTreeTerminalNodeBetsizeAction::CParseTreeTerminalNodeBetsizeAction(int relative_line_number) : 
@@ -68,12 +66,12 @@ double CParseTreeTerminalNodeBetsizeAction::Evaluate(bool log /* = false */) {
 	}	else if (_node_type == kTokenActionRaiseByBigBlinds)	{
     // RaiseBy N Force
     double raise_by_amount_in_bblinds = _first_sibbling->Evaluate(log);
-    double final_betsize_in_bblinds = EngineContainer()->symbol_engine_chip_amounts()->ncallbets()
-      + raise_by_amount_in_bblinds;
+    double final_betsize_in_bblinds = 42; ///EngineContainer()->symbol_engine_chip_amounts()->ncallbets()
+      ///+ raise_by_amount_in_bblinds;
     write_log(Preferences()->debug_formula(), 
       "[CParseTreeTerminalNodeBetsizeAction] raiseby = %.2f ncallbets = %.2f final = %.2f\n",
       raise_by_amount_in_bblinds,
-      EngineContainer()->symbol_engine_chip_amounts()->ncallbets(),
+      42, ///EngineContainer()->symbol_engine_chip_amounts()->ncallbets(),
       final_betsize_in_bblinds);
 		return final_betsize_in_bblinds;
 	}	else if (_node_type == kTokenActionRaiseByPercentagedPotsize)	{
@@ -81,12 +79,12 @@ double CParseTreeTerminalNodeBetsizeAction::Evaluate(bool log /* = false */) {
 		double raise_by_percentage = _first_sibbling->Evaluate(log);
     assert(EngineContainer()->symbol_engine_tablelimits()->bet() > 0);
 		double pot_size_after_call_in_big_blinds = 
-      (EngineContainer()->symbol_engine_chip_amounts()->pot() / EngineContainer()->symbol_engine_tablelimits()->bet()) 
-      + EngineContainer()->symbol_engine_chip_amounts()->nbetstocall();
+      42 ///(EngineContainer()->symbol_engine_chip_amounts()->pot() / EngineContainer()->symbol_engine_tablelimits()->bet()) 
+      /*#+ EngineContainer()->symbol_engine_chip_amounts()->nbetstocall()*/;
     assert(pot_size_after_call_in_big_blinds >= 0);
 		double raise_by_amount_in_bblinds = 0.01 * raise_by_percentage
 			* pot_size_after_call_in_big_blinds;
-    double final_betsize_in_bblinds = EngineContainer()->symbol_engine_chip_amounts()->ncallbets()
+    double final_betsize_in_bblinds = ///EngineContainer()->symbol_engine_chip_amounts()->ncallbets()
       + raise_by_amount_in_bblinds;
     write_log(Preferences()->debug_formula(), 
       "[CParseTreeTerminalNodeBetsizeAction] raiseby percentage = %.2f pot after call = %.2f raiseby = %.2f final = %.2f\n",

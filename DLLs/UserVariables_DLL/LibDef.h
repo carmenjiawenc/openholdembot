@@ -13,7 +13,7 @@
 //******************************************************************************
 
 #ifdef USER_VARIABLES_DLL_EXPORTS
-#define USER_VARIABLES__DLL_API extern "C" __declspec(dllexport)
+#define USER_VARIABLES__DLL_API __declspec(dllexport)
 #else
-#define USER_VARIABLES__DLL_API extern "C" __declspec(dllimport)
+#define USER_VARIABLES__DLL_API __declspec(dllimport)
 #endif

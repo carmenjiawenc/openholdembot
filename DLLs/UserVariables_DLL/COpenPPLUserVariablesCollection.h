@@ -18,7 +18,7 @@
 #include <map>
 #include "LibDef.h"
 
-USER_VARIABLES__DLL_API class COpenPPLUserVariablesCollection {
+class USER_VARIABLES__DLL_API COpenPPLUserVariablesCollection {
  public:
   COpenPPLUserVariablesCollection();
   ~COpenPPLUserVariablesCollection();
