@@ -14,14 +14,14 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
 #include <map>
-#include "CVirtualSymbolEngine.h"
+#include "LibDef.h"
 
-/// Integrate UserVariables.DLL !!!
-class CSymbolEngineOpenPPLUserVariables: public CVirtualSymbolEngine {
+USER_VARIABLES__DLL_API class COpenPPLUserVariablesCollection {
  public:
-  CSymbolEngineOpenPPLUserVariables();
-  ~CSymbolEngineOpenPPLUserVariables();
+  COpenPPLUserVariablesCollection();
+  ~COpenPPLUserVariablesCollection();
  public:
   // Mandatory reset-functions
   void InitOnStartup();
@@ -36,3 +36,5 @@ class CSymbolEngineOpenPPLUserVariables: public CVirtualSymbolEngine {
  private:
   std::map<CString, bool> _user_variables;
 };
+
+USER_VARIABLES__DLL_API COpenPPLUserVariablesCollection* OpenPPLUserVariablesCollection();

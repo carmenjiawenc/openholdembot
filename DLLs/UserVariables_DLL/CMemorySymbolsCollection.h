@@ -13,23 +13,17 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
 #include <map>
-#include "CVirtualSymbolEngine.h"
+#include "LibDef.h"
 
-/// Integrate UserVariables.DLL !!!
-
-class CSymbolEngineMemorySymbols: public CVirtualSymbolEngine {
+USER_VARIABLES__DLL_API class CMemorySymbolsCollection {
  public:
-  CSymbolEngineMemorySymbols();
-  ~CSymbolEngineMemorySymbols();
+  CMemorySymbolsCollection();
+  ~CMemorySymbolsCollection();
  public:
   // Mandatory reset-functions
-  void InitOnStartup();
   void UpdateOnConnection();
-  void UpdateOnHandreset();
-  void UpdateOnNewRound();
-  void UpdateOnMyTurn();
-  void UpdateOnHeartbeat();
  public:
   bool EvaluateSymbol(const CString name, double *result, bool log = false);
  private:
@@ -54,3 +48,5 @@ class CSymbolEngineMemorySymbols: public CVirtualSymbolEngine {
  private:
   std::map<CString, double> _memory_symbols;
 };
+
+USER_VARIABLES__DLL_API CMemorySymbolsCollection* MemorySymbolsCollection();
