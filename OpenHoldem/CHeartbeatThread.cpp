@@ -160,13 +160,7 @@ void CHeartbeatThread::ScrapeEvaluateAct() {
 	// Reply-frames no longer here in the heartbeat.
   // we have a "ReplayFrameController for that.
   LeaveCriticalSection(&pParent->cs_update_in_progress);
-	GUI()->OpenHoldemTitle()->UpdateTitle();
-	////////////////////////////////////////////////////////////////////////////////////////////
-	// Update scraper output dialog if it is present
-	if (GUI()->DlgScraperOutput()) {
-		GUI()->DlgScraperOutput()->UpdateDisplay();
-	}
-  
+	GUI()->Update();
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// OH-Validator
 	write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] Calling Validator.\n");

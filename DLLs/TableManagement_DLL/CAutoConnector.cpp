@@ -316,19 +316,6 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
 			EngineContainer()->UpdateOnConnection();
       write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] UpdateOnConnection executed (during connection)\n");
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Going to continue with scraper output and scraper DLL\n");
-      // Reset "ScraperOutput" dialog, if it is live
-			/*#if (GUI()->DlgScraperOutput()) {
-				GUI()->DlgScraperOutput()->Reset();
-			}
-			GUI()->FlagsToolbar()->ResetButtonsOnConnect();*/
-      // The main GUI gets created by another thread.
-      // This can be slowed down if there are popups (parse-errors).
-      // Handle the race-condition
-      // !!!!! create timer function unmain-frame instead
-      ///WAIT_FOR_CONDITION(PMainframe() != NULL)
-      ///assert(PMainframe() != NULL);
-			// Reset display
-			///PMainframe()->ResetDisplay();
       // log OH title bar text and table reset
       WriteLogTableReset("NEW CONNECTION");
       TablePositioner()->ResizeToTargetSize();
@@ -364,9 +351,6 @@ void CAutoConnector::Disconnect(CString reason_for_disconnection) {
 	EngineContainer()->UpdateOnDisconnection();
 	// Clear "attached" info
 	set_attached_hwnd(NULL);
-	// Unattach OH.
-	GUI()->FlagsToolbar()->UnattachOHFromPokerWindow();
-	GUI()->FlagsToolbar()->ResetButtonsOnDisconnect();
 	// Release mutex as soon as possible, after critical work is done
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Unlocking autoconnector-mutex\n");
 	_autoconnector_mutex->Unlock();	
@@ -379,14 +363,6 @@ void CAutoConnector::Disconnect(CString reason_for_disconnection) {
 	EngineContainer()->UpdateOnConnection();
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] UpdateOnConnection executed (disconnection)\n");
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Going to continue with window title\n");
-	// Change window title
-	///GUI()->OpenHoldemTitle()->UpdateTitle();
-	// Reset Display 
-	///PMainframe()->ResetDisplay();
-	// Reset "ScraperOutput" dialog, if it is live
-	if (GUI()->DlgScraperOutput())	{
-		GUI()->DlgScraperOutput()->Reset();
-	}
   CString message;
   message.Format("DISCONNECTION -- %s", reason_for_disconnection);
 	WriteLogTableReset(message);

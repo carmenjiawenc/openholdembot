@@ -1248,10 +1248,6 @@ BOOL CDlgFormulaScintilla::DestroyWindow()
 	StopAutoButton();
 	SaveSettingsToRegistry();
 	CloseFindReplaceDialog();
-	
-	// Uncheck formula button on main toolbar
-	///GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_FORMULA, false);
-
 	return CDialog::DestroyWindow();
 }
 

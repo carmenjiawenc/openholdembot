@@ -62,6 +62,10 @@
 #include "CSymbolEngineVersus.h"
 #include "UnknownSymbols.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFormulaParser.h"
+#include "..\Formula_DLL\CFunction.h"
+#include "..\Formula_DLL\COHScriptList.h"
+#include "..\Formula_DLL\CParseErrors.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\SessionCounter_DLL\CSessionCounter.h"
@@ -110,8 +114,8 @@ void CEngineContainer::CreateSymbolEngines() {
   p_symbol_engine_multiplexer = new CSymbolEngineMultiplexer();
   AddSymbolEngine(p_symbol_engine_multiplexer);
   // CFunctionCollection
-  p_function_collection = new CFunctionCollection;
-  AddSymbolEngine(p_function_collection);
+  p_symbol_engine_function_collection = new CSymbolEngineFunctionCollection;
+  AddSymbolEngine(p_symbol_engine_function_collection);
   // CSymbolEngineUserchair
   p_symbol_engine_userchair = new CSymbolEngineUserchair();
   AddSymbolEngine(p_symbol_engine_userchair);
@@ -433,7 +437,7 @@ bool CEngineContainer::EvaluateSymbol(const CString name, double *result, bool l
     WarnAboutUnknownSymbol(name);
     *result = kUndefined;
     return false;
-  }*/
+  }
 }
 
 void CEngineContainer::BuildListOfSymbolsProvided() {

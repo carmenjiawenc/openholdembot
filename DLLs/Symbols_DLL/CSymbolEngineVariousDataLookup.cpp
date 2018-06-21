@@ -22,8 +22,10 @@
 #include "Chair$Symbols.h"
 #include "CSymbolEngineUserchair.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFormulaParser.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\Scraper_DLL\CTransform\CTransform.h"
 #include "..\SessionCounter_DLL\CSessionCounter.h"
@@ -45,12 +47,6 @@ CSymbolEngineVariousDataLookup::CSymbolEngineVariousDataLookup() {
   assert(SessionCounter() != NULL);
   assert(p_tablemap != NULL);
   assert(TableState()->TableTitle() != NULL);
-  // Objects that are part of the GUI which runs in its own thread.
-  // They might or might not yet be initialized.
-  // We don#t wait here, as the GUI also waits at some point.
-  // We check these pointers only when really needed
-  //
-  // assert(p_flags_toolbar != NULL);
 }
 
 CSymbolEngineVariousDataLookup::~CSymbolEngineVariousDataLookup() {
@@ -108,7 +104,7 @@ bool CSymbolEngineVariousDataLookup::EvaluateSymbol(const CString name, double *
     if (!FormulaParser()->IsParsing()) {
       write_log(Preferences()->debug_auto_trace(), 
         "[CSymbolEngineVariousDataLookup] %s -> 0.000 [just logged]\n", name);
-      GUI()->WhiteInfoBox()->SetCustomLogMessage(name);
+      ///GUI()->WhiteInfoBox()->SetCustomLogMessage(name);
     }
     // True (1) is convenient in sequences of ANDed conditions
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=110&t=19421
@@ -125,30 +121,6 @@ bool CSymbolEngineVariousDataLookup::EvaluateSymbol(const CString name, double *
   } else if ((memcmp(name, kEmptyExpression_False_Zero_WhenOthersFoldForce, strlen(kEmptyExpression_False_Zero_WhenOthersFoldForce))==0) 
       && (strlen(name)==strlen(kEmptyExpression_False_Zero_WhenOthersFoldForce))) {
     *result = kUndefinedZero;
-  } else if (memcmp(name, "f", 1) == 0 && strlen(name) == 2) {
-    if (p_flags_toolbar != NULL) {
-      *result = GUI()->FlagsToolbar()->GetFlag(RightDigitCharacterToNumber(name));
-    } else {
-      *result = kUndefinedZero;
-    }
-  } else if (memcmp(name, "f", 1) == 0 && strlen(name) == 3) {
-    if (p_flags_toolbar != NULL) {
-      *result = GUI()->FlagsToolbar()->GetFlag(10 * RightDigitCharacterToNumber(name, 1) + RightDigitCharacterToNumber(name, 0));
-    } else {
-      *result = kUndefinedZero;
-    }
-  } else if (memcmp(name, "fmax", 4) == 0 && strlen(name) == 4) {
-    if (p_flags_toolbar != NULL) {
-      *result = GUI()->FlagsToolbar()->GetFlagMax();
-    } else {
-      *result = kUndefinedZero;
-    }
-  } else if (memcmp(name, "flagbits", 8) == 0 && strlen(name) == 8) {
-    if (p_flags_toolbar != NULL) {
-      *result = GUI()->FlagsToolbar()->GetFlagBits();
-    } else {
-      *result = kUndefinedZero;
-    }
   } else {
     // Special symbol for empty expressions. Its evaluation adds something 
     // meaningful to the log when the end of an open-ended when-condition 
@@ -164,10 +136,8 @@ CString CSymbolEngineVariousDataLookup::SymbolsProvided() {
   // e.g. pl_ chair$, ....
   CString list = "pl_ vs$ msgbox$ log$ "
     "betround currentround previousround "
-    "fmax flagbits "
     "session version islobby ispopup"
     "handsplayed handsplayed_headsup ";
-  list += RangeOfSymbols("f%i", 0, 19);
   return list;
 }
 

@@ -127,7 +127,7 @@ EXE_IMPLEMENTS char* GetPlayerName(int chair) {
 }
 
 EXE_IMPLEMENTS char* GetTableTitle() {
-  return TableState()->TableTitle()->Title();
+  return TableState()->TableTitle()->Title()
 }
 
 EXE_IMPLEMENTS void ParseHandList(const char* name_of_list, const char* list_body) {

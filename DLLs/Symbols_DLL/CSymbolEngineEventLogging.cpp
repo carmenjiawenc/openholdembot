@@ -14,6 +14,7 @@
 
 #include "CSymbolEngineEventLogging.h"
 #include "CEngineContainer.h"
+#include "CSymbolEngineAutoplayer.h"
 #include "CSymbolEngineChipAmounts.h"
 #include "CSymbolEngineDealerchair.h"
 #include "CSymbolEngineHandrank.h"
@@ -23,8 +24,10 @@
 #include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\Tablestate_DLL\CTableTitle.h"
+#include "..\..\OpenHoldem\stdafx.h"
 ///#include "CVersionInfo.h"
 
 CSymbolEngineEventLogging::CSymbolEngineEventLogging()
@@ -88,17 +91,17 @@ void CSymbolEngineEventLogging::LogBasicInfo(const char *action_taken) {
   // Common cards
   comcards = "";
   if (betround >= kBetroundFlop) {
-  for (int i=0; i<kNumberOfFlopCards; i++) {
-  if (TableState()->CommonCards(i)->IsKnownCard()) {
-  comcards.Append(TableState()->CommonCards(i)->ToString());
-  }
-  }
+    for (int i=0; i<kNumberOfFlopCards; i++) {
+      if (TableState()->CommonCards(i)->IsKnownCard()) {
+        comcards.Append(TableState()->CommonCards(i)->ToString());
+      }
+    }
   }
   if (betround >= kBetroundTurn) {
-  comcards.Append(TableState()->TurnCard()->ToString());
+    comcards.Append(TableState()->TurnCard()->ToString());
   }
   if (betround >= kBetroundRiver) {
-  comcards.Append(TableState()->RiverCard()->ToString());
+    comcards.Append(TableState()->RiverCard()->ToString());
   }
   comcards.Append("..........");
   comcards = comcards.Left(10);
@@ -143,7 +146,7 @@ void CSymbolEngineEventLogging::LogBasicInfo(const char *action_taken) {
   // Also show "BestAction" in the statusbar.
   // This needs to be set exactly once to avoid multiple evaluations
   // of the autoplayer functions
-  ///GUI()->OpenholdemStatusbar()->SetLastAction(BestAction());
+  ///GUI()->OpenholdemStatusbar()->SetLastAction(BestAction());OpenholdemStatusbar()->SetLastAction(BestAction());
 }
 
 void CSymbolEngineEventLogging::LogPlayers() {

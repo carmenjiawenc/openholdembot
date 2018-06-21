@@ -169,12 +169,7 @@ CMainFrame::CMainFrame() {
 }
 
 CMainFrame::~CMainFrame() {
-	/*#if (p_flags_toolbar != NULL) {
-		delete(p_flags_toolbar);
-	}
-  if (p_openholdem_statusbar != NULL) {
-    delete p_openholdem_statusbar;
-  }*/
+  /// Delete GUI!!!
 }
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
@@ -182,14 +177,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	lpCreateStruct->dwExStyle |= WS_MINIMIZE;
 	if (CFrameWnd::OnCreate(lpCreateStruct) == kUndefined)
 		return -1;
-	// Tool bar
-	//guip_flags_toolbar = new CFlagsToolbar(this);
-	// Status bar
-	///p_openholdem_statusbar = new COpenHoldemStatusbar(this);
-	// Start timer that checks if we should enable buttons
-	SetTimer(ENABLE_BUTTONS_TIMER, 50, 0);
-	// Start timer that updates status bar
-	SetTimer(UPDATE_STATUS_BAR_TIMER, 500, 0);
+  /// needed ???
   // Start timer that checks for continued existence of attached HWND 		
   SetTimer(HWND_CHECK_TIMER, 200, 0);
 	return 0;

@@ -109,7 +109,6 @@ void CSymbolEngineHandrank::CalculateHandrank() {
       break;
     }
   }
-  //#!!!!! Bad, not here!GUI()->OpenholdemStatusbar()->SetHandrank(_handrank169);
   _handrank1326 = _handrank2652 / 2;
   _handrank1000 = 1000 * _handrank2652 / 2652;
   _handrankp = 2652.0 / (1.0 + (double)nopponents);

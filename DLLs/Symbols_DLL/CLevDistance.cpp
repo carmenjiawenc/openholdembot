@@ -11,12 +11,9 @@
 //
 //******************************************************************************
 
-#include "StdAfx.h"
-
 #include "CLevDistance.h"
-
-//#include <string.h>
-//#include <malloc.h>
+#include <string.h>
+#include <malloc.h>
 
 //****************************
 // Get minimum of three values

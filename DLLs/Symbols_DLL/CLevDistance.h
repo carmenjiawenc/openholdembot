@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -11,9 +12,7 @@
 //
 //******************************************************************************
 
-#ifndef INC_CLEVDISTANCE_H
-#define INC_CLEVDISTANCE_H
-	
+
 class CLevDistance
 {
 public:
@@ -26,6 +25,4 @@ private:
 	int *GetCellPointer (int *pOrigin, int col, int row, int nCols);
 	int GetAt (int *pOrigin, int col, int row, int nCols);
 	void PutAt (int *pOrigin, int col, int row, int nCols, int x);
-}; 
-
-#endif //INC_CLEVDISTANCE_H
+};

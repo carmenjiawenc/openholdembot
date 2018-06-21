@@ -15,7 +15,6 @@
 #include "CVirtualSymbolEngine.h"
 #include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class CFunctionCollection;
 class CHandHistoryDealPhase;
 class CHandHistoryAction;
 class CHandHistoryUncontested;
@@ -36,6 +35,7 @@ class CSymbolEngineDealerchair;
 class CSymbolEngineDebug;
 class CSymbolEngineEventLogging;
 class CSymbolEngineFormulaSwitching;
+class CSymbolEngineFunctionCollection;
 class CSymbolEngineGameType;
 class CSymbolEngineHandrank;
 class CSymbolEngineHistory;
@@ -192,7 +192,6 @@ public:
   CSymbolEngineICM *symbol_engine_icm()
     { return p_symbol_engine_icm; }
 private:
-  CFunctionCollection *p_function_collection;
   CSymbolEngineActiveDealtPlaying *p_symbol_engine_active_dealt_playing;
   CSymbolEngineAutoplayer *p_symbol_engine_autoplayer;
   CSymbolEngineBlinds *p_symbol_engine_blinds;
@@ -208,6 +207,7 @@ private:
   CSymbolEngineDebug *p_symbol_engine_debug;
   CSymbolEngineEventLogging *p_symbol_engine_event_logging;
   CSymbolEngineFormulaSwitching *p_symbol_engine_formula_switching;
+  CSymbolEngineFunctionCollection *p_symbol_engine_function_collection;
   CSymbolEngineGameType *p_symbol_engine_gametype;
   CSymbolEngineHandrank *p_symbol_engine_handrank;
   CSymbolEngineHistory *p_symbol_engine_history;
