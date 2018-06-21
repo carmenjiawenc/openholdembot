@@ -14,7 +14,6 @@
 #include "CEngineContainer.h"
 #include <assert.h>
 #include "CBetroundCalculator.h"
-#include "CFunctionCollection.h"
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include "CSymbolEngineAutoplayer.h"
 #include "CSymbolEngineBlinds.h"
@@ -30,7 +29,9 @@
 #include "CSymbolEngineDebug.h"
 #include "CSymbolEngineEventLogging.h"
 #include "CSymbolEngineFormulaSwitching.h"
+#include "CSymbolEngineFunctionCollection.h"
 #include "CSymbolEngineGameType.h"
+#include "CSymbolEngineHandHistoryGenerator.h"
 #include "CSymbolEngineHandrank.h"
 #include "CSymbolEngineHistory.h"
 #include "CSymbolEngineICM.h"
@@ -62,11 +63,6 @@
 #include "UnknownSymbols.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
-///#include "..\HandHistoryGenerator_DLL\CHandHistoryAction.h"
-///#include "..\HandHistoryGenerator_DLL\CHandHistoryDealPhase.h"
-///#include "..\HandHistoryGenerator_DLL\CHandHistoryShowdown.h"
-///#include "..\HandHistoryGenerator_DLL\CHandHistoryUncontested.h"
-///#include "..\HandHistoryGenerator_DLL\CHandHistoryWriter.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\SessionCounter_DLL\CSessionCounter.h"
 #include "..\..\OpenHoldem\CHandresetDetector.h"
@@ -308,14 +304,10 @@ void CEngineContainer::EvaluateAll() {
 		// until OnConnection() got executed.
 		return;
 	}
-	/*#if (FormulaParser() == NULL) {
-		// No formula loaded
-		return;
-	}*/
-	/*#if (FormulaParser()->IsParsing()) {
+	if (FormulaParser()->IsParsing()) {
 		// Not safe to evaluate anything
 		return;
-	}*/
+	}
 	BetroundCalculator()->OnNewHeartbeat();
 	///OpenHoldem()->HandresetDetector()->OnNewHeartbeat();
 	// table-limits depend on betround
@@ -427,7 +419,7 @@ bool CEngineContainer::EvaluateSymbol(const CString name, double *result, bool l
     }
   }
   // Unknown symbol
-  /*#if (OpenHoldem()->FormulaParser()->IsParsing()) {
+  if (FormulaParser()->IsParsing()) {
     // Generate a verbose error-message
     // with line number and code-snippet
     CParseErrors::ErrorUnknownIdentifier(name);

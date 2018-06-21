@@ -20,12 +20,12 @@
 #include "..\..\OpenHoldem\OpenHoldem.h"
 
 void CVirtualSymbolEngine::WarnIfSymbolRequiresMyTurn(CString name) {
-  /*#if (OpenHoldem()->FormulaParser()->IsParsing()) {
+  if (FormulaParser()->IsParsing()) {
     // No error-message while parsing,
     // as we only verify existence, 
     // but don't care about the result.
     return;
-  }*/
+  }
   if (!CasinoInterface()->IsMyTurn()) {
     CString error_message;
     error_message.Format("%s%s%s%s%s%s%s%s",

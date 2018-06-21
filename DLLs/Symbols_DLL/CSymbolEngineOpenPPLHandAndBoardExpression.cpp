@@ -13,13 +13,12 @@
 
 #include "CSymbolEngineOpenPPLHandAndBoardExpression.h"
 #include "CEngineContainer.h"
-///#include "CFormulaParser.h"
-///#include "CParseErrors.h"
 #include "CSymbolEngineCards.h"
 #include "CSymbolEngineIsOmaha.h"
 #include "CSymbolEnginePokerval.h"
 #include "..\CardFunctions.DLL\CardFunctions.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFormulaParser.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Tablestate_DLL\TableState.h"
@@ -98,10 +97,10 @@ void CSymbolEngineOpenPPLHandAndBoardExpression::UpdateOnHeartbeat() {
 }
 
 void CSymbolEngineOpenPPLHandAndBoardExpression::CheckForProbablyMistakenSpadesInsteadOfSuited(CString expression) {
-  /*#if (!OpenHoldem()->FormulaParser()->IsParsing()) {
+  if (!FormulaParser()->IsParsing()) {
     // We want this check and warning only once at parse-time
     return;
-  }*/
+  }
   // This function must only be called if the prefix is hand$ or board$
   assert(expression.GetLength() >= CString("hand$").GetLength());
   // Now we are also sure, that we have enough input for the remaining operations...

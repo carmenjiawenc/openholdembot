@@ -17,6 +17,7 @@
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Tablestate_DLL\TableState.h"
 
 CSymbolEngineUserchair::CSymbolEngineUserchair() {
@@ -70,7 +71,7 @@ void CSymbolEngineUserchair::CalculateUserChair() {
 	}	else {
 		// Either not confirmed or no known cards when it is my turn
 		// Looking for known cards and new chair
-		for (int i=0; 10 /*#i<BasicScraper()->Tablemap()->nchairs()*/; i++)
+		for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)
 		{
 			if (TableState()->Player(i)->HasKnownCards() && IsNotShowdown()) {
 				_userchair = i;

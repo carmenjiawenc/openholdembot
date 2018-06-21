@@ -32,7 +32,9 @@
     <ClCompile Include="CSymbolengineDebug.cpp" />
     <ClCompile Include="CSymbolEngineEventLogging.cpp" />
     <ClCompile Include="CSymbolEngineFormulaSwitching.cpp" />
+    <ClCompile Include="CSymbolEngineFunctionCollection.cpp" />
     <ClCompile Include="CSymbolEngineGameType.cpp" />
+    <ClCompile Include="CSymbolEngineHandHistoryGenerator.cpp" />
     <ClCompile Include="CSymbolEngineHandrank.cpp" />
     <ClCompile Include="CSymbolEngineHistory.cpp" />
     <ClCompile Include="CSymbolEngineICM.cpp" />
@@ -88,7 +90,9 @@
     <ClInclude Include="CSymbolengineDebug.h" />
     <ClInclude Include="CSymbolEngineEventLogging.h" />
     <ClInclude Include="CSymbolEngineFormulaSwitching.h" />
+    <ClInclude Include="CSymbolEngineFunctionCollection.h" />
     <ClInclude Include="CSymbolEngineGameType.h" />
+    <ClInclude Include="CSymbolEngineHandHistoryGenerator.h" />
     <ClInclude Include="CSymbolEngineHandrank.h" />
     <ClInclude Include="CSymbolEngineHistory.h" />
     <ClInclude Include="CSymbolEngineICM.h" />

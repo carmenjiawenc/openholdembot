@@ -14,8 +14,9 @@
 #include "CBetroundCalculator.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
-#include "..\Tablestate_DLL\TableState.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\StringFunctions_DLL\string_functions.h"
+#include "..\Tablestate_DLL\TableState.h"
 
 CBetroundCalculator *p_betround_calculator = NULL;
 
@@ -42,7 +43,7 @@ void CBetroundCalculator::OnNewHeartbeat() {
 	// Betround is a very important prerequisite
 	// to determine what symbols shall be calculated.
 	// So we can hardly do it with a symbol-engine and do it here
-	if (false /*#!p_scraper->IsCommonAnimation()*/) {
+	if (false/*#BasicScraper()->IsCommonAnimation()*/) {
     if (TableState()->RiverCard()->IsKnownCard()) {
 			_betround = kBetroundRiver;
 		} else if (TableState()->TurnCard()->IsKnownCard()) {

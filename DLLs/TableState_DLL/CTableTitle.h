@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -10,9 +11,6 @@
 // Purpose: small data container for the table-title 
 //
 //******************************************************************************
-
-#ifndef INC_CTABLETITLE_H
-#define INC_CTABLETITLE_H
 
 #include <afxwin.h>
 #include "LibDef.h"
@@ -52,5 +50,3 @@ class TABLESTATE_DLL_API CTableTitle /*!!!!!!!: public CSpaceOptimizedGlobalObje
  private:
   static int _ohreplay_framenumber;
 };
-
-#endif INC_CTABLETITLE_H

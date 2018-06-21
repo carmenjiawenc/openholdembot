@@ -22,7 +22,6 @@
 ///#include "CIteratorThread.h"
 ///#include "COpenHoldemHopperCommunication.h"
 ///#include "COpenHoldemStatusbar.h"
-///#include "COpenHoldemTitle.h"
 
 ///#include "CProblemSolver.h"
 #include "..\CGUI.h"

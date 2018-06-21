@@ -33,8 +33,7 @@
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 
-CSymbolEnginePokerTracker::CSymbolEnginePokerTracker()
-{
+CSymbolEnginePokerTracker::CSymbolEnginePokerTracker() {
 	// The values of some symbol-engines depend on other engines.
 	// As the engines get later called in the order of initialization
 	// we assure correct ordering by checking if they are initialized.
@@ -42,9 +41,15 @@ CSymbolEnginePokerTracker::CSymbolEnginePokerTracker()
 	assert(EngineContainer()->symbol_engine_raisers() != NULL);
 	assert(EngineContainer()->symbol_engine_userchair() != NULL);
 	assert(EngineContainer()->symbol_engine_active_dealt_playing() != NULL);
+  // Initialize CPokerTrackerThread
+  _p_poker_tracker_thread = new CPokerTrackerThread;
+  assert(_p_poker_tracker_thread != NULL);
 }
 
 CSymbolEnginePokerTracker::~CSymbolEnginePokerTracker() {
+  assert(_p_poker_tracker_thread != NULL);
+  delete _p_poker_tracker_thread;
+  _p_poker_tracker_thread = NULL;
 }
 
 void CSymbolEnginePokerTracker::InitOnStartup() {
@@ -54,7 +59,7 @@ void CSymbolEnginePokerTracker::InitOnStartup() {
 
 void CSymbolEnginePokerTracker::UpdateOnConnection() {
 	ClearAllStats();
-	EngineContainer()->PokerTrackerThread()->StartThread();
+  _p_poker_tracker_thread->StartThread();
 }
 
 void CSymbolEnginePokerTracker::UpdateOnHandreset() {
@@ -118,7 +123,7 @@ void CSymbolEnginePokerTracker::ClearAllStatsOfChangedPlayers() {
 	write_log(Preferences()->debug_pokertracker(), "[CSymbolEnginePokerTracker] Executing ClearAllStatsOfChangedPlayers()\n");
 	for (int i=0; i<kMaxNumberOfPlayers; i++)
 	{
-		if (EngineContainer()->PokerTrackerThread()->CheckIfNameHasChanged(i))
+		if (_p_poker_tracker_thread->CheckIfNameHasChanged(i))
 		{
 			ClearSeatStats(i, true);
 		}
@@ -171,14 +176,15 @@ bool CSymbolEnginePokerTracker::EvaluateSymbol(const CString name, double *resul
 		return true;
 	}
 	int chair = 0;
-	if (!EngineContainer()->PokerTrackerThread()->IsConnected()) 	{
-		/*#if (!EngineContainer()->symbol_engine_userchair()->userchair_confirmed() || OpenHoldem()->FormulaParser()->IsParsing()) {
+	if (!_p_poker_tracker_thread->IsConnected()) 	{
+		if (!EngineContainer()->symbol_engine_userchair()->userchair_confirmed() 
+      || FormulaParser()->IsParsing()) {
 			// We are not yet seated or formula is getting parsed.
 			// Symbol-lookup happens, because of Formula-validation.
 			// Not a problem, if we do not yet have a DB-connection.
 			// Don't throw a warning here.
       write_log(Preferences()->debug_pokertracker(), "[PokerTracker] Not yet seated or formula parsing.\n");
-		} else*/ {
+		} else {
 			// We are seated and playing, use a PT-symbol,
       // but are not connected to a database
       if (CParseTreeTerminalNodeEndOfFunction::evaluating_defailt_logic()) {
@@ -206,8 +212,6 @@ bool CSymbolEnginePokerTracker::EvaluateSymbol(const CString name, double *resul
     }
 		chair = atoi(last_character);
 	}
-
-
   // Catch undefined chair (e.g. pt_r_-symbol without raisee)
   if (chair < 0) {
     *result = kUndefined;

@@ -16,20 +16,11 @@
 #include <assert.h>
 #include <process.h>
 #include <float.h>
-///#include "CAutoconnector.h"
-///#include "CAutoplayerTrace.h"
 #include "CBetroundCalculator.h"
 #include "CEngineContainer.h"
-///#include "GU>FlagsToolbar().h"
-///#include "CFormulaParser.h"
 #include "inlines/eval.h"
 #include "Chair$Symbols.h"
-///#include "CHandresetDetector.h"
-#include "CIteratorThread.h"
-#include "CPokerTrackerThread.h"
 #include "CSymbolEngineUserchair.h"
-///#include "CWhiteInfoBox.h"
-///#include "OpenHoldem.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
@@ -51,7 +42,6 @@ CSymbolEngineVariousDataLookup::CSymbolEngineVariousDataLookup() {
   assert(TableManagement()->AutoConnector() != NULL);
   assert(p_betround_calculator != NULL);
   assert(OpenHoldem()->HandresetDetector() != NULL);
-  assert(OpenHoldem()->FormulaParser() != NULL);
   assert(SessionCounter() != NULL);
   assert(p_tablemap != NULL);
   assert(TableState()->TableTitle() != NULL);
@@ -88,7 +78,7 @@ void CSymbolEngineVariousDataLookup::UpdateOnHeartbeat() {
 }
 
 bool CSymbolEngineVariousDataLookup::EvaluateSymbol(const CString name, double *result, bool log /* = false */) {
-/*#  FAST_EXIT_ON_OPENPPL_SYMBOLS(name);
+  FAST_EXIT_ON_OPENPPL_SYMBOLS(name);
   // Various symbols below
   // without any optimized lookup.
   // Betting rounds
@@ -108,14 +98,14 @@ bool CSymbolEngineVariousDataLookup::EvaluateSymbol(const CString name, double *
     // We might however want to show a message if we are not yet connected,
     // e.g. in f$ini_function_pn_startup
     write_log(Preferences()->debug_alltherest(), "[CSymbolEngineVariousDataLookup] location Johnny_8\n");
-    if (OpenHoldem()->FormulaParser()->IsParsing()) {
+    if (FormulaParser()->IsParsing()) {
 	    *result = 0;
     } else {
 	    MessageBox_OH_Script_Messages(name);
 	    *result = 0;
     }
   } else if ((memcmp(name, "log$", 4)==0) && (strlen(name)>4)) {
-    if (!OpenHoldem()->FormulaParser()->IsParsing()) {
+    if (!FormulaParser()->IsParsing()) {
       write_log(Preferences()->debug_auto_trace(), 
         "[CSymbolEngineVariousDataLookup] %s -> 0.000 [just logged]\n", name);
       GUI()->WhiteInfoBox()->SetCustomLogMessage(name);
@@ -165,7 +155,7 @@ bool CSymbolEngineVariousDataLookup::EvaluateSymbol(const CString name, double *
     // gets reached during evaluation.
     *result = kUndefined;
     return false;
-  }*/
+  }
   return true;
 }
 
@@ -177,7 +167,7 @@ CString CSymbolEngineVariousDataLookup::SymbolsProvided() {
     "fmax flagbits "
     "session version islobby ispopup"
     "handsplayed handsplayed_headsup ";
-  ///list += RangeOfSymbols("f%i", 0, 19);
+  list += RangeOfSymbols("f%i", 0, 19);
   return list;
 }
 

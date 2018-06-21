@@ -19,7 +19,6 @@
 #include <assert.h>
 #include "CEngineContainer.h"
 ///#include "CFormulaParser.h"
-#include "CFunctionCollection.h"
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include "CSymbolEngineAutoplayer.h"
 #include "CSymbolEngineBlinds.h"
@@ -40,6 +39,7 @@
 #include "CSymbolEngineUserchair.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Formula_DLL\CFormulaParser.h"
+#include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
@@ -81,14 +81,14 @@ CSymbolEngineIniFunctions::~CSymbolEngineIniFunctions() {
 }
 
 void CSymbolEngineIniFunctions::InitOnStartup() {
-  ///RETURN_IF_LOADING_NEW_FORMULA
+  RETURN_IF_LOADING_NEW_FORMULA
   write_log(Preferences()->debug_symbolengine(), "[Symbolengine] CSymbolEngineIniFunctions::InitOnStartup()\n");
   UpdateOnConnection();
   FunctionCollection()->Evaluate(k_standard_function_names[k_init_on_startup], Preferences()->log_ini_functions());
 }
 
 void CSymbolEngineIniFunctions::UpdateOnConnection() {
-  ///RETURN_IF_LOADING_NEW_FORMULA
+  RETURN_IF_LOADING_NEW_FORMULA
   write_log(Preferences()->debug_symbolengine(), "[Symbolengine] CSymbolEngineIniFunctions::UpdateOnConnection()\n");
   FunctionCollection()->Evaluate(k_standard_function_names[k_init_on_connection],
     Preferences()->log_ini_functions());
@@ -96,28 +96,28 @@ void CSymbolEngineIniFunctions::UpdateOnConnection() {
 }
 
 void CSymbolEngineIniFunctions::UpdateOnHandreset(){
-  ///RETURN_IF_LOADING_NEW_FORMULA
+  RETURN_IF_LOADING_NEW_FORMULA
   write_log(Preferences()->debug_symbolengine(), "[Symbolengine] CSymbolEngineIniFunctions::UpdateOnHandreset()\n");
   FunctionCollection()->Evaluate(k_standard_function_names[k_init_on_handreset],
     Preferences()->log_ini_functions());
 }
 
 void CSymbolEngineIniFunctions::UpdateOnNewRound() {
-  ///RETURN_IF_LOADING_NEW_FORMULA
+  RETURN_IF_LOADING_NEW_FORMULA
   write_log(Preferences()->debug_symbolengine(), "[Symbolengine] CSymbolEngineIniFunctions::UpdateOnNewRound()\n");
   FunctionCollection()->Evaluate(k_standard_function_names[k_init_on_new_round],
     Preferences()->log_ini_functions());
 }
 
 void CSymbolEngineIniFunctions::UpdateOnMyTurn() {
-  ///RETURN_IF_LOADING_NEW_FORMULA
+  RETURN_IF_LOADING_NEW_FORMULA
   write_log(Preferences()->debug_symbolengine(), "[Symbolengine] CSymbolEngineIniFunctions::UpdateOnMyTurn()\n");
   FunctionCollection()->Evaluate(k_standard_function_names[k_init_on_my_turn],
     Preferences()->log_ini_functions());
 }
 
 void CSymbolEngineIniFunctions::UpdateOnHeartbeat() {
-  ///RETURN_IF_LOADING_NEW_FORMULA
+  RETURN_IF_LOADING_NEW_FORMULA
   write_log(Preferences()->debug_symbolengine(), "[Symbolengine] CSymbolEngineIniFunctions::UpdateOnHeartbeat()\n");
   write_log(Preferences()->debug_symbolengine(), "[Symbolengine] CSymbolEngineIniFunctions::UpdateOnHeartbeat() evaluating %s\n",
 	  k_standard_function_names[k_init_on_heartbeat]);

@@ -15,16 +15,15 @@
 #include <assert.h>
 #include <math.h>
 #include "CEngineContainer.h"
-#include "CFunctionCollection.h"
 #include "CIteratorThread.h"
 #include "CSymbolEngineIsOmaha.h"
 ///#include "CSymbolenginePokerval.h"
+#include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\..\pokereval\include\poker_defs.h"
 #include "..\..\pokereval\include\rules_std.h"
-
 
 ///!!
 #include "..\..\pokereval\include\pokereval_export.h"
@@ -45,9 +44,15 @@ CSymbolEnginePrwin::CSymbolEnginePrwin() {
   _prwinnow = 0;
   _prlosnow = 0;
   _nopponents_for_prwin = 0;
+  // Iterator thread
+  _p_iterator_thread = new CIteratorThread();
+  assert(_p_iterator_thread != NULL);
 }
 
 CSymbolEnginePrwin::~CSymbolEnginePrwin() {
+  assert(_p_iterator_thread != NULL);
+  delete _p_iterator_thread;
+  _p_iterator_thread = NULL;
 }
 
 void CSymbolEnginePrwin::InitOnStartup() {
@@ -72,8 +77,8 @@ void CSymbolEnginePrwin::UpdateOnNewRound() {
 
 void CSymbolEnginePrwin::UpdateOnMyTurn() {
 	CalculateNOpponents();
-  assert(p_iterator_thread != NULL);
-	///p_iterator_thread->StartPrWinComputationsIfNeeded();
+  assert(IteratorThread() != NULL);
+  IteratorThread()->StartPrWinComputationsIfNeeded();
 	CalculateNhands();
 }
 
@@ -173,11 +178,11 @@ bool CSymbolEnginePrwin::EvaluateSymbol(const CString name, double *result, bool
   FAST_EXIT_ON_OPENPPL_SYMBOLS(name);
 	if (memcmp(name, "pr", 2)==0) {
     if (memcmp(name, "prwin", 5)==0 && strlen(name)==5) {
-      ///*result = p_iterator_thread->prwin();
+      *result = IteratorThread()->prwin();
     } else if (memcmp(name, "prlos", 5)==0 && strlen(name)==5) {
-      ///*result = p_iterator_thread->prlos();
+      *result = IteratorThread()->prlos();
     } else if (memcmp(name, "prtie", 5)==0 && strlen(name)==5) {
-      ///*result = p_iterator_thread->prtie();
+      *result = IteratorThread()->prtie();
     }	else if (memcmp(name, "prwinnow", 8)==0 && strlen(name)==8) {
 			*result = prwinnow();
 		}	else if (memcmp(name, "prlosnow", 8)==0 && strlen(name)==8)	{

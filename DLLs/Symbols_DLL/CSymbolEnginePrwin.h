@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -11,21 +12,18 @@
 //
 //******************************************************************************
 
-#ifndef INC_CSYMBOLENGINEPRWIN_H
-#define INC_CSYMBOLENGINEPRWIN_H
-
 #include "CVirtualSymbolEngine.h"
 #include "assert.h"
 #include "CSymbolEngineUserChair.h"
 #include "CSymbolEngineTableLimits.h"
 
+class CIteratorThread;
 
-class CSymbolEnginePrwin: public CVirtualSymbolEngine
-{
-public:
+class CSymbolEnginePrwin: public CVirtualSymbolEngine {
+ public:
 	CSymbolEnginePrwin();
 	~CSymbolEnginePrwin();
-public:
+ public:
 	// Mandatory reset-functions
 	void InitOnStartup();
 	void UpdateOnConnection();
@@ -33,30 +31,32 @@ public:
 	void UpdateOnNewRound();
 	void UpdateOnMyTurn();
 	void UpdateOnHeartbeat();
-public:
+ public:
 	// Public accessors
 	bool EvaluateSymbol(const CString name, double *result, bool log = false);
 	CString SymbolsProvided();;
-public:
+ public:
 	int nhands()		  { return (_nhandshi + _nhandslo + _nhandsti); }
 	int nhandshi()		{ return _nhandshi; }
 	int nhandslo()		{ return _nhandslo; }
 	int nhandsti()		{ return _nhandsti; }
 	double prwinnow()	{ return _prwinnow; }
 	double prlosnow()	{ return _prlosnow; }
-public:
+ public:
 	int nopponents_for_prwin()	{ return _nopponents_for_prwin; }
-private:
+ public:
+  CIteratorThread* IteratorThread() { return _p_iterator_thread; }
+ private:
 	void CalculateNOpponents();
 	void CalculateNhands();
-private:
+ private:
 	int _nhandshi;
 	int _nhandslo;
 	int _nhandsti;
 	double _prwinnow;
 	double _prlosnow;
-private:
+ private:
 	int _nopponents_for_prwin;
+ private:
+  CIteratorThread* _p_iterator_thread;
 };
-
-#endif INC_CSYMBOLENGINEPRWIN_H

@@ -16,7 +16,7 @@
 ///#include "CSpaceOptimizedGlobalObject.h"
 #include "..\..\pokereval\include\poker_defs.h"
 #include "..\..\pokereval\include\rules_std.h"
-
+#include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 //prwin 1326 chair structure    Matrix 2008-04-29
 struct sprw1326_chair {

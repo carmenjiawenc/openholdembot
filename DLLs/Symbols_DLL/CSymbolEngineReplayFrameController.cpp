@@ -17,7 +17,6 @@
 #include "CSymbolEngineReplayFrameController.h"
 ///#include "CAutoPlayer.h"
 #include "CEngineContainer.h"
-#include "CFunctionCollection.h"
 ///#include "CHeartbeatThread.h"
 ///#include "CLazyScraper.h"
 ///#include "CReplayFrame.h"
@@ -25,6 +24,7 @@
 #include "CSymbolEngineAutoplayer.h"
 #include "CSymbolEngineCasino.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Tablestate_DLL\TableState.h"
@@ -57,7 +57,7 @@ void CSymbolEngineReplayFrameController::UpdateOnMyTurn() {
 }
 
 void CSymbolEngineReplayFrameController::UpdateOnHeartbeat() {
-	/*#if(EngineContainer()->symbol_engine_casino()->ConnectedToOHReplay()){
+	/*#if (EngineContainer()->symbol_engine_casino()->ConnectedToOHReplay()){
     // No point in shooting frames when connected to OHReplay
     write_log(Preferences()->debug_replayframes(), "[CSymbolEngineReplayFrameController] No replay required, as connected to OHReplay\n");
 		return;	

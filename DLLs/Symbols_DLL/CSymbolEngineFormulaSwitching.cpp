@@ -18,9 +18,10 @@
 #include "CSymbolEngineFormulaSwitching.h"
 #include <io.h>
 #include "CEngineContainer.h"
-#include "CFunctionCollection.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Files_DLL\Files.h"
+#include "..\Formula_DLL\CFormulaParser.h"
+#include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
@@ -101,8 +102,7 @@ void CSymbolEngineFormulaSwitching::LoadNewFormulaIfNeeded() {
   CFile logic_file(complete_path,
     CFile::modeRead | CFile::shareDenyWrite);
   CArchive logic_archive(&logic_file, CArchive::load);
-  assert(OpenHoldem()->FormulaParser() != NULL);
-  ///OpenHoldem()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic(logic_archive);
+  FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic(logic_archive);
   write_log_separator(true, "");
   write_log(k_always_log_basic_information,
     "NEW FORMULA: %s\n",

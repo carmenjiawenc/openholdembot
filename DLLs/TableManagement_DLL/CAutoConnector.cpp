@@ -19,7 +19,6 @@
 ///#include "CFlagsToolbar.h"
 ///#include "CHeartbeatThread.h"
 ///#include "CIteratorThread.h"
-///#include "COpenHoldemTitle.h"
 #include "CSharedMem.h"
 ///#include "CTableMapLoader.h"
 #include "CTableManagement.h"

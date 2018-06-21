@@ -14,14 +14,9 @@
 //******************************************************************************
 
 #include "CVirtualSymbolEngine.h"
-///#include <stdint.h>
-///#include "..\..\pokereval\include\pokereval_export.h"
-///#include "..\..\pokereval\include\deck_std.h"
 #include "inlines/eval.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 #include "..\..\Shared\CCritSec\CCritSec.h"
-
-///#define CardMask uint_64; //!!!!!
 
 const int card0_offset[52] = { 0, 62475, 123725, 183750, 242550, 300125, 356475, 411600, 465500, 518175, 569625,
 	619850, 668850, 716625, 763175, 808500, 852600, 895475, 937125, 977550, 1016750,

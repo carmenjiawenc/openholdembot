@@ -257,7 +257,4 @@ void COpenHoldemApp::InitializeThreads() {
   _p_heartbeat_thread = new CHeartbeatThread();
   ///assert(__p_heartbeat_thread != NULL); //duplicate!!!!! prwin missing
   ///__p_heartbeat_thread->StartThread();
-  // Iterator thread
-  ///__p_iterator_thread = new CIteratorThread();
-  ///assert(__p_iterator_thread != NULL);
 }

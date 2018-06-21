@@ -13,21 +13,19 @@
 
 #include "CSymbolEngineUserDLL.h"
 #include "CEngineContainer.h"
-///#include "CFormulaParser.h"
-#include "CFunctionCollection.h"
-///#include "CHandresetDetector.h"
 #include "CIteratorThread.h"
-///#include "COcclusionCheck.h"
+#include "CSymbolenginePrWin.h"
 #include "CSymbolengineVersus.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Formula_DLL\COHScriptList.h"
+#include "..\Formula_DLL\CFormulaParser.h"
+#include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\TableState_DLL\CTableTitle.h"
 #include "..\TableState_DLL\TableState.h"
 #include "..\User_DLL\user.h"
-///#include "..\..\OpenHoldem\COpenHoldemTitle.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 
 CSymbolEngineUserDLL::CSymbolEngineUserDLL() {
@@ -90,16 +88,16 @@ EXE_IMPLEMENTS double GetSymbol(const char* name_of_single_symbol__not_expressio
   str.Format("%s", name_of_single_symbol__not_expression);
   if (strcmp(str, "cmd$recalc") == 0) {
     // restart iterator thread
-    ///p_iterator_thread->RestartPrWinComputations();
+    EngineContainer()->symbol_engine_prwin()->IteratorThread()->RestartPrWinComputations();
     // Recompute versus tables
     EngineContainer()->symbol_engine_versus()->GetCounts();
     // Busy waiting until recalculation got finished.
     // Nothing better to do, as we already evaluate bot-logic,
     // so we can't continue with another heartbeat or something else.
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=111&t=19012
-    ///while (!p_iterator_thread->IteratorThreadComplete()) {
+    while (EngineContainer()->symbol_engine_prwin()->IteratorThread()->IteratorThreadComplete()) {
       Sleep(100);
-    ///}
+    }
     return 0;
   }
   double result = kUndefined;
@@ -110,8 +108,8 @@ EXE_IMPLEMENTS double GetSymbol(const char* name_of_single_symbol__not_expressio
 }
 
 EXE_IMPLEMENTS void* GetPrw1326() {
-  assert(p_iterator_thread != NULL);
-  return (void *)NULL;/// (p_iterator_thread->prw1326());
+  assert(EngineContainer()->symbol_engine_prwin()->IteratorThread() != NULL);
+  return (void*)EngineContainer()->symbol_engine_prwin()->IteratorThread()->prw1326());
 }
 
 EXE_IMPLEMENTS char* GetHandnumber() {
@@ -129,18 +127,18 @@ EXE_IMPLEMENTS char* GetPlayerName(int chair) {
 }
 
 EXE_IMPLEMENTS char* GetTableTitle() {
-  return "";/// GUI()->OpenHoldemTitle()->GetTitle().GetBuffer(); -> tablestate
+  return TableState()->TableTitle()->Title();
 }
 
 EXE_IMPLEMENTS void ParseHandList(const char* name_of_list, const char* list_body) {
   COHScriptList* p_new_list = new COHScriptList(name_of_list, list_body);
-  ///OpenHoldem()->FormulaParser()->ParseFormula(p_new_list);
+  FormulaParser()->ParseFormula(p_new_list);
   FunctionCollection()->Add(p_new_list);
 }
 
 EXE_IMPLEMENTS char* ScrapeTableMapRegion(char* p_region, int& p_returned_lengh) {
   CString result;
-  bool success = true;/// BasicScraper()->EvaluateRegion(p_region, &result);
+  bool success = BasicScraper()->EvaluateRegion(p_region, &result);
   if (success) {
     p_returned_lengh = result.GetLength() + 1;
     char* returnStr = static_cast<char*>(LocalAlloc(LPTR, p_returned_lengh));

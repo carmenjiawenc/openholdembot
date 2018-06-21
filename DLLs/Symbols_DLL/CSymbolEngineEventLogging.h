@@ -28,7 +28,11 @@ public:
 	void UpdateOnNewRound();
 	void UpdateOnMyTurn();
 	void UpdateOnHeartbeat();
+  void UpdateAfterAutoplayerAction(int autoplayer_action_code);
 public:
 	// Public accessors
 	bool EvaluateSymbol(const CString name, double *result, bool log = false);
+private:
+  void LogBasicInfo(const char *action_taken);
+  void LogPlayers();
 };

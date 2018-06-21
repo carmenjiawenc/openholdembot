@@ -13,14 +13,14 @@
 //******************************************************************************
 
 #include "CSymbolEngineEventLogging.h"
-
-/*#include "CAutoconnector.h"
-#include "CAutoplayerTrace.h"
-#include "CHandresetDetector.h"*/
-
+#include "CEngineContainer.h"
+#include "CSymbolEngineChipAmounts.h"
 #include "CSymbolEngineDealerchair.h"
+#include "CSymbolEngineHandrank.h"
+#include "CSymbolEnginePokerval.h"
 #include "CSymbolEngineUserchair.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Tablestate_DLL\TableState.h"
@@ -65,15 +65,19 @@ void CSymbolEngineEventLogging::UpdateOnHeartbeat() {
   //#p_autoplayer_trace->Clear();
 }
 
+void CSymbolEngineEventLogging::UpdateAfterAutoplayerAction(int autoplayer_action_code) {
+  LogPlayers(); 
+  LogBasicInfo("DUMMY"); ///
+  ///Trace
+}
+
 bool CSymbolEngineEventLogging::EvaluateSymbol(const CString name, double *result, bool log /* = false */) {
 	// We don't provide any symbols
 	return false;
 }
 
-
-
-void CAutoplayerTrace::LogBasicInfo(const char *action_taken) {
-  /*#CString	comcards, temp, rank, pokerhand;
+void CSymbolEngineEventLogging::LogBasicInfo(const char *action_taken) {
+  CString	comcards, temp, rank, pokerhand;
   CString	fcra_formula_status;
   int		userchair = EngineContainer()->symbol_engine_userchair()->userchair();
   int		betround  = BetroundCalculator()->betround();
@@ -139,10 +143,10 @@ void CAutoplayerTrace::LogBasicInfo(const char *action_taken) {
   // Also show "BestAction" in the statusbar.
   // This needs to be set exactly once to avoid multiple evaluations
   // of the autoplayer functions
-  GUI()->OpenholdemStatusbar()->SetLastAction(BestAction());*/
+  ///GUI()->OpenholdemStatusbar()->SetLastAction(BestAction());
 }
 
-void CAutoplayerTrace::LogPlayers() {
+void CSymbolEngineEventLogging::LogPlayers() {
   write_log_separator(k_always_log_basic_information, "Players");
   // Logging all players at the table
   // starting at userchair (hero), so that we can easily see all raises behind him

@@ -17,7 +17,6 @@
 //******************************************************************************
 
 #include <map>
-///#include "COHScriptObject.h"
 #include "..\Formula_DLL\CDebugTab.h"
 #include "..\..\Shared\CCritSec\CCritSec.h"
 

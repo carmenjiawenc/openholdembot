@@ -16,7 +16,7 @@
 #include <process.h>
 #include <comdef.h>
 #include "CEngineContainer.h"
-///#include "CLevDistance.h"
+#include "CLevDistance.h"
 #include "CPokerTrackerSiteID.h"
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include "CSymbolEngineAutoplayer.h"
@@ -484,12 +484,12 @@ double CPokerTrackerThread::UpdateStat(int m_chr, int stat)
 
 bool CPokerTrackerThread::QueryName(const char * query_name, const char * scraped_name, char * best_name)
 {
-	int				lev_dist = 0, bestLD = 0, bestLDindex = 0;
-	PGresult		*res = NULL;
-	bool			result = false;
-	///CLevDistance	myLD;
-	int				siteid = 0;
-	double			Levenshtein_distance_matching_factor = 0.3;
+	int          lev_dist = 0, bestLD = 0, bestLDindex = 0;
+	PGresult		 *res = NULL;
+	bool			   result = false;
+	CLevDistance myLD;
+	int          siteid = kUndefinedZero;
+	double       Levenshtein_distance_matching_factor = 0.3;
 
 	//No more unnecessary queries when we don't even have a siteid to check
 	siteid = _pokertracker_size_ID.GetSiteId();
@@ -517,7 +517,7 @@ bool CPokerTrackerThread::QueryName(const char * query_name, const char * scrape
 	if (PQntuples(res) == 1)
 	{
 		char *found_name = PQgetvalue(res, 0, 0);
-    lev_dist = 0;/// myLD.LD(scraped_name, found_name);
+    lev_dist = myLD.LD(scraped_name, found_name);
 		if (	strlen(found_name) >= k_min_name_length_to_skip_lev_dist
 			 || lev_dist <= (int)strlen(found_name) * Levenshtein_distance_matching_factor )
 		{
@@ -540,8 +540,7 @@ bool CPokerTrackerThread::QueryName(const char * query_name, const char * scrape
 		bestLD = 999;
 		for (int i=0; i<PQntuples(res); i++)
 		{
-      lev_dist = 0;/// myLD.LD(scraped_name, PQgetvalue(res, i, 0));
-
+      lev_dist = myLD.LD(scraped_name, PQgetvalue(res, i, 0));
 			if (lev_dist<bestLD && lev_dist<(int)strlen(PQgetvalue(res, i, 0))*Levenshtein_distance_matching_factor ) 
 			{
 				bestLD = lev_dist;

@@ -25,7 +25,6 @@
 
 #include "CSymbolEngineICM.h"
 #include "CEngineContainer.h"
-#include "CFunctionCollection.h"
 #include "CSymbolEngineTableLimits.h"
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include "CSymbolEngineBlinds.h"
@@ -34,6 +33,7 @@
 #include "CSymbolEngineUserchair.h"
 #include "CSymbolEnginePokerAction.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\Preferences_DLL\Preferences.h"

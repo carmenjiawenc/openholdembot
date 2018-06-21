@@ -13,8 +13,8 @@
 //******************************************************************************
 
 #include <map>
-///#include "CSpaceOptimizedGlobalObject.h"
 #include "CPokerTrackerSiteID.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 #include "..\..\postgres\libpq-fe.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
@@ -34,8 +34,7 @@ struct SPlayerData
 
 extern SPlayerData _player_data[kMaxNumberOfPlayers];
 
-class CPokerTrackerThread /*#: public CSpaceOptimizedGlobalObject*/
-{
+class CPokerTrackerThread: public CSpaceOptimizedGlobalObject {
 	friend class CSymbolEnginePokerTracker;
 public:
 	// public functions

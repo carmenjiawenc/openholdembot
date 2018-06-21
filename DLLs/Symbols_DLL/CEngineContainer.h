@@ -12,12 +12,10 @@
 //
 //******************************************************************************
 
-#include "CFunctionCollection.h" //!!!!!
-
-///#include "CSpaceOptimizedGlobalObject.h"
 #include "CVirtualSymbolEngine.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class CPokerTrackerThread;
+class CFunctionCollection;
 class CHandHistoryDealPhase;
 class CHandHistoryAction;
 class CHandHistoryUncontested;
@@ -69,7 +67,7 @@ class CSymbolEngineVariousDataLookup;
 class CSymbolEngineVersus;
 class CSymbolEngineICM;
 
-class CEngineContainer/* !!!!!!!: public CSpaceOptimizedGlobalObject*/ {
+class CEngineContainer: public CSpaceOptimizedGlobalObject {
  public:
   CEngineContainer();
   ~CEngineContainer();
@@ -103,9 +101,6 @@ class CEngineContainer/* !!!!!!!: public CSpaceOptimizedGlobalObject*/ {
   bool _reset_on_connection_executed;
   CString _list_of_symbols;
 public:
-  CPokerTrackerThread *PokerTrackerThread(); ///!!!
-  CFunctionCollection *function_collection()
-    { return p_function_collection; }
   CSymbolEngineActiveDealtPlaying *symbol_engine_active_dealt_playing()
     { return p_symbol_engine_active_dealt_playing; }
   CSymbolEngineAutoplayer *symbol_engine_autoplayer()

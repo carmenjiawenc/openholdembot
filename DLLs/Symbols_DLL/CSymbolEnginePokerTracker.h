@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -11,10 +12,9 @@
 //
 //******************************************************************************
 
-#ifndef INC_CSYMBOLENGINEPOKERTRACKER_H
-#define INC_CSYMBOLENGINEPOKERTRACKER_H
-
 #include "CVirtualSymbolEngine.h"
+
+class CPokerTrackerThread;
 
 class CSymbolEnginePokerTracker: public CVirtualSymbolEngine {
  public:
@@ -40,7 +40,6 @@ class CSymbolEnginePokerTracker: public CVirtualSymbolEngine {
 	void	ClearAllStatsOfChangedPlayers();
 	void	ClearAllStats();
  private:
-	bool	check_for_identity_of_players_executed_this_heartbeat;
+	bool  check_for_identity_of_players_executed_this_heartbeat;
+  CPokerTrackerThread* _p_poker_tracker_thread;
 };
-
-#endif INC_CSYMBOLENGINEPOKERTRACKER_H

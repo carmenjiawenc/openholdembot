@@ -16,10 +16,10 @@
 #include "Card.h"
 #include "CPlayer.h"
 #include "CScrapedMoney.h"
-#include "..\..\OpenHoldem\CSpaceOptimizedGlobalObject.h"
 #include "CTableTitle.h"
 #include "LibDef.h"
 #include "SLimitInfo.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
 // One fake-entry for the case of unknown user-chair
 // This way we can avoid the handling of special cases
