@@ -12,6 +12,11 @@
 //******************************************************************************
 
 #include "CGUI.h"
+#include "dialog_scraper_output\DialogScraperOutput.h"
+#include "MainFrame\MainFrm.h"
+#include "OpenHoldem_title\COpenHoldemTitle.h"
+#include "statusbar\COpenHoldemStatusbar.h"
+#include "Toolbar\CFlagsToolbar.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\Symbols_DLL\CSymbolEngineHandrank.h"
 
@@ -23,12 +28,12 @@ CGUI::~CGUI() {
 
 void CGUI::Update() {
   OpenHoldemTitle()->UpdateTitle();
-  assert(PMainframe() != NULL);
-  PMainframe()->ResetDisplay();
+  assert(MainFrame() != NULL);
+  MainFrame()->ResetDisplay();
   if (DlgScraperOutput()) {
     DlgScraperOutput()->UpdateDisplay();
   }
-  OpenholdemStatusbar()->SetHandrank(_handrank169);
+  ///OpenHoldemStatusbar()->SetHandrank(_handrank169);
   /// To do: set and clear last action in statusbar
   /// Query custom log-message for white info-box
   ///
@@ -56,11 +61,11 @@ void CGUI::Update() {
 }
 
 /// To do: detect and call
-void UpdateOnConnection() {
+void CGUI::UpdateOnConnection() {
   FlagsToolbar()->ResetButtonsOnConnect();
 }
 
-void UpdateOnDisconnection() {
+void CGUI::UpdateOnDisconnection() {
   FlagsToolbar()->UnattachOHFromPokerWindow();
   FlagsToolbar()->ResetButtonsOnDisconnect();
 }

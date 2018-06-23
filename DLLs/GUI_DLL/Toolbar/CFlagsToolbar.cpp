@@ -72,45 +72,6 @@ void CFlagsToolbar::ResetButtonsOnAutoplayerOff() {
   CheckButton(ID_MAIN_TOOLBAR_AUTOPLAYER, false);
 }
 
-bool CFlagsToolbar::GetFlag(int flag_number)
-{
-	ENT
-	if (flag_number>=0 && flag_number<kNumberOfFlags) 
-	{
-		return _flags[flag_number]; 
-	}
-	else 
-	{
-		return false; 
-	}
-}
-
-int CFlagsToolbar::GetFlagMax()
-{
-	int flag_max = -1;
-	for (int i=0; i<kNumberOfFlags; i++)
-	{
-		if (_flags[i])
-		{
-			flag_max = i;
-		}
-	}
-	return flag_max;
-}
-
-long int CFlagsToolbar::GetFlagBits()
-{
-	long int flag_bits = 0;
-	for (int i=0; i<kNumberOfFlags; i++)
-	{
-		if (_flags[i])
-		{
-			flag_bits |= (1 << i);
-		}
-	}
-	return flag_bits;
-}
-
 void CFlagsToolbar::SetFlag(int flag_number, bool new_value)
 {
 	ENT
@@ -294,3 +255,43 @@ bool CFlagsToolbar::IsButtonEnabled(int button_ID)
 {
 	return m_MainToolBar.GetToolBarCtrl().IsButtonEnabled(button_ID);
 }
+
+/*#bool CFlagsToolbar::GetFlag(int flag_number)
+{
+	ENT
+	if (flag_number>=0 && flag_number<kNumberOfFlags) 
+	{
+		return _flags[flag_number]; 
+	}
+	else 
+	{
+		return false; 
+	}
+}
+
+int CFlagsToolbar::GetFlagMax()
+{
+	int flag_max = -1;
+	for (int i=0; i<kNumberOfFlags; i++)
+	{
+		if (_flags[i])
+		{
+			flag_max = i;
+		}
+	}
+	return flag_max;
+}
+
+long int CFlagsToolbar::GetFlagBits()
+{
+	long int flag_bits = 0;
+	for (int i=0; i<kNumberOfFlags; i++)
+	{
+		if (_flags[i])
+		{
+			flag_bits |= (1 << i);
+		}
+	}
+	return flag_bits;
+  }
+  */

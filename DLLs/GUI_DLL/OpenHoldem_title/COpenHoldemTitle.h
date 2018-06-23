@@ -12,6 +12,7 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
 ///#include "CSpaceOptimizedGlobalObject.h"
 
 class COpenHoldemTitle /*#: public CSpaceOptimizedGlobalObject*/

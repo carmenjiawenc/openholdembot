@@ -24,9 +24,6 @@ class CFlagsToolbar: public CWnd {
 	CFlagsToolbar(CFrameWnd *parent_window);
 	~CFlagsToolbar();
  public:
-	bool GetFlag(const int i); 
-	int  GetFlagMax();
-	long int  GetFlagBits();
   void SetFlag(int flag_number, bool new_value);
  public:
 	void ResetButtonsOnConnect();
@@ -43,7 +40,9 @@ class CFlagsToolbar: public CWnd {
  public:
 	afx_msg void OnClickedFlags();
 	DECLARE_MESSAGE_MAP()
- public:  CMyToolBar _tool_bar; private:
+ public:
+  CMyToolBar _tool_bar;
+ private:
 	void CreateMainToolbar();
 	void CreateFlagsToolbar();
 	void AlignToolbars();

@@ -15,6 +15,7 @@
 class CDlgFormulaScintilla;
 class CDlgScraperOutput;
 class CFlagsToolbar;
+class CMainFrame;
 class COpenHoldemStatusbar;
 class COpenHoldemTitle;
 class CWhiteInfoBox;
@@ -27,6 +28,7 @@ public:
   void Update();
 public:
   CFlagsToolbar *FlagsToolbar();
+  CMainFrame *MainFrame();
   COpenHoldemStatusbar* OpenHoldemStatusbar();
   COpenHoldemTitle* OpenHoldemTitle();
   CDlgFormulaScintilla* DlgFormulaScintilla();
@@ -47,7 +49,7 @@ delete(p_flags_toolbar);
 }
 if (p_openholdem_statusbar != NULL) {
 delete p_openholdem_statusbar;
-}*/
+}
 
 
 // Tool bar
@@ -58,3 +60,4 @@ delete p_openholdem_statusbar;
 SetTimer(ENABLE_BUTTONS_TIMER, 50, 0);
 // Start timer that updates status bar
 SetTimer(UPDATE_STATUS_BAR_TIMER, 500, 0);
+*/

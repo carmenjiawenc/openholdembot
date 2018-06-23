@@ -13,8 +13,8 @@
 
 #include "COpenHoldemStatusbar.h"
 #include "..\resource.h"
+#include "..\..\Formula_DLL\CFunctionCollection.h"
 #include "..\..\Symbols_DLL\CEngineContainer.h"
-#include "..\..\Symbols_DLL\CFunctionCollection.h"
 #include "..\..\Scraper_DLL\CBasicScraper.h"
 #include "..\..\Symbols_DLL\CSymbolEngineAutoplayer.h"
 #include "..\..\Symbols_DLL\CSymbolEngineHandrank.h"
