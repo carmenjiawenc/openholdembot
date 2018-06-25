@@ -23,9 +23,7 @@ class CFlagsToolbar: public CWnd {
  public:
 	CFlagsToolbar(CFrameWnd *parent_window);
 	~CFlagsToolbar();
- public:
-  void SetFlag(int flag_number, bool new_value);
- public:
+ public: /// To be refactored to get rid of dependencies!!!
 	void ResetButtonsOnConnect();
 	void ResetButtonsOnDisconnect();
   void ResetButtonsOnAutoplayerOn();

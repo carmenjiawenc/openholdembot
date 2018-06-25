@@ -14,21 +14,13 @@
 #define OPENHOLDEM_HOPPER_COMMUNICATION_DLL_EXPORTS
 
 #include "COpenHoldemHopperCommunication.h"
-/*##include "CAutoConnector.h"
-#include "CFlagsToolbar.h"
-#include "CFormulaParser.h"
-#include "CFunctionCollection.h"
-#include "COpenHoldemTitle.h"
-
-#include "CTableMaploader.h"
-#include "MainFrm.h"
-#include "OpenHoldem.h"*/
 
 #include <afxwin.h>
 #include "..\Debug_DLL\debug.h"
-#include "..\GUI_DLL\CGUI.h"
-#include "..\GUI_DLL\Toolbar\CFlagsToolbar.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\Symbols_DLL\CEngineContainer.h"
+#include "..\Symbols_DLL\CSymbolEngineFlags.h"
+#include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 // WM_APP = 0x8000 = 32768
 // Messages 0..WM_APP reserved for Windows
@@ -59,25 +51,22 @@ LRESULT COpenHoldemHopperCommunication::OnConnectedHwndMessage(WPARAM, LPARAM)
 LRESULT COpenHoldemHopperCommunication::OnSetFlagMessage(WPARAM, LPARAM flag_to_set)
 {
 	write_log(Preferences()->debug_hopper_messages(), "[COpenHoldemHopperCommunication] Received 0x8005: OnSetFlagMessage\n");
-	int _flag_to_set = int(flag_to_set);
-	if ((_flag_to_set < 0) || (_flag_to_set >= kNumberOfFlags))
+	if ((flag_to_set < 0) || (flag_to_set >= kNumberOfFlags))
 	{
 		return false;
 	}
-  ///!!! Verify that pointers are not NULL if we work without gUI
-  GUI()->FlagsToolbar()->SetFlag(_flag_to_set, true);
+  EngineContainer()->symbol_engine_flags()->SetFlag(int(flag_to_set), true);
 	return true;
 }
 
 LRESULT COpenHoldemHopperCommunication::OnResetFlagMessage(WPARAM, LPARAM flag_to_reset)
 {
 	write_log(Preferences()->debug_hopper_messages(), "[COpenHoldemHopperCommunication] Received 0x8006: OnResetFlagMessage\n");
-	int _flag_to_reset = int(flag_to_reset);
-	if ((_flag_to_reset < 0) || (_flag_to_reset >= kNumberOfFlags))
+	if ((flag_to_reset < 0) || (flag_to_reset >= kNumberOfFlags))
 	{
 		return false;
 	}
   ///!!! Verify that pointers are not NULL if we work without gUI
-  GUI()->FlagsToolbar()->SetFlag(_flag_to_reset, false);
+  EngineContainer()->symbol_engine_flags()->SetFlag(int(flag_to_reset), false);
 	return true;
 }

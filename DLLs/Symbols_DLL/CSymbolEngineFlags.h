@@ -38,7 +38,7 @@ class CSymbolEngineFlags: public CVirtualSymbolEngine {
 };
 
 
-
+/*#
   } else if (memcmp(name, "f", 1) == 0 && strlen(name) == 2) {
     if (p_flags_toolbar != NULL) {
       *result = GUI()->FlagsToolbar()->GetFlag(RightDigitCharacterToNumber(name));
@@ -67,4 +67,4 @@ class CSymbolEngineFlags: public CVirtualSymbolEngine {
 	
 	
 	list += RangeOfSymbols("f%i", 0, 19);
-	    "fmax flagbits "
+	    "fmax flagbits "*/

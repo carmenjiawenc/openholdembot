@@ -28,6 +28,7 @@
 #include "CSymbolEngineDealerchair.h"
 #include "CSymbolEngineDebug.h"
 #include "CSymbolEngineEventLogging.h"
+#include "CSymbolEngineFlags.h"
 #include "CSymbolEngineFormulaSwitching.h"
 #include "CSymbolEngineFunctionCollection.h"
 #include "CSymbolEngineGameType.h"
@@ -227,6 +228,9 @@ void CEngineContainer::CreateSymbolEngines() {
   // CSymbolEnginePokerTracker
   p_symbol_engine_pokertracker = new CSymbolEnginePokerTracker;
   AddSymbolEngine(p_symbol_engine_pokertracker);
+  // CSymbolEngineFlags
+  p_symbol_engine_flags = new CSymbolEngineFlags;
+  AddSymbolEngine(p_symbol_engine_flags);
   // CSymbolEngineIniFunctions
   // "depends" on all other engines,
   // as it can only be called after all symbols have been initialized.
@@ -462,4 +466,14 @@ void CEngineContainer::BuildListOfSymbolsProvided() {
     // Extra blank to avoid unexpected concatenation of symbols
     _list_of_symbols.Append(" ");
   }
+}
+
+CEngineContainer* engine_container = NULL;
+
+CEngineContainer* EngineContainer() {
+  if (engine_container == NULL) {
+    // Lazy initialization 
+    engine_container = new CEngineContainer;
+  }
+  return engine_container;
 }

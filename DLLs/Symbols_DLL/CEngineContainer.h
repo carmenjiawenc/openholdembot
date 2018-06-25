@@ -34,6 +34,7 @@ class CSymbolEngineConstants;
 class CSymbolEngineDealerchair;
 class CSymbolEngineDebug;
 class CSymbolEngineEventLogging;
+class CSymbolEngineFlags;
 class CSymbolEngineFormulaSwitching;
 class CSymbolEngineFunctionCollection;
 class CSymbolEngineGameType;
@@ -129,6 +130,8 @@ public:
     { return p_symbol_engine_debug; }
   CSymbolEngineEventLogging *symbol_engine_event_logging()
     { return p_symbol_engine_event_logging; }
+  class CSymbolEngineFlags *symbol_engine_flags()
+    { return p_symbol_engine_flags; }
   CSymbolEngineFormulaSwitching *symbol_engine_formula_switching()
     { return p_symbol_engine_formula_switching; }
   CSymbolEngineGameType *symbol_engine_gametype()
@@ -206,6 +209,7 @@ private:
   CSymbolEngineDealerchair *p_symbol_engine_dealerchair;
   CSymbolEngineDebug *p_symbol_engine_debug;
   CSymbolEngineEventLogging *p_symbol_engine_event_logging;
+  CSymbolEngineFlags *p_symbol_engine_flags;
   CSymbolEngineFormulaSwitching *p_symbol_engine_formula_switching;
   CSymbolEngineFunctionCollection *p_symbol_engine_function_collection;
   CSymbolEngineGameType *p_symbol_engine_gametype;

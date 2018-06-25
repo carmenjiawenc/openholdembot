@@ -1237,13 +1237,3 @@ CString CSymbolEnginePokerval::SymbolsProvided() {
   list_of_symbols += RangeOfSymbols("suitbitscommon%d", StdDeck_Suit_FIRST, StdDeck_Suit_LAST);
   return list_of_symbols;
 }
-
-CEngineContainer* engine_container = NULL;
-
-CEngineContainer* EngineContainer() {
-  if (engine_container == NULL) {
-    // Lazy initialization 
-    engine_container = new CEngineContainer;
-  }
-  return engine_container;
-}
