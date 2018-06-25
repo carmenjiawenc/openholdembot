@@ -8,18 +8,21 @@
 //
 //******************************************************************************
 //
-// Purpose: base class for formula objects 
-//   that use memory-pools
+// Purpose: starting and terminating bots automatically
 //
 //******************************************************************************
 
-class CSpaceOptimizedFormulaObject {
+// For time_t
+#include <corecrt.h>
+#include "Libdef.h"
+
+class PROCESS_MANAGEMEMT__DLL_API COpenHoldemStarter {
 public:
-  CSpaceOptimizedFormulaObject() {}
-  ~CSpaceOptimizedFormulaObject() {}
+  COpenHoldemStarter();
+  ~COpenHoldemStarter();
 public:
-  void* operator new(size_t size);
-public:
-  void operator delete(void* ptr) {}
+  void StartNewInstanceIfNeeded();
+  void CloseThisInstanceIfNoLongerNeeded();
 private:
+  time_t _starting_time_of_last_instance;
 };

@@ -14,9 +14,9 @@
 //
 //******************************************************************************
 
-///#include "CSpaceOptimizedGlobalObject.h"
+#include "LibDef.h"
 
-class CWatchdog /*#: public CSpaceOptimizedGlobalObject */{
+class PROCESS_MANAGEMEMT__DLL_API CWatchdog /*#: public CSpaceOptimizedGlobalObject */{
 public:
   CWatchdog();
   ~CWatchdog();

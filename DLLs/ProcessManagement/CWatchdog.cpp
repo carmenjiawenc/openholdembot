@@ -13,14 +13,15 @@
 //
 //******************************************************************************
 
+#define PROCESS_MANAGEMEMT_DLL_EXPORTS
+
 #include "CWatchdog.h"
-#include "CSharedMem.h"
-#include "CTableManagement.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\SessionCounter_DLL\CSessionCounter.h"
+#include "..\TableManagement_DLL\CSharedMem.h"
+#include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
-///#include "OpenHoldem.h"
 
 // CWatchdog uses the same shared memory segment like CSharedMem
 #pragma data_seg(kOpenHoldemSharedmemorySegment) // names are limited to 8 chars, including the dot.

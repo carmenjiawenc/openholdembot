@@ -8,21 +8,9 @@
 //
 //******************************************************************************
 //
-// Purpose: starting and terminating bots automatically
+// Purpose: calculating betsizes for betpot-actions,
+//   mainly for backup-actions if we have to enter the bet textually.
 //
 //******************************************************************************
 
-// For time_t
-#include "corecrt.h"
-
-class COpenHoldemStarter {
-public:
-  COpenHoldemStarter();
-  ~COpenHoldemStarter();
-public:
-  void StartNewInstanceIfNeeded();
-  void CloseThisInstanceIfNoLongerNeeded();
-private:
-  time_t _starting_time_of_last_instance;
-};
-
+double BetsizeForBetpot(int betpot_action_code);

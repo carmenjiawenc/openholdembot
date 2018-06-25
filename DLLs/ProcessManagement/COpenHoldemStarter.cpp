@@ -11,14 +11,21 @@
 //
 //******************************************************************************
 
-#include "stdafx.h"
+#define PROCESS_MANAGEMEMT_DLL_EXPORTS
+
 #include "COpenHoldemStarter.h"
-#include "CAutoConnector.h"
-#include "CSharedMem.h"
-#include "OpenHoldem.h"
-#include "..\DLLs\SessionCounter_DLL\CSessionCounter.h"
-#include "..\DLLs\Symbols_DLL\CEngineContainer.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineTime.h"
+///#include "CAutoConnector.h"
+///#include "CSharedMem.h"
+///#include "OpenHoldem.h"
+#include "..\Debug_DLL\debug.h"
+#include "..\Files_DLL\Files.h"
+#include "..\Preferences_DLL\Preferences.h"
+#include "..\SessionCounter_DLL\CSessionCounter.h"
+#include "..\Symbols_DLL\CEngineContainer.h"
+#include "..\Symbols_DLL\CSymbolEngineTime.h"
+#include "..\TableManagement_DLL\CSharedMem.h"
+#include "..\TableManagement_DLL\CTableManagement.h"
+#include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 // For connection and popup handling
 const int kMinNumberOfUnoccupiedBotsNeeded =   1;
@@ -103,5 +110,5 @@ void COpenHoldemStarter::CloseThisInstanceIfNoLongerNeeded() {
     return;
   }
   write_log(Preferences()->debug_autostarter(), "[COpenHoldemStarter] Shutting down this instance.\n");
-  PostMessage(theApp.m_pMainWnd->GetSafeHwnd(), WM_QUIT, NULL, NULL); //!!!!! Will no longer work without window
+  ///PostMessage(theApp.m_pMainWnd->GetSafeHwnd(), WM_QUIT, NULL, NULL); //!!!!! Will no longer work without window
 }
