@@ -140,7 +140,7 @@ void CSymbolEngineEventLogging::LogBasicInfo(const char *action_taken) {
   write_log(k_always_log_basic_information, "  Buttons:       %s\n",    fcra_seen.GetString());
   // !! "Best action" is undefined if the executed action
   // is "something else" like a hopper function
-  write_log(k_always_log_basic_information, "  Best action:   %s\n", BestAction().GetString());
+  ///write_log(k_always_log_basic_information, "  Best action:   %s\n", BestAction().GetString());
   write_log(k_always_log_basic_information, "  Action taken:  %s\n",    action_taken);
   write_log_separator(k_always_log_basic_information, "");
   // Also show "BestAction" in the statusbar.

@@ -20,6 +20,8 @@
 ///#include "../CTablemap/CTableMapAccess.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\SessionCounter_DLL\CSessionCounter.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 

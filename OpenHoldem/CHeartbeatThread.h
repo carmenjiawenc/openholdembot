@@ -13,7 +13,7 @@
 //******************************************************************************
 
 #include "CHeartbeatDelay.h"
-#include "COpenHoldemStarter.h"
+#include "..\DLLs\ProcessManagement\COpenHoldemStarter.h"
 #include "..\Shared\CCritSec\CCritSec.h"
 ///#include "CSpaceOptimizedGlobalObject.h"
 

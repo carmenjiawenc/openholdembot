@@ -16,7 +16,6 @@
 #include "CPopupHandler.h"
 #include "CSharedMem.h"
 #include "CTablePositioner.h"
-#include "CWatchdog.h"
 
 class CTableManagement {
 public:

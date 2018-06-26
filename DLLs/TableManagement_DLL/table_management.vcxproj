@@ -16,7 +16,6 @@
     <ClInclude Include="CSharedMem.h" />
     <ClInclude Include="CTableManagement.h" />
     <ClInclude Include="CTablePositioner.h" />
-    <ClInclude Include="CWatchdog.h" />
     <ClInclude Include="LibDef.h" />
   </ItemGroup>
   <ItemGroup>
@@ -24,7 +23,6 @@
     <ClCompile Include="CPopupHandler.cpp" />
     <ClCompile Include="CSharedMem.cpp" />
     <ClCompile Include="CTablePositioner.cpp" />
-    <ClCompile Include="CWatchdog.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BFF9AF3C-0FDE-46B5-A2EA-2C077B353A78}</ProjectGuid>

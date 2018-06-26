@@ -13,7 +13,7 @@
 //******************************************************************************
 
 ///#include "CSpaceOptimizedGlobalObject.h"
-#include <WinDef.h>
+#include <afxwin.h>
 
 class CTablePositioner /*#: public CSpaceOptimizedGlobalObject */{
  public:
