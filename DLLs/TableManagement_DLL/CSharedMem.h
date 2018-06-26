@@ -13,6 +13,8 @@
 //
 //******************************************************************************
 
+#include "LibDef.h"
+
 ///#include "CSpaceOptimizedGlobalObject.h"
 
 // Shared memory to coordinate the auto-connectors
@@ -34,7 +36,7 @@
 // If you changes this name you also have to change the linker pragmas
 #define kOpenHoldemSharedmemorySegment ".ohshmem"
 
-class CSharedMem /*#: public CSpaceOptimizedGlobalObject */{
+class TABLE_MANAGEMENT_DLL_API CSharedMem /*#: public CSpaceOptimizedGlobalObject */{
  public:
 	CSharedMem();
 	~CSharedMem();

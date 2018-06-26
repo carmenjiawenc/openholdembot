@@ -32,6 +32,8 @@
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\StringFunctions_DLL\string_functions.h"
+#include "..\TableManagement_DLL\CAutoConnector.h"
+#include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 
@@ -660,7 +662,7 @@ void CPokerTrackerThread::GetStatsForChair(LPVOID pParam, int chair, int sleepTi
 	if (pParent->_connected && PQstatus(pParent->_pgconn) == CONNECTION_OK)
 	{
     write_log(Preferences()->debug_alltherest(), "[CPokerTrackerThread] location Johnny_7\n");
-		///if (TableManagement()->AutoConnector()->IsConnectedToAnything())
+		if (TableManagement()->AutoConnector()->IsConnectedToAnything())
 		{
 			for (int i=0; i<PT_DLL_GetNumberOfStats(); i++)
 			{

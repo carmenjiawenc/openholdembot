@@ -12,10 +12,11 @@
 //
 //******************************************************************************
 
+#include "LibDef.h"
 ///#include "CSpaceOptimizedGlobalObject.h"
 #include <afxwin.h>
 
-class CTablePositioner /*#: public CSpaceOptimizedGlobalObject */{
+class TABLE_MANAGEMENT_DLL_API CTablePositioner /*#: public CSpaceOptimizedGlobalObject */{
  public:
 	CTablePositioner();
 	~CTablePositioner();

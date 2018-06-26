@@ -1,4 +1,4 @@
-#pragma once
+#pragma once 
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -8,25 +8,12 @@
 //
 //******************************************************************************
 //
-// Purpose: 
+// Purpose: single import/export macro for all header-files
 //
 //******************************************************************************
 
-#include "LibDef.h"
-
-#include "CAutoConnector.h"
-#include "CPopupHandler.h"
-#include "CSharedMem.h"
-#include "CTablePositioner.h"
-
-class TABLE_MANAGEMENT_DLL_API CTableManagement {
-public:
-  CTableManagement();
-  ~CTableManagement();
-public:
-  CAutoConnector *AutoConnector();
-  CPopupHandler *PopupHandler();
-  CSharedMem *SharedMem();
-};
-
-CTableManagement *TableManagement();
+#ifdef TABLE_MANAGEMENT_DLL_EXPORTS
+#define TABLE_MANAGEMENT_DLL_API __declspec(dllexport)
+#else
+#define TABLE_MANAGEMENT_DLL_API __declspec(dllimport)
+#endif

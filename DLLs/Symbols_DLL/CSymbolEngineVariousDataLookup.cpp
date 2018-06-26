@@ -29,6 +29,8 @@
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\Scraper_DLL\CTransform\CTransform.h"
 #include "..\SessionCounter_DLL\CSessionCounter.h"
+#include "..\TableManagement_DLL\CAutoConnector.h"
+#include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\Tablestate_DLL\CTableTitle.h"
 #include "..\WindowFunctions_DLL\window_functions.h"

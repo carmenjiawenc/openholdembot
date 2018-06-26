@@ -13,13 +13,14 @@
 //
 //******************************************************************************
 
+#include "LibDef.h"
 #include <afxmt.h>
 #include <afxwin.h>
 #include "CPopupHandler.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
 ///#include "CSpaceOptimizedGlobalObject.h"
 
-class CAutoConnector /*#: public CSpaceOptimizedGlobalObject */{
+class TABLE_MANAGEMENT_DLL_API CAutoConnector /*#: public CSpaceOptimizedGlobalObject */{
  public:
 	CAutoConnector();
 	~CAutoConnector();

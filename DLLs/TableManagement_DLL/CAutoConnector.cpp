@@ -12,6 +12,8 @@
 //
 //******************************************************************************
 
+#define TABLE_MANAGEMENT_DLL_EXPORTS
+
 #include "CAutoConnector.h"
 #include <afxwin.h>
 ///#include "CAutoplayer.h"
@@ -38,8 +40,6 @@
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Scraper_DLL\CTransform\CTransform.h"
 #include "..\StringFunctions_DLL\string_functions.h"
-#include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CPokerTrackerThread.h"
 #include "..\TableMapLoader_DLL\CTableMapLoader.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
@@ -313,7 +313,7 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
       ///CasinoInterface()->Reset();
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Table state cleared\n");
       // Reset symbols
-			EngineContainer()->UpdateOnConnection();
+			///EngineContainer()->UpdateOnConnection();
       write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] UpdateOnConnection executed (during connection)\n");
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Going to continue with scraper output and scraper DLL\n");
       // log OH title bar text and table reset
@@ -348,7 +348,7 @@ void CAutoConnector::Disconnect(CString reason_for_disconnection) {
 	ASSERT(_autoconnector_mutex->m_hObject != NULL); 
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Locking autoconnector-mutex\n");
   _autoconnector_mutex->Lock(INFINITE); 
-	EngineContainer()->UpdateOnDisconnection();
+	///EngineContainer()->UpdateOnDisconnection();
 	// Clear "attached" info
 	set_attached_hwnd(NULL);
 	// Release mutex as soon as possible, after critical work is done
@@ -360,7 +360,7 @@ void CAutoConnector::Disconnect(CString reason_for_disconnection) {
 	TableState()->Reset();
   ///CasinoInterface()->Reset();
 	// Reset symbols
-	EngineContainer()->UpdateOnConnection();
+	///EngineContainer()->UpdateOnConnection();
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] UpdateOnConnection executed (disconnection)\n");
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Going to continue with window title\n");
   CString message;

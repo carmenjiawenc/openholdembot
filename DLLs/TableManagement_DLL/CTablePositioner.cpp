@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define TABLE_MANAGEMENT_DLL_EXPORTS
+
 #include "CTablePositioner.h"
 #include <WinDef.h>
 #include <Winuser.h>

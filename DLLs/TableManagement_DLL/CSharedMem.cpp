@@ -12,6 +12,8 @@
 //
 //******************************************************************************
 
+#define TABLE_MANAGEMENT_DLL_EXPORTS
+
 #include "CSharedMem.h"
 #include "..\Checksums_DLL\crc32hash.h"
 #include "..\Debug_DLL\debug.h"

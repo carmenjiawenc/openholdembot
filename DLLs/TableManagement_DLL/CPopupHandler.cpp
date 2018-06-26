@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define TABLE_MANAGEMENT_DLL_EXPORTS
+
 #include "CPopupHandler.h"
 #include "CSharedMem.h"
 #include "CTableManagement.h"
