@@ -14,6 +14,8 @@
 
 #include "CSymbolEngineEventLogging.h"
 #include "CEngineContainer.h"
+#include "CBetroundCalculator.h"
+#include "CHandresetDetector.h"
 #include "CSymbolEngineAutoplayer.h"
 #include "CSymbolEngineChipAmounts.h"
 #include "CSymbolEngineDealerchair.h"
@@ -83,7 +85,7 @@ void CSymbolEngineEventLogging::LogBasicInfo(const char *action_taken) {
   CString	comcards, temp, rank, pokerhand;
   CString	fcra_formula_status;
   int		userchair = EngineContainer()->symbol_engine_userchair()->userchair();
-  int		betround  = BetroundCalculator()->betround();
+  int		betround  = EngineContainer()->BetroundCalculator()->betround();
   // Player cards
   // There always exists a user, if not then we have a fake-player. ;-)
   assert(TableState()->User() != NULL);
@@ -122,7 +124,7 @@ void CSymbolEngineEventLogging::LogBasicInfo(const char *action_taken) {
   // The old WinHoldem format was a complete mess
   write_log_separator(k_always_log_basic_information, "Basic Info");
   write_log(k_always_log_basic_information, "  Version:       %s\n",    VERSION_TEXT);
-  write_log(k_always_log_basic_information, "  Handnumber:    %s\n",    OpenHoldem()->HandresetDetector()->GetHandNumber());
+  write_log(k_always_log_basic_information, "  Handnumber:    %s\n",    EngineContainer()->HandresetDetector()->GetHandNumber());
   write_log(k_always_log_basic_information, "  Chairs:        %5d\n",   BasicScraper()->Tablemap()->nchairs());
   write_log(k_always_log_basic_information, "  Userchair:     %5d\n",   userchair);
   write_log(k_always_log_basic_information, "  Holecards:     %s\n",    player_cards.GetString());

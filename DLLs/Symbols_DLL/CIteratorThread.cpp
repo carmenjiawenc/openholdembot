@@ -11,27 +11,24 @@
 //
 //******************************************************************************
 
-#include "stdafx.h"
 #include "CIteratorThread.h"
 #include <process.h>
-#include "COpenHoldemStatusbar.h"
-#include "CValidator.h"
 #include "mtrand.h"
-#include "PrWinHandranges.h"
 #include "inlines/eval.h"
-#include "..\DLLs\Scraper_DLL\CScraper.h"
-#include "..\DLLs\Symbols_DLL\CBetroundCalculator.h"
-#include "..\DLLs\Symbols_DLL\CEngineContainer.h"
-#include "..\DLLs\Symbols_DLL\CFunctionCollection.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineActiveDealtPlaying.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineAutoplayer.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineBlinds.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineChipAmounts.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineHistory.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineIsOmaha.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEnginePokerval.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEnginePrwin.h"
-#include "..\DLLs\Tablestate_DLL\TableState.h"
+#include "CBetroundCalculator.h"
+#include "CEngineContainer.h"
+#include "CSymbolEngineActiveDealtPlaying.h"
+#include "CSymbolEngineAutoplayer.h"
+#include "CSymbolEngineBlinds.h"
+#include "CSymbolEngineChipAmounts.h"
+#include "CSymbolEngineHistory.h"
+#include "CSymbolEngineIsOmaha.h"
+#include "CSymbolEnginePokerval.h"
+#include "CSymbolEnginePrwin.h"
+#include "PrWinHandranges.h"
+#include "..\Debug_DLL\debug.h"
+#include "..\Preferences_DLL\Preferences.h"
+#include "..\Tablestate_DLL\TableState.h"
 
 CIteratorThread	*p_iterator_thread = NULL;
 HANDLE CIteratorThread::_m_stop_thread; //!!
@@ -330,7 +327,6 @@ void CIteratorThread::UpdateIteratorVarsForDisplay() {
 		_prlos = _los / (double) _iterations_calculated;
 		write_log(Preferences()->debug_prwin(), "[PrWinThread] Progress: %d %.3f %.3f %.3f\n", 
 			_iterations_calculated, _prwin, _prtie, _prlos);
-    GUI()->OpenholdemStatusbar()->SetPrWin(_prwin, _prtie, _prlos);
 	}
 }
 
@@ -377,7 +373,7 @@ void CIteratorThread::CalculateTotalWeights()
 }
 
 void CIteratorThread::InitNumberOfIterations() {
-	_iterations_required = FunctionCollection()->Evaluate(
+	_iterations_required = EngineContainer()->symbol_engine_function_collection()->Evaluate(
 		k_standard_function_names[k_prwin_number_of_iterations], Preferences()->log_prwin_functions());
 }
 
@@ -415,14 +411,14 @@ void CIteratorThread::InitIteratorLoop() {
 	}
 
 	//Weighted prwin only for nopponents <=13
-  _topclip = FunctionCollection()->Evaluate("f$prwin_topclip", Preferences()->log_prwin_functions());
-  _mustplay = FunctionCollection()->Evaluate("f$prwin_mustplay", Preferences()->log_prwin_functions());
-	_willplay = FunctionCollection()->Evaluate("f$prwin_willplay", Preferences()->log_prwin_functions());
-	_wontplay = FunctionCollection()->Evaluate("f$prwin_wontplay", Preferences()->log_prwin_functions());
+  _topclip = EngineContainer()->symbol_engine_function_collection()->Evaluate("f$prwin_topclip", Preferences()->log_prwin_functions());
+  _mustplay = EngineContainer()->symbol_engine_function_collection()->Evaluate("f$prwin_mustplay", Preferences()->log_prwin_functions());
+	_willplay = EngineContainer()->symbol_engine_function_collection()->Evaluate("f$prwin_willplay", Preferences()->log_prwin_functions());
+	_wontplay = EngineContainer()->symbol_engine_function_collection()->Evaluate("f$prwin_wontplay", Preferences()->log_prwin_functions());
 	// Call prw1326 callback if needed
 	if (_prw1326.useme==1326 
 		  && _prw1326.usecallback==1326 
-		  && (p_betround_calculator->betround()!= kBetroundPreflop
+		  && (EngineContainer()->BetroundCalculator()->betround()!= kBetroundPreflop
 			  || _prw1326.preflop==1326) ){
 		_prw1326.prw_callback(); //Matrix 2008-05-09
 	}
@@ -768,6 +764,6 @@ int CIteratorThread::EnhancedDealingAlgorithm() {
 
 bool CIteratorThread::UseEnhancedPrWin() {
 	return (_prw1326.useme==1326 
-		&& (p_betround_calculator->betround() >= kBetroundFlop 
+		&& (EngineContainer()->BetroundCalculator()betround() >= kBetroundFlop
 			|| _prw1326.preflop==1326));
 }

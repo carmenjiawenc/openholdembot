@@ -12,6 +12,7 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
 #include "inlines/eval.h"
 ///#include "CSpaceOptimizedGlobalObject.h"
 #include "..\..\pokereval\include\poker_defs.h"
@@ -62,6 +63,8 @@ class CIteratorThread /*!!!!!: public CSpaceOptimizedGlobalObject */{
  public:
   // For the DLL "cmd$recalc"
   void RestartPrWinComputations();
+public:
+  void* prw1326(); /// to do !!!
 #undef ENT
  private:
 	// private functions and variables - not available via accessors or mutators

@@ -36,4 +36,4 @@ private:
 	int _betround_previous_heartbeat;
 };
 
-CBetroundCalculator* BetroundCalculator(); 
+CBetroundCalculator* BetroundCalculator(); ///R!!!

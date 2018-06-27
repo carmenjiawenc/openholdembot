@@ -13,13 +13,17 @@
 //******************************************************************************
 
 #include "CVirtualSymbolEngine.h"
-#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
+///#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
+///to be removed???
 class CHandHistoryDealPhase;
 class CHandHistoryAction;
 class CHandHistoryUncontested;
 class CHandHistoryShowdown;
 class CHandHistoryWriter;
+
+class CBetroundCalculator;
+class CHandresetDetector; 
 class CSymbolEngineActiveDealtPlaying;
 class CSymbolEngineAutoplayer;
 class CSymbolEngineBlinds;
@@ -102,6 +106,12 @@ class CEngineContainer: public CSpaceOptimizedGlobalObject {
   bool _reset_on_connection_executed;
   CString _list_of_symbols;
 public:
+  CBetroundCalculator *BetroundCalculator() {
+    return NULL; ///!!!
+  }
+  CHandresetDetector *HandresetDetector() {
+    return NULL; ///!!!
+  }
   CSymbolEngineActiveDealtPlaying *symbol_engine_active_dealt_playing()
     { return p_symbol_engine_active_dealt_playing; }
   CSymbolEngineAutoplayer *symbol_engine_autoplayer()

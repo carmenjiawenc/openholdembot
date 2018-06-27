@@ -15,6 +15,7 @@
     <ClCompile Include="CBlindGuesser.cpp" />
     <ClCompile Include="CBlindLevels.cpp" />
     <ClCompile Include="CEngineContainer.cpp" />
+    <ClCompile Include="CIteratorThread.cpp" />
     <ClCompile Include="CLevDistance.cpp" />
     <ClCompile Include="CPokerTrackerSiteID.cpp" />
     <ClCompile Include="CPokerTrackerThread.cpp" />
@@ -74,6 +75,7 @@
     <ClInclude Include="CBlindGuesser.h" />
     <ClInclude Include="CBlindLevels.h" />
     <ClInclude Include="CEngineContainer.h" />
+    <ClInclude Include="CHandresetDetector.h" />
     <ClInclude Include="CLevDistance.h" />
     <ClInclude Include="CPokerTrackerSiteID.h" />
     <ClInclude Include="CPokerTrackerThread.h" />
@@ -205,6 +207,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>E:\OpenHoldem\pokereval\include\inlines;E:\OpenHoldem\pokereval\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ShowIncludes>true</ShowIncludes>
+      <AdditionalOptions>/W1 /EHsc %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)Symbols.dll</OutputFile>

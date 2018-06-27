@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -11,8 +12,6 @@
 //   that use memory-pools
 //
 //******************************************************************************
-
-#pragma once
 
 #include <assert.h>
 #include "CMemoryPool.h"

@@ -14,6 +14,7 @@
 #include "CEngineContainer.h"
 #include <assert.h>
 #include "CBetroundCalculator.h"
+#include "CHandresetDetector.h"
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include "CSymbolEngineAutoplayer.h"
 #include "CSymbolEngineBlinds.h"
@@ -70,7 +71,6 @@
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\SessionCounter_DLL\CSessionCounter.h"
-#include "..\..\OpenHoldem\CHandresetDetector.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 
 //!!!

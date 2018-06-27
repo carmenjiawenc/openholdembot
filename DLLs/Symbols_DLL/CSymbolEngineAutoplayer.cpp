@@ -149,7 +149,7 @@ void CSymbolEngineAutoplayer::CalculateFinalAnswer() {
 	if (_isfinalanswer)	{
 		///p_stableframescounter->UpdateNumberOfStableFrames();
 	}
-  write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Number of stable frames: % d\n", p_stableframescounter->NumberOfStableFrames());
+  ///write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Number of stable frames: % d\n", p_stableframescounter->NumberOfStableFrames());
   CString delay_function = k_standard_function_names[k_standard_function_delay];
   double desired_delay_in_milli_seconds = FunctionCollection()->Evaluate(delay_function, Preferences()->log_delay_function());
   double milli_seconds_since_my_turn = EngineContainer()->symbol_engine_time()->elapsedmyturn() * 1000;

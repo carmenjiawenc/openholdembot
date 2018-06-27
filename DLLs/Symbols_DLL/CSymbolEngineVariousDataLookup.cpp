@@ -18,6 +18,7 @@
 #include <float.h>
 #include "CBetroundCalculator.h"
 #include "CEngineContainer.h"
+#include "CHandresetDetector.h"
 #include "inlines/eval.h"
 #include "Chair$Symbols.h"
 #include "CSymbolEngineUserchair.h"
@@ -34,6 +35,7 @@
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\Tablestate_DLL\CTableTitle.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
+#include "..\..\OpenHoldem\stdafx.h"
 
 CSymbolEngineVariousDataLookup *p_symbol_engine_various_data_lookup = NULL;
 
@@ -87,8 +89,8 @@ bool CSymbolEngineVariousDataLookup::EvaluateSymbol(const CString name, double *
   else if (memcmp(name, "session", 7)==0 && strlen(name)==7)	*result = SessionCounter()->session_id();
   else if (memcmp(name, "version", 7)==0 && strlen(name)==7)	*result = VERSION_NUMBER;
   // Handreset
-  else if (memcmp(name, "handsplayed", 11)==0 && strlen(name)==11) *result = OpenHoldem()->HandresetDetector()->hands_played();
-  else if (memcmp(name, "handsplayed_headsup", 19)==0 && strlen(name)==19)  *result = OpenHoldem()->HandresetDetector()->hands_played_headsup();
+  else if (memcmp(name, "handsplayed", 11)==0 && strlen(name)==11) *result = EngineContainer()->HandresetDetector()->hands_played();
+  else if (memcmp(name, "handsplayed_headsup", 19)==0 && strlen(name)==19)  *result = EngineContainer()->HandresetDetector()->hands_played_headsup();
   else if (name == kEmptyExpression_False_Zero_WhenOthersFoldForce) { *result = kUndefinedZero; }
   // OH-script-messagebox
   else if (memcmp(name, "msgbox$", 7)==0 && strlen(name)>7) {

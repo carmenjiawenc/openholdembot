@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -10,9 +11,6 @@
 // Purpose: Determining hand-ranges for weighted PrWin
 //
 //******************************************************************************
-
-#ifndef INC_PRWINHANDRANGES_H
-#define INC_PRWINHANDRANGES_H
 
 bool IsHandInWeightedRange(const int card1, const int card2, 
 							const int willplay, const int wontplay, 
@@ -33,5 +31,3 @@ bool IsHandInWeightedRange(const int card1, const int card2,
 	(with the current statistics available in OH only willplay and wontplay should be used.
 	 mustplay and topclip are debatable constructs at the best of times 2008-01-29)
 	*/
-
-#endif

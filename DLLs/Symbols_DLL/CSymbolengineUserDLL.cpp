@@ -109,7 +109,7 @@ EXE_IMPLEMENTS double GetSymbol(const char* name_of_single_symbol__not_expressio
 
 EXE_IMPLEMENTS void* GetPrw1326() {
   assert(EngineContainer()->symbol_engine_prwin()->IteratorThread() != NULL);
-  return (void*)EngineContainer()->symbol_engine_prwin()->IteratorThread()->prw1326());
+  return (void*)EngineContainer()->symbol_engine_prwin()->IteratorThread()->prw1326();
 }
 
 EXE_IMPLEMENTS char* GetHandnumber() {
@@ -127,7 +127,7 @@ EXE_IMPLEMENTS char* GetPlayerName(int chair) {
 }
 
 EXE_IMPLEMENTS char* GetTableTitle() {
-  return TableState()->TableTitle()->Title()
+  return TableState()->TableTitle()->Title().GetBuffer();
 }
 
 EXE_IMPLEMENTS void ParseHandList(const char* name_of_list, const char* list_body) {
@@ -137,9 +137,8 @@ EXE_IMPLEMENTS void ParseHandList(const char* name_of_list, const char* list_bod
 }
 
 EXE_IMPLEMENTS char* ScrapeTableMapRegion(char* p_region, int& p_returned_lengh) {
-  CString result;
-  bool success = BasicScraper()->EvaluateRegion(p_region, &result);
-  if (success) {
+  CString result = BasicScraper()->ScrapeRegion(p_region);
+  if (result.GetLength() > 0) {
     p_returned_lengh = result.GetLength() + 1;
     char* returnStr = static_cast<char*>(LocalAlloc(LPTR, p_returned_lengh));
     strcat(returnStr, result);
