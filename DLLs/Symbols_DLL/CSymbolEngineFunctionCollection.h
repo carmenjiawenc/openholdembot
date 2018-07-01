@@ -17,6 +17,7 @@
 //
 //******************************************************************************
 
+#define _ALLOW_KEYWORD_MACROS
 #include "CVirtualSymbolEngine.h"
 
 // We make the wrapper of the collection a symbol-engine because of 

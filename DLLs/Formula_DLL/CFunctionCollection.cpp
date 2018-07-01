@@ -16,6 +16,8 @@
 //
 //******************************************************************************
 
+#define FORMULA_DLL_EXPORTS
+
 #include "CFunctionCollection.h"
 #include "CFunction.h"
 #include "CParseErrors.h"

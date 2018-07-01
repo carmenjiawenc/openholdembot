@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define FORMULA_DLL_EXPORTS
+
 #include "COHScriptList.h"
 
 ///#include "..\CardFunctions.DLL\CardFunctions.h"

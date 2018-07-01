@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -11,13 +12,11 @@
 //
 //******************************************************************************
 
-#ifndef INC_CPARSETREETERMINALNODEIDENTIFIER_H
-#define INC_CPARSETREETERMINALNODEIDENTIFIER_H
-
 #include <afxwin.h>
 #include "CParsetreeTerminalNode.h"
+#include "LibDef.h"
 
-class CParseTreeTerminalNodeIdentifier: public CParseTreeTerminalNode {
+class FORMULA_DLL_API CParseTreeTerminalNodeIdentifier: public CParseTreeTerminalNode {
   friend class CFormulaParser;
   friend class CParseTreeRotator;
  public:
@@ -42,5 +41,3 @@ class CParseTreeTerminalNodeIdentifier: public CParseTreeTerminalNode {
 };
 
 typedef CParseTreeTerminalNodeIdentifier *TPParseTreeTerminalNodeIdentifier;
-
-#endif INC_CPARSETREETERMINALNODEIDENTIFIER_H

@@ -11,6 +11,7 @@
 //
 //******************************************************************************
 
+#define FORMULA_DLL_EXPORTS
  
 #include "CParseTreeTerminalNodeIdentifier.h"
 

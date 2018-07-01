@@ -73,8 +73,6 @@
 #include "..\SessionCounter_DLL\CSessionCounter.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 
-//!!!
-#include "..\CasinoInterface_DLL\CCasinoInterface.h"
 /*##include "CAutoplayerTrace.h"
 
 #include "CFormulaParser.h"
@@ -332,9 +330,9 @@ void CEngineContainer::EvaluateAll() {
 	if (BetroundCalculator()->IsNewBetround())	{
 		UpdateOnNewRound();
 	}
-	if (CasinoInterface()->IsMyTurn())	{
+	/*#if (CasinoInterface()->IsMyTurn())	{
 		UpdateOnMyTurn();
-	}
+	}*/
 	// And finally UpdateOnHeartbeat() gets always called.
 	UpdateOnHeartbeat();
 }

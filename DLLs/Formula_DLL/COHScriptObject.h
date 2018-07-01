@@ -14,12 +14,13 @@
 
 #include <afxwin.h>
 ///#include "CSpaceOptimizedFormulaObject.h"
+#include "LibDef.h"
 
 // Either auto-generated for completion
 // or created with the editor
 const CString kNoSourceFileForThisCode = "no source file";
 
-class COHScriptObject //!!!: public CSpaceOptimizedFormulaObject
+class FORMULA_DLL_API COHScriptObject //!!!: public CSpaceOptimizedFormulaObject
 {
   friend class CFunctionCollection;
  public:

@@ -16,6 +16,8 @@
 //
 //******************************************************************************
 
+#define FORMULA_DLL_EXPORTS
+
 #include "CFormulaParser.h"
 #include <assert.h>
 #include <io.h>

@@ -159,6 +159,7 @@ const int kLastPot = kMaxNumberOfPots - 1;
 
 // Flags
 const int kNumberOfFlags = 20;
+const int kLastFlag = (kNumberOfFlags - 1);
 
 // Suits and ranks
 const int k_number_of_suits_per_deck  =  4;

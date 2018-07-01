@@ -8,7 +8,8 @@
 //
 //******************************************************************************
 //
-// Purpose: 
+// Purpose: container-class for table-related functionality
+//   like auto-connector and popup-hanlder.
 //
 //******************************************************************************
 
@@ -24,9 +25,25 @@ public:
   CTableManagement();
   ~CTableManagement();
 public:
-  CAutoConnector *AutoConnector();
-  CPopupHandler *PopupHandler();
-  CSharedMem *SharedMem();
+  CAutoConnector *AutoConnector() {
+     return &_auto_connector;
+  }
+  CPopupHandler *PopupHandler() {
+    return &_popup_handler;
+  }
+  CSharedMem *SharedMem() {
+    return &_shared_mem;
+  }
+  CTablePositioner *TablePositioner() {
+    return &_table_positioner;
+  }
+private:
+  // CSharedMem shared_mem first, because order of initialization matters.
+  // The auto-connector needs it.
+  CSharedMem _shared_mem;
+  CAutoConnector _auto_connector;
+  CPopupHandler _popup_handler;
+  CTablePositioner _table_positioner;
 };
 
-CTableManagement *TableManagement();
+TABLE_MANAGEMENT_DLL_API CTableManagement *TableManagement();

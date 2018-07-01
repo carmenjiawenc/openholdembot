@@ -14,8 +14,9 @@
 //******************************************************************************
 
 #include <afxwin.h>
+#include "LibDef.h"
 
-class CParseErrors {
+class FORMULA_DLL_API CParseErrors {
  public:
   CParseErrors();
   ~CParseErrors();

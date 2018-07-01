@@ -15,7 +15,7 @@
 //
 //******************************************************************************
 
-#include <afxtempl.h>
+#include <afxwin.h>
 #include <map>
 #include "LibDef.h"
 

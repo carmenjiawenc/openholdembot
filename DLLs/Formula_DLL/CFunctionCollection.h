@@ -17,6 +17,7 @@
 //******************************************************************************
 
 #include <map>
+#include "LibDef.h"
 #include "..\Formula_DLL\CDebugTab.h"
 #include "..\..\Shared\CCritSec\CCritSec.h"
 
@@ -26,7 +27,7 @@ class COHScriptObject;
 // * reset-functions 
 // * Evaluate()-function,
 // * SymbolsProvided() for syntax-highlighting
-class CFunctionCollection {
+class FORMULA_DLL_API CFunctionCollection {
   friend class CAutoplayerFunctions;
   friend class CBetsizeInputBox;
   friend class CCasinoInterface;
@@ -115,4 +116,4 @@ class CFunctionCollection {
   CCritSec m_critsec;
 };
 
-CFunctionCollection* FunctionCollection();
+FORMULA_DLL_API CFunctionCollection* FunctionCollection();

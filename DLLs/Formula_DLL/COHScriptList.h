@@ -15,6 +15,7 @@
 #include <afxwin.h>
 #include "COHScriptObject.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
+#include "LibDef.h"
 
 typedef bool THandListMatrix[k_number_of_ranks_per_deck][k_number_of_ranks_per_deck];
 //   2 3 4 5 6 7 8 9 T J Q K A
@@ -32,7 +33,7 @@ typedef bool THandListMatrix[k_number_of_ranks_per_deck][k_number_of_ranks_per_d
 // K                       A   
 // A                         I
 
-class COHScriptList: public COHScriptObject {
+class FORMULA_DLL_API COHScriptList: public COHScriptObject {
   friend class DialogHandList;
  public:
   COHScriptList(

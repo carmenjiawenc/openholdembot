@@ -13,6 +13,9 @@
 //
 //******************************************************************************
 
+///!!!
+#define _ALLOW_KEYWORD_MACROS
+
 #include <map>
 #include "CVirtualSymbolEngine.h"
 

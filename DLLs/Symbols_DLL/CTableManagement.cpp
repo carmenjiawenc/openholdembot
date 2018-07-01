@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -8,12 +8,11 @@
 //
 //******************************************************************************
 //
-// Purpose: single import/export macro for all header-files
+// Purpose: container-class for table-related functionality
+//   like auto-connector and popup-hanlder.
 //
 //******************************************************************************
 
-#ifdef FORMULA_DLL_EXPORTS
-#define FORMULA_DLL_API __declspec(dllexport)
-#else
-#define FORMULA_DLL_API __declspec(dllimport)
-#endif
+#define TABLE_MANAGEMENT_DLL_EXPORTS
+
+#include "CTab"

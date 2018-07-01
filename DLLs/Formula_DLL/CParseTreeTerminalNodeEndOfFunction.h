@@ -16,7 +16,7 @@
 #include "CParsetreeTerminalNodeIdentifier.h"
 #include "LibDef.h"
 
-FORMULA_DLL_API class CParseTreeTerminalNodeEndOfFunction: public CParseTreeTerminalNodeIdentifier {
+class FORMULA_DLL_API CParseTreeTerminalNodeEndOfFunction: public CParseTreeTerminalNodeIdentifier {
   friend class CFormulaParser;
   friend class CParseTreeRotator;
  public:
@@ -32,4 +32,3 @@ FORMULA_DLL_API class CParseTreeTerminalNodeEndOfFunction: public CParseTreeTerm
 };
 
 typedef CParseTreeTerminalNodeEndOfFunction *TPParseTreeTerminalNodeEndOfFunction;
-

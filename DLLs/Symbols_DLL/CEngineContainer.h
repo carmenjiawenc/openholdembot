@@ -72,7 +72,7 @@ class CSymbolEngineVariousDataLookup;
 class CSymbolEngineVersus;
 class CSymbolEngineICM;
 
-class CEngineContainer: public CSpaceOptimizedGlobalObject {
+class CEngineContainer/*#: public CSpaceOptimizedGlobalObject*/ {
  public:
   CEngineContainer();
   ~CEngineContainer();
@@ -144,6 +144,8 @@ public:
     { return p_symbol_engine_flags; }
   CSymbolEngineFormulaSwitching *symbol_engine_formula_switching()
     { return p_symbol_engine_formula_switching; }
+  CSymbolEngineFunctionCollection *symbol_engine_function_collection()
+    { return p_symbol_engine_function_collection; }
   CSymbolEngineGameType *symbol_engine_gametype()
     { return p_symbol_engine_gametype; }
   CSymbolEngineHandrank *symbol_engine_handrank()

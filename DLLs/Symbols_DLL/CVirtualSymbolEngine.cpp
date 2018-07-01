@@ -26,7 +26,7 @@ void CVirtualSymbolEngine::WarnIfSymbolRequiresMyTurn(CString name) {
     // but don't care about the result.
     return;
   }
-  if (!CasinoInterface()->IsMyTurn()) {
+  /*#if (!CasinoInterface()->IsMyTurn()) {
     CString error_message;
     error_message.Format("%s%s%s%s%s%s%s%s",
       "The symbol \"", name, "\"\n",
@@ -36,7 +36,7 @@ void CVirtualSymbolEngine::WarnIfSymbolRequiresMyTurn(CString name) {
       "like Raises, Calls, CallsSinceLastRaise, ...\n",
       "which use basic OpenHoldem-symbols.)");
     MessageBox_Error_Warning(error_message, "Warning");
-  }
+  }*/
 }
 
 void CVirtualSymbolEngine::WarnIfSymbolIsHoldemOnly(CString name) {

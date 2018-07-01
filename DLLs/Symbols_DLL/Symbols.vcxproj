@@ -33,6 +33,7 @@
     <ClCompile Include="CSymbolengineDealerchair.cpp" />
     <ClCompile Include="CSymbolengineDebug.cpp" />
     <ClCompile Include="CSymbolEngineEventLogging.cpp" />
+    <ClCompile Include="CSymbolEngineFlags.cpp" />
     <ClCompile Include="CSymbolEngineFormulaSwitching.cpp" />
     <ClCompile Include="CSymbolEngineFunctionCollection.cpp" />
     <ClCompile Include="CSymbolEngineGameType.cpp" />
@@ -93,6 +94,7 @@
     <ClInclude Include="CSymbolEngineDealerchair.h" />
     <ClInclude Include="CSymbolengineDebug.h" />
     <ClInclude Include="CSymbolEngineEventLogging.h" />
+    <ClInclude Include="CSymbolEngineFlags.h" />
     <ClInclude Include="CSymbolEngineFormulaSwitching.h" />
     <ClInclude Include="CSymbolEngineFunctionCollection.h" />
     <ClInclude Include="CSymbolEngineGameType.h" />
@@ -194,7 +196,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;secur32.lib;$(OutDir)files.lib;$(OutDir)string_functions.lib;$(OutDir)window_functions.lib;$(OutDir)TableState.lib;$(OutDir)numerical_functions.lib;$(OutDir)CBasicScraper.lib;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)Preferences.lib;$(OutDir)CardFunctions.lib;$(OutDir)Formula.lib;$(OutDir)Debug.lib;$(OutDir)Session_Counter.lib;..\..\lib\libpq.lib;..\..\pokereval\Release\poker-eval.lib;"$(OutDir)Reference User DLL.lib";%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;secur32.lib;$(OutDir)files.lib;$(OutDir)string_functions.lib;$(OutDir)window_functions.lib;$(OutDir)TableState.lib;$(OutDir)numerical_functions.lib;$(OutDir)CBasicScraper.lib;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)Preferences.lib;$(OutDir)CardFunctions.lib;$(OutDir)Formula.lib;$(OutDir)Debug.lib;$(OutDir)SessionCounter.lib;..\..\lib\libpq.lib;..\..\pokereval\Release\poker-eval.lib;"$(OutDir)Reference User DLL.lib";%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -216,7 +218,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;secur32.lib;$(OutDir)files.lib;$(OutDir)string_functions.lib;$(OutDir)window_functions.lib;$(OutDir)TableState.lib;$(OutDir)numerical_functions.lib;$(OutDir)CBasicScraper.lib;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)Preferences.lib;$(OutDir)CardFunctions.lib;$(OutDir)Formula.lib;$(OutDir)Debug.lib;$(OutDir)Session_Counter.lib;..\..\lib\libpq.lib;..\..\pokereval\Release\poker-eval.lib;"$(OutDir)Reference User DLL.lib";%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;secur32.lib;$(OutDir)files.lib;$(OutDir)string_functions.lib;$(OutDir)window_functions.lib;$(OutDir)TableState.lib;$(OutDir)numerical_functions.lib;$(OutDir)CBasicScraper.lib;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)Preferences.lib;$(OutDir)CardFunctions.lib;$(OutDir)Formula.lib;$(OutDir)Debug.lib;$(OutDir)SessionCounter.lib;..\..\lib\libpq.lib;..\..\pokereval\Release\poker-eval.lib;"$(OutDir)Reference User DLL.lib";%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

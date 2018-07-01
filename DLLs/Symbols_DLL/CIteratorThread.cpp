@@ -21,6 +21,7 @@
 #include "CSymbolEngineAutoplayer.h"
 #include "CSymbolEngineBlinds.h"
 #include "CSymbolEngineChipAmounts.h"
+#include "CSymbolEngineFunctionCollection.h"
 #include "CSymbolEngineHistory.h"
 #include "CSymbolEngineIsOmaha.h"
 #include "CSymbolEnginePokerval.h"
@@ -30,7 +31,6 @@
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Tablestate_DLL\TableState.h"
 
-CIteratorThread	*p_iterator_thread = NULL;
 HANDLE CIteratorThread::_m_stop_thread; //!!
 
 // Static variables
@@ -104,7 +104,7 @@ CIteratorThread::CIteratorThread() {
 
 CIteratorThread::~CIteratorThread() {
 	write_log(Preferences()->debug_prwin(), "[PrWinThread] Iterator Thread ending...\n");
-  assert(p_iterator_thread != NULL);
+  ///R!!!assert(p_iterator_thread != NULL);
 	if (_m_stop_thread)
 	{
 		// Trigger thread to die
@@ -117,7 +117,7 @@ CIteratorThread::~CIteratorThread() {
 		::CloseHandle(_m_stop_thread);
 		::CloseHandle(_m_wait_thread);
 	}
-	p_iterator_thread = NULL;
+	///R!!!p_iterator_thread = NULL;
 
 	write_log(Preferences()->debug_prwin(), "[PrWinThread] Iterator Thread ended.\n");
 }
@@ -763,7 +763,7 @@ int CIteratorThread::EnhancedDealingAlgorithm() {
 }
 
 bool CIteratorThread::UseEnhancedPrWin() {
-	return (_prw1326.useme==1326 
-		&& (EngineContainer()->BetroundCalculator()betround() >= kBetroundFlop
-			|| _prw1326.preflop==1326));
+	return ((_prw1326.useme == 1326) 
+		&& (EngineContainer()->BetroundCalculator()->betround() >= kBetroundFlop
+			|| (_prw1326.preflop == 1326)));
 }

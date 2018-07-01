@@ -30,8 +30,9 @@
 #include "CShankySymbolNameTranslator.h"
 ///#include "CSpaceOptimizedGlobalObject.h"
 #include "CTokenizer.h"
+#include "LibDef.h"
 
-class CFormulaParser /*: public CSpaceOptimizedGlobalObject */{
+class FORMULA_DLL_API CFormulaParser /*: public CSpaceOptimizedGlobalObject */{
   friend class CDebugTab;
  public:
   CFormulaParser();
@@ -118,4 +119,4 @@ class CFormulaParser /*: public CSpaceOptimizedGlobalObject */{
   COHScriptObject* _currently_parsed_function_or_list;
 };
 
-CFormulaParser* FormulaParser();
+FORMULA_DLL_API CFormulaParser* FormulaParser();

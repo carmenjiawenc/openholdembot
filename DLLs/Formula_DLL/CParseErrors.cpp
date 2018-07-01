@@ -12,6 +12,8 @@
 //
 //******************************************************************************
 
+#define FORMULA_DLL_EXPORTS
+
 #include "CParseErrors.h"
 #include "CFormulaParser.h"
 #include "CTokenizer.h"

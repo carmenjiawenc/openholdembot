@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define FORMULA_DLL_EXPORTS
+
 #include "COHScriptObject.h"
 #include "CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"

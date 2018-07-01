@@ -15,7 +15,6 @@
 #include <assert.h>
 #include "CEngineContainer.h"
 #include "CSymbolEngineIsTournament.h"
-#include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Tablestate_DLL\TableState.h"
 
 CSymbolEngineGameType	*p_symbol_engine_gametype = NULL;
@@ -65,9 +64,9 @@ void CSymbolEngineGameType::UpdateOnHeartbeat() {
     // Known type. Can't go back to FL/PL.
     return;
   }
-  if (CasinoInterface()->AllinOptionAvailable()) {
+  /*#if (CasinoInterface()->AllinOptionAvailable()) {
     _gametype = kGametypeNL;
-  } else if (isfl()) {
+  } else*/ if (isfl()) {
     // FL or unknown ATM.
     // Might also be PL, but there is no good way to detect.
   }
