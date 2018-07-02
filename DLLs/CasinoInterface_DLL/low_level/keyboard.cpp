@@ -11,7 +11,6 @@
 //
 //******************************************************************************
 
-
 #ifndef VC_EXTRALEAN
 #define VC_EXTRALEAN		// Exclude rarely-used stuff from Windows headers
 #endif
@@ -36,6 +35,7 @@
 
 #include <math.h>
 #include "keyboard.h"
+#include "mouse.h"
 #include "..\..\Numerical_Functions_DLL\Numerical_Functions.h"
 
 const int Shift   = 1;
@@ -137,28 +137,4 @@ int SendKey(const HWND hwnd, const RECT rect, UINT vkey)
 	SendInput(input_count, input, sizeof(INPUT));
   Sleep(20);
 	return (int) true;
-}
-
-const POINT RandomizeClickLocation(const RECT rect) 
-{
-	POINT p = {0};
-
-	// uniform random distribution, yuck!
-	//p.x = ((double) rand() / (double) RAND_MAX) * (rect.right-rect.left) + rect.left;
-	//p.y = ((double) rand() / (double) RAND_MAX) * (rect.bottom-rect.top) + rect.top;
-
-	// normal random distribution - much better!
-	GetClickPoint(rect.left + (rect.right-rect.left)/2, 
-				  rect.top + (rect.bottom-rect.top)/2, 
-				  (rect.right-rect.left)/2, 
-				  (rect.bottom-rect.top)/2, 
-				  &p);
-
-	return p;
-}
-
-const void GetClickPoint(const int x, const int y, const int rx, const int ry, POINT *p) 
-{
-	p->x = x + (int) (RandomNormalScaled(2*rx, 0, 1) + 0.5) - (rx);
-	p->y = y + (int) (RandomNormalScaled(2*ry, 0, 1) + 0.5) - (ry);
 }

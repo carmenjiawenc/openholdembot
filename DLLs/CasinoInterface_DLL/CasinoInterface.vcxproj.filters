@@ -8,15 +8,12 @@
     <ClCompile Include="low_level\mouse.cpp">
       <Filter>Low_Level</Filter>
     </ClCompile>
-    <ClCompile Include="AllinAdjustment.cpp" />
     <ClCompile Include="BringKeyboard.cpp" />
     <ClCompile Include="CAllinSlider.cpp" />
     <ClCompile Include="CAutoplayerButton.cpp" />
     <ClCompile Include="CBetsizeInputBox.cpp" />
     <ClCompile Include="CCasinoHotkey.cpp" />
     <ClCompile Include="CCasinoInterface.cpp" />
-    <ClCompile Include="COcclusionCheck.cpp" />
-    <ClCompile Include="SwagAdjustment.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PokerChat.hpp" />
@@ -26,16 +23,13 @@
     <ClInclude Include="low_level\mouse.h">
       <Filter>Low_Level</Filter>
     </ClInclude>
-    <ClInclude Include="AllinAdjustment.h" />
     <ClInclude Include="BringKeyboard.h" />
     <ClInclude Include="CAllinSlider.h" />
     <ClInclude Include="CAutoplayerButton.h" />
     <ClInclude Include="CBetsizeInputBox.h" />
     <ClInclude Include="CCasinoHotkey.h" />
     <ClInclude Include="CCasinoInterface.h" />
-    <ClInclude Include="COcclusionCheck.h" />
     <ClInclude Include="LibDef.h" />
-    <ClInclude Include="SwagAdjustment.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Low_Level">

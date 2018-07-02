@@ -32,7 +32,7 @@ double MinimumBetsizeDueToPreviousRaise() {
 	double minimums_swag_amount = (EngineContainer()->symbol_engine_chip_amounts()->call() 
 		+ EngineContainer()->symbol_engine_chip_amounts()->sraiprev());
 	// If there are no bets and no raises the min-bet is 1 big-blind
-	if (minimums_swag_amount <= 0)	{
+	/*#if (minimums_swag_amount <= 0)	{
 		if (EngineContainer()->symbol_engine_tablelimits()->bblind() > 0) 	{
 			write_log(Preferences()->debug_betsize_adjustment(), "[BetsizeAdjustment] MinimumBetsizeDueToPreviousRaise: set to 1 big-blind\n");
 			minimums_swag_amount = EngineContainer()->symbol_engine_tablelimits()->bblind();
@@ -41,7 +41,7 @@ double MinimumBetsizeDueToPreviousRaise() {
 			// Setting it to the absolute minimum
 			minimums_swag_amount = 0.02;
 		}
-	}
+	}*/
 	write_log(Preferences()->debug_betsize_adjustment(), "[BetsizeAdjustment] MinimumBetsizeDueToPreviousRaise: %.2f\n", minimums_swag_amount);
 	assert(minimums_swag_amount > 0);
 	return minimums_swag_amount;
@@ -166,13 +166,13 @@ double RoundToBeautifulBetsize(const double amount_to_raise_to) {
       "[BetsizeAdjustment] RoundToBeautifulBetsize: no rounding, because betsize is a multiple of big-blind\n");
     // But don~t return anzthing here.
     // Continue with rounding gor large numbers (later)
-  } else if (amount_to_raise_to < (10 * EngineContainer()->symbol_engine_tablelimits()->sblind())) {
+  /*#} else if (amount_to_raise_to < (10 * EngineContainer()->symbol_engine_tablelimits()->sblind())) {
     // Small numbers
     // Round to multiples of SB
     result = Rounding(amount_to_raise_to, EngineContainer()->symbol_engine_tablelimits()->sblind());
     write_log(Preferences()->debug_betsize_adjustment(),
       "[BetsizeAdjustment] Rounding to multiples of SB %.2f\n", result);
-  } else {
+  */} else {
     // "Large" numbers
     // Round to multiples of BB
     result = Rounding(amount_to_raise_to, EngineContainer()->symbol_engine_tablelimits()->bblind());

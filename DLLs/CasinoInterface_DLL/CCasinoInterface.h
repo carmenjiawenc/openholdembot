@@ -18,14 +18,14 @@
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 ///#include "CSpaceOptimizedGlobalObject.h"
 
-class CCasinoInterface /*: public CSpaceOptimizedGlobalObject */{
+class CCasinoInterface /*: public CSpaceOptimizedGlobalObject */ {
   friend class CAllinSlider;
   friend class CAutoplayer;
   friend class CScraper;
   friend class CSymbolEngineAutoplayer;
  public:
-	CCasinoInterface();
-	~CCasinoInterface();
+  CCasinoInterface();
+  ~CCasinoInterface();
  public:
   void Reset();
  public:

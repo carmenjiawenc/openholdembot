@@ -14,23 +14,14 @@
 #include "CCasinoInterface.h"
 ///#include "CMyMutex.h"
 #include "PokerChat.hpp"
-#include "SwagAdjustment.h"
 #include "low_level\keyboard.h"
 #include "low_level\mouse.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
-#include "..\Symbols_DLL\CBetroundCalculator.h"
-#include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CSymbolEngineCasino.h"
-#include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
-#include "..\Symbols_DLL\CSymbolEngineHistory.h"
-#include "..\Symbols_DLL\CSymbolEngineRandom.h"
-#include "..\Symbols_DLL\CSymbolEngineTime.h"
 #include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\Tablestate_DLL\TableState.h"
-///#include "..\CTableMap\CTableMapAccess.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\OpenHoldem\OpenHoldem.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
@@ -84,7 +75,7 @@ void CCasinoInterface::ClickRect(RECT rect) {
 	write_log(Preferences()->debug_autoplayer(), "[CasinoInterface] Calling mouse.dll to single click button: %d,%d %d,%d\n", 
     rect.left, rect.top, rect.right, rect.bottom);
 	MouseClick(TableManagement()->AutoConnector()->attached_hwnd(), rect, MouseLeft, 1);
-  EngineContainer()->symbol_engine_time()->UpdateOnAutoPlayerAction();
+  /// Not here, and call everything EngineContainer()->symbol_engine_time()->UpdateOnAutoPlayerAction();
 }
 
 bool CCasinoInterface::ClickButtonSequence(int first_button, int second_button, int delay_in_milli_seconds) {
@@ -307,8 +298,16 @@ bool CCasinoInterface::SitenameContainsCasinoIdentifier(const char *casino) {
   return (sitename.Find(casino) >= 0);
 }
 
-
-
 bool CCasinoInterface::IsMyTurn() {
   return (NumberOfVisibleAutoplayerButtons() >= k_min_buttons_needed_for_my_turn);
+}
+
+CCasinoInterface* casino_interface = NULL;
+
+CCasinoInterface* CasinoInterface() {
+  if (casino_interface == NULL) {
+    // Lazy initialization 
+    casino_interface = new CCasinoInterface;
+  }
+  return casino_interface;
 }

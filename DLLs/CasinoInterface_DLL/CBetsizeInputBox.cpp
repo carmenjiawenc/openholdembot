@@ -15,7 +15,7 @@
 ///#include "CAutoConnector.h"
 ///#include "CAutoplayerTrace.h"
 #include "CCasinoInterface.h"
-#include "SwagAdjustment.h"
+///#include "SwagAdjustment.h"
 #include "low_level\keyboard.h"
 #include "low_level\mouse.h"
 #include "..\Debug_DLL\debug.h"
@@ -86,7 +86,7 @@ bool CBetsizeInputBox::EnterBetsize(double total_betsize_in_dollars) {
     lost_focus = true;
   }
   // SWAG AMOUNT ENTRY
-  double swag_adjusted = AdjustedBetsize(total_betsize_in_dollars);
+  double swag_adjusted = 42;///!!!AdjustedBetsize(total_betsize_in_dollars);
   swag_amt = Number2CString(swag_adjusted);
   // Also adapt f$betsize for correct logging later-on
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=18648

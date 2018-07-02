@@ -11,33 +11,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AllinAdjustment.cpp" />
     <ClCompile Include="BringKeyboard.cpp" />
     <ClCompile Include="CAllinSlider.cpp" />
     <ClCompile Include="CAutoplayerButton.cpp" />
     <ClCompile Include="CBetsizeInputBox.cpp" />
     <ClCompile Include="CCasinoHotkey.cpp" />
     <ClCompile Include="CCasinoInterface.cpp" />
-    <ClCompile Include="COcclusionCheck.cpp" />
     <ClCompile Include="low_level\keyboard.cpp" />
     <ClCompile Include="low_level\mouse.cpp" />
     <ClCompile Include="PokerChat.cpp" />
-    <ClCompile Include="SwagAdjustment.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AllinAdjustment.h" />
     <ClInclude Include="BringKeyboard.h" />
     <ClInclude Include="CAllinSlider.h" />
     <ClInclude Include="CAutoplayerButton.h" />
     <ClInclude Include="CBetsizeInputBox.h" />
     <ClInclude Include="CCasinoHotkey.h" />
     <ClInclude Include="CCasinoInterface.h" />
-    <ClInclude Include="COcclusionCheck.h" />
     <ClInclude Include="LibDef.h" />
     <ClInclude Include="low_level\keyboard.h" />
     <ClInclude Include="low_level\mouse.h" />
     <ClInclude Include="PokerChat.hpp" />
-    <ClInclude Include="SwagAdjustment.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F90B2E47-0E62-45F4-9B51-B04AB7773B4A}</ProjectGuid>
@@ -95,7 +89,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)Preferences.lib;$(OutDir)Numerical_Functions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)CBasicScraper.lib;$(OutDir)Debug.lib;$(OutDir)Preferences.lib;$(OutDir)Table_Management.lib;$(OutDir)TableState.lib;$(OutDir)Numerical_Functions.lib;$(OutDir)String_Functions.lib;$(OutDir)Window_Functions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -115,7 +109,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)Preferences.lib;$(OutDir)Numerical_Functions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)CBasicScraper.lib;$(OutDir)Debug.lib;$(OutDir)Preferences.lib;$(OutDir)Table_Management.lib;$(OutDir)TableState.lib;$(OutDir)Numerical_Functions.lib;$(OutDir)String_Functions.lib;$(OutDir)Window_Functions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
