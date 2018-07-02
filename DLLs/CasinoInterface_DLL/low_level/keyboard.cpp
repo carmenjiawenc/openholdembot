@@ -35,7 +35,6 @@
 #endif
 
 #include <math.h>
-#include <atlstr.h>
 #include "keyboard.h"
 #include "..\..\Numerical_Functions_DLL\Numerical_Functions.h"
 

@@ -127,7 +127,7 @@
 
 #include <afxmt.h>			// CMutex
 
-#include <windows.h>
+///#include <windows.h>
 #include <stdlib.h>
 
 #define OPENHOLDEM_PROGRAM

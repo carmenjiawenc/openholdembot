@@ -23,7 +23,6 @@
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Symbols_DLL\CBetroundCalculator.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CFunctionCollection.h"
 #include "..\Symbols_DLL\CSymbolEngineCasino.h"
 #include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
 #include "..\Symbols_DLL\CSymbolEngineHistory.h"

@@ -12,10 +12,10 @@
 //******************************************************************************
 
 #include "BringKeyBoard.h"
+#include "CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CSymbolEngineCasino.h"
 #include "..\Symbols_DLL\CSymbolEngineAutoplayer.h"
 #include "..\TableManagement_DLL\CAutoConnector.h"
 #include "..\TableManagement_DLL\CTableManagement.h"
@@ -33,7 +33,7 @@ void CheckBringKeyboard(void) {
 	int				keybd_item_pos = 0;
 	int				e = SUCCESS;
 
-	if (!EngineContainer()->symbol_engine_casino()->ConnectedToBring()) 	{
+	if (!CasinoInterface()->ConnectedToBring()) 	{
 		write_log(Preferences()->debug_autoplayer(), "[BringKeyBoard] Not connected to bring, therefore no bring-keyboard to be enabled.\n");
 		return;
 	}

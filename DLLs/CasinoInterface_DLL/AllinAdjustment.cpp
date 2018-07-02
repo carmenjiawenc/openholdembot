@@ -19,7 +19,6 @@
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
-#include "..\Symbols_DLL\CFunctionCollection.h"
 #include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
 #include "..\Symbols_DLL\CSymbolEngineGameType.h"
 #include "..\Symbols_DLL\CSymbolEngineIsTournament.h"

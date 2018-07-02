@@ -15,13 +15,12 @@
 
 #include <assert.h>
 ///#include "BetpotCalculations.h"
+#include "CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CFunctionCollection.h"
-#include "..\Symbols_DLL\CSymbolEngineCasino.h"
 #include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
 #include "..\Symbols_DLL\CSymbolEngineGameType.h"
 #include "..\Symbols_DLL\CSymbolEngineIsTournament.h"
@@ -227,7 +226,7 @@ double AdjustedBetsize(double amount_to_raise_to) {
   // Rounding to beautiful numbers but only if enabled
   amount_to_raise_to = RoundToBeautifulBetsize(amount_to_raise_to);
   double minimum;
-  if (EngineContainer()->symbol_engine_casino()->ConnectedToDDPoker()) {
+  if (CasinoInterface()->ConnectedToDDPoker()) {
     write_log(Preferences()->debug_betsize_adjustment(),
       "[BetsizeAdjustment] Special adjustment for DDPoker needed.\n");
 	  minimum = min(MinimumBetsizeDueToPreviousRaise(), MaximumBetsizeDueToMaxOppStack() );
@@ -241,7 +240,7 @@ double AdjustedBetsize(double amount_to_raise_to) {
   AdaptValueToMinMaxRange(&amount_to_raise_to, amount_to_raise_to, RoundedBetsizeForTournaments(amount_to_raise_to));
   // Special handling for DDPoker
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=120&t=19185&hilit=ddpoker
-  if(EngineContainer()->symbol_engine_casino()->ConnectedToDDPoker()){
+  if(CasinoInterface()->ConnectedToDDPoker()){
     //!!?? Duplicate to ZeeZooLaas code above?
 		AdaptValueToMinMaxRange(&amount_to_raise_to, amount_to_raise_to, MaximumBetsizeDueToMaxOppStack());
 	}

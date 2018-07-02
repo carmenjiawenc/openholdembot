@@ -24,7 +24,6 @@
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CFunctionCollection.h"
 #include "..\Symbols_DLL\CSymbolEngineHistory.h"
 #include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
@@ -91,7 +90,7 @@ bool CBetsizeInputBox::EnterBetsize(double total_betsize_in_dollars) {
   swag_amt = Number2CString(swag_adjusted);
   // Also adapt f$betsize for correct logging later-on
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=18648
-  FunctionCollection()->SetAutoplayerFunctionValue(k_autoplayer_function_betsize, swag_adjusted);
+  ///FunctionCollection()->SetAutoplayerFunctionValue(k_autoplayer_function_betsize, swag_adjusted);
   write_log(Preferences()->debug_autoplayer(), "[CBetsizeInputBox] betsize (not adjusted): %.2f\n", total_betsize_in_dollars);
   write_log(Preferences()->debug_autoplayer(), "[CBetsizeInputBox] calling keyboard.dll to enter betsize (adjusted): %s %d,%d %d,%d\n",
     swag_amt, _i3_edit_region.left, _i3_edit_region.top, _i3_edit_region.right, _i3_edit_region.bottom);
