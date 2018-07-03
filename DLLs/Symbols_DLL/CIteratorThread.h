@@ -58,13 +58,11 @@ class CIteratorThread /*!!!!!: public CSpaceOptimizedGlobalObject */{
   int  IteratorThreadProgress()   { return _iterations_calculated; }
  public:
 	void StartPrWinComputationsIfNeeded();
-	///void set_prw1326_useme(const int i)	{ _prw1326.useme = i;}
-	///const	sprw1326 *prw1326()	          { return &_prw1326; }
+	void set_prw1326_useme(const int i);
+	const	sprw1326 *prw1326();
  public:
   // For the DLL "cmd$recalc"
   void RestartPrWinComputations();
-public:
-  void* prw1326(); /// to do !!!
 #undef ENT
  private:
 	// private functions and variables - not available via accessors or mutators

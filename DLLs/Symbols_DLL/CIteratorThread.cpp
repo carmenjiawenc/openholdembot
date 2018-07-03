@@ -45,8 +45,10 @@ int CIteratorThread::_total_weight[kMaxNumberOfPlayers];
 
 // weighted prwin lookup tables for non-suited and suited cards
 int pair2rank_offsuited[170] = {0}, pair2rank_suited[170] = {0};
-// int willplay = 0, wontplay = 0, topclip = 0, mustplay = 0
-sprw1326	_prw1326;	//prwin 1326 data structure Matrix 2008-04-29
+int willplay = 0, wontplay = 0, topclip = 0, mustplay = 0;
+// prwin 1326 data structure Matrix 2008-04-29
+// Must be accessible by iterator-thread, therefore global
+sprw1326 _prw1326;
 
 // handrank table used to prime weighted prwin lookup table.
 // This is the Sklansky-Chubukov hand rankings.
@@ -766,4 +768,12 @@ bool CIteratorThread::UseEnhancedPrWin() {
 	return ((_prw1326.useme == 1326) 
 		&& (EngineContainer()->BetroundCalculator()->betround() >= kBetroundFlop
 			|| (_prw1326.preflop == 1326)));
+}
+
+const	sprw1326* CIteratorThread::prw1326() { 
+  return &_prw1326; 
+}
+
+void CIteratorThread::set_prw1326_useme(const int i) { 
+  _prw1326.useme = i; 
 }

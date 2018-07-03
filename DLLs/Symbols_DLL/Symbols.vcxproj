@@ -82,6 +82,7 @@
     <ClInclude Include="CEngineContainer.h" />
     <ClInclude Include="Chair$Symbols.h" />
     <ClInclude Include="CHandresetDetector.h" />
+    <ClInclude Include="CIteratorThread.h" />
     <ClInclude Include="CLevDistance.h" />
     <ClInclude Include="CPokerTrackerSiteID.h" />
     <ClInclude Include="CPokerTrackerThread.h" />

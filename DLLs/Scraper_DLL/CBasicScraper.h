@@ -39,7 +39,7 @@ class CBasicScraper;
 // Singleton gets initialized via the accessor-function once needed
 SCRAPER_DLL_API CBasicScraper* BasicScraper();
 
-SCRAPER_DLL_API class CBasicScraper {
+class SCRAPER_DLL_API CBasicScraper {
 public:
   CBasicScraper();
   ~CBasicScraper();
