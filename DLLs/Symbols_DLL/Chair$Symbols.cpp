@@ -11,17 +11,14 @@
 //
 //******************************************************************************
 
-#include "stdafx.h"
 #include "Chair$Symbols.h"
-
-#include "CScraper.h"
-
-#include "..\CTablemap\CTablemap.h"
-#include "..\DLLs\Tablestate_DLL\TableState.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
+#include "..\Tablestate_DLL\TableState.h"
 
 double Chair$(const char *name)
 {
-	for (int i=0; i<p_tablemap->nchairs(); i++)
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)
 	{
 		if (TableState()->Player(i)->name().Find(&name[0]) != kNotFound)
 			return i;

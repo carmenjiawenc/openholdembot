@@ -35,7 +35,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F90B2E47-0E62-45F4-9B51-B04AB7773B4A}</ProjectGuid>
-    <RootNamespace>ReferenceMouseDLL</RootNamespace>
+    <RootNamespace>CasinoInterface.dll</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -85,7 +85,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)files.dll</OutputFile>
+      <OutputFile>$(OutDir)CasinoInterface.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -103,7 +103,7 @@
       <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)files.dll</OutputFile>
+      <OutputFile>$(OutDir)CasinoInterface.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>

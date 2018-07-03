@@ -8,7 +8,7 @@
 //
 //******************************************************************************
 //
-// Purpose:  Providing a list of build-in higher-level OpenPPL-symbols
+// Purpose: Providing a list of build-in higher-level OpenPPL-symbols
 //   and user-defined functions and lists. 
 //
 //   * CFunctionCollection (Formula.DLL) provides the actual functionality
@@ -37,7 +37,6 @@ class CSymbolEngineFunctionCollection: public CVirtualSymbolEngine {
   CString SymbolsProvided();
  public:
   // Mandatory reset-functions
-  void InitOnStartup();
   void UpdateOnConnection();
   void UpdateOnHandreset();
   void UpdateOnNewRound();

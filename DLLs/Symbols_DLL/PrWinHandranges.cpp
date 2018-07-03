@@ -11,10 +11,8 @@
 //
 //******************************************************************************
 
-#include "stdafx.h"
 #include "PrWinHandranges.h"
-
-
+#include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 
 bool IsHandInWeightedRange(const int card1, const int card2, 
 							const int willplay, const int wontplay, 

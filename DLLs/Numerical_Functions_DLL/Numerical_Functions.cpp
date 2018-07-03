@@ -14,7 +14,9 @@
 #define NUMERICAL_FUNCTIONS_DLL_EXPORTS
 
 #include "Numerical_Functions.h"
+#include <afx.h>
 #include <assert.h>
+#include <math.h> 
 
 // Deals with floating points, ints, hex and binary
 double StringToNumber(CString number) {

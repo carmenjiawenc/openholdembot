@@ -19,6 +19,8 @@
 //
 //******************************************************************************
 
+#include <afx.h>
+
 static const double epsilon = 1E-06;
 
 inline bool IsSmaller(double a, double b)

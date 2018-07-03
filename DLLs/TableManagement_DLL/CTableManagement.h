@@ -14,7 +14,6 @@
 //******************************************************************************
 
 #include "LibDef.h"
-
 #include "CAutoConnector.h"
 #include "CPopupHandler.h"
 #include "CSharedMem.h"

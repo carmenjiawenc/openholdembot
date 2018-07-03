@@ -1,6 +1,5 @@
 // mtrand.cpp, see include file mtrand.h for information
 
-#include "stdafx.h"
 #include "mtrand.h"
 #include "windows.h"
 // non-inline function definitions and static member definitions cannot

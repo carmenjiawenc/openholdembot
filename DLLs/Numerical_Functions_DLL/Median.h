@@ -8,8 +8,7 @@
  *   DLL-export for numerical_functions.DLL
  */
 
-#define NUMERICAL_FUNCTIONS_DLL_EXPORTS
-
+#include <afx.h>
 #include "LibDef.h"
 
 NUMERICAL_FUNCTIONS_DLL_API double kth_smallest(double a[], int n, int k);

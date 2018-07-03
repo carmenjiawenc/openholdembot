@@ -3,9 +3,10 @@
  * This code in public domain.
  */
 
+#define NUMERICAL_FUNCTIONS_DLL_EXPORTS
 
+#include <afx.h>
 #include "Median.h"
-
 
 #define ELEM_SWAP(a,b) { register double t=(a);(a)=(b);(b)=t; }
 

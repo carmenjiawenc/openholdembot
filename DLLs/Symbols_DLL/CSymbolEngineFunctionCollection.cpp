@@ -35,6 +35,10 @@ double CSymbolEngineFunctionCollection::Evaluate(CString function_name, bool log
   return result;
 }
 
+void CSymbolEngineFunctionCollection::UpdateOnConnection() {
+  FunctionCollection()->ClearCache();
+}
+
 void CSymbolEngineFunctionCollection::UpdateOnHandreset() {
 }
 
@@ -52,4 +56,8 @@ bool CSymbolEngineFunctionCollection::EvaluateSymbol(const CString name, double 
   bool success = FunctionCollection()->EvaluateSymbol(
     name, result, log);
   return success;
+}
+
+CString CSymbolEngineFunctionCollection::SymbolsProvided() {
+  return FunctionCollection()->SymbolsProvided();
 }

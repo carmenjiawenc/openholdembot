@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define CASINO_INTERFACE_DLL_EXPORTS
+
 #include "CCasinoInterface.h"
 ///#include "CMyMutex.h"
 #include "PokerChat.hpp"

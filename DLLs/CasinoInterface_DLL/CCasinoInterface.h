@@ -16,9 +16,10 @@
 #include "CBetsizeInputBox.h"
 #include "CCasinoHotkey.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
+#include "LibDef.h"
 ///#include "CSpaceOptimizedGlobalObject.h"
 
-class CCasinoInterface /*: public CSpaceOptimizedGlobalObject */ {
+class CASINO_INTERFACE_DLL_API CCasinoInterface /*: public CSpaceOptimizedGlobalObject */ {
   friend class CAllinSlider;
   friend class CAutoplayer;
   friend class CScraper;
@@ -76,4 +77,4 @@ class CCasinoInterface /*: public CSpaceOptimizedGlobalObject */ {
   CCasinoHotkey casino_hotkeys;
 };
 
-CCasinoInterface* CasinoInterface();
+CASINO_INTERFACE_DLL_API CCasinoInterface* CasinoInterface();

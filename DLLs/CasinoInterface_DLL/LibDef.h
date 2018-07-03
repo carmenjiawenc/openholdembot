@@ -13,7 +13,7 @@
 //******************************************************************************
 
 #ifdef CASINO_INTERFACE_DLL_EXPORTS
-#define CASINO_INTERFACE_DLL_API extern "C" __declspec(dllexport)
+#define CASINO_INTERFACE_DLL_API __declspec(dllexport)
 #else
-#define CASINO_INTERFACE_DLL_API extern "C" __declspec(dllimport)
+#define CASINO_INTERFACE_DLL_API __declspec(dllimport)
 #endif

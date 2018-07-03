@@ -14,23 +14,24 @@
 
 
 #include "CHandresetDetector.h"
-
 #include <assert.h>
-#include "CCasinoInterface.h"
-#include "..\DLLs\StringFunctions_DLL\string_functions.h"
-#include "..\DLLs\Symbols_DLL\CEngineContainer.h"
-#include "..\DLLs\Scraper_DLL\CScraper.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineActiveDealtPlaying.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineChipAmounts.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineDealerchair.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineHistory.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineIsOmaha.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineTableLimits.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineTime.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineUserchair.h"
-#include "..\DLLs\Tablestate_DLL\TableState.h"
-#include "..\DLLs\Tablestate_DLL\CTableTitle.h"
-#include "..\CTablemap\CTablemap.h"
+#include "CEngineContainer.h"
+#include "CSymbolEngineActiveDealtPlaying.h"
+#include "CSymbolEngineChipAmounts.h"
+#include "CSymbolEngineDealerchair.h"
+#include "CSymbolEngineHistory.h"
+#include "CSymbolEngineIsOmaha.h"
+#include "CSymbolEngineTableLimits.h"
+#include "CSymbolEngineTime.h"
+#include "CSymbolEngineUserchair.h"
+#include "..\CasinoInterface_DLL\CCasinoInterface.h"
+#include "..\Debug_DLL\debug.h"
+#include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
+#include "..\StringFunctions_DLL\string_functions.h"
+#include "..\Tablestate_DLL\TableState.h"
+#include "..\Tablestate_DLL\CTableTitle.h"
 
 const int kNumberOfHandresetMethods = 9;
 const double kMinimumtimeBetweenTwoHeartbeats = 4.0;

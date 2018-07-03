@@ -13,6 +13,7 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
 ///#include "CSpaceOptimizedGlobalObject.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 

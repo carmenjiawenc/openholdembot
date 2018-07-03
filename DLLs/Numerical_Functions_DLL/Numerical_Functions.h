@@ -18,7 +18,7 @@
 
 #define NUMERICAL_FUNCTIONS_DLL_EXPORTS
 
-#include <afxwin.h>
+#include <afx.h>
 #include "LibDef.h"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
