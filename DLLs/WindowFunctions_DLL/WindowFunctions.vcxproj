@@ -11,34 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CBasicScraper.cpp" />
-    <ClCompile Include="CTablemap\CTablemap.cpp" />
-    <ClCompile Include="CTablemap\CTablemapAccess.cpp" />
-    <ClCompile Include="CTablemap\CTablemapCompletenessChecker.cpp" />
-    <ClCompile Include="CTransform\CTransform.cpp" />
-    <ClCompile Include="CTransform\hash\lookup3.cpp" />
-    <ClCompile Include="CTransform\pdiff\CompareArgs.cpp" />
-    <ClCompile Include="CTransform\pdiff\LPyramid.cpp" />
-    <ClCompile Include="CTransform\pdiff\Metric.cpp" />
-    <ClCompile Include="CTransform\pdiff\RGBAImage.cpp" />
-    <ClCompile Include="CTransform\WebSafeColours.cpp" />
+    <None Include="window_functions.def" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CBasicScraper.h" />
-    <ClInclude Include="CTablemap\CTablemap.h" />
-    <ClInclude Include="CTablemap\CTableMapAccess.h" />
-    <ClInclude Include="CTablemap\CTablemapCompletenessChecker.h" />
-    <ClInclude Include="CTransform\CTransform.h" />
-    <ClInclude Include="CTransform\hash\lookup3.h" />
-    <ClInclude Include="CTransform\pdiff\CompareArgs.h" />
-    <ClInclude Include="CTransform\pdiff\LPyramid.h" />
-    <ClInclude Include="CTransform\pdiff\Metric.h" />
-    <ClInclude Include="CTransform\pdiff\RGBAImage.h" />
-    <ClInclude Include="CTransform\WebSafeColours.h" />
-    <ClInclude Include="LibDef.h" />
+    <ClCompile Include="MessageBoxes.cpp" />
+    <ClCompile Include="window_functions.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="window_functions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{93F0DFB6-AE1D-4040-A3CF-51F4EC1EEC8C}</ProjectGuid>
+    <ProjectGuid>{E87D7887-ADDE-41DB-AA09-3DDAB950FAA5}</ProjectGuid>
     <RootNamespace>ReferenceMouseDLL</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
@@ -82,18 +65,19 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MOUSEDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)scraper.dll</OutputFile>
+      <OutputFile>$(OutDir)WindowFunctions.dll</OutputFile>
+      <ModuleDefinitionFile>window_functions.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)numerical_functions.lib;$(OutDir)string_functions.lib;$(OutDir)window_functions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)files.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -106,13 +90,14 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)scraper.dll</OutputFile>
+      <OutputFile>$(OutDir)WindowFunctions.dll</OutputFile>
+      <ModuleDefinitionFile>window_functions.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)numerical_functions.lib;$(OutDir)string_functions.lib;$(OutDir)window_functions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)files.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -11,65 +11,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CAutoplayerTrace.cpp" />
-    <ClCompile Include="CDebugTab.cpp" />
-    <ClCompile Include="CFormulaFileSplitter.cpp" />
-    <ClCompile Include="CFormulaParser.cpp" />
-    <ClCompile Include="CFunction.cpp" />
-    <ClCompile Include="CFunctionCollection.cpp" />
-    <ClCompile Include="COHScriptList.cpp" />
-    <ClCompile Include="COHScriptObject.cpp" />
-    <ClCompile Include="CParseErrors.cpp" />
-    <ClCompile Include="CParserSymbolTable.cpp" />
-    <ClCompile Include="CParseTreeNode.cpp" />
-    <ClCompile Include="CParseTreeOperatorNode.cpp" />
-    <ClCompile Include="CParseTreeRotator.cpp" />
-    <ClCompile Include="CParseTreeTerminalNode.cpp" />
-    <ClCompile Include="CParseTreeTerminalNodeBetsizeAction.cpp" />
-    <ClCompile Include="CParseTreeTerminalNodeEndOfFunction.cpp" />
-    <ClCompile Include="CParseTreeTerminalNodeFixedAction.cpp" />
-    <ClCompile Include="CParseTreeTerminalNodeIdentifier.cpp" />
-    <ClCompile Include="CParseTreeTerminalNodeNumber.cpp" />
-    <ClCompile Include="CParseTreeTerminalNodeUserVariable.cpp" />
-    <ClCompile Include="CSelftestParserEvaluator.cpp" />
-    <ClCompile Include="CShankySymbolNameTranslator.cpp" />
-    <ClCompile Include="CTokenizer.cpp" />
-    <ClCompile Include="Formula.cpp" />
-    <ClCompile Include="TokenizerConstants.cpp" />
+    <ClInclude Include="CAutoConnector.h" />
+    <ClInclude Include="CPopupHandler.h" />
+    <ClInclude Include="CSharedMem.h" />
+    <ClInclude Include="CTableManagement.h" />
+    <ClInclude Include="CTablePositioner.h" />
+    <ClInclude Include="LibDef.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CAutoplayerTrace.h" />
-    <ClInclude Include="CDebugTab.h" />
-    <ClInclude Include="CFormulaFileSplitter.h" />
-    <ClInclude Include="CFormulaParser.h" />
-    <ClInclude Include="CFunction.h" />
-    <ClInclude Include="CFunctionCollection.h" />
-    <ClInclude Include="COHScriptList.h" />
-    <ClInclude Include="COHScriptObject.h" />
-    <ClInclude Include="CParseErrors.h" />
-    <ClInclude Include="CParserSymbolTable.h" />
-    <ClInclude Include="CParseTreeNode.h" />
-    <ClInclude Include="CParseTreeOperatorNode.h" />
-    <ClInclude Include="CParseTreeRotator.h" />
-    <ClInclude Include="CParseTreeTerminalNode.h" />
-    <ClInclude Include="CParseTreeTerminalNodeBetsizeAction.h" />
-    <ClInclude Include="CParseTreeTerminalNodeEndOfFunction.h" />
-    <ClInclude Include="CParseTreeTerminalNodeFixedAction.h" />
-    <ClInclude Include="CParseTreeTerminalNodeIdentifier.h" />
-    <ClInclude Include="CParseTreeTerminalNodeNumber.h" />
-    <ClInclude Include="CParseTreeTerminalNodeUserVariable.h" />
-    <ClInclude Include="CSelftestParserEvaluator.h" />
-    <ClInclude Include="CShankySymbolNameTranslator.h" />
-    <ClInclude Include="CTokenizer.h" />
-    <ClInclude Include="Formula.h" />
-    <ClInclude Include="LibDef.h" />
-    <ClInclude Include="TokenizerConstants.h" />
+    <ClCompile Include="CAutoConnector.cpp" />
+    <ClCompile Include="CPopupHandler.cpp" />
+    <ClCompile Include="CSharedMem.cpp" />
+    <ClCompile Include="CTableManagement.cpp" />
+    <ClCompile Include="CTablePositioner.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{158AD006-556E-476C-9D7E-DEF7FC88EE2B}</ProjectGuid>
+    <ProjectGuid>{BFF9AF3C-0FDE-46B5-A2EA-2C077B353A78}</ProjectGuid>
     <RootNamespace>ReferenceMouseDLL</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>TableManagement</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -115,15 +76,13 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>E:\OpenHoldem\pokereval\include\inlines;E:\OpenHoldem\pokereval\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)Formula.dll</OutputFile>
+      <OutputFile>$(OutDir)TableManagement.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)CardFunctions.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Preferences.lib;$(OutDir)TableState.lib;;$(OutDir)UserVariables.lib;$(OutDir)MemoryManagement.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)StringFunctions.lib;$(OutDir)WindowFunctions.lib;$(OutDir)CBasicScraper.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)Debug.lib;$(OutDir)Preferences.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -134,17 +93,16 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>E:\OpenHoldem\pokereval\include\inlines;E:\OpenHoldem\pokereval\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)Formula.dll</OutputFile>
+      <OutputFile>$(OutDir)TableManagement.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)CardFunctions.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Preferences.lib;$(OutDir)TableState.lib;;$(OutDir)UserVariables.lib;$(OutDir)MemoryManagement.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)StringFunctions.lib;;$(OutDir)WindowFunctions.lib;$(OutDir)CBasicScraper.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)Debug.lib;$(OutDir)Preferences.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ForceFileOutput>Enabled</ForceFileOutput>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -11,17 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="window_functions.def" />
+    <ClCompile Include="Median.cpp" />
+    <ClCompile Include="Numerical_Functions.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MessageBoxes.cpp" />
-    <ClCompile Include="window_functions.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="window_functions.h" />
+    <ClInclude Include="FloatingPoint_Comparisions.h" />
+    <ClInclude Include="Median.h" />
+    <ClInclude Include="Numerical_Functions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{E87D7887-ADDE-41DB-AA09-3DDAB950FAA5}</ProjectGuid>
+    <ProjectGuid>{64255B61-596E-4AD4-868A-7B35ADF07FF7}</ProjectGuid>
     <RootNamespace>ReferenceMouseDLL</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
@@ -65,19 +64,18 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MOUSEDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)window_functions.dll</OutputFile>
-      <ModuleDefinitionFile>window_functions.def</ModuleDefinitionFile>
+      <OutputFile>$(OutDir)NumericalFunctions.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)files.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -90,14 +88,15 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)window_functions.dll</OutputFile>
-      <ModuleDefinitionFile>window_functions.def</ModuleDefinitionFile>
+      <OutputFile>$(OutDir)NumericalFunctions.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)files.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <NoEntryPoint>false</NoEntryPoint>
+      <AdditionalOptions>/verbose:lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

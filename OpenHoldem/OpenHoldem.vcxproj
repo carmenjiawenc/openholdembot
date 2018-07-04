@@ -228,10 +228,6 @@
       <Project>{a4def05e-e072-493e-b282-84731d60bcf0}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\PokerTracker_Query_Definitions\pokertracker_query_definitions.vcxproj">
-      <Project>{dae7979b-3014-4b86-8efd-fa155a58fe78}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\Reference Keyboard DLL\Reference Keyboard DLL.vcxproj">
       <Project>{d71ccb48-1c2c-409e-9801-5ab37714ed68}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
