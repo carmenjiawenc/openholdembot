@@ -12,10 +12,11 @@
 //
 //******************************************************************************
 
+#include "LibDef.h"
 #include <afxwin.h>
 ///#include "CSpaceOptimizedGlobalObject.h"
 
-class CConfigurationCheck /*#: public CSpaceOptimizedGlobalObject */{
+class CONFIGURATION_CHECK_DLL_API CConfigurationCheck /*#: public CSpaceOptimizedGlobalObject */{
  public:
 	CConfigurationCheck();
 	~CConfigurationCheck();

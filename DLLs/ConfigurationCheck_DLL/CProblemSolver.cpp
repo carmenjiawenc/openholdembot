@@ -11,8 +11,9 @@
 //
 //******************************************************************************
 
-#include "CProblemSolver.h"
+#define CONFIGURATION_CHECK_DLL_EXPORTS
 
+#include "CProblemSolver.h"
 #include "CConfigurationCheck.h"
 #include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Preferences_DLL\Preferences.h"

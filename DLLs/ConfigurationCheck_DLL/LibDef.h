@@ -1,4 +1,4 @@
-#pragma once
+#pragma once 
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -8,25 +8,12 @@
 //
 //******************************************************************************
 //
-// Purpose: guiding new users getting startex
+// Purpose: single import/export macro for all header-files
 //
 //******************************************************************************
 
-#include "LibDef.h"
-
-class CONFIGURATION_CHECK_DLL_API CProblemSolver
-{
-public:
-	CProblemSolver();
-	~CProblemSolver();
-public:
-	void TryToDetectBeginnersProblems();
-private:
-	bool NoTableMapsInScraperFolder();
-	bool NotConnected();
-	bool UserChairUnknown();
-	bool NoOpponents();
-	bool AutoPlayerDidActAtLeastOnce();
-	bool NoCardsVisible();
-	bool NotEnoughButtonsVisible();
-};
+#ifdef CONFIGURATION_CHECK_DLL_EXPORTS
+#define CONFIGURATION_CHECK_DLL_API __declspec(dllexport)
+#else
+#define CONFIGURATION_CHECK_DLL_API __declspec(dllimport)
+#endif

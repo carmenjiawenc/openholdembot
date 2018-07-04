@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define CONFIGURATION_CHECK_DLL_EXPORTS
+
 #include "CConfigurationCheck.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
