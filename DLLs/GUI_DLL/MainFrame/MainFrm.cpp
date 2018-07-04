@@ -25,6 +25,7 @@
 
 ///#include "CProblemSolver.h"
 #include "..\CGUI.h"
+#include "..\formula_editor\DialogFormulaScintilla.h"
 #include "..\dialog_scraper_output\DialogScraperOutput.h"
 #include "..\OpenHoldem_title\COpenHoldemTitle.h"
 #include "..\..\ConfigurationCheck_DLL\CProblemSolver.h"

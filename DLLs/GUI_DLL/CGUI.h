@@ -12,13 +12,13 @@
 //
 //******************************************************************************
 
-class CDlgFormulaScintilla;
-class CDlgScraperOutput;
-class CFlagsToolbar;
-class CMainFrame;
-class COpenHoldemStatusbar;
-class COpenHoldemTitle;
-class CWhiteInfoBox;
+#include "formula_editor\DialogFormulaScintilla.h"
+#include "dialog_scraper_output\DialogScraperOutput.h"
+#include "Toolbar\CFlagsToolbar.h"
+#include "MainFrame\MainFrm.h"
+#include "statusbar\COpenHoldemStatusbar.h"
+#include "OpenHoldem_title\COpenHoldemTitle.h"
+#include "white_info_box\CWhiteInfoBox.h"
 
 class CGUI {
 public:
@@ -27,16 +27,39 @@ public:
 public:
   void Update();
 public:
-  CFlagsToolbar *FlagsToolbar();
-  CMainFrame *MainFrame();
-  COpenHoldemStatusbar* OpenHoldemStatusbar();
-  COpenHoldemTitle* OpenHoldemTitle();
-  CDlgFormulaScintilla* DlgFormulaScintilla();
-  CDlgScraperOutput *DlgScraperOutput();
-  CWhiteInfoBox* WhiteInfoBox();
+  CFlagsToolbar *FlagsToolbar() {
+    return _p_flags_toolbar;
+  }
+  CMainFrame *MainFrame() {
+    return _p_main_frame;
+  }
+  COpenHoldemStatusbar* OpenHoldemStatusbar() {
+    return _p_openholdem_statusbar;
+  }
+  COpenHoldemTitle* OpenHoldemTitle() {
+    return _p_openholdem_title;
+  }
+  CDlgFormulaScintilla* DlgFormulaScintilla() {
+    _p_dialog_formula_scintilla;
+  }
+  CDlgScraperOutput *DlgScraperOutput() {
+    _p_dialog_scraper_output;
+  }
+  CWhiteInfoBox* WhiteInfoBox() { 
+    return _p_white_infobox;
+  }
 private:
   void UpdateOnConnection();
   void UpdateOnDisconnection();
+private:
+  ///!!! init
+  CFlagsToolbar* _p_flags_toolbar;
+  CMainFrame* _p_main_frame;
+  COpenHoldemStatusbar* _p_openholdem_statusbar; 
+  COpenHoldemTitle* _p_openholdem_title;
+  CDlgFormulaScintilla* _p_dialog_formula_scintilla;
+  CDlgScraperOutput* _p_dialog_scraper_output;
+  CWhiteInfoBox* _p_white_infobox;
 };
 
 CGUI* GUI();

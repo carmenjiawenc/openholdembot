@@ -20,6 +20,7 @@
     <ClCompile Include="formula_editor\ScintillaWnd.cpp" />
     <ClCompile Include="CGUI.cpp" />
     <ClCompile Include="MainFrame\MainFrm.cpp" />
+    <ClCompile Include="OpenHoldem_title\COpenHoldemTitle.cpp" />
     <ClCompile Include="preferences_dialog\DialogSAPrefs10.cpp" />
     <ClCompile Include="preferences_dialog\DialogSAPrefs11.cpp" />
     <ClCompile Include="preferences_dialog\DialogSAPrefs12.cpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="formula_editor\ScintillaWnd.h" />
     <ClInclude Include="CGUI.h" />
     <ClInclude Include="MainFrame\MainFrm.h" />
+    <ClInclude Include="OpenHoldem_title\COpenHoldemTitle.h" />
     <ClInclude Include="preferences_dialog\DialogSAPrefs10.h" />
     <ClInclude Include="preferences_dialog\DialogSAPrefs11.h" />
     <ClInclude Include="preferences_dialog\DialogSAPrefs12.h" />
@@ -142,7 +144,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)Preferences.lib;S%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)CBasicScraper.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Formula.lib;$(OutDir)Preferences.lib;;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)SessionCounter.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)window_functions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -161,7 +163,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)Preferences.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)CBasicScraper.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Formula.lib;$(OutDir)Preferences.lib;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)SessionCounter.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)window_functions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

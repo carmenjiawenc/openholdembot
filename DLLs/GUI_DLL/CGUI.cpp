@@ -69,3 +69,13 @@ void CGUI::UpdateOnDisconnection() {
   FlagsToolbar()->UnattachOHFromPokerWindow();
   FlagsToolbar()->ResetButtonsOnDisconnect();
 }
+
+CGUI* gui = NULL;
+
+CGUI* GUI() {
+  if (gui == NULL) {
+    // Lazy initialization 
+    gui = new CGUI;
+  }
+  return gui;
+}

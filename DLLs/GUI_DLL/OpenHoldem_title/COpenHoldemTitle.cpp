@@ -11,16 +11,19 @@
 //
 //******************************************************************************
 
-#include "stdafx.h"
 #include "COpenHoldemTitle.h"
 #include <assert.h>
-#include "CAutoConnector.h"
-#include "..\DLLs\Symbols_DLL\CFunctionCollection.h"
-
-#include "../CTablemap/CTablemap.h"
-#include "..\DLLs\Tablestate_DLL\TableState.h"
-#include "..\DLLs\Tablestate_DLL\CTableTitle.h"
-#include "MainFrm.h"
+#include "..\..\Debug_DLL\debug.h"
+#include "..\..\Files_DLL\Files.h"
+#include "..\..\Formula_DLL\CFunctionCollection.h"
+#include "..\..\Preferences_DLL\Preferences.h"
+#include "..\..\Scraper_DLL\CBasicScraper.h"
+#include "..\..\Scraper_DLL\CTablemap/CTablemap.h"
+#include "..\..\TableManagement_DLL\CAutoConnector.h"
+#include "..\..\TableManagement_DLL\CTableManagement.h"
+#include "..\..\Tablestate_DLL\TableState.h"
+#include "..\..\Tablestate_DLL\CTableTitle.h"
+///#include "..\MainFrm.h"
 
 COpenHoldemTitle *p_openholdem_title = NULL;
 
@@ -50,9 +53,9 @@ CString COpenHoldemTitle::FullTitle() {
 	assert(p_tablemap != NULL);
   CString full_title;
   write_log(Preferences()->debug_alltherest(), "[COpenHoldemTitle] location Johnny_6\n");
-	if (p_autoconnector->IsConnectedToAnything())	{
+	if (TableManagement()->AutoConnector()->IsConnectedToAnything())	{
 		full_title.Format("%s | %s | %s", FunctionCollection()->FormulaName(),
-			p_tablemap->sitename(), TableState()->TableTitle()->Title());
+			BasicScraper()->Tablemap()->sitename(), TableState()->TableTitle()->Title());
 	}	else {
 		full_title.Format("%s", FunctionCollection()->FormulaName());
 	}
@@ -65,12 +68,12 @@ void COpenHoldemTitle::SetUserDefinedOpenHoldemTitle(CString new_title) {
 }
 
 void COpenHoldemTitle::UpdateTitle() {
-	if (PMainframe() == NULL)	{
+	/*#if (PMainframe() == NULL)	{
 		// Missing main window can happen very early during execution
 		// if OpenHoldem creates a default document with default title
 		// but the window does not yet exist.
 		return;
-	}
+	}*/
 	// PostMessage(WMA_SETWINDOWTEXT, 0, (LPARAM)(GetTitle().GetString()));
 	// can't be used, because that would call COpenHoldemHopperCommunication::OnSetWindowText
 	// which would then call SetUserDefinedOpenHoldemTitle()
@@ -78,6 +81,6 @@ void COpenHoldemTitle::UpdateTitle() {
 	// -> endless recursion
 	static CString current_title;
 	current_title = GetTitle();
-	HWND main_window = PMainframe()->GetSafeHwnd();
+	HWND main_window = HWND(42);///PMainframe()->GetSafeHwnd();
 	SetWindowText(main_window, current_title);
 }
