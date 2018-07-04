@@ -40,7 +40,7 @@
 ///#include "..\..\..\OpenHoldem\stdafx.h"
 #include "..\..\WindowFunctions_DLL\window_functions.h"
 ///#include "OpenHoldem.h"
-#include "..\..\..\OpenHoldem\OpenHoldemDoc.h" //!!!!!
+///#include "..\..\..\OpenHoldem\OpenHoldemDoc.h" //!!!!!
 ///#include "WinMgr.h"
 
 // Keywords got changed from "char* to "CString"
@@ -1243,8 +1243,6 @@ void CDlgFormulaScintilla::OnHandList()  {
 
 BOOL CDlgFormulaScintilla::DestroyWindow()
 {
-	COpenHoldemDoc		*pDoc = COpenHoldemDoc::GetDocument();
-
 	StopAutoButton();
 	SaveSettingsToRegistry();
 	CloseFindReplaceDialog();
@@ -1568,7 +1566,6 @@ void CDlgFormulaScintilla::CopyTabContentsToFormulaSet() {
 void CDlgFormulaScintilla::OnBnClickedApply() {
   ClearCalcResult();
   CMenu				*file_menu = this->GetMenu()->GetSubMenu(0);
-  COpenHoldemDoc		*pDoc = COpenHoldemDoc::GetDocument();
   // If autoplayer is engaged, dis-engage it
 ///  if (p_autoplayer->autoplayer_engaged()) {
 	  WarnAboutAutoplayerWhenApplyingFormula();
@@ -1587,7 +1584,8 @@ void CDlgFormulaScintilla::OnBnClickedApply() {
       return;
     }
   }
-  pDoc->SetModifiedFlag(true);
+  ///COpenHoldemDoc		*pDoc = COpenHoldemDoc::GetDocument();
+  ///pDoc->SetModifiedFlag(true);
   // Re-calc symbols
   EngineContainer()->EvaluateAll(); // ??? disabled while parsing
   m_dirty = false;
@@ -1596,8 +1594,6 @@ void CDlgFormulaScintilla::OnBnClickedApply() {
 
 bool CDlgFormulaScintilla::PromptToSave()
 {
-	COpenHoldemDoc		*pDoc = COpenHoldemDoc::GetDocument();
-
 	int response = MessageBox_Interactive("You have made changes to this formula.\n\nDo you want to apply changes?", 
 				   "Apply changes?", 
 				   MB_YESNOCANCEL);

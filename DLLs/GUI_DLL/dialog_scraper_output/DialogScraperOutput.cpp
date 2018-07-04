@@ -16,7 +16,7 @@
 #include "..\Toolbar\CFlagsToolbar.h"
 #include "..\..\Preferences_DLL\Preferences.h"
 #include "..\..\Scraper_DLL\CBasicScraper.h"
-#include "..\..\Scraper_DLL\CTransform\CTransform.h"
+///#include "..\..\Scraper_DLL\CTransform\CTransform.h"
 
 #define ID_SCRAPEROUTPUT_SIZERBAR 5555
 
@@ -189,7 +189,7 @@ void CDlgScraperOutput::DoBitblt(HBITMAP bitmap, RMapCI r_iter) {
 	CBrush		gray_brush, *pTempBrush = NULL, oldbrush;
 	CPen		null_pen, *pTempPen = NULL, oldpen;
 	CString		res = "";
-	CTransform	trans;
+	///CTransform	trans;
 
 	if (in_startup)	{
 		DeleteDC(hdcCompat1);
@@ -245,7 +245,7 @@ void CDlgScraperOutput::DoBitblt(HBITMAP bitmap, RMapCI r_iter) {
 			hdcCompat2, 0, 0, SRCCOPY );
 
 	// Output result
-	trans.DoTransform(r_iter, hdcCompat1, &res);
+	///trans.DoTransform(r_iter, hdcCompat1, &res);
 	m_ScraperResult.SetWindowText(res);
 
 	// Clean up

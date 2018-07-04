@@ -45,6 +45,9 @@
     <ClCompile Include="preferences_dialog\SAPrefsStatic.cpp" />
     <ClCompile Include="preferences_dialog\SAPrefsSubDlg.cpp" />
     <ClCompile Include="Shared\VerifyFunctionAndListNames.cpp" />
+    <ClCompile Include="Shared\winmgr\SizerBar.cpp" />
+    <ClCompile Include="Shared\winmgr\WinMgr.cpp" />
+    <ClCompile Include="Shared\winmgr\WinRect.cpp" />
     <ClCompile Include="statusbar\COpenHoldemStatusbar.cpp" />
     <ClCompile Include="Toolbar\CFlagsToolbar.cpp" />
     <ClCompile Include="Toolbar\MyCToolBar.cpp" />
@@ -84,6 +87,8 @@
     <ClInclude Include="preferences_dialog\SAPrefsStatic.h" />
     <ClInclude Include="preferences_dialog\SAPrefsSubDlg.h" />
     <ClInclude Include="Shared\VerifyFunctionAndListNames.h" />
+    <ClInclude Include="Shared\winmgr\SizerBar.h" />
+    <ClInclude Include="Shared\winmgr\WinMgr.h" />
     <ClInclude Include="statusbar\COpenHoldemStatusbar.h" />
     <ClInclude Include="Toolbar\CFlagsToolbar.h" />
     <ClInclude Include="Toolbar\MyCToolBar.h" />
@@ -144,7 +149,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>$(OutDir)CBasicScraper.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Formula.lib;$(OutDir)Preferences.lib;;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)SessionCounter.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)window_functions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;secur32.lib;$(OutDir)CBasicScraper.lib;$(OutDir)ConfigurationCheck.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Formula.lib;$(OutDir)Preferences.lib;;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)SessionCounter.lib;$(OutDir)string_functions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)window_functions.lib;$(OutDir)..\lib\libpq.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -163,7 +168,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>$(OutDir)CBasicScraper.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Formula.lib;$(OutDir)Preferences.lib;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)SessionCounter.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)window_functions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;secur32.lib;$(OutDir)CBasicScraper.lib;$(OutDir)ConfigurationCheck.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Formula.lib;$(OutDir)Preferences.lib;$(OutDir)PokerTracker_Query_Definitions.lib;$(OutDir)SessionCounter.lib;$(OutDir)string_functions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)window_functions.lib;$(OutDir)..\lib\libpq.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

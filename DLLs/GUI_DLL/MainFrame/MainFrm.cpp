@@ -37,7 +37,6 @@
 #include "..\..\StringFunctions_DLL\string_functions.h"
 #include "..\..\Symbols_DLL\CEngineContainer.h"
 #include "..\..\Symbols_DLL\CSymbolEngineReplayFrameController.h"
-#include "..\..\Scraper_DLL\CTransform\CTransform.h"
 #include "..\..\Symbols_DLL\CSymbolEngineUserchair.h"
 #include "..\..\Symbols_DLL\CSymbolEngineTableLimits.h"
 #include "..\..\WindowFunctions_DLL\window_functions.h"
@@ -148,8 +147,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_SETCURSOR()
 	ON_WM_SYSCOMMAND()
 
-  // OpenHoldem!!!!!
-  ON_COMMAND(ID_APP_ABOUT, &COpenHoldemApp::OnAppAbout)
+  // OpenHoldem!!!!! -> GUI
+  ///ON_COMMAND(ID_APP_ABOUT, &COpenHoldemApp::OnAppAbout)
   // Standard file based document commands
   ///ON_COMMAND(ID_FILE_NEW, &CWinApp::OnFileNew)
   ///ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)

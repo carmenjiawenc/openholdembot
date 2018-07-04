@@ -40,10 +40,10 @@ public:
     return _p_openholdem_title;
   }
   CDlgFormulaScintilla* DlgFormulaScintilla() {
-    _p_dialog_formula_scintilla;
+    return _p_dialog_formula_scintilla;
   }
   CDlgScraperOutput *DlgScraperOutput() {
-    _p_dialog_scraper_output;
+    return _p_dialog_scraper_output;
   }
   CWhiteInfoBox* WhiteInfoBox() { 
     return _p_white_infobox;
