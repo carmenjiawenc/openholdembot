@@ -14,9 +14,10 @@
 //******************************************************************************
 
 #include "CVirtualSymbolEngine.h"
+#include "LibDef.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
-class CSymbolEngineFlags: public CVirtualSymbolEngine {
+class SYMBOLS_DLL_API CSymbolEngineFlags: public CVirtualSymbolEngine {
  public:
   CSymbolEngineFlags();
   ~CSymbolEngineFlags();

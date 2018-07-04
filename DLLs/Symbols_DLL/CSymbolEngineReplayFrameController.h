@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -13,12 +14,10 @@
 //
 //******************************************************************************
 
-#ifndef INC_CSYMBOLENGINEREPLAYFRAMECONTROLLER_H
-#define INC_CSYMBOLENGINEREPLAYFRAMECONTROLLER_H
-
 #include "CVirtualSymbolEngine.h"
+#include "LibDef.h"
 
-class CSymbolEngineReplayFrameController: public CVirtualSymbolEngine {
+class SYMBOLS_DLL_API CSymbolEngineReplayFrameController: public CVirtualSymbolEngine {
  public:
 	CSymbolEngineReplayFrameController();
 	~CSymbolEngineReplayFrameController();
@@ -37,5 +36,3 @@ class CSymbolEngineReplayFrameController: public CVirtualSymbolEngine {
  private:
   int _heartbeat_of_last_replay_frame;
 };
-
-#endif INC_CSYMBOLENGINEREPLAYFRAMECONTROLLER_H

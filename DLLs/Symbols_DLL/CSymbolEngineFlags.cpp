@@ -13,6 +13,8 @@
 //
 //******************************************************************************
 
+#define SYMBOLS_DLL_EXPORTS
+
 #include "CSymbolEngineFlags.h"
 #include "..\Numerical_Functions_DLL\Numerical_Functions.h"
 #include "..\StringFunctions_DLL\string_functions.h"

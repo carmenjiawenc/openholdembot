@@ -13,6 +13,8 @@
 //
 //******************************************************************************
 
+#define SYMBOLS_DLL_EXPORTS
+
 #include <assert.h>
 #include "CSymbolEngineReplayFrameController.h"
 ///#include "CAutoPlayer.h"
