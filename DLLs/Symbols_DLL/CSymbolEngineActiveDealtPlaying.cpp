@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define SYMBOLS_DLL_EXPORTS
+
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include <assert.h>
 #include "CEngineContainer.h"

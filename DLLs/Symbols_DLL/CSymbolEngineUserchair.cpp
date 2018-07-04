@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define SYMBOLS_DLL_EXPORTS
+
 #include "CSymbolEngineUserchair.h"
 ///#include "CBetroundCalculator.h"
 #include "..\Debug_DLL\debug.h"

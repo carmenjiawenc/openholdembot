@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define  SYMBOLS_DLL_EXPORTS
+
 #include "CEngineContainer.h"
 #include <assert.h>
 #include "CBetroundCalculator.h"

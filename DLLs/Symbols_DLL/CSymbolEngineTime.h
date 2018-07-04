@@ -13,8 +13,9 @@
 //******************************************************************************
 
 #include "CVirtualSymbolEngine.h"
+#include "LibDef.h"
 
-class CSymbolEngineTime: public CVirtualSymbolEngine {
+class SYMBOLS_DLL_API CSymbolEngineTime: public CVirtualSymbolEngine {
  public:
   CSymbolEngineTime();
   ~CSymbolEngineTime();

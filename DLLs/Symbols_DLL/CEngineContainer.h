@@ -14,6 +14,7 @@
 
 #include "CVirtualSymbolEngine.h"
 ///#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
+#include "LibDef.h"
 
 ///to be removed???
 class CHandHistoryDealPhase;
@@ -72,7 +73,7 @@ class CSymbolEngineVariousDataLookup;
 class CSymbolEngineVersus;
 class CSymbolEngineICM;
 
-class CEngineContainer/*#: public CSpaceOptimizedGlobalObject*/ {
+class  SYMBOLS_DLL_API CEngineContainer/*#: public CSpaceOptimizedGlobalObject*/ {
  public:
   CEngineContainer();
   ~CEngineContainer();
@@ -263,4 +264,4 @@ private:
 };
 
 ///!!!
-CEngineContainer* EngineContainer();
+SYMBOLS_DLL_API CEngineContainer* EngineContainer();

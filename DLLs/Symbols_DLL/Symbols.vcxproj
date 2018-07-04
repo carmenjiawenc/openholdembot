@@ -136,6 +136,7 @@
     <ClInclude Include="CSymbolEngineVariousDataLookup.h" />
     <ClInclude Include="CSymbolengineVersus.h" />
     <ClInclude Include="CVirtualSymbolEngine.h" />
+    <ClInclude Include="LibDef.h" />
     <ClInclude Include="mtrand.h" />
     <ClInclude Include="PrWinHandranges.h" />
     <ClInclude Include="Symbols.h" />
