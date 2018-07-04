@@ -15,8 +15,9 @@
 #include <afxwin.h>
 #include "COHScriptObject.h"
 #include "CParseTreeNode.h"
+#include "LibDef.h"
 
-class CFunction: public COHScriptObject{
+class FORMULA_DLL_API CFunction: public COHScriptObject{
   friend class CParseTreeRotator;
   friend class CFunctionCollection;
  public:

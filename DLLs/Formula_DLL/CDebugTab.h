@@ -15,11 +15,12 @@
 
 #include "COHScriptObject.h"
 #include "CParseTreeNode.h"
+#include "LibDef.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 const int kMaxSizeOfDebugTab = 50;
 
-class CDebugTab: public COHScriptObject{
+class FORMULA_DLL_API CDebugTab: public COHScriptObject{
   friend class CFormulaParser;
  public:
   CDebugTab();

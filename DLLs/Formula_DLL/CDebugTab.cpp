@@ -12,6 +12,8 @@
 //
 //******************************************************************************
 
+#define FORMULA_DLL_EXPORTS
+
 #include "CDebugTab.h"
 #include "CFormulaParser.h"
 #include "..\Debug_DLL\debug.h"
