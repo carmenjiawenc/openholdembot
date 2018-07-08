@@ -14,7 +14,7 @@
 #include "CTablemapCompletenessChecker.h"
 #include "CTablemap.h"
 #include "..\CBasicScraper.h"
-#include "..\..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\..\WindowFunctions_DLL\window_functions.h"
 
 CTablemapCompletenessChecker::CTablemapCompletenessChecker() {

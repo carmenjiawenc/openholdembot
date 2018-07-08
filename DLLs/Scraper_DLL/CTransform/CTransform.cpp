@@ -15,7 +15,7 @@
 #include <math.h>
 #include "WebSafeColours.h"
 #include "..\CBasicScraper.h"
-#include "..\..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\..\Preferences_DLL\Preferences.h"
 #include "..\..\StringFunctions_DLL\string_functions.h"
 #include "..\..\..\Shared\MagicNumbers\MagicNumbers.h"

@@ -36,7 +36,7 @@
 #include <math.h>
 #include "keyboard.h"
 #include "mouse.h"
-#include "..\..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\..\Numerical_Functions_DLL\NumericalFunctions.h"
 
 const int Shift   = 1;
 const int Control = 2;

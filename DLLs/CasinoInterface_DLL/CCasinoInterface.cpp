@@ -19,7 +19,7 @@
 #include "low_level\keyboard.h"
 #include "low_level\mouse.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\TableManagement_DLL\CTableManagement.h"

@@ -27,7 +27,7 @@
 #include "CSymbolEngineTime.h"
 #include "CSymbolEngineUserchair.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\PokerTracker_Query_Definitions\pokertracker_query_definitions.h"
+#include "..\PokerTracker_QueryDefinitions\pokertracker_query_definitions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"

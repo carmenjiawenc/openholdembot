@@ -12,7 +12,7 @@
 //******************************************************************************
 
 #include "CSymbolEngineRandom.h"
-#include "..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 CSymbolEngineRandom::CSymbolEngineRandom() {

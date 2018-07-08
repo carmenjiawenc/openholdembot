@@ -150,7 +150,7 @@
 #include "..\DLLs\Files_DLL\files.h"
 #include "..\DLLs\Globals_DLL\globals.h"
 #include "..\DLLs\Numerical_Functions_DLL\FloatingPoint_Comparisions.h"
-#include "..\DLLs\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\DLLs\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\DLLs\Preferences_DLL\Preferences.h"
 #include "..\DLLs\StringFunctions_DLL\string_functions.h"
 #include "..\Shared\CCritSec\CCritSec.h"

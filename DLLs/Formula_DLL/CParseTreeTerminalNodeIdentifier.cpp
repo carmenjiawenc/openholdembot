@@ -22,7 +22,7 @@
 #include "CParserSymbolTable.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
-#include "..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\WindowFunctions_DLL\window_functions.h"

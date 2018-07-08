@@ -43,7 +43,7 @@
 #include "..\Files_DLL\Files.h"
 #include "..\Formula_DLL\CDebugTab.h"
 #include "..\Globals_DLL\globals.h"
-#include "..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 ///#include "..\..\OpenHoldem\CWatchdog.h"

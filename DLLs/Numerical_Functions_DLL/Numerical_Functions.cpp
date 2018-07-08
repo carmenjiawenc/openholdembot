@@ -13,7 +13,7 @@
 
 #define NUMERICAL_FUNCTIONS_DLL_EXPORTS
 
-#include "Numerical_Functions.h"
+#include "NumericalFunctions.h"
 #include <afx.h>
 #include <assert.h>
 #include <math.h> 

@@ -35,7 +35,7 @@
 #include "..\GUI_DLL\CGUI.h"
 #include "..\GUI_DLL\dialog_scraper_output\DialogScraperOutput.h"
 #include "..\GUI_DLL\Toolbar\CFlagsToolbar.h"
-#include "..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Scraper_DLL\CTransform\CTransform.h"

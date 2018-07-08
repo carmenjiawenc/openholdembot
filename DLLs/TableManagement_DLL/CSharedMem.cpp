@@ -17,7 +17,7 @@
 #include "CSharedMem.h"
 #include "..\Checksums_DLL\crc32hash.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\SessionCounter_DLL\CSessionCounter.h"
 #include "..\Symbols_DLL\CSymbolEngineRandom.h"

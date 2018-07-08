@@ -16,7 +16,7 @@
 #include "CSymbolEngineTime.h"
 #include <assert.h>
 #include "CEngineContainer.h"
-#include "..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 
 CSymbolEngineTime::CSymbolEngineTime() {
   // The values of some symbol-engines depend on other engines.

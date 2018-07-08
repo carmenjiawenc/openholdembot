@@ -11,7 +11,6 @@
 //
 //******************************************************************************
 
-#include "stdafx.h"
 #include "CHeartbeatDelay.h"
 #include "CAutoconnector.h"
 #include "CCasinoInterface.h"

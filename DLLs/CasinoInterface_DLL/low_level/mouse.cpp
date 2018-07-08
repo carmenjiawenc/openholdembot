@@ -35,7 +35,7 @@
 
 #include <math.h>
 #include "mouse.h"
-#include "..\..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\..\Numerical_Functions_DLL\NumericalFunctions.h"
 
 int MouseClick(const HWND hwnd, const RECT rect, const MouseButton button, const int clicks)
 {

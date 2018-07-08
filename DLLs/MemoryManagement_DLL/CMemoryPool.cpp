@@ -26,7 +26,7 @@
 
 #include "CMemoryPool.h"
 #include <assert.h>
-#include "..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 
 void CreateMemoryPools() {

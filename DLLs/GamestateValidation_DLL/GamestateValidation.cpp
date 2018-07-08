@@ -15,7 +15,7 @@
 #define VALIDATOR_DLL_EXPORTS
 
 #include "GamestateValidation.h"
-#include <atlstr.h>
+#include <afxwin.h>
 // !!!!! move to numerical DLL
 #include "..\Numerical_Functions_DLL\FloatingPoint_Comparisions.h"
 #include "..\WindowFunctions_DLL\window_functions.h"

@@ -21,7 +21,7 @@
 #include "CParserSymbolTable.h"
 #include "TokenizerConstants.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 

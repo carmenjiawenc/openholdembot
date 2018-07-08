@@ -31,7 +31,7 @@
 #include "..\..\Formula_DLL\CFunctionCollection.h"
 ///#include "CHeartbeatThread.h"
 #include "..\..\Formula_DLL\COHScriptList.h"
-#include "..\..\PokerTracker_Query_Definitions\pokertracker_query_definitions.h"
+#include "..\..\PokerTracker_QueryDefinitions\pokertracker_query_definitions.h"
 #include "..\..\Preferences_DLL\Preferences.h"
 ///#include "..\..\Scraper_DLL\CScraper.h"
 #include "..\..\Symbols_DLL\CEngineContainer.h"

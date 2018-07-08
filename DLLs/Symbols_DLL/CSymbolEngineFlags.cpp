@@ -16,7 +16,7 @@
 #define SYMBOLS_DLL_EXPORTS
 
 #include "CSymbolEngineFlags.h"
-#include "..\Numerical_Functions_DLL\Numerical_Functions.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 

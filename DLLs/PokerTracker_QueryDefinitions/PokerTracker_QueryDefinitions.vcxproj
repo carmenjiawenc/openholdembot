@@ -64,7 +64,7 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)PokerTracker_QueryDefinitions.dll</OutputFile>
-      <ModuleDefinitionFile>PokerTracker_QueryDefinitions.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>PokerTracker_Query_Definitions.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -81,7 +81,7 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)PokerTracker_QueryDefinitions.dll</OutputFile>
-      <ModuleDefinitionFile>PokerTracker_QueryDefinitions.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>PokerTracker_Query_Definitions.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -90,10 +90,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="PokerTracker_QueryDefinitions.cpp" />
+    <ClCompile Include="PokerTracker_Query_Definitions.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PokerTracker_QueryDefinitions.def" />
+    <None Include="PokerTracker_Query_Definitions.def" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PokerTracker_Queries_Version_4.h" />
