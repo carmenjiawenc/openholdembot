@@ -11,15 +11,15 @@
 //
 //******************************************************************************
 
-#include "stdafx.h"
 #include "CValidator.h"
 #include "CAutoplayer.h"
-#include "..\DLLs\Symbols_DLL\CEngineContainer.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineAutoplayer.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineIsTournament.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineReplayFrameController.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineVersus.h"
-#include "..\DLLs\GamestateValidation_DLL\GamestateValidation.h"
+#include "..\CasinoInterface_DLL\CCasinoInterface.h"
+#include "..\Preferences_DLL\Preferences.h"
+#include "..\Symbols_DLL\CEngineContainer.h"
+#include "..\Symbols_DLL\CSymbolEngineIsTournament.h"
+#include "..\Symbols_DLL\CSymbolEngineReplayFrameController.h"
+///#include "..\Symbols_DLL\CSymbolEngineVersus.h"
+#include "..\GamestateValidation_DLL\GamestateValidation.h"
 
 CValidator::CValidator() {
   _enabled_manually = false;
@@ -34,7 +34,7 @@ void CValidator::SetEnabledManually(bool Enabled) {
 
 void CValidator::Validate() {
   assert(EngineContainer() != nullptr);
-  if (!EngineContainer()->symbol_engine_autoplayer()->ismyturn()) {
+  if (!CasinoInterface()->IsMyTurn()) {
     // Validate only if it is my turn.
     //   * because then we have stable frames
     //   * because then it matters most
@@ -45,7 +45,7 @@ void CValidator::Validate() {
 		  || (_enabled_manually)) {
     bool success = ValidateGamestate(Preferences()->validator_use_heuristic_rules(),
       EngineContainer()->symbol_engine_istournament()->istournament(),
-      EngineContainer()->symbol_engine_versus()->VersusBinLoaded());
+      false /*#EngineContainer()->symbol_engine_versus()->VersusBinLoaded()*/);
     if (success) {
       return;
     }
@@ -56,6 +56,6 @@ void CValidator::Validate() {
   }
   if (Preferences()->validator_stop_on_error()) {
     assert(p_autoplayer != nullptr);
-    p_autoplayer->EngageAutoplayer(false);
+    ///p_autoplayer->EngageAutoplayer(false);
   }
 }

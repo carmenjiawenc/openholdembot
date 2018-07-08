@@ -10,11 +10,28 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CAutoplayer.cpp" />
+    <ClCompile Include="CHeartbeatDelay.cpp" />
+    <ClCompile Include="CHeartbeatThread.cpp" />
+    <ClCompile Include="CRebuyManagement.cpp" />
+    <ClCompile Include="CStableFramesCounter.cpp" />
+    <ClCompile Include="CValidator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CAutoplayer.h" />
+    <ClInclude Include="CHeartbeatDelay.h" />
+    <ClInclude Include="CHeartbeatThread.h" />
+    <ClInclude Include="CRebuyManagement.h" />
+    <ClInclude Include="CStableFramesCounter.h" />
+    <ClInclude Include="CValidator.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6D9F9D81-4D08-4C57-A773-4B041360D150}</ProjectGuid>
+    <ProjectGuid>{8D6B043F-A270-479C-8692-3A609E560089}</ProjectGuid>
     <RootNamespace>ReferenceMouseDLL</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>HeartbeatThread</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

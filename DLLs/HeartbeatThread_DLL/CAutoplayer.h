@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -11,6 +12,7 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
 ///#include "MainFrm.h"
 ///#include "../CTablemap/CTablemap.h"
 ///#include "../CTablemap/CTableMapAccess.h"
@@ -59,12 +61,11 @@ private:
 	// private variables - use public accessors and public mutators to address these
 	bool	_autoplayer_engaged;
 private:
-  CRebuyManagement rebuy_management;
+  ///CRebuyManagement rebuy_management;
 private:
 	POINT	cursor_position;
 	HWND	window_with_focus;
 	bool	action_sequence_needs_to_be_finished;
   bool  _already_executing_allin_adjustment;
-
-	CCritSec	m_critsec;
+	///CCritSec	m_critsec;
 };

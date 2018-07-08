@@ -216,6 +216,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowFunctions", "DLLs\Win
 		{6D9F9D81-4D08-4C57-A773-4B041360D150} = {6D9F9D81-4D08-4C57-A773-4B041360D150}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HeartbeatThread", "DLLs\HeartbeatThread_DLL\heartbeatThread.vcxproj", "{8D6B043F-A270-479C-8692-3A609E560089}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -749,6 +751,20 @@ Global
 		{E87D7887-ADDE-41DB-AA09-3DDAB950FAA5}.Template|Any CPU.Build.0 = Release|Win32
 		{E87D7887-ADDE-41DB-AA09-3DDAB950FAA5}.Template|Win32.ActiveCfg = Release|Win32
 		{E87D7887-ADDE-41DB-AA09-3DDAB950FAA5}.Template|Win32.Build.0 = Release|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Debug|Win32.Build.0 = Debug|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Release - Optimized|Any CPU.ActiveCfg = Release|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Release - Optimized|Any CPU.Build.0 = Release|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Release - Optimized|Win32.ActiveCfg = Release|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Release - Optimized|Win32.Build.0 = Release|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Release|Any CPU.ActiveCfg = Release|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Release|Win32.ActiveCfg = Release|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Release|Win32.Build.0 = Release|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Template|Any CPU.ActiveCfg = Release|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Template|Any CPU.Build.0 = Release|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Template|Win32.ActiveCfg = Release|Win32
+		{8D6B043F-A270-479C-8692-3A609E560089}.Template|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -786,6 +802,7 @@ Global
 		{DAE7979B-3014-4B86-8EFD-FA155A58FE78} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
 		{BFF9AF3C-0FDE-46B5-A2EA-2C077B353A78} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
 		{E87D7887-ADDE-41DB-AA09-3DDAB950FAA5} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
+		{8D6B043F-A270-479C-8692-3A609E560089} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = 

@@ -12,18 +12,21 @@
 //******************************************************************************
 
 #include "CHeartbeatDelay.h"
-#include "CAutoconnector.h"
-#include "CCasinoInterface.h"
-#include "CHandresetDetector.h"
-#include "..\DLLs\SessionCounter_DLL\CSessionCounter.h"
-#include "..\DLLs\Symbols_DLL\CEngineContainer.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineActiveDealtPlaying.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineCasino.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineChecksBetsFolds.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineIsRush.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineIsTournament.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineTime.h"
-#include "..\DLLs\Tablestate_DLL\TableState.h"
+#include "..\CasinoInterface_DLL\CCasinoInterface.h"
+#include "..\Debug_DLL\debug.h"
+#include "..\Preferences_DLL\Preferences.h"
+#include "..\SessionCounter_DLL\CSessionCounter.h"
+#include "..\Symbols_DLL\CHandresetDetector.h"
+#include "..\Symbols_DLL\CEngineContainer.h"
+#include "..\Symbols_DLL\CSymbolEngineActiveDealtPlaying.h"
+#include "..\Symbols_DLL\CSymbolEngineCasino.h"
+#include "..\Symbols_DLL\CSymbolEngineChecksBetsFolds.h"
+#include "..\Symbols_DLL\CSymbolEngineIsRush.h"
+#include "..\Symbols_DLL\CSymbolEngineIsTournament.h"
+#include "..\Symbols_DLL\CSymbolEngineTime.h"
+#include "..\TableManagement_DLL\CTableManagement.h"
+#include "..\TableManagement_DLL\CAutoConnector.h"
+#include "..\Tablestate_DLL\TableState.h"
 
 CHeartbeatDelay::CHeartbeatDelay() {
 }
@@ -34,12 +37,12 @@ CHeartbeatDelay::~CHeartbeatDelay(){
 void CHeartbeatDelay::FlexibleSleep() {
   double default_heartbeat_delay = Preferences()->scrape_delay();
   double sleeping_factor = SleepingFactor();
-  if (EngineContainer()->symbol_engine_casino()->ConnectedToManualMode()) {
+  ///if (EngineContainer()->symbol_engine_casino()->ConnectedToManualMode()) {
     // Don't become too laggy at ManualMode,
     // response-time to euser is more important
     // than "performance", usually single-tabling.
-    sleeping_factor = MIN(sleeping_factor, 2);
-  }
+    ///sleeping_factor = MIN(sleeping_factor, 2);
+  ///}
   double modified_heartbeat_delay = default_heartbeat_delay * sleeping_factor;
   write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] default delay   %.3f ms.\n", default_heartbeat_delay);
   write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] sleeping factor %.3f .\n", sleeping_factor);
@@ -86,7 +89,7 @@ double CHeartbeatDelay::SleepingFactor() {
 double CHeartbeatDelay::SleepingFactorNotSeated() {
   // Not (yet) seated
   // Probably not much critical work to be done.
-  if (OpenHoldem()->HandresetDetector()->hands_played() > 1) { 
+  if (EngineContainer()->HandresetDetector()->hands_played() > 1) { 
     if (EngineContainer()->symbol_engine_time()->elapsedauto() > 90) {
       // Tournament finished or cash-game stood-up, extremely non-critical
       // We continue with very low priority just to handle f$close, etc.

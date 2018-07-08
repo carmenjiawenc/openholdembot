@@ -14,6 +14,7 @@
 //******************************************************************************
 
 ///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 class CStableFramesCounter /*#: public CSpaceOptimizedGlobalObject */{
  public:
