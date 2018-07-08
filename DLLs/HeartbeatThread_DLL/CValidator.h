@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -7,26 +8,24 @@
 //
 //******************************************************************************
 //
-// Purpose: Flexible delay for the heartbeat iteration
+// Purpose: checking the game-state for inconsistencies
 //
 //******************************************************************************
 
-#ifndef INC_CHEARTBEATDELAY_H
-#define INC_CHEARTBEATDELAY_H
+// !! ATTENTION
+// !! CString not properly declared/included.
+// !! atlstr / afxstr don't work.
+// !! Any other includes cause lots of erros
+// !! (escpecially CSpaceOptimiedObject.h).
 
-class CHeartbeatDelay { 
+class CValidator {
  public:
-  CHeartbeatDelay();
-  ~CHeartbeatDelay();
+	// public functions
+	CValidator();
+	~CValidator();
  public:
-   // Should be executed exactly once per heartbeat
-   // by CHeartbeat.cpp
-  void FlexibleSleep();
+  void Validate();
+	void SetEnabledManually(bool Enabled);
  private:
-  double SleepingFactor();
-  double SleepingFactorNotSeated();
-  double SleepingFactorPlayingNotMyTurn();
-  double SleepingFactorActiveButFolded();
-};
-
-#endif //INC_CHEARTBEATDELAY_H
+  bool _enabled_manually;
+};																																																			

@@ -11,7 +11,6 @@
 //
 //******************************************************************************
 
-#include "StdAfx.h"
 #include "CAutoplayer.h"
 #include <complex>
 #include "AllinAdjustment.h"
