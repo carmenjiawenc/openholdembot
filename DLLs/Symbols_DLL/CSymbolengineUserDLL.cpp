@@ -26,7 +26,6 @@
 #include "..\TableState_DLL\CTableTitle.h"
 #include "..\TableState_DLL\TableState.h"
 #include "..\User_DLL\user.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 CSymbolEngineUserDLL::CSymbolEngineUserDLL() {
 	// The values of some symbol-engines depend on other engines.

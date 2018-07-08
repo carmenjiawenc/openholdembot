@@ -13,6 +13,8 @@
 //
 //******************************************************************************
 
+#define TABLEMAP_LOADER_DLL_EXPORTS
+
 #include "CTableMaploader.h"
 #include <afxwin.h>
 #include <map>
@@ -304,4 +306,14 @@ bool TablemapMatchesWindowByTablepoints(int MapIndex, HWND window) {
   write_log(Preferences()->debug_tablemap_loader(), "[CTablemapLoader] Window ia a match\n");
   */
   return true;
+}
+
+CTableMapLoader* tablemap_loader = NULL;
+
+CTableMapLoader* TableMapLoader() {
+  if (tablemap_loader == NULL) {
+    // lazy initialization
+    tablemap_loader = new CTableMapLoader();
+  }
+  return tablemap_loader;
 }

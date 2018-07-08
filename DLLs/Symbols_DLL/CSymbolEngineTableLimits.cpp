@@ -35,7 +35,7 @@ CSymbolEngineTableLimits::CSymbolEngineTableLimits() {
 	assert(EngineContainer()->symbol_engine_dealerchair() != NULL);
 	//
 	// Actually this symbol-engine also depends on 
-	// p_symbol_engine_is_tournament.
+	// symbol_engine_is_tournament.
 	// This is a circular dependency, but this does not really matter,
 	// as the value of istournament() should be constant for the
 	// entire session, so it does not matter, if we use old values

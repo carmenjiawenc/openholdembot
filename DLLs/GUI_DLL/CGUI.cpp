@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define GUI_DLL_EXPORTS
+
 #include "CGUI.h"
 #include "dialog_scraper_output\DialogScraperOutput.h"
 #include "MainFrame\MainFrm.h"

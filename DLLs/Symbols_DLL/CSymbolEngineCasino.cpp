@@ -21,9 +21,6 @@
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\SessionCounter_DLL\CSessionCounter.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
-
-CSymbolEngineCasino	*p_symbol_engine_casino = NULL;
 
 CSymbolEngineCasino::CSymbolEngineCasino() {
   // The values of some symbol-engines depend on other engines.

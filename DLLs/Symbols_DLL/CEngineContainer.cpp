@@ -73,7 +73,6 @@
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\SessionCounter_DLL\CSessionCounter.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 /*##include "CAutoplayerTrace.h"
 

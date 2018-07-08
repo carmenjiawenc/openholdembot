@@ -48,9 +48,9 @@ CString COpenHoldemTitle::GetTitle() {
 }
 
 CString COpenHoldemTitle::FullTitle() {
-	assert(p_autoconnector != NULL);
-	assert(p_function_collection != NULL);
-	assert(p_tablemap != NULL);
+	///assert(p_autoconnector != NULL);
+	///assert(p_function_collection != NULL);
+	///assert(p_tablemap != NULL);
   CString full_title;
   write_log(Preferences()->debug_alltherest(), "[COpenHoldemTitle] location Johnny_6\n");
 	if (TableManagement()->AutoConnector()->IsConnectedToAnything())	{

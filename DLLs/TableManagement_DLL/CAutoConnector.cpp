@@ -300,7 +300,7 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
       // Load correct tablemap, and save hwnd/rect/numchairs of table that we are "attached" to
 			set_attached_hwnd(g_tlist[SelectedItem].hwnd);
       CheckIfWindowMatchesMoreThanOneTablemap(attached_hwnd());
-			assert(p_tablemap != NULL);
+			///assert(p_tablemap != NULL);
       CString tablemap_to_load = TableMapLoader()->GetTablemapPathToLoad(g_tlist[SelectedItem].tablemap_index);
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Selected tablemap: %s\n", tablemap_to_load);
 			BasicScraper()->Tablemap()->LoadTablemap(tablemap_to_load);
@@ -318,8 +318,8 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Going to continue with scraper output and scraper DLL\n");
       // log OH title bar text and table reset
       WriteLogTableReset("NEW CONNECTION");
-      TablePositioner()->ResizeToTargetSize();
-			TablePositioner()->PositionMyWindow();
+      TableManagement()->TablePositioner()->ResizeToTargetSize();
+      TableManagement()->TablePositioner()->PositionMyWindow();
 			///p_autoplayer->EngageAutoPlayerUponConnectionIfNeeded();
 		}
 	}
@@ -340,7 +340,7 @@ void CAutoConnector::Disconnect(CString reason_for_disconnection) {
   }
   // First close scraper-output-dialog,
   // as an updating dialog without a connected table can crash.
-  CDlgScraperOutput::DestroyWindowSafely();
+  ///CDlgScraperOutput::DestroyWindowSafely();
   // Make sure autoplayer is off
   write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Stopping autoplayer\n");
   ///p_autoplayer->EngageAutoplayer(false);

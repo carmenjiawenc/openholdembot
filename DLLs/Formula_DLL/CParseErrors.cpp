@@ -20,7 +20,6 @@
 #include "TokenizerConstants.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\StringFunctions_DLL\string_functions.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 bool CParseErrors::_is_error = false;
 CString CParseErrors::_last_error_message = "";

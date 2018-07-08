@@ -39,7 +39,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{93F0DFB6-AE1D-4040-A3CF-51F4EC1EEC8C}</ProjectGuid>
-    <RootNamespace>ReferenceMouseDLL</RootNamespace>
+    <RootNamespace>ScraperDLL</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>

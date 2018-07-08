@@ -34,7 +34,7 @@ CParseTreeTerminalNodeIdentifier::CParseTreeTerminalNodeIdentifier(
     CParseTreeTerminalNode(relative_line_number) {
   _node_type = kTokenIdentifier;
   _terminal_name = name;
-  assert(p_parser_symbol_table != NULL);
+  ///assert(p_parser_symbol_table != NULL);
   ///p_parser_symbol_table->VerifySymbol(name);
 }
 

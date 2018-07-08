@@ -74,7 +74,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)debug.lib;$(OutDir)files.lib;$(OutDir)Preferences.lib;$(OutDir)CBasicScraper.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)debug.lib;$(OutDir)files.lib;$(OutDir)Preferences.lib;$(OutDir)BasicScraper.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -93,7 +93,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)debug.lib;$(OutDir)files.lib;$(OutDir)Preferences.lib;$(OutDir)CBasicScraper.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)debug.lib;$(OutDir)files.lib;$(OutDir)Preferences.lib;$(OutDir)BasicScraper.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

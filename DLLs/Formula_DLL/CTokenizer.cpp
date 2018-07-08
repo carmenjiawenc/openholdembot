@@ -24,7 +24,6 @@
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 // Global vars to be used by static accessors
 int line_relative = 1;
@@ -67,7 +66,7 @@ void CTokenizer::SetInputBufferByDebugTab(const char* expression_to_be_parsed, i
   // line_relative must be assigned after SetInputBuffer()
   // because SetInputBuffer() sets it also!
   line_relative = line;
-  assert(p_debug_tab != NULL);
+  ///assert(p_debug_tab != NULL);
   //!!!!!!!_currently_tokenized_function_or_list = p_debug_tab;
 }
 
@@ -387,7 +386,7 @@ NegativeNumber:
 			if (_inside_OpenPPL_function) {
 				RETURN_DEFAULT_SINGLE_CHARACTER_OPERATOR(kTokenOperatorPercentage);
 			}
-      assert(OpenHoldem()->FormulaParser() != NULL);
+      ///assert(OpenHoldem()->FormulaParser() != NULL);
       if (FormulaParser()->IsParsingDebugTab()) {
         // http://www.maxinmontreal.com/forums/viewtopic.php?f=297&t=19973&p=140389#p140389
         MessageBox_Error_Warning("Operator % in debug-tab detected.\n"

@@ -25,7 +25,6 @@
 #include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 CCasinoInterface::CCasinoInterface() {
@@ -116,7 +115,7 @@ void CCasinoInterface::PressTabToSwitchOHReplayToNextFrame() {
   RECT	rect_somewhere = {1, 1, 2, 2};
 	POINT	cur_pos = {0};
 
-  assert(EngineContainer()->symbol_engine_casino()->ConnectedToOHReplay());
+  ///assert(EngineContainer()->symbol_engine_casino()->ConnectedToOHReplay());
   SendString(TableManagement()->AutoConnector()->attached_hwnd(), 
     rect_somewhere, "\t", false);
 }

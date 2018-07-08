@@ -27,7 +27,6 @@
 #include  "..\TableState_DLL\TableState.h"
 #include  "..\TableState_DLL\CTableTitle.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 COHScriptList::COHScriptList(
     CString new_name,

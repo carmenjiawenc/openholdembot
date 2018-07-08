@@ -19,7 +19,6 @@
 #include "..\Symbols_DLL\CSymbolEngineAutoplayer.h"
 #include "..\TableManagement_DLL\CAutoConnector.h"
 #include "..\TableManagement_DLL\CTableManagement.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 ///#include "MainFrm.h"
 ///#include "CMyMutex.h"
 

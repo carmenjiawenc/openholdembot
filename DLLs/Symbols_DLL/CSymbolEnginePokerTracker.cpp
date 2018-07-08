@@ -31,7 +31,6 @@
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 CSymbolEnginePokerTracker::CSymbolEnginePokerTracker() {
 	// The values of some symbol-engines depend on other engines.

@@ -27,7 +27,6 @@
 #include "..\TableMapLoader_DLL\CTableMapLoader.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 CProblemSolver::CProblemSolver()
 {}

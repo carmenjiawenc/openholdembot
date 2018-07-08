@@ -32,7 +32,8 @@ class CSymbolEngineGameType: public CVirtualSymbolEngine {
 	bool EvaluateSymbol(const CString name, double *result, bool log = false);
   CString SymbolsProvided();
  public:
-	int gametype()	{ return _gametype; }	// former p_symbol_engine_various_data_lookup->sym()->lim
+   // gametype, formerly called "lim" in WinHoldem
+  int gametype() { return _gametype; }
 	bool isnl()			{ return (gametype() == kGametypeNL); }
 	bool ispl()			{ return (gametype() == kGametypePL); }
 	bool isfl()			{ return (gametype() == kGametypeFL); }

@@ -67,7 +67,7 @@ CSymbolEngineRaisers::CSymbolEngineRaisers() {
 	// but because we use "old" information here
 	// there is no dependency on this cycle.
   //
-  // Also using p_symbol_engine_debug
+  // Also using symbol_engine_debug
   // which doesn't depend on anything and which we want to place last
   // for performance reasons (very rarely used).
   UpdateOnHandreset();

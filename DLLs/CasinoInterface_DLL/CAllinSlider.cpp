@@ -22,7 +22,6 @@
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\TableManagement_DLL\CTableManagement.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 CAllinSlider::CAllinSlider() {
   ResetHandlePosition();

@@ -132,7 +132,6 @@ void CIteratorThread::RestartPrWinComputations() {
 }
 
 void CIteratorThread::StartPrWinComputationsIfNeeded() {		
-	assert(p_iterator_thread != NULL);
 	if (EngineContainer()->symbol_engine_autoplayer()->IsFirstHeartbeatOfMyTurn())	{
     write_log(Preferences()->debug_prwin(), "[PrWinThread] IteratorThread paused. Going to restart.\n");
     assert(IteratorThreadWorking() == false);

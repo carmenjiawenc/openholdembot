@@ -15,15 +15,16 @@
 //******************************************************************************
 
 #include "CFileSystemMonitor.h"
+#include "LibDef.h"
 #include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
 
 // This function has to be global and can't be part of the class,
 // as it has to be called by the callback-function 
 // BOOL CALLBACK EnumProcTopLevelWindowList(HWND hwnd, LPARAM lparam) 
-bool Check_TM_Against_Single_Window(int MapIndex, HWND h);
+TABLEMAP_LOADER_DLL_API bool Check_TM_Against_Single_Window(int MapIndex, HWND h);
 
-class CTableMapLoader //!!! public CSpaceOptimizedGlobalObject 
+class TABLEMAP_LOADER_DLL_API CTableMapLoader //!!! public CSpaceOptimizedGlobalObject 
 {
  public:
 	CTableMapLoader();
@@ -60,4 +61,4 @@ typedef struct {
 
 extern std::map<int, t_tablemap_connection_data> tablemap_connection_data;
 
-CTableMapLoader*  TableMapLoader(); //!!!!!
+TABLEMAP_LOADER_DLL_API CTableMapLoader* TableMapLoader();

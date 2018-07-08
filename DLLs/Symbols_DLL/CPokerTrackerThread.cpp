@@ -35,7 +35,6 @@
 #include "..\TableManagement_DLL\CAutoConnector.h"
 #include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\Tablestate_DLL\TableState.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 SPlayerData _player_data[kMaxNumberOfPlayers];
 
@@ -234,7 +233,7 @@ bool CPokerTrackerThread::CheckIfNameExistsInDB(int chair)
 
 	write_log(Preferences()->debug_pokertracker(), "[PokerTracker] CheckIfNameExistsInDB() chair = %i\n", chair);
 	
-  assert(p_table_state != NULL);
+  assert(TableState() != NULL);
 	if (TableState()->Player(chair)->name() == "")	{
 		write_log(Preferences()->debug_pokertracker(), "[PokerTracker] CheckIfNameExistsInDB() No name known for this chair\n");
 		return false;

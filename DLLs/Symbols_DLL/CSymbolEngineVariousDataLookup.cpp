@@ -35,9 +35,7 @@
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\Tablestate_DLL\CTableTitle.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
-#include "..\..\OpenHoldem\stdafx.h"
-
-CSymbolEngineVariousDataLookup *p_symbol_engine_various_data_lookup = NULL;
+#include "..\..\OpenHoldem_old\stdafx.h"
 
 CSymbolEngineVariousDataLookup::CSymbolEngineVariousDataLookup() {
   // The values of some symbol-engines depend on other engines.
@@ -46,10 +44,10 @@ CSymbolEngineVariousDataLookup::CSymbolEngineVariousDataLookup() {
   assert(EngineContainer()->symbol_engine_userchair() != NULL);
   // Other objects that we depend on
   assert(TableManagement()->AutoConnector() != NULL);
-  assert(p_betround_calculator != NULL);
-  assert(OpenHoldem()->HandresetDetector() != NULL);
+  ///assert(p_betround_calculator != NULL);
+  ///assert(OpenHoldem()->HandresetDetector() != NULL);
   assert(SessionCounter() != NULL);
-  assert(p_tablemap != NULL);
+  ///assert(p_tablemap != NULL);
   assert(TableState()->TableTitle() != NULL);
 }
 

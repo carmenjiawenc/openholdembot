@@ -12,6 +12,7 @@
 //
 //******************************************************************************
 
+#include "LibDef.h"
 #include "formula_editor\DialogFormulaScintilla.h"
 #include "dialog_scraper_output\DialogScraperOutput.h"
 #include "Toolbar\CFlagsToolbar.h"
@@ -20,7 +21,7 @@
 #include "OpenHoldem_title\COpenHoldemTitle.h"
 #include "white_info_box\CWhiteInfoBox.h"
 
-class CGUI {
+class GUI_DLL_API CGUI {
 public:
   CGUI();
   ~CGUI();
@@ -62,7 +63,7 @@ private:
   CWhiteInfoBox* _p_white_infobox;
 };
 
-CGUI* GUI();
+GUI_DLL_API CGUI* GUI();
 
 
 

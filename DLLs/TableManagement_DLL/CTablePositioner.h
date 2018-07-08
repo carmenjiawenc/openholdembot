@@ -34,5 +34,3 @@ class TABLE_MANAGEMENT_DLL_API CTablePositioner /*#: public CSpaceOptimizedGloba
 	RECT _desktop_rectangle;
   RECT _table_position;
 };
-
-CTablePositioner* TablePositioner(); //!!!!!

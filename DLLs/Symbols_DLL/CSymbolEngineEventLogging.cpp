@@ -29,7 +29,7 @@
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\Tablestate_DLL\CTableTitle.h"
-#include "..\..\OpenHoldem\stdafx.h"
+#include "..\..\OpenHoldem_old\stdafx.h"
 ///#include "CVersionInfo.h"
 
 CSymbolEngineEventLogging::CSymbolEngineEventLogging()

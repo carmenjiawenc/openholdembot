@@ -47,7 +47,6 @@
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 ///#include "..\..\OpenHoldem\CWatchdog.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 #ifdef _DEBUG
@@ -145,7 +144,7 @@ void CFormulaParser::LoadOptionalFunctionLibrary(CString library_path) {
 }
 
 void CFormulaParser::LoadFunctionLibrary(CString library_path) {
-  assert(p_function_collection != NULL);
+  assert(FunctionCollection() != NULL);
   if (_access(library_path, F_OK) != 0) {
     // Using a message-box instead of silent logging, as OpenPPL is mandatory 
     // and we expect the user to supervise at least the first test.
@@ -1030,7 +1029,7 @@ void CFormulaParser::BackPatchOpenEndedWhenConditionSequence(
 
 void CFormulaParser::ParseDebugTab(CString function_text) {
   EnterParserCode();
-  assert(p_debug_tab != NULL);
+  ///assert(p_debug_tab != NULL);
   _is_parsing_debug_tab = true;
   FunctionCollection()->DebugTab()->Clear();
   CString next_line;
@@ -1052,7 +1051,7 @@ void CFormulaParser::ParseDebugTab(CString function_text) {
     // Care about operator precendence
     _parse_tree_rotator.Rotate(expression, &expression);
     // Add line and expression to debug-tab
-    assert(p_debug_tab != NULL);
+    ///assert(p_debug_tab != NULL);
     FunctionCollection()->DebugTab()->AddExpression(expression_text, expression);
   }
   _is_parsing_debug_tab = false;

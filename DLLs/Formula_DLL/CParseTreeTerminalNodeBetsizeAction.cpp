@@ -77,7 +77,7 @@ double CParseTreeTerminalNodeBetsizeAction::Evaluate(bool log /* = false */) {
 	}	else if (_node_type == kTokenActionRaiseByPercentagedPotsize)	{
     // RaiseBy X% Force
 		double raise_by_percentage = _first_sibbling->Evaluate(log);
-    assert(EngineContainer()->symbol_engine_tablelimits()->bet() > 0);
+    ///assert(EngineContainer()->symbol_engine_tablelimits()->bet() > 0);
 		double pot_size_after_call_in_big_blinds = 
       42 ///(EngineContainer()->symbol_engine_chip_amounts()->pot() / EngineContainer()->symbol_engine_tablelimits()->bet()) 
       /*#+ EngineContainer()->symbol_engine_chip_amounts()->nbetstocall()*/;

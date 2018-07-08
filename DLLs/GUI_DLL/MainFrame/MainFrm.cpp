@@ -67,8 +67,7 @@
 ///#include "Singletons.h"
 #include "..\..\TableManagement_DLL\CAutoConnector.h"
 #include "..\..\TableManagement_DLL\CTableManagement.h"
-#include "..\..\..\OpenHoldem\OpenHoldem.h"
-#include "..\..\..\OpenHoldem\OpenHoldemDoc.h" /// here?
+#include "..\..\..\OpenHoldem_old\OpenHoldemDoc.h" /// here?
 
 // CMainFrame
 

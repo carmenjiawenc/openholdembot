@@ -13,7 +13,7 @@
 //******************************************************************************
 
 #ifdef GUI_DLL_EXPORTS
-#define GUI_DLL_API extern "C" __declspec(dllexport)
+#define GUI_DLL_API __declspec(dllexport)
 #else
-#define GUI_DLL_API extern "C" __declspec(dllimport)
+#define GUI_DLL_API __declspec(dllimport)
 #endif

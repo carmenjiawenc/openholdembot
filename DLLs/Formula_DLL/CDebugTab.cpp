@@ -20,7 +20,6 @@
 #include "..\Globals_DLL\globals.h"
 #include "..\MemoryManagement_DLL\CMemoryPool.h"
 #include "..\Preferences_DLL\Preferences.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 // These arrays are global, 
@@ -95,9 +94,9 @@ void CDebugTab::AddExpression(CString expression_text, TPParseTreeNode expressio
 }
 
 void* CDebugTab::operator new(size_t size) {
-  assert(PMemoryPoolParser() != NULL);
+  ///assert(PMemoryPoolGlobal() != NULL);
   write_log(Preferences()->debug_memory_usage(), "[CDebugTab] Allocating %i bytes\n", size);
-  return MemoryPoolGlobal()->Allocate(size);
+  return malloc(size);///MemoryPoolGlobal()->Allocate(size);
 }
 
 CString CDebugTab::function_text() {

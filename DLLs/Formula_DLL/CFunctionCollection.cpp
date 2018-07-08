@@ -30,7 +30,6 @@
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 CFunctionCollection *p_function_collection = NULL;
 
@@ -145,7 +144,7 @@ void CFunctionCollection::Add(COHScriptObject *new_function) {
     // and must not be added to the collection
     // (to avoid deletion)
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=111&t=19616
-    assert(p_debug_tab != NULL);
+    ///assert(p_debug_tab != NULL);
     DebugTab()->SetText(new_function->function_text());
     delete new_function;
     return;
@@ -258,7 +257,7 @@ COHScriptObject *CFunctionCollection::LookUp(CString name) {
     // that is a global object and not in the collection
     // (to avoid deletion)
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=111&t=19616
-    assert(p_debug_tab != NULL);
+    ///assert(p_debug_tab != NULL);
     return NULL; /// p_debug_tab;
   }
   write_log(Preferences()->debug_formula(), "[CFunctionCollection] Lookup %s\n", name); 
@@ -655,7 +654,7 @@ bool CFunctionCollection::ParseAll() {
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=16230
   CheckForDefaultFormulaEntries();
   CSLock lock(m_critsec);
-  assert(OpenHoldem()->FormulaParser() != NULL);
+  ///assert(OpenHoldem()->FormulaParser() != NULL);
   ///p_parser_symbol_table->Clear();
   COHScriptObject *p_oh_script_object = GetFirst();
   while (p_oh_script_object != NULL) {
@@ -668,7 +667,7 @@ bool CFunctionCollection::ParseAll() {
   }
   // Finally parse the debug-tab,
   // that is no longer in the collection.
-  assert(p_debug_tab != NULL);
+  ///assert(p_debug_tab != NULL);
   DebugTab()->Parse();
   return true;
 }

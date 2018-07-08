@@ -17,8 +17,6 @@
 #include "CSymbolEngineIsTournament.h"
 #include "..\Tablestate_DLL\TableState.h"
 
-CSymbolEngineGameType	*p_symbol_engine_gametype = NULL;
-
 CSymbolEngineGameType::CSymbolEngineGameType() {
 	// The values of some symbol-engines depend on other engines.
 	// As the engines get later called in the order of initialization
