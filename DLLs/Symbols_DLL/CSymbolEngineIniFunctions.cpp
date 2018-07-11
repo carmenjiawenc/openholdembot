@@ -42,7 +42,6 @@
 #include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 // We can't evaluate ini-functions if no formula is loaded.
 // This was no problem on startup, but caused crashes

@@ -1482,7 +1482,7 @@ void CDlgFormulaScintilla::OnBnClickedCalc() {
     // Execute the currently selected formula
     FunctionCollection()->Dump();
     ret = FunctionCollection()->Evaluate(m_current_edit);
-    int line = 42;/// p_autoplayer_trace->GetLastEvaluatedRelativeLineNumber();
+    int line = 42;/// AutoplayerTrace()->GetLastEvaluatedRelativeLineNumber();
     sprintf_s(format, 50, "%%.%df", k_precision_for_debug_tab);
     Cstr.Format(format, ret);
     m_CalcResult.SetWindowText(Cstr);

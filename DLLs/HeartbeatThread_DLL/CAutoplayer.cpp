@@ -13,33 +13,25 @@
 
 #include "CAutoplayer.h"
 #include <complex>
-#include "AllinAdjustment.h"
-#include "BetpotCalculations.h"
-#include "BringKeyboard.h"
-#include "CAutoplayerTrace.h"
-#include "CAutoconnector.h"
-#include "CAutoplayerFunctions.h"
-#include "CCasinoInterface.h"
-#include "GUI()->FlagsToolbar().h"
 #include "CHeartbeatThread.h"
-#include "CIteratorThread.h"
-#include "CMyMutex.h"
 #include "CRebuyManagement.h"
-#include "CReplayFrame.h"
 #include "CStableFramesCounter.h"
-#include "MainFrm.h"
-#include "OpenHoldem.h"
-#include "PokerChat.hpp"
-#include "..\DLLs\Scraper_DLL\CScraper.h"
-#include "..\DLLs\StringFunctions_DLL\string_functions.h"
-#include "..\DLLs\Symbols_DLL\CEngineContainer.h"
-#include "..\DLLs\Symbols_DLL\CFunctionCollection.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineAutoplayer.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineCasino.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineChipAmounts.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineHistory.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineUserchair.h"
-#include "..\DLLs\Tablestate_DLL\TableState.h"
+#include "..\CasinoInterface_DLL\CCasinoInterface.h"
+#include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CAutoplayerFunctions.h"
+#include "..\Formula_DLL\CAutoplayerTrace.h"
+#include "..\Formula_DLL\CFunctionCollection.h"
+#include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
+#include "..\StringFunctions_DLL\string_functions.h"
+#include "..\Symbols_DLL\CEngineContainer.h"
+#include "..\Symbols_DLL\CSymbolEngineAutoplayer.h"
+#include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
+#include "..\Symbols_DLL\CSymbolengineUserchair.h"
+#include "..\TableManagement_DLL\CAutoConnector.h"
+#include "..\TableManagement_DLL\CTableManagement.h"
+#include "..\..\Shared\CCritSec\CCritSec.h"
 
 CAutoplayer	*p_autoplayer = NULL;
 
@@ -61,7 +53,7 @@ CAutoplayer::~CAutoplayer(void) {
 
 void CAutoplayer::EngageAutoPlayerUponConnectionIfNeeded() {
   write_log(Preferences()->debug_alltherest(), "[CAutoplayer] location Johnny_5\n");
-  if (OpenHoldem()->AutoConnector()->IsConnectedToAnything() && Preferences()->engage_autoplayer()) {
+  if (TableManagement()->AutoConnector()->IsConnectedToAnything() && Preferences()->engage_autoplayer()) {
 		EngageAutoplayer(true);
 	}
 }
@@ -89,14 +81,15 @@ void CAutoplayer::PrepareActionSequence() {
 
 void CAutoplayer::FinishActionSequenceIfNecessary() {
 	if (action_sequence_needs_to_be_finished) {
-    if (EngineContainer()->symbol_engine_casino()->ConnectedToOHReplay() && Preferences()->use_auto_replay()) {
+    if (CasinoInterface()->ConnectedToOHReplay() && Preferences()->use_auto_replay()) {
       // Needs to be done very early
       // before we restore the focus
-      p_casino_interface->PressTabToSwitchOHReplayToNextFrame();
+      CasinoInterface()->PressTabToSwitchOHReplayToNextFrame();
     }
     // avoid multiple-clicks within a short frame of time
-    p_stableframescounter->UpdateOnAutoplayerAction();
-    if (EngineContainer()->symbol_engine_casino()->ConnectedToOfflineSimulation() || Preferences()->restore_position_and_focus()) {
+    /// Not here
+    ////p_stableframescounter->UpdateOnAutoplayerAction();
+    if (CasinoInterface()->ConnectedToOfflineSimulation() || Preferences()->restore_position_and_focus()) {
       // Restore mouse position and window focus
       // Only for simulations, not for real casinos (stealth).
 		  // Restoring the original state has to be done in reversed order
@@ -125,7 +118,7 @@ bool CAutoplayer::TimeToHandleSecondaryFormulas() {
  	}
 	write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] TimeToHandleSecondaryFormulas() heartbeats to pause: %i\n",
 		hearbeats_to_pause);
-	bool act_this_heartbeat = ((OpenHoldem()->HeartbeatThread()->heartbeat_counter() % hearbeats_to_pause) == 0);
+	bool act_this_heartbeat = true; /// not here (HeartbeatThread()->heartbeat_counter() % hearbeats_to_pause) == 0);
 	write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] TimeToHandleSecondaryFormulas() act_this_heartbeat: %s\n",
 		Bool2CString(act_this_heartbeat));
 	return act_this_heartbeat;
@@ -135,34 +128,34 @@ bool CAutoplayer::DoBetPot(void) {
 	bool success = false;
 	// Start with 2 * potsize, continue with lower betsizes, finally 1/4 pot
 	for (int i=k_autoplayer_function_betpot_2_1; i<=k_autoplayer_function_betpot_1_4; i++) {
-		if (p_autoplayer_functions->GetAutoplayerFunctionValue(i)) 	{
+		if (FunctionCollection()->AutoplayerFunctions()->GetAutoplayerFunctionValue(i)) 	{
 			write_log(Preferences()->debug_autoplayer(), 
         "[AutoPlayer] Function %s true.\n", k_standard_function_names[i]);
-      if (ChangeBetPotActionToAllin(i)) {
+      /*#    if (ChangeBetPotActionToAllin(i)) {
         write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Adjusting bhetpot_X_Y to allin.\n");
         return DoAllin();
-      }
-			if (p_tablemap->betpotmethod() == BETPOT_RAISE)	{
-				success = p_casino_interface->ClickButtonSequence(i, k_autoplayer_function_raise, Preferences()->swag_delay_3());
+      }*/
+			if (BasicScraper()->Tablemap()->betpotmethod() == BETPOT_RAISE)	{
+				success = CasinoInterface()->ClickButtonSequence(i, k_autoplayer_function_raise, Preferences()->swag_delay_3());
 			}	else {
 				// Default: click only betpot
-				success = p_casino_interface->LogicalAutoplayerButton(i)->Click();
+				success = CasinoInterface()->LogicalAutoplayerButton(i)->Click();
 			}
       if (!success) {
         // Backup action> try yo swag betpot_X_Y
-        double betpot_amount = BetsizeForBetpot(i);
+        double betpot_amount = 42;///BetsizeForBetpot(i);
         write_log(Preferences()->debug_autoplayer(), 
           "[AutoPlayer] Betpot with buttons failed\n");
         write_log(Preferences()->debug_autoplayer(), 
           "[AutoPlayer] Trying to swag %.2f instead\n", betpot_amount);
-        success = p_casino_interface->EnterBetsize(betpot_amount);
+        success = CasinoInterface()->EnterBetsize(betpot_amount);
       }
 		}
     if (success) {
 			// Register the action
 			// Treat betpot like swagging, i.e. raising a user-defined amount
       EngineContainer()->UpdateAfterAutoplayerAction(k_autoplayer_function_betsize);
-      p_autoplayer_trace->Print(ActionConstantNames(i), kAlwaysLogAutoplayerFunctions);
+      AutoplayerTrace()->Print(ActionConstantNames(i), kAlwaysLogAutoplayerFunctions);
 			return true;
     }
 		// Else continue trying with the next betpot function
@@ -171,14 +164,15 @@ bool CAutoplayer::DoBetPot(void) {
 	return false;
 }
 
+/// here?
 bool CAutoplayer::AnyPrimaryFormulaTrue() { 
   // Some auto-player-functions MUST exist. If not then they get auto-generated.
   // Missing all autoplayer-functions would be a bug that leads to time-outs.
-  assert(p_function_collection != NULL);
+  assert(FunctionCollection() != NULL);
   assert(FunctionCollection()->Exists(k_standard_function_names[k_autoplayer_function_fold]));
 	for (int i=k_autoplayer_function_beep; i<=k_autoplayer_function_fold; ++i)
 	{
-		double function_result = p_autoplayer_functions->GetAutoplayerFunctionValue(i);
+		double function_result = FunctionCollection()->AutoplayerFunctions()->GetAutoplayerFunctionValue(i);
 		if (i == k_autoplayer_function_betsize)
 		{
 			write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] AnyPrimaryFormulaTrue(): [%s]: %s\n",
@@ -203,7 +197,7 @@ bool CAutoplayer::AnySecondaryFormulaTrue() {
   // Considering all hopper functions
   // and the functions f$prefold and f$chat.
 	for (int i=k_hopper_function_sitin; i<=k_standard_function_chat; ++i)	{
-		bool function_result = p_autoplayer_functions->GetAutoplayerFunctionValue(i);
+		bool function_result = FunctionCollection()->AutoplayerFunctions()->GetAutoplayerFunctionValue(i);
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] AnySecondaryFormulaTrue(): [%s]: %s\n",
 			k_standard_function_names[i], Bool2CString(function_result));
 		if (function_result) {
@@ -230,10 +224,10 @@ bool CAutoplayer::ExecutePrimaryFormulasIfNecessary() {
 	// So we have to take an action and are able to do so.
 	// This function will ALWAYS try to click a button,
 	// so we can handle the preparation once at the very beginning.
-	CMyMutex mutex;
+	/*#CMyMutex mutex;
   if (!mutex.IsLocked()) {
 		return false;
-	}
+	}*/
 	PrepareActionSequence();
 	if (FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_allin))	{
 		if (DoAllin()) {
@@ -255,7 +249,6 @@ bool CAutoplayer::ExecuteRaiseCallCheckFold() {
     "[AutoPlayer] ExecuteRaiseCallCheckFold()\n");
   // Some auto-player-functions MUST exist. If not then they get auto-generated.
   // Missing all autoplayer-functions would be a bug that leads to time-outs.
-  assert(p_function_collection != NULL);
   assert(FunctionCollection()->Exists(k_standard_function_names[k_autoplayer_function_fold]));
 	for (int i=k_autoplayer_function_raise; i<=k_autoplayer_function_fold; i++)	{
     if ((i == k_autoplayer_function_check) && EngineContainer()->symbol_engine_chip_amounts()->call() > 0) {
@@ -264,9 +257,9 @@ bool CAutoplayer::ExecuteRaiseCallCheckFold() {
       continue;
     }
 		if (FunctionCollection()->Evaluate(k_standard_function_names[i])) 	{
-			if (p_casino_interface->LogicalAutoplayerButton(i)->Click()) 			{				
+			if (CasinoInterface()->LogicalAutoplayerButton(i)->Click()) 			{				
         EngineContainer()->UpdateAfterAutoplayerAction(i);
-        p_autoplayer_trace->Print(ActionConstantNames(i), kAlwaysLogAutoplayerFunctions);
+        AutoplayerTrace()->Print(ActionConstantNames(i), kAlwaysLogAutoplayerFunctions);
 				return true;
 			}
 		}
@@ -291,27 +284,27 @@ bool CAutoplayer::ExecuteSecondaryFormulasIfNecessary() {
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Nothing to do.\n");
 		return false;
 	}
-	CMyMutex mutex;
+	/*#CMyMutex mutex;
 	if (!mutex.IsLocked()) {
 		return false;
-	}
+	}*/
 	PrepareActionSequence();
 	// Prefold, close, rebuy and chat work require different treatment,
 	// more than just clicking a simple region...
-	if (p_autoplayer_functions->GetAutoplayerFunctionValue(k_standard_function_prefold)) {
+	if (FunctionCollection()->AutoplayerFunctions()->GetAutoplayerFunctionValue(k_standard_function_prefold)) {
 		// Prefold is technically more than a simple button-click,
 		// because we need to create an autoplayer-trace afterwards.
 		if (DoPrefold()) {
 			executed_secondary_function = k_standard_function_prefold;
 		}
-	}	else if (p_autoplayer_functions->GetAutoplayerFunctionValue(k_hopper_function_close))	{
+	}	else if (FunctionCollection()->AutoplayerFunctions()->GetAutoplayerFunctionValue(k_hopper_function_close))	{
 		// CloseWindow is "final".
 		// We don't expect any further action after that
 		// and can return immediatelly.
-		if (p_casino_interface->CloseWindow()) {
+		if (CasinoInterface()->CloseWindow()) {
 			executed_secondary_function = k_hopper_function_close;
 		}
-	}	else if (p_autoplayer_functions->GetAutoplayerFunctionValue(k_standard_function_chat)) 	{
+	}	else if (FunctionCollection()->AutoplayerFunctions()->GetAutoplayerFunctionValue(k_standard_function_chat)) 	{
 			if (DoChat()) {
 				executed_secondary_function = k_standard_function_chat;
 			}
@@ -324,8 +317,8 @@ bool CAutoplayer::ExecuteSecondaryFormulasIfNecessary() {
 	// k_hopper_function_autopost,
 	else {
     for (int i=k_hopper_function_sitin; i<=k_hopper_function_autopost; ++i)	{
-  		if (p_autoplayer_functions->GetAutoplayerFunctionValue(i))	{
-        if (p_casino_interface->LogicalAutoplayerButton(i)->Click()) {
+  		if (FunctionCollection()->AutoplayerFunctions()->GetAutoplayerFunctionValue(i))	{
+        if (CasinoInterface()->LogicalAutoplayerButton(i)->Click()) {
           executed_secondary_function = i;
           break;
         }
@@ -338,10 +331,10 @@ bool CAutoplayer::ExecuteSecondaryFormulasIfNecessary() {
   // can't block all the other hopper-functions.
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=19953
   if ((executed_secondary_function == kUndefined)
-    && (p_autoplayer_functions->GetAutoplayerFunctionValue(k_hopper_function_rebuy))) {
+    && (FunctionCollection()->AutoplayerFunctions()->GetAutoplayerFunctionValue(k_hopper_function_rebuy))) {
     // This requires an external script and some time.
     // No further actions here eihter, but immediate return.
-    bool result = rebuy_management->TryToRebuy();
+    bool result = rebuy_management.TryToRebuy();
     if (result) {
       executed_secondary_function = k_hopper_function_rebuy;
     }
@@ -352,7 +345,7 @@ bool CAutoplayer::ExecuteSecondaryFormulasIfNecessary() {
       // No update after action required here,
       // as prefold already cares about that
       // and the other actions don't need it.
-      p_autoplayer_trace->Print(ActionConstantNames(executed_secondary_function), false);
+      AutoplayerTrace()->Print(ActionConstantNames(executed_secondary_function), false);
     }
 		return true;
 	}
@@ -363,26 +356,12 @@ bool CAutoplayer::ExecuteSecondaryFormulasIfNecessary() {
 #define ENT CSLock lock(m_critsec);
 	
 void CAutoplayer::EngageAutoplayer(bool to_be_enabled_or_not) { 
-	ENT 
-	// Set correct button state
-	// We have to be careful, as during initialization the GUI does not yet exist.
-	assert(p_flags_toolbar != NULL);
-	GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_AUTOPLAYER, to_be_enabled_or_not);
-
-	if (to_be_enabled_or_not) 
-	{
-		if (!FunctionCollection()->BotLogicCorrectlyParsed())
-		{
-			// Invalid formula
-			// Can't autoplay
-			to_be_enabled_or_not = false;
-    }
+	///ENT
+  if (!FunctionCollection()->BotLogicCorrectlyParsed()) {
+		// Invalid formula
+		// Can't autoplay
+		to_be_enabled_or_not = false;
 	}
-  if (to_be_enabled_or_not) {
-    GUI()->FlagsToolbar()->ResetButtonsOnAutoplayerOn();
-  } else {
-    GUI()->FlagsToolbar()->ResetButtonsOnAutoplayerOff();
-  }
 	// Set value at the very last to be extra safe
 	// and avoid problems with multiple threads
 	// despite we use synchronization ;-)
@@ -392,7 +371,7 @@ void CAutoplayer::EngageAutoplayer(bool to_be_enabled_or_not) {
 #undef ENT
 
 bool CAutoplayer::DoChat(void) {
-	assert(FunctionCollection()->EvaluateAutoplayerFunction(k_standard_function_chat) != 0);
+	/*#assert(FunctionCollection()->EvaluateAutoplayerFunction(k_standard_function_chat) != 0);
 	if (!IsChatAllowed())	{
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] No chat, because chat turned off.\n");
 		return false;
@@ -404,8 +383,9 @@ bool CAutoplayer::DoChat(void) {
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] No chat, because wrong chat code. Please read: ""Available chat messages"" .\n");
 		return false ;
 	}
-
-	return p_casino_interface->EnterChatMessage(CString(_the_chat_message));
+	return CasinoInterface()->EnterChatMessage(CString(_the_chat_message));
+  */
+  return true; ///
 }
 
 bool CAutoplayer::DoAllin(void) {
@@ -413,35 +393,35 @@ bool CAutoplayer::DoAllin(void) {
 	write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Starting DoAllin...\n");
 
 	int number_of_clicks = 1; // Default is: single click with the mouse
-	if (p_tablemap->buttonclickmethod() == BUTTON_DOUBLECLICK) 	{
+	if (BasicScraper()->Tablemap()->buttonclickmethod() == BUTTON_DOUBLECLICK) 	{
 		number_of_clicks = 2;
 	}
   // Trying to go allin using these 3 methods in the following order:
   //	1) click max (or allin), then optionally raise, depending on allinconfirmationmethod
   //	2) use the slider if it exists in the TM
 	//	3) swag the balance 
-	if (p_tablemap->allinconfirmationmethod() != 0)	{
+	if (BasicScraper()->Tablemap()->allinconfirmationmethod() != 0)	{
 		// Clicking max (or allin) and then raise
-    success = p_casino_interface->ClickButtonSequence(k_autoplayer_function_allin,
+    success = CasinoInterface()->ClickButtonSequence(k_autoplayer_function_allin,
       k_autoplayer_function_raise, Preferences()->swag_delay_3());
 	}	else {
     // Clicking only max (or allin), but not raise
-		success = p_casino_interface->LogicalAutoplayerButton(k_autoplayer_function_allin)->Click();
+		success = CasinoInterface()->LogicalAutoplayerButton(k_autoplayer_function_allin)->Click();
   }
 	if (!success) {
     // Try the slider
-		success = p_casino_interface->UseSliderForAllin();
+		success = CasinoInterface()->UseSliderForAllin();
   }
   if (!success) {
 		// Last case: try to swagging the balance
-		success = p_casino_interface->EnterBetsizeForAllin();
+		success = CasinoInterface()->EnterBetsizeForAllin();
 	}
 	if (success) {
 		// Not really necessary to register the action,
 		// as the game is over and there is no doallin-symbol,
 		// but it does not hurt to register it anyway.
     EngineContainer()->UpdateAfterAutoplayerAction(k_autoplayer_function_allin);
-    p_autoplayer_trace->Print(ActionConstantNames(k_autoplayer_function_allin), kAlwaysLogAutoplayerFunctions);
+    AutoplayerTrace()->Print(ActionConstantNames(k_autoplayer_function_allin), kAlwaysLogAutoplayerFunctions);
 		return true;
 	}
 	return false;
@@ -449,20 +429,20 @@ bool CAutoplayer::DoAllin(void) {
 
 void CAutoplayer::DoAutoplayer(void) {
 	write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Starting Autoplayer cadence...\n");
-  CheckBringKeyboard();
+  ///CheckBringKeyboard();
   write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Number of visible buttons: %d (%s)\n", 
-		p_casino_interface->NumberOfVisibleAutoplayerButtons(),
+		CasinoInterface()->NumberOfVisibleAutoplayerButtons(),
 		EngineContainer()->symbol_engine_autoplayer()->GetFCKRAString());
 	// Care about i86X regions first, because they are usually used 
 	// to handle popups which occlude the table (unstable input)
-	if (p_casino_interface->HandleInterfacebuttonsI86())	{
+	if (CasinoInterface()->HandleInterfacebuttonsI86())	{
     write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Interface buttons (popups) handled\n");
     action_sequence_needs_to_be_finished = true;
 	  goto AutoPlayerCleanupAndFinalization;
   }
   // Care about sitin, sitout, leave, etc.
   if (TimeToHandleSecondaryFormulas())	{
-	  p_autoplayer_functions->CalcSecondaryFormulas();	  
+	  FunctionCollection()->AutoplayerFunctions()->CalcSecondaryFormulas();	  
     if (ExecuteSecondaryFormulasIfNecessary())	{
       write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Secondary formulas executed\n");
       goto AutoPlayerCleanupAndFinalization;
@@ -482,7 +462,7 @@ void CAutoplayer::DoAutoplayer(void) {
   }
 	write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Going to evaluate primary formulas.\n");
 	if (EngineContainer()->symbol_engine_autoplayer()->isfinalanswer())	{
-		p_autoplayer_functions->CalcPrimaryFormulas();
+		FunctionCollection()->AutoplayerFunctions()->CalcPrimaryFormulas();
 		ExecutePrimaryFormulasIfNecessary();
 	}	else {
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] No final answer, therefore not executing autoplayer-logic.\n");
@@ -500,20 +480,20 @@ bool CAutoplayer::DoBetsize() {
     if (!_already_executing_allin_adjustment) {
       // We have to prevent a potential endless loop here>
       // swag -> adjusted allin -> swag allin -> adjusted allin ...
-      if (ChangeBetsizeToAllin(betsize)) {
+      /*#if (ChangeBetsizeToAllin(betsize)) {
         _already_executing_allin_adjustment = true;
         write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Adjusting betsize to allin.\n");
         bool success = DoAllin();
         _already_executing_allin_adjustment = false;
         return success;
-      }
+      }*/
     }
-		int success = p_casino_interface->EnterBetsize(betsize);
+		int success = CasinoInterface()->EnterBetsize(betsize);
 		if (success) {
       write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] betsize %.2f (adjusted) entered\n",
         betsize);
       EngineContainer()->UpdateAfterAutoplayerAction(k_autoplayer_function_betsize);
-      p_autoplayer_trace->Print(ActionConstantNames(k_autoplayer_function_betsize), kAlwaysLogAutoplayerFunctions);
+      AutoplayerTrace()->Print(ActionConstantNames(k_autoplayer_function_betsize), kAlwaysLogAutoplayerFunctions);
 			return true;
 		}
     write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Failed to enter betsize %.2f\n",
@@ -530,7 +510,7 @@ bool CAutoplayer::DoPrefold(void) {
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Prefold skipped. No known cards.\n");
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Smells like a bad f$prefold-function.\n");
 	}
-	if (p_casino_interface->LogicalAutoplayerButton(k_standard_function_prefold)->Click())	{
+	if (CasinoInterface()->LogicalAutoplayerButton(k_standard_function_prefold)->Click())	{
     EngineContainer()->UpdateAfterAutoplayerAction(k_autoplayer_function_fold);
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Prefold executed.\n");
 		return true;

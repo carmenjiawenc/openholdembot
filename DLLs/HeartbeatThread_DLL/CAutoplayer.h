@@ -13,12 +13,7 @@
 //******************************************************************************
 
 #include <afxwin.h>
-///#include "MainFrm.h"
-///#include "../CTablemap/CTablemap.h"
-///#include "../CTablemap/CTableMapAccess.h"
-///#include "OpenHoldem.h"
-
-class CRebuyManagement;
+#include "CRebuyManagement.h"
 
 class CAutoplayer 
 {
@@ -61,7 +56,7 @@ private:
 	// private variables - use public accessors and public mutators to address these
 	bool	_autoplayer_engaged;
 private:
-  ///CRebuyManagement rebuy_management;
+  CRebuyManagement rebuy_management;
 private:
 	POINT	cursor_position;
 	HWND	window_with_focus;

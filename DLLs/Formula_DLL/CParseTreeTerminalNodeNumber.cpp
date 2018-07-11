@@ -45,7 +45,7 @@ double CParseTreeTerminalNodeNumber::Evaluate(bool log /* = false */){
  write_log(Preferences()->debug_formula(), 
     "[CParseTreeTerminalNode] Evaluating node type %i %s\n", 
 		_node_type, TokenString(_node_type));
-  ///p_autoplayer_trace->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
+  AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
 	if (_node_type == kTokenNumber)	{
 		write_log(Preferences()->debug_formula(), 
       "[CParseTreeTerminalNode] Number evaluates to %6.3f\n",

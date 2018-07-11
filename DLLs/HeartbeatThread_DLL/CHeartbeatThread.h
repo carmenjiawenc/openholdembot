@@ -12,9 +12,9 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
 #include "CHeartbeatDelay.h"
-#include "..\DLLs\ProcessManagement\COpenHoldemStarter.h"
-#include "..\Shared\CCritSec\CCritSec.h"
+#include "..\..\Shared\CCritSec\CCritSec.h"
 ///#include "CSpaceOptimizedGlobalObject.h"
 
 class CHeartbeatThread /*: public CSpaceOptimizedGlobalObject */{
@@ -42,7 +42,7 @@ class CHeartbeatThread /*: public CSpaceOptimizedGlobalObject */{
 	static		long int _heartbeat_counter;
  private:
   static CHeartbeatDelay _heartbeat_delay;
-  static COpenHoldemStarter _openholdem_starter;
+  ///static COpenHoldemStarter _openholdem_starter;
  private:
 	HANDLE		_m_stop_thread;
 	HANDLE		_m_wait_thread;

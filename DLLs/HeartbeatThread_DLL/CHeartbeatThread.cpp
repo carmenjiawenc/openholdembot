@@ -13,39 +13,28 @@
 
 #include "CHeartbeatThread.h"
 #include <process.h>
-#include "CAutoconnector.h"
 #include "CAutoplayer.h"
-#include "CAutoplayerFunctions.h"
 #include "CHeartbeatDelay.h"
-#include "CIteratorThread.h"
-#include "COpenHoldemHopperCommunication.h"
-#include "COpenHoldemStarter.h"
-#include "COpenHoldemStatusbar.h"
-#include "COpenHoldemTitle.h"
-#include "CTableMapLoader.h"
-#include "CTablepointChecker.h"
-#include "CTablePositioner.h"
 #include "CValidator.h"
-#include "DialogScraperOutput.h"
-#include "MainFrm.h"
-#include "MemoryLogging.h"
-#include "OpenHoldem.h"
-#include "..\DLLs\Scraper_DLL\CLazyScraper.h"
-#include "..\DLLs\Scraper_DLL\CScraper.h"
-#include "..\DLLs\Symbols_DLL\CBetroundCalculator.h"
-#include "..\DLLs\Symbols_DLL\CEngineContainer.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineAutoplayer.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineChipAmounts.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineUserchair.h"
-#include "..\CTablemap\CTablemap.h"
-#include "..\DLLs\Tablestate_DLL\CTableTitle.h"
+///#include "..\Scraper_DLL\CLazyScraper.h"
+///#include "..\Scraper_DLL\CScraper.h"
+#include "..\Debug_DLL\debug.h"
+#include "..\MemoryManagement_DLL\MemoryLogging.h"
+#include "..\Preferences_DLL\Preferences.h"
+#include "..\Symbols_DLL\CBetroundCalculator.h"
+#include "..\Symbols_DLL\CEngineContainer.h"
+#include "..\Symbols_DLL\CSymbolEngineAutoplayer.h"
+#include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
+#include "..\Symbols_DLL\CSymbolEngineUserchair.h"
+///#include "..\CTablemap\CTablemap.h"
+#include "..\Tablestate_DLL\CTableTitle.h"
 
-CHeartbeatThread	 *OpenHoldem()->HeartbeatThread() = NULL;
+///CHeartbeatThread	 HeartbeatThread = NULL;
 CRITICAL_SECTION	 CHeartbeatThread::cs_update_in_progress;
 long int			     CHeartbeatThread::_heartbeat_counter = 0;
 CHeartbeatThread   *CHeartbeatThread::pParent = NULL;
 CHeartbeatDelay    CHeartbeatThread::_heartbeat_delay;
-COpenHoldemStarter CHeartbeatThread::_openholdem_starter;
+///COpenHoldemStarter CHeartbeatThread::_openholdem_starter;
 
 CHeartbeatThread::CHeartbeatThread() {
 	InitializeCriticalSectionAndSpinCount(&cs_update_in_progress, 4000);
@@ -78,7 +67,7 @@ void CHeartbeatThread::StartThread() {
 }
 
 UINT CHeartbeatThread::HeartbeatThreadFunction(LPVOID pParam) {
-  CTablepointChecker tablepoint_checker;
+  ///CTablepointChecker tablepoint_checker;
 	pParent = static_cast<CHeartbeatThread*>(pParam);
   assert(pParent != NULL);
 	// Seed the RNG

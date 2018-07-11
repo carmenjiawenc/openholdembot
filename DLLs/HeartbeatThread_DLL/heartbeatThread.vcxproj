@@ -14,6 +14,7 @@
     <ClCompile Include="CAutoplayer.cpp" />
     <ClCompile Include="CHeartbeatDelay.cpp" />
     <ClCompile Include="CHeartbeatThread.cpp" />
+    <ClCompile Include="COcclusionCheck.cpp" />
     <ClCompile Include="CRebuyManagement.cpp" />
     <ClCompile Include="CStableFramesCounter.cpp" />
     <ClCompile Include="CValidator.cpp" />
@@ -22,6 +23,7 @@
     <ClInclude Include="CAutoplayer.h" />
     <ClInclude Include="CHeartbeatDelay.h" />
     <ClInclude Include="CHeartbeatThread.h" />
+    <ClInclude Include="COcclusionCheck.h" />
     <ClInclude Include="CRebuyManagement.h" />
     <ClInclude Include="CStableFramesCounter.h" />
     <ClInclude Include="CValidator.h" />

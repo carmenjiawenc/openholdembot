@@ -42,7 +42,7 @@ double CParseTreeTerminalNodeUserVariable::Evaluate(bool log /* = false */){
   write_log(Preferences()->debug_formula(), 
     "[CParseTreeTerminalNode] Evaluating node type %i %s\n", 
 		_node_type, name);
-  ///p_autoplayer_trace->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
+  AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
   if (name.Left(4).MakeLower() == "user") {
     OpenPPLUserVariablesCollection()->Set(name);
     return true;

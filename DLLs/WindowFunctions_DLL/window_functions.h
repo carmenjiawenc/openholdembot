@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -14,9 +15,6 @@
 //      of titlebars of different sizes (Windows10))
 //
 //******************************************************************************
-
-#ifndef INC_WINDOW_FUNCTIONS_H
-#define INC_WINDOW_FUNCTIONS_H
 
 #ifdef WINDOW_FUNCTIONS_EXPORTS
 #define WINDOW_FUNCTIONS_API __declspec(dllexport)
@@ -58,6 +56,4 @@ WINDOW_FUNCTIONS_API void MessageBox_Error_Warning(const char* Message, const ch
 // or we need request some direct input.
 WINDOW_FUNCTIONS_API int MessageBox_Interactive(const char*  Message, const char*  Title, int Flags);
 // MessageBox for the msgbox$MESSAGE-command of OH-script
-WINDOW_FUNCTIONS_API void MessageBox_OH_Script_Messages(const char*  message);
-
-#endif // INC_WINDOW_FUNCTIONS_H 
+WINDOW_FUNCTIONS_API void MessageBox_OH_Script_Messages(const char*  message); 

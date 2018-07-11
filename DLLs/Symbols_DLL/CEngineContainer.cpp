@@ -420,7 +420,7 @@ bool CEngineContainer::EvaluateSymbol(const CString name, double *result, bool l
         // Functions receive special treatment (indentation, etc)
         write_log(Preferences()->debug_auto_trace(),
           "[EngineContainer] %s -> %.3f [evaluated]\n", name, *result);
-        ///p_autoplayer_trace->Add(name, *result);
+        AutoplayerTrace()->Add(name, *result);
       }
       return true;
     }

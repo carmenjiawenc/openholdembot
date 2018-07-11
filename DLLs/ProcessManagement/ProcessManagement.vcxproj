@@ -75,7 +75,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Preferences.lib;$(OutDir)Session_Counter.lib;$(OutDir)TableManagement.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Preferences.lib;$(OutDir)SessionCounter.lib;$(OutDir)TableManagement.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -94,7 +94,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Preferences.lib;$(OutDir)Session_Counter.lib;$(OutDir)TableManagement.lib%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Preferences.lib;$(OutDir)SessionCounter.lib;$(OutDir)TableManagement.lib%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

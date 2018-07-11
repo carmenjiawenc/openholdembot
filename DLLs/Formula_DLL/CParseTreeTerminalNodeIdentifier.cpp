@@ -45,7 +45,7 @@ double CParseTreeTerminalNodeIdentifier::Evaluate(bool log /* = false */){
  write_log(Preferences()->debug_formula(), 
     "[CParseTreeTerminalNode] Evaluating node type %i %s\n", 
 		_node_type, TokenString(_node_type));
-  ///p_autoplayer_trace->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
+  AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
 	// Most common types first: numbers and identifiers
   if (_node_type == kTokenIdentifier) {
     assert(_first_sibbling  == NULL);
@@ -59,7 +59,7 @@ double CParseTreeTerminalNodeIdentifier::Evaluate(bool log /* = false */){
     // In case of f$-functions the line changed inbetween,
     // so we have to set it to the current location (again)
     // for the next log.
-    ///p_autoplayer_trace->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
+    AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
 		return value;
 	}
 	// This must not happen for a terminal node

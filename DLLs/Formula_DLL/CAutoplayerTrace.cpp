@@ -24,8 +24,6 @@
 
 #define ENT CSLock lock(m_critsec);
 
-CAutoplayerTrace *p_autoplayer_trace = NULL; //!!!
-
 CAutoplayerTrace::CAutoplayerTrace() {
   Clear();
 }
@@ -167,7 +165,7 @@ void CAutoplayerTrace::Print(const char *action_taken, bool full_log_for_primary
 
 CString CAutoplayerTrace::BestAction() {
   for (int i=k_autoplayer_function_allin; i<=k_autoplayer_function_fold; ++i) {
-    if (1/*#p_autoplayer_functions->GetAutoplayerFunctionValue(i)*/) {
+    if (1/*#FunctionCollection()->AutoplayerFunctions()->GetAutoplayerFunctionValue(i)*/) {
       if (i == k_autoplayer_function_betsize) {
         // Special treatment for f$betsize
         // e.g. "f$betsize = 201.47"

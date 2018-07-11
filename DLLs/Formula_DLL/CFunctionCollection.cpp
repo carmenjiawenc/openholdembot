@@ -732,7 +732,7 @@ bool CFunctionCollection::EvaluateSymbol(const CString name, double *result, boo
       if (log) {
         write_log(Preferences()->debug_auto_trace(),
           "[CFunctionCollection] %s -> 0.000 [does not exist]\n", name);
-        ///p_autoplayer_trace->Add(name, *result);
+        AutoplayerTrace()->Add(name, *result);
       }
       return true;
     }

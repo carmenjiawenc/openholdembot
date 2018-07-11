@@ -70,7 +70,7 @@ double CParseTreeOperatorNode::Evaluate(bool log /* = false */) {
  write_log(Preferences()->debug_formula(), 
     "[CParseTreeOperatorNode] Evaluating node type %i %s\n", 
 		_node_type, TokenString(_node_type));
-  ///p_autoplayer_trace->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
+  AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
 	// operators
   if (TokenIsUnary(_node_type)) {
 		return EvaluateUnaryExpression(log);

@@ -17,7 +17,6 @@
 #include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Formula_DLL\CFormulaParser.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 void CVirtualSymbolEngine::WarnIfSymbolRequiresMyTurn(CString name) {
   if (FormulaParser()->IsParsing()) {

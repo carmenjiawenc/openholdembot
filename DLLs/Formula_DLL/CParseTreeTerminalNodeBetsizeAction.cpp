@@ -54,7 +54,7 @@ double CParseTreeTerminalNodeBetsizeAction::Evaluate(bool log /* = false */) {
  write_log(Preferences()->debug_formula(), 
     "[CParseTreeTerminalNodeBetsizeAction] Evaluating node type %i %s\n", 
 		_node_type, TokenString(_node_type));
-  ///p_autoplayer_trace->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
+  AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
 	// Actions first, which are "unary".
 	// We have to encode all possible outcomes in a single floating-point,
 	// therefore:

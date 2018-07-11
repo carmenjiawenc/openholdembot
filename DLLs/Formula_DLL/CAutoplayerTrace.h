@@ -49,3 +49,5 @@ class CAutoplayerTrace /*#: public CSpaceOptimizedGlobalObject */{
   CCritSec m_critsec;
   int _last_evaluated_relative_line_number;
 };
+
+CAutoplayerTrace* AutoplayerTrace(); ///!!!

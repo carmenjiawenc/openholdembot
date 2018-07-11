@@ -42,7 +42,7 @@ void CSymbolEngineEventLogging::InitOnStartup()
 {}
 
 void CSymbolEngineEventLogging::UpdateOnConnection() {
-  //#p_autoplayer_trace->Clear();
+  //#AutoplayerTrace()->Clear();
 }
 
 void CSymbolEngineEventLogging::UpdateOnHandreset() {
@@ -67,7 +67,7 @@ void CSymbolEngineEventLogging::UpdateOnMyTurn()
 {}
 
 void CSymbolEngineEventLogging::UpdateOnHeartbeat() {
-  //#p_autoplayer_trace->Clear();
+  //#AutoplayerTrace()->Clear();
 }
 
 void CSymbolEngineEventLogging::UpdateAfterAutoplayerAction(int autoplayer_action_code) {

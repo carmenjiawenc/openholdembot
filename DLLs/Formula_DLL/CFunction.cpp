@@ -109,7 +109,7 @@ double CFunction::Evaluate(bool log /* = false */) {
     if (log) {
       write_log(Preferences()->debug_formula(),
         "[CFunction] %s -> %.3f [cached]\n", _name, _cached_result);
-      ///p_autoplayer_trace->Add(_name, _cached_result);  
+      AutoplayerTrace()->Add(_name, _cached_result);  
     }
     // Keep cached result: do nothing
   } else {
@@ -118,21 +118,21 @@ double CFunction::Evaluate(bool log /* = false */) {
       int log_line;
       if (log) {
         // Reserve a line in the log, without result ATM
-        ///log_line = p_autoplayer_trace->Add(_name);
+        ///log_line = AutoplayerTrace()->Add(_name);
       }
-      ///p_autoplayer_trace->Indent(true);
+      AutoplayerTrace()->Indent(true);
       _cached_result = _parse_tree_node->Evaluate(log);
       _is_result_cached = true;
       if (log) {
-        ///p_autoplayer_trace->BackPatchValueAndLine(
+        AutoplayerTrace()->BackPatchValueAndLine(
           ///log_line, _cached_result, _starting_line_of_function);
       }
-      ///p_autoplayer_trace->Indent(false);
+      AutoplayerTrace()->Indent(false);
     } else {
       // Undefined, parse-tree-node is NULL
       // keep _cached_result as 0.0
       if (log) {
-        ///p_autoplayer_trace->Add(_name, kUndefinedZero, true);
+        AutoplayerTrace()->Add(_name, kUndefinedZero, true);
       }
     }
   }

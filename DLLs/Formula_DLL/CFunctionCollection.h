@@ -90,11 +90,13 @@ class FORMULA_DLL_API CFunctionCollection {
   CString FormulaPath()     { return _path; }
  public:
   CDebugTab* DebugTab() { return &_debug_tab;  }
+  CAutoplayerFunctions* AutoplayerFunctions(); ///!!!
  protected:
   void SetFormulaName(CString formula_name)	{ _formula_name = formula_name; }
   void SetPath(CString path)	  { _path = path; }
   // For OpenPPL, which evaluates f$preflop, ...
   // instead of f$beep, f$alli, ...
+  /// duplicate?
   void SetAutoplayerFunctionValue(int function_code, double value);
  private:
   void CreateEmptyDefaultFunctionIfFunctionDoesNotExist(CString &function_name);

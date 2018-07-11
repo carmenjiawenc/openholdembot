@@ -50,3 +50,34 @@ class CFlagsToolbar: public CWnd {
 	CFrameWnd  *_parent_window;
 	CCritSec   m_critsec;
 };
+
+
+/*#
+void CAutoplayer::EngageAutoplayer(bool to_be_enabled_or_not) {
+ENT
+// Set correct button state
+// We have to be careful, as during initialization the GUI does not yet exist.
+assert(p_flags_toolbar != NULL);
+GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_AUTOPLAYER, to_be_enabled_or_not);
+
+if (to_be_enabled_or_not)
+{
+if (!FunctionCollection()->BotLogicCorrectlyParsed())
+{
+// Invalid formula
+// Can't autoplay
+to_be_enabled_or_not = false;
+}
+}
+if (to_be_enabled_or_not) {
+GUI()->FlagsToolbar()->ResetButtonsOnAutoplayerOn();
+} else {
+GUI()->FlagsToolbar()->ResetButtonsOnAutoplayerOff();
+}
+// Set value at the very last to be extra safe
+// and avoid problems with multiple threads
+// despite we use synchronization ;-)
+_autoplayer_engaged = to_be_enabled_or_not;
+}
+
+*/

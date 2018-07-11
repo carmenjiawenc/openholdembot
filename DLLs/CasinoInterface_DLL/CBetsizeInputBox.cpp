@@ -27,7 +27,6 @@
 #include "..\Symbols_DLL\CSymbolEngineHistory.h"
 #include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 CBetsizeInputBox::CBetsizeInputBox() {
   // dummy point for mouse and keyboard DLL

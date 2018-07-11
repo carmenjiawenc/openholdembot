@@ -25,7 +25,6 @@
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
-#include "..\..\OpenHoldem\OpenHoldem.h"
 
 CSymbolEngineFormulaSwitching::CSymbolEngineFormulaSwitching() {
 	// The values of some symbol-engines depend on other engines.
