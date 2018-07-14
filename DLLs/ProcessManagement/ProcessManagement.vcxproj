@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="COpenHoldemStarter.h" />
+    <ClInclude Include="CProcessManagement.h" />
     <ClInclude Include="CWatchdog.h" />
     <ClInclude Include="LibDef.h" />
   </ItemGroup>

@@ -15,8 +15,7 @@
 #include <afxwin.h>
 #include "CRebuyManagement.h"
 
-class CAutoplayer 
-{
+class CAutoplayer {
 public:
 	// public functions
 	CAutoplayer();
@@ -24,16 +23,13 @@ public:
 public:
 	void EngageAutoPlayerUponConnectionIfNeeded();
 	void DoAutoplayer();
-
 public:
 	// public accessors
 	const bool autoplayer_engaged() { return _autoplayer_engaged; }
 	bool TimeToHandleSecondaryFormulas();
-
 public:
 	// public mutators
 	void EngageAutoplayer(bool to_be_enabled_or_not);
-
 private:
 	// private functions and variables - not available via accessors or mutators
 	void DoRebuyIfNeccessary();
@@ -51,7 +47,6 @@ private:
 	bool DoBetsize();
 	bool DoPrefold();
 	bool DoChat();
-
 private:
 	// private variables - use public accessors and public mutators to address these
 	bool	_autoplayer_engaged;

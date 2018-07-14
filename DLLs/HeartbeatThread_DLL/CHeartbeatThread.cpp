@@ -16,17 +16,21 @@
 #include "CAutoplayer.h"
 #include "CHeartbeatDelay.h"
 #include "CValidator.h"
-///#include "..\Scraper_DLL\CLazyScraper.h"
-///#include "..\Scraper_DLL\CScraper.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\GUI_DLL\CGUI.h"
 #include "..\MemoryManagement_DLL\MemoryLogging.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\ProcessManagement\COpenHoldemStarter.h"
+#include "..\ProcessManagement\CProcessManagement.h"
+#include "..\ProcessManagement\CWatchdog.h"
+#include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Symbols_DLL\CBetroundCalculator.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\Symbols_DLL\CSymbolEngineAutoplayer.h"
 #include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
 #include "..\Symbols_DLL\CSymbolEngineUserchair.h"
-///#include "..\CTablemap\CTablemap.h"
+#include "..\TableManagement_DLL\CAutoConnector.h"
+#include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\Tablestate_DLL\CTableTitle.h"
 
 ///CHeartbeatThread	 HeartbeatThread = NULL;
@@ -34,7 +38,8 @@ CRITICAL_SECTION	 CHeartbeatThread::cs_update_in_progress;
 long int			     CHeartbeatThread::_heartbeat_counter = 0;
 CHeartbeatThread   *CHeartbeatThread::pParent = NULL;
 CHeartbeatDelay    CHeartbeatThread::_heartbeat_delay;
-///COpenHoldemStarter CHeartbeatThread::_openholdem_starter;
+
+CAutoplayer* _autoplayer; //!!!
 
 CHeartbeatThread::CHeartbeatThread() {
 	InitializeCriticalSectionAndSpinCount(&cs_update_in_progress, 4000);
@@ -56,7 +61,7 @@ CHeartbeatThread::~CHeartbeatThread() {
 	::CloseHandle(_m_wait_thread);
 
 	DeleteCriticalSection(&cs_update_in_progress);
-	OpenHoldem()->HeartbeatThread() = NULL;
+	///OpenHoldem()->HeartbeatThread() = NULL;
 }
 
 void CHeartbeatThread::StartThread() {
@@ -67,9 +72,10 @@ void CHeartbeatThread::StartThread() {
 }
 
 UINT CHeartbeatThread::HeartbeatThreadFunction(LPVOID pParam) {
-  ///CTablepointChecker tablepoint_checker;
 	pParent = static_cast<CHeartbeatThread*>(pParam);
   assert(pParent != NULL);
+  CProcessManagement process_management;
+  ///CTablepointChecker tablepoint_checker;
 	// Seed the RNG
 	srand((unsigned)GetTickCount());
 
@@ -84,9 +90,9 @@ UINT CHeartbeatThread::HeartbeatThreadFunction(LPVOID pParam) {
 			::SetEvent(pParent->_m_wait_thread);
 			AfxEndThread(0);
 		}
-    assert(OpenHoldem()->TablemapLoader() != NULL);
+    ///assert(OpenHoldem()->TablemapLoader() != NULL);
     LogMemoryUsage("H1");
-		OpenHoldem()->TablemapLoader()->ReloadAllTablemapsIfChanged();
+		///OpenHoldem()->TablemapLoader()->ReloadAllTablemapsIfChanged();
     LogMemoryUsage("H2");
     assert(TableManagement()->AutoConnector() != NULL);
     write_log(Preferences()->debug_alltherest(), "[CHeartbeatThread] location Johnny_B\n");
@@ -105,23 +111,24 @@ UINT CHeartbeatThread::HeartbeatThreadFunction(LPVOID pParam) {
     LogMemoryUsage("H5");
     write_log(Preferences()->debug_alltherest(), "[CHeartbeatThread] location Johnny_C\n");
 		if (TableManagement()->AutoConnector()->IsConnectedToExistingWindow()) {
-      if (tablepoint_checker.TablepointsMismatchedTheLastNHeartbeats()) {
+     /*# if (tablepoint_checker.TablepointsMismatchedTheLastNHeartbeats()) {
         LogMemoryUsage("H6");
         TableManagement()->AutoConnector()->Disconnect("table theme changed (tablepoints)");
-      } else {
+      } else*/ {
         LogMemoryUsage("H7");
+        TableManagement()->TablePositioner()->AlwaysKeepPositionIfEnabled();
         ScrapeEvaluateAct();
       } 		
 		}
     LogMemoryUsage("H8");
-    OpenHoldem()->WatchDog()->HandleCrashedAndFrozenProcesses();
+    process_management.Watchdog()->HandleCrashedAndFrozenProcesses();
     if (Preferences()->use_auto_starter()) {
       LogMemoryUsage("H9");
-      _openholdem_starter.StartNewInstanceIfNeeded();
+      process_management.OpenHoldemStarter()->StartNewInstanceIfNeeded();
     }
     LogMemoryUsage("Ha");
     if (Preferences()->use_auto_shutdown()) {
-      _openholdem_starter.CloseThisInstanceIfNoLongerNeeded();
+      process_management.OpenHoldemStarter()->CloseThisInstanceIfNoLongerNeeded();
     }
     LogMemoryUsage("Hb");
     _heartbeat_delay.FlexibleSleep();
@@ -131,7 +138,6 @@ UINT CHeartbeatThread::HeartbeatThreadFunction(LPVOID pParam) {
 }
 
 void CHeartbeatThread::ScrapeEvaluateAct() {
-	TablePositioner()->AlwaysKeepPositionIfEnabled();
 	// This critical section lets other threads know that the internal state is being updated
 	EnterCriticalSection(&pParent->cs_update_in_progress);
 
@@ -139,7 +145,7 @@ void CHeartbeatThread::ScrapeEvaluateAct() {
 	// Scrape window
   TableState()->TableTitle()->UpdateTitle();
   write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] Calling DoScrape.\n");
-  p_lazyscraper->DoScrape();
+  ///p_lazyscraper->DoScrape();
   // We must not check if the scrape of the table changed, because:
   //   * some symbol-engines must be evaluated no matter what
   //   * we might need to act (sitout, ...) on empty/non-changing tables
@@ -148,22 +154,23 @@ void CHeartbeatThread::ScrapeEvaluateAct() {
 	// Reply-frames no longer here in the heartbeat.
   // we have a "ReplayFrameController for that.
   LeaveCriticalSection(&pParent->cs_update_in_progress);
+  /// check if gui exists
 	GUI()->Update();
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// OH-Validator
 	write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] Calling Validator.\n");
-  p_validator->Validate();
-
+  CValidator validator;
+  validator.Validate();
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// Autoplayer
 	write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] autoplayer_engaged(): %s\n", 
-		Bool2CString(p_autoplayer->autoplayer_engaged()));
+		Bool2CString(_autoplayer->autoplayer_engaged()));
 	write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] EngineContainer()->symbol_engine_userchair()->userchair()_confirmed(): %s\n", 
 		Bool2CString(EngineContainer()->symbol_engine_userchair()->userchair_confirmed()));
 	// If autoplayer is engaged, we know our chair, and the DLL hasn't told us to wait, then go do it!
-	if (p_autoplayer->autoplayer_engaged()) {
+	if (_autoplayer->autoplayer_engaged()) {
 		write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] Calling DoAutoplayer.\n");
-		p_autoplayer->DoAutoplayer();
+		_autoplayer->DoAutoplayer();
 	}
 }
 
