@@ -19,10 +19,11 @@
 #define FORMULA_DLL_EXPORTS
 
 #include "CFunctionCollection.h"
+#include "CAutoplayerTrace.h"
+#include "CFormula.h"
 #include "CFunction.h"
 #include "CParseErrors.h"
 #include "CSelftestParserEvaluator.h" // there???
-///#include "CAutoplayerTrace.h"
 ///#include "CDebugTab.h"
 ///#include "CEngineContainer.h"
 ///#include "CFormulaParser.h"
@@ -732,7 +733,7 @@ bool CFunctionCollection::EvaluateSymbol(const CString name, double *result, boo
       if (log) {
         write_log(Preferences()->debug_auto_trace(),
           "[CFunctionCollection] %s -> 0.000 [does not exist]\n", name);
-        AutoplayerTrace()->Add(name, *result);
+        Formula()->AutoplayerTrace()->Add(name, *result);
       }
       return true;
     }
@@ -754,5 +755,3 @@ CString CFunctionCollection::SymbolsProvided() {
   }
   return result;
 }
-
-CFunctionCollection* FunctionCollection() { return 0; } ///!!!

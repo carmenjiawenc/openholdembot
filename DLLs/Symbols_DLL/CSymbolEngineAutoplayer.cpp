@@ -23,6 +23,7 @@
 #include "CSymbolEngineUserchair.h"
 #include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
@@ -150,7 +151,7 @@ void CSymbolEngineAutoplayer::CalculateFinalAnswer() {
 	}
   ///write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Number of stable frames: % d\n", p_stableframescounter->NumberOfStableFrames());
   CString delay_function = k_standard_function_names[k_standard_function_delay];
-  double desired_delay_in_milli_seconds = FunctionCollection()->Evaluate(delay_function, Preferences()->log_delay_function());
+  double desired_delay_in_milli_seconds = Formula()->FunctionCollection()->Evaluate(delay_function, Preferences()->log_delay_function());
   double milli_seconds_since_my_turn = EngineContainer()->symbol_engine_time()->elapsedmyturn() * 1000;
   if (milli_seconds_since_my_turn < desired_delay_in_milli_seconds) {
     write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Not isfinalanswer because of f$delay\n");
@@ -159,7 +160,7 @@ void CSymbolEngineAutoplayer::CalculateFinalAnswer() {
 	// If we don't have enough stable frames, or have not waited f$delay milliseconds, then return.
 	///if (p_stableframescounter->NumberOfStableFrames() < Preferences()->frame_delay()) {
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Not Final Answer because we don't have enough stable frames, or have not waited f$delay (=%.0f ms)\n", 
-       FunctionCollection()->Evaluate(delay_function, Preferences()->log_delay_function()));
+       Formula()->FunctionCollection()->Evaluate(delay_function, Preferences()->log_delay_function()));
 		_isfinalanswer = false;
 	///}
 }

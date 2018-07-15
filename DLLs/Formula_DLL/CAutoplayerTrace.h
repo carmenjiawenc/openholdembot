@@ -14,10 +14,11 @@
 
 #include <afxwin.h>
 #include <map>
+#include "LibDef.h"
 #include "..\..\Shared\CCritSec\CCritSec.h"
 ///#include "CSpaceOptimizedGlobalObject.h"
 
-class CAutoplayerTrace /*#: public CSpaceOptimizedGlobalObject */{
+class FORMULA_DLL_API CAutoplayerTrace /*#: public CSpaceOptimizedGlobalObject */{
  public:
    CAutoplayerTrace();
    ~CAutoplayerTrace();
@@ -49,5 +50,3 @@ class CAutoplayerTrace /*#: public CSpaceOptimizedGlobalObject */{
   CCritSec m_critsec;
   int _last_evaluated_relative_line_number;
 };
-
-CAutoplayerTrace* AutoplayerTrace(); ///!!!

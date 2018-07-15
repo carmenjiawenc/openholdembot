@@ -62,7 +62,7 @@ GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_AUTOPLAYER, to_be_enabled_or_
 
 if (to_be_enabled_or_not)
 {
-if (!FunctionCollection()->BotLogicCorrectlyParsed())
+if (!Formula()->FunctionCollection()->BotLogicCorrectlyParsed())
 {
 // Invalid formula
 // Can't autoplay

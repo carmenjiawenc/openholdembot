@@ -13,6 +13,7 @@
 //******************************************************************************
 
 #include "CParserSymbolTable.h"
+#include "CFormula.h"
 #include "CFunction.h"
 #include "CFunctionCollection.h"
 #include "..\Debug_DLL\debug.h"
@@ -83,7 +84,7 @@ void CParserSymbolTable::VerifySymbol(CString name) {
     // a) this is faster
     // b) this avoids dupplicate error-messages if the function
     //    cibtaibs invalid symbols
-    if (FunctionCollection()->Exists(name)) {
+    if (Formula()->FunctionCollection()->Exists(name)) {
       _known_symbols[name] = true;
       return;
     }
@@ -127,7 +128,7 @@ void CParserSymbolTable::VerifyAllUsedFunctionsAtEndOfParse() {
     function_name = enumerator_it->first;
     write_log(Preferences()->debug_symbol_verification(),
       "[CParserSymbolTable] Verifying existence of %s\n", function_name);
-    FunctionCollection()->VerifyExistence(function_name);
+    Formula()->FunctionCollection()->VerifyExistence(function_name);
     ++enumerator_it;
   }
   // Now that all symbols are verified we clear them here.

@@ -15,7 +15,8 @@
 
 #include "CFunction.h"
 ///#include "CAutoplayer.h"
-///#include "CAutoplayerTrace.h"
+#include "CAutoplayerTrace.h"
+#include "CFormula.h"
 #include "CFormulaParser.h"
 ///#include "CMemoryPool.h"
 #include "COHScriptObject.h"
@@ -109,7 +110,7 @@ double CFunction::Evaluate(bool log /* = false */) {
     if (log) {
       write_log(Preferences()->debug_formula(),
         "[CFunction] %s -> %.3f [cached]\n", _name, _cached_result);
-      AutoplayerTrace()->Add(_name, _cached_result);  
+      Formula()->AutoplayerTrace()->Add(_name, _cached_result);  
     }
     // Keep cached result: do nothing
   } else {
@@ -118,21 +119,21 @@ double CFunction::Evaluate(bool log /* = false */) {
       int log_line;
       if (log) {
         // Reserve a line in the log, without result ATM
-        ///log_line = AutoplayerTrace()->Add(_name);
+        log_line = Formula()->AutoplayerTrace()->Add(_name);
       }
-      AutoplayerTrace()->Indent(true);
+      Formula()->AutoplayerTrace()->Indent(true);
       _cached_result = _parse_tree_node->Evaluate(log);
       _is_result_cached = true;
       if (log) {
-        AutoplayerTrace()->BackPatchValueAndLine(
-          ///log_line, _cached_result, _starting_line_of_function);
+        Formula()->AutoplayerTrace()->BackPatchValueAndLine(
+          log_line, _cached_result, _starting_line_of_function);
       }
-      AutoplayerTrace()->Indent(false);
+      Formula()->AutoplayerTrace()->Indent(false);
     } else {
       // Undefined, parse-tree-node is NULL
       // keep _cached_result as 0.0
       if (log) {
-        AutoplayerTrace()->Add(_name, kUndefinedZero, true);
+        Formula()->AutoplayerTrace()->Add(_name, kUndefinedZero, true);
       }
     }
   }

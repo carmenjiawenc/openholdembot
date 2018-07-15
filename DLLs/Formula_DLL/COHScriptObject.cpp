@@ -14,9 +14,9 @@
 #define FORMULA_DLL_EXPORTS
 
 #include "COHScriptObject.h"
+#include "CFormula.h"
 #include "CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"
-#include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 COHScriptObject::COHScriptObject() {
@@ -173,8 +173,8 @@ bool COHScriptObject::IsNotes() {
 
 int COHScriptObject::EditorGroupingCategory() {
   // Category 0: autoplayer / OpenPPL
-  if (FunctionCollection()->IsOpenPPLProfile()  && IsMainOpenPPLFunction()) return 0;
-  if (!FunctionCollection()->IsOpenPPLProfile() && IsAutoplayerFunction())  return 0;
+  if (Formula()->FunctionCollection()->IsOpenPPLProfile()  && IsMainOpenPPLFunction()) return 0;
+  if (!Formula()->FunctionCollection()->IsOpenPPLProfile() && IsAutoplayerFunction())  return 0;
   // Category 1: Secondary (f$chat,..) DLL, notes)
   if (IsSecondaryFunction()) return 1;
   if (IsNotes()) return 1;

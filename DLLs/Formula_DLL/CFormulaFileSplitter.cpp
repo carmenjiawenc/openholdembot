@@ -14,6 +14,7 @@
 
 #include "CFormulaFileSplitter.h"
 #include <assert.h>
+#include "CFormula.h"
 #include "CFunction.h"
 #include "CFunctionCollection.h"
 #include "COHScriptObject.h"
@@ -63,7 +64,7 @@ void CFormulaFileSplitter::SplitFile(CArchive &formula_file) {
     return;
   }
   while (next_function_or_list != NULL) {
-    FunctionCollection()->Add(next_function_or_list);
+    Formula()->FunctionCollection()->Add(next_function_or_list);
     next_function_or_list = GetNextObject(formula_file);
   }
 }

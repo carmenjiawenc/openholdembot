@@ -17,6 +17,7 @@
 #include "CSymbolenginePrWin.h"
 #include "CSymbolengineVersus.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\COHScriptList.h"
 #include "..\Formula_DLL\CFormulaParser.h"
 #include "..\Formula_DLL\CFunctionCollection.h"
@@ -132,7 +133,7 @@ EXE_IMPLEMENTS char* GetTableTitle() {
 EXE_IMPLEMENTS void ParseHandList(const char* name_of_list, const char* list_body) {
   COHScriptList* p_new_list = new COHScriptList(name_of_list, list_body);
   FormulaParser()->ParseFormula(p_new_list);
-  FunctionCollection()->Add(p_new_list);
+  Formula()->FunctionCollection()->Add(p_new_list);
 }
 
 EXE_IMPLEMENTS char* ScrapeTableMapRegion(char* p_region, int& p_returned_lengh) {

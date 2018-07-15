@@ -14,6 +14,7 @@
 #define FORMULA_DLL_EXPORTS
 
 #include "CParseTreeTerminalNodeEndOfFunction.h"
+#include "CFormula.h"
 #include "CFunctionCollection.h"
 ///#include "CMemoryPool.h"
 #include "COHScriptObject.h"
@@ -43,7 +44,7 @@ CParseTreeTerminalNodeEndOfFunction::CParseTreeTerminalNodeEndOfFunction(int rel
     default_function.SetAt(7, toupper(default_function.GetAt(7)));
     write_log(Preferences()->debug_parser(), "[CParseTreeTerminalNodeEndOfFunction] %s\n",
       default_function);
-    if (FunctionCollection()->Exists(default_function)) {
+    if (Formula()->FunctionCollection()->Exists(default_function)) {
       _terminal_name = default_function;
       write_log(Preferences()->debug_parser(), 
         "[CParseTreeTerminalNodeEndOfFunction] Default bot-logic referenced.\n");

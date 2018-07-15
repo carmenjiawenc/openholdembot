@@ -13,6 +13,8 @@
  
 #include "CParseTreeTerminalNodeBetsizeAction.h"
 #include <math.h>
+#include "CAutoplayerTrace.h"
+#include "CFormula.h"
 #include "CFunction.h"
 #include "CParserSymbolTable.h"
 #include "CParseTreeTerminalNode.h"
@@ -54,7 +56,7 @@ double CParseTreeTerminalNodeBetsizeAction::Evaluate(bool log /* = false */) {
  write_log(Preferences()->debug_formula(), 
     "[CParseTreeTerminalNodeBetsizeAction] Evaluating node type %i %s\n", 
 		_node_type, TokenString(_node_type));
-  AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
+  Formula()->AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
 	// Actions first, which are "unary".
 	// We have to encode all possible outcomes in a single floating-point,
 	// therefore:

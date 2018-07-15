@@ -13,6 +13,7 @@
 //******************************************************************************
 
 ///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\..\Shared\CCritSec\CCritSec.h"
 
 class CAutoplayerFunctions /*#: public CSpaceOptimizedGlobalObject */{
  public:
@@ -33,7 +34,7 @@ class CAutoplayerFunctions /*#: public CSpaceOptimizedGlobalObject */{
     int potential_action, int potential_backup);
   void CalculateOpenPPLBackupActions();
  private:
-  bool IsFoldAllinSituation();
+  bool IsFoldAllinSituation(); ///!!! to do: FCA
  private:
-	CCritSec	m_critsec;
+	CCritSec m_critsec;
 };

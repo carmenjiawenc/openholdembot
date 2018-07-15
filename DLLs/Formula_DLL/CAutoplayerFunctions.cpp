@@ -12,16 +12,18 @@
 //******************************************************************************
 
 #include "CAutoplayerFunctions.h"
+#include "CFunctionCollection.h"
 #include <assert.h>
-#include "..\DLLs\StringFunctions_DLL\string_functions.h"
-#include "..\DLLs\Symbols_DLL\CBetroundCalculator.h"
-#include "..\DLLs\Symbols_DLL\CEngineContainer.h"
-#include "..\DLLs\Symbols_DLL\CFunctionCollection.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineAutoplayer.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineChipAmounts.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineOpenPPL.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineTableLimits.h"
-#include "..\DLLs\Symbols_DLL\CSymbolEngineUserchair.h"
+#include "..\Debug_DLL\debug.h"
+#include "..\Preferences_DLL\Preferences.h"
+#include "..\StringFunctions_DLL\string_functions.h"
+#include "..\Symbols_DLL\CBetroundCalculator.h"
+#include "..\Symbols_DLL\CEngineContainer.h"
+#include "..\Symbols_DLL\CSymbolEngineAutoplayer.h"
+#include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
+#include "..\Symbols_DLL\CSymbolEngineOpenPPL.h"
+#include "..\Symbols_DLL\CSymbolEngineTableLimits.h"
+#include "..\Symbols_DLL\CSymbolEngineUserchair.h"
 
 // TODO make it a symbol-engine?
 // Call it!
@@ -39,7 +41,7 @@ double CAutoplayerFunctions::GetAutoplayerFunctionValue(const int function_code)
 
 void CAutoplayerFunctions::CalcPrimaryFormulas() {
   write_log(Preferences()->debug_formula(), "[CAutoplayerFunctions] CalcPrimaryFormulas()\n");
-  assert(EngineContainer()->symbol_engine_autoplayer()->isfinalanswer());
+  ///assert(EngineContainer()->symbol_engine_autoplayer()->isfinalanswer());
   if (FunctionCollection()->IsOpenPPLProfile()) {
     CalcPrimaryFormulasOpenPPL();
     CalculateOpenPPLBackupActions();

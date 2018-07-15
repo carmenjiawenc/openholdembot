@@ -18,6 +18,7 @@
 
 #include "CSymbolEngineFunctionCollection.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
@@ -30,13 +31,13 @@ CSymbolEngineFunctionCollection::~CSymbolEngineFunctionCollection() {
 
 double CSymbolEngineFunctionCollection::Evaluate(CString function_name, bool log /* = false */) {
   double result = kUndefined;
-  FunctionCollection()->EvaluateSymbol(function_name,
+  Formula()->FunctionCollection()->EvaluateSymbol(function_name,
     &result, log);
   return result;
 }
 
 void CSymbolEngineFunctionCollection::UpdateOnConnection() {
-  FunctionCollection()->ClearCache();
+  Formula()->FunctionCollection()->ClearCache();
 }
 
 void CSymbolEngineFunctionCollection::UpdateOnHandreset() {
@@ -49,15 +50,15 @@ void CSymbolEngineFunctionCollection::UpdateOnMyTurn() {
 }
 
 void CSymbolEngineFunctionCollection::UpdateOnHeartbeat() {
-  FunctionCollection()->ClearCache();
+  Formula()->FunctionCollection()->ClearCache();
 }
 
 bool CSymbolEngineFunctionCollection::EvaluateSymbol(const CString name, double *result, bool log /* = false */) {
-  bool success = FunctionCollection()->EvaluateSymbol(
+  bool success = Formula()->FunctionCollection()->EvaluateSymbol(
     name, result, log);
   return success;
 }
 
 CString CSymbolEngineFunctionCollection::SymbolsProvided() {
-  return FunctionCollection()->SymbolsProvided();
+  return Formula()->FunctionCollection()->SymbolsProvided();
 }

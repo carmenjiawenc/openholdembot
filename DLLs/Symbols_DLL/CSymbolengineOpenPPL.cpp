@@ -45,7 +45,7 @@ CSymbolEngineOpenPPL::~CSymbolEngineOpenPPL() {
 }
 
 void CSymbolEngineOpenPPL::CheckExistenceOfOpenPPLFunction(CString function) {
-  if (false/*!!!!!!!FunctionCollection()->Exists(function)*/) {
+  if (false/*!!!!!!!Formula()->FunctionCollection()->Exists(function)*/) {
     CString message;
     message.Format("Can't find initialization-function\n"
       "%s\n"
@@ -67,13 +67,13 @@ void CSymbolEngineOpenPPL::UpdateOnConnection() {
 }
 
 void CSymbolEngineOpenPPL::UpdateOnHandreset() {
-  /*!!!!!!!FunctionCollection()->Evaluate(
+  /*!!!!!!!Formula()->FunctionCollection()->Evaluate(
     kOpenPPLUpdateOnHandReset,
     kAlwaysLogOpenPPLInitialization);*/
 }
 
 void CSymbolEngineOpenPPL::UpdateOnNewRound() {
-  /*!!!!!!!FunctionCollection()->Evaluate(
+  /*!!!!!!!Formula()->FunctionCollection()->Evaluate(
     kOpenPPLUpdateOnNewRound,
     kAlwaysLogOpenPPLInitialization);*/
 }
@@ -93,7 +93,7 @@ void CSymbolEngineOpenPPL::UpdateOnHeartbeat() {
 }
 
 void CSymbolEngineOpenPPL::UpdateAfterAutoplayerAction(int autoplayer_action_code) {
-  /*!!!!!!!FunctionCollection()->Evaluate(
+  /*!!!!!!!Formula()->FunctionCollection()->Evaluate(
     kOpenPPLUpdateMemorySymbolsAfterAutoplayerAction,
     kAlwaysLogOpenPPLInitialization);*/
 }

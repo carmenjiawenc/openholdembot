@@ -16,8 +16,9 @@
 #include "CParseTreeTerminalNodeIdentifier.h"
 
 #include <math.h>
-///#include "CAutoplayerTrace.h"
+#include "CAutoplayerTrace.h"
 ///#include "CMemoryPool.h"
+#include "CFormula.h"
 #include "CFunctionCollection.h"
 #include "CParserSymbolTable.h"
 #include "..\Debug_DLL\debug.h"
@@ -45,7 +46,7 @@ double CParseTreeTerminalNodeIdentifier::Evaluate(bool log /* = false */){
  write_log(Preferences()->debug_formula(), 
     "[CParseTreeTerminalNode] Evaluating node type %i %s\n", 
 		_node_type, TokenString(_node_type));
-  AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
+  Formula()->AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
 	// Most common types first: numbers and identifiers
   if (_node_type == kTokenIdentifier) {
     assert(_first_sibbling  == NULL);
@@ -59,7 +60,7 @@ double CParseTreeTerminalNodeIdentifier::Evaluate(bool log /* = false */){
     // In case of f$-functions the line changed inbetween,
     // so we have to set it to the current location (again)
     // for the next log.
-    AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
+    Formula()->AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
 		return value;
 	}
 	// This must not happen for a terminal node
@@ -139,7 +140,7 @@ bool CParseTreeTerminalNodeIdentifier::EvaluatesToBinaryNumber() {
   }
   else if (IsBinaryIdentifier()) return true;
   else if ((_node_type == kTokenIdentifier)
-      && FunctionCollection()->EvaluatesToBinaryNumber(_terminal_name)) {
+      && Formula()->FunctionCollection()->EvaluatesToBinaryNumber(_terminal_name)) {
     return true;
   }
   // Nothing binary

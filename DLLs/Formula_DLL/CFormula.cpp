@@ -7,10 +7,32 @@
 //
 //******************************************************************************
 //
-// Purpose: File-handling for OpenHoldem
+// Purpose: Container-class for all formula related functionality
 //
 //******************************************************************************
 
 #define FORMULA_DLL_EXPORTS
 
-#include "Formula.h"
+#include "CFormula.h"
+#include <afxwin.h>
+#include "CAutoplayerTrace.h"
+#include "CFunctionCollection.h"
+
+CFormula::CFormula() {
+  _autoplayer_trace = new CAutoplayerTrace;
+  _function_collection = new CFunctionCollection;
+}
+
+CFormula::~CFormula() {
+  /// delete members
+}
+
+CFormula* formula = NULL;
+
+CFormula* Formula() {
+  if (formula == NULL) {
+    // Lazy initialization
+    formula = new CFormula;
+  }
+  return formula;
+}

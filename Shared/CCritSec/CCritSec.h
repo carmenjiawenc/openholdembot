@@ -12,6 +12,8 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
+
 class CCritSec {
 public:
   CCritSec()
@@ -26,8 +28,7 @@ public:
 private:
   // copy ops are private to prevent copying
   CCritSec(const CCritSec&);
-  CCritSec& operator=(const CCritSec&);
-    
+  CCritSec& operator=(const CCritSec&);  
   CRITICAL_SECTION m_rep;
 };
 

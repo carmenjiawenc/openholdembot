@@ -11,7 +11,10 @@
 //
 //******************************************************************************
 
+#define FORMULA_DLL_EXPORTS
+
 #include "CAutoplayerTrace.h"
+#include "CFormula.h"
 #include "CFunctionCollection.h"
 ///#include "CAutoplayerFunctions.h"
 ///#include "CHandresetDetector.h"
@@ -165,13 +168,13 @@ void CAutoplayerTrace::Print(const char *action_taken, bool full_log_for_primary
 
 CString CAutoplayerTrace::BestAction() {
   for (int i=k_autoplayer_function_allin; i<=k_autoplayer_function_fold; ++i) {
-    if (1/*#FunctionCollection()->AutoplayerFunctions()->GetAutoplayerFunctionValue(i)*/) {
+    if (1/*#Formula()->FunctionCollection()->AutoplayerFunctions()->GetAutoplayerFunctionValue(i)*/) {
       if (i == k_autoplayer_function_betsize) {
         // Special treatment for f$betsize
         // e.g. "f$betsize = 201.47"
         CString best_action;
         best_action.Format("%s = %.2f", k_standard_function_names[i],
-          FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_betsize));
+          Formula()->FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_betsize));
         return best_action;
       }
       else {

@@ -13,7 +13,8 @@
  
 #include "CParseTreeOperatorNode.h"
 #include <math.h>
-///#include "CAutoplayerTrace.h"
+#include "CAutoplayerTrace.h"
+#include "CFormula.h"
 #include "CFunction.h"
 #include "CFunctionCollection.h"
 ///#include "CMemoryPool.h"
@@ -70,7 +71,7 @@ double CParseTreeOperatorNode::Evaluate(bool log /* = false */) {
  write_log(Preferences()->debug_formula(), 
     "[CParseTreeOperatorNode] Evaluating node type %i %s\n", 
 		_node_type, TokenString(_node_type));
-  AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
+  Formula()->AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
 	// operators
   if (TokenIsUnary(_node_type)) {
 		return EvaluateUnaryExpression(log);

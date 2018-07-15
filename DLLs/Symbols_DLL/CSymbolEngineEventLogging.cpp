@@ -23,6 +23,8 @@
 #include "CSymbolEnginePokerval.h"
 #include "CSymbolEngineUserchair.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CAutoplayerTrace.h"
+#include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
@@ -42,7 +44,7 @@ void CSymbolEngineEventLogging::InitOnStartup()
 {}
 
 void CSymbolEngineEventLogging::UpdateOnConnection() {
-  //#AutoplayerTrace()->Clear();
+  Formula()->AutoplayerTrace()->Clear();
 }
 
 void CSymbolEngineEventLogging::UpdateOnHandreset() {
@@ -67,7 +69,7 @@ void CSymbolEngineEventLogging::UpdateOnMyTurn()
 {}
 
 void CSymbolEngineEventLogging::UpdateOnHeartbeat() {
-  //#AutoplayerTrace()->Clear();
+  //#Formula()->AutoplayerTrace()->Clear();
 }
 
 void CSymbolEngineEventLogging::UpdateAfterAutoplayerAction(int autoplayer_action_code) {
@@ -115,11 +117,11 @@ void CSymbolEngineEventLogging::LogBasicInfo(const char *action_taken) {
   CString fcra_seen = EngineContainer()->symbol_engine_autoplayer()->GetFCKRAString();
   // fcra formula status
   fcra_formula_status.Format("%s%s%s%s%s",
-  FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_fold)  ? "F" : ".",
-  FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_call)  ? "C" : ".",
-  FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_check) ? "K" : ".",
-  FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_raise) ? "R" : ".",
-  FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_allin) ? "A" : ".");
+  Formula()->FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_fold)  ? "F" : ".",
+  Formula()->FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_call)  ? "C" : ".",
+  Formula()->FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_check) ? "K" : ".",
+  Formula()->FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_raise) ? "R" : ".",
+  Formula()->FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_allin) ? "A" : ".");
   // More verbose summary in the log
   // The old WinHoldem format was a complete mess
   write_log_separator(k_always_log_basic_information, "Basic Info");
@@ -137,7 +139,7 @@ void CSymbolEngineEventLogging::LogBasicInfo(const char *action_taken) {
   write_log(k_always_log_basic_information, "  Pot:           %9.2f\n", EngineContainer()->symbol_engine_chip_amounts()->pot());
   write_log(k_always_log_basic_information, "  Big blind:     %9.2f\n", EngineContainer()->symbol_engine_tablelimits()->bblind());
   write_log(k_always_log_basic_information, "  Big bet (FL):  %9.2f\n", EngineContainer()->symbol_engine_tablelimits()->bigbet());
-  write_log(k_always_log_basic_information, "  f$betsize:     %9.2f\n", FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_betsize));
+  write_log(k_always_log_basic_information, "  f$betsize:     %9.2f\n", Formula()->FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_betsize));
   write_log(k_always_log_basic_information, "  Formulas:      %s\n",    fcra_formula_status.GetString());
   write_log(k_always_log_basic_information, "  Buttons:       %s\n",    fcra_seen.GetString());
   // !! "Best action" is undefined if the executed action

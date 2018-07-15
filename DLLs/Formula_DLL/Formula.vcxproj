@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CAutoplayerFunctions.cpp" />
     <ClCompile Include="CAutoplayerTrace.cpp" />
     <ClCompile Include="CDebugTab.cpp" />
+    <ClCompile Include="CFormula.cpp" />
     <ClCompile Include="CFormulaFileSplitter.cpp" />
     <ClCompile Include="CFormulaParser.cpp" />
     <ClCompile Include="CFunction.cpp" />
@@ -35,13 +35,12 @@
     <ClCompile Include="CSelftestParserEvaluator.cpp" />
     <ClCompile Include="CShankySymbolNameTranslator.cpp" />
     <ClCompile Include="CTokenizer.cpp" />
-    <ClCompile Include="Formula.cpp" />
     <ClCompile Include="TokenizerConstants.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CAutoplayerFunctions.h" />
     <ClInclude Include="CAutoplayerTrace.h" />
     <ClInclude Include="CDebugTab.h" />
+    <ClInclude Include="CFormula.h" />
     <ClInclude Include="CFormulaFileSplitter.h" />
     <ClInclude Include="CFormulaParser.h" />
     <ClInclude Include="CFunction.h" />
@@ -63,7 +62,6 @@
     <ClInclude Include="CSelftestParserEvaluator.h" />
     <ClInclude Include="CShankySymbolNameTranslator.h" />
     <ClInclude Include="CTokenizer.h" />
-    <ClInclude Include="Formula.h" />
     <ClInclude Include="LibDef.h" />
     <ClInclude Include="TokenizerConstants.h" />
   </ItemGroup>

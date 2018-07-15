@@ -117,5 +117,3 @@ class FORMULA_DLL_API CFunctionCollection {
   std::map<CString, COHScriptObject*>::iterator enumerator_it;
   CCritSec m_critsec;
 };
-
-FORMULA_DLL_API CFunctionCollection* FunctionCollection();

@@ -66,6 +66,8 @@
 #include "CSymbolEngineVersus.h"
 #include "UnknownSymbols.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CAutoplayerTrace.h"
+#include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFormulaParser.h"
 #include "..\Formula_DLL\CFunction.h"
 #include "..\Formula_DLL\COHScriptList.h"
@@ -420,7 +422,7 @@ bool CEngineContainer::EvaluateSymbol(const CString name, double *result, bool l
         // Functions receive special treatment (indentation, etc)
         write_log(Preferences()->debug_auto_trace(),
           "[EngineContainer] %s -> %.3f [evaluated]\n", name, *result);
-        AutoplayerTrace()->Add(name, *result);
+        Formula()->AutoplayerTrace()->Add(name, *result); /// here?
       }
       return true;
     }

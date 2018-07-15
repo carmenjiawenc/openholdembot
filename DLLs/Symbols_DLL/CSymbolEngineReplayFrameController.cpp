@@ -80,7 +80,7 @@ void CSymbolEngineReplayFrameController::UpdateOnHeartbeat() {
 	  ShootReplayFrameIfNotYetDone();
 	  return;
 	}
-  bool shoot_replay_frame_by_formula = FunctionCollection()->Evaluate(
+  bool shoot_replay_frame_by_formula = Formula()->FunctionCollection()->Evaluate(
     k_standard_function_names[k_standard_function_shoot_replay_frame], 
     Preferences()->log_hopper_functions());
   if (shoot_replay_frame_by_formula) {

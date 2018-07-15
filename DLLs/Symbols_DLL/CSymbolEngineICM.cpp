@@ -273,7 +273,7 @@ bool CSymbolEngineICM::EvaluateSymbol(const CString name, double *result, bool l
   double sum_of_prizes = 0.0;
   for (int i=0; i<number_of_icm_prizes; ++i) {
     int function_name_index = k_icm_prize1 + i;
-    prizes[i] = FunctionCollection()->Evaluate(
+    prizes[i] = Formula()->FunctionCollection()->Evaluate(
       k_standard_function_names[function_name_index], Preferences()->log_icm_functions());
     sum_of_prizes += prizes[i];
   }

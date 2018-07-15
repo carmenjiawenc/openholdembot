@@ -13,8 +13,9 @@
  
 #include "CParseTreeTerminalNodeNumber.h"
 #include <math.h>
-///#include "CAutoplayerTrace.h"
+#include "CAutoplayerTrace.h"
 ///#include "CMemoryPool.h"
+#include "CFormula.h"
 #include "CFunctionCollection.h"
 #include "CParserSymbolTable.h"
 #include "..\Debug_DLL\debug.h"
@@ -45,7 +46,7 @@ double CParseTreeTerminalNodeNumber::Evaluate(bool log /* = false */){
  write_log(Preferences()->debug_formula(), 
     "[CParseTreeTerminalNode] Evaluating node type %i %s\n", 
 		_node_type, TokenString(_node_type));
-  AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
+  Formula()->AutoplayerTrace()->SetLastEvaluatedRelativeLineNumber(_relative_line_number);
 	if (_node_type == kTokenNumber)	{
 		write_log(Preferences()->debug_formula(), 
       "[CParseTreeTerminalNode] Number evaluates to %6.3f\n",
