@@ -20,6 +20,7 @@
 #include "CEngineContainer.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Files_DLL\Files.h"
+#include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFormulaParser.h"
 #include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Globals_DLL\globals.h"

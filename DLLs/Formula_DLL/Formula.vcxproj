@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAutoplayerLogic.cpp" />
     <ClCompile Include="CAutoplayerTrace.cpp" />
     <ClCompile Include="CDebugTab.cpp" />
     <ClCompile Include="CFormula.cpp" />
@@ -38,6 +39,7 @@
     <ClCompile Include="TokenizerConstants.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CAutoplayerLogic.h" />
     <ClInclude Include="CAutoplayerTrace.h" />
     <ClInclude Include="CDebugTab.h" />
     <ClInclude Include="CFormula.h" />

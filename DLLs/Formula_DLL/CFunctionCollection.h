@@ -28,7 +28,7 @@ class COHScriptObject;
 // * Evaluate()-function,
 // * SymbolsProvided() for syntax-highlighting
 class FORMULA_DLL_API CFunctionCollection {
-  friend class CAutoplayerFunctions;
+  friend class CAutoplayerLogic;
   friend class CBetsizeInputBox;
   friend class CCasinoInterface;
   friend class CFormulaParser;
@@ -90,7 +90,6 @@ class FORMULA_DLL_API CFunctionCollection {
   CString FormulaPath()     { return _path; }
  public:
   CDebugTab* DebugTab() { return &_debug_tab;  }
-  CAutoplayerFunctions* AutoplayerFunctions(); ///!!!
  protected:
   void SetFormulaName(CString formula_name)	{ _formula_name = formula_name; }
   void SetPath(CString path)	  { _path = path; }

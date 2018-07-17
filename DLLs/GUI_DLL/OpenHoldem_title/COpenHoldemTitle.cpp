@@ -15,6 +15,7 @@
 #include <assert.h>
 #include "..\..\Debug_DLL\debug.h"
 #include "..\..\Files_DLL\Files.h"
+#include "..\..\Formula_DLL\CFormula.h"
 #include "..\..\Formula_DLL\CFunctionCollection.h"
 #include "..\..\Preferences_DLL\Preferences.h"
 #include "..\..\Scraper_DLL\CBasicScraper.h"

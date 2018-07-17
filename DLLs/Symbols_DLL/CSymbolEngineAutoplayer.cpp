@@ -12,8 +12,7 @@
 //******************************************************************************
 
 #include "CSymbolEngineAutoplayer.h"
-/*#include "CAutoconnector.h"
-#include "CAutoplayerFunctions.h"*/
+/*#include "CAutoconnector.h"*/
 #include "CEngineContainer.h"
 ///#include "CFunctionCollection.h"
 #include "CIteratorThread.h"

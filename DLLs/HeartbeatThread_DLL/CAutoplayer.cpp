@@ -18,7 +18,6 @@
 #include "CStableFramesCounter.h"
 #include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Formula_DLL\CAutoplayerFunctions.h"
 #include "..\Formula_DLL\CAutoplayerTrace.h"
 #include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFunctionCollection.h"
@@ -518,4 +517,3 @@ bool CAutoplayer::DoPrefold(void) {
 	}
 	return false;
 }
-

@@ -14,6 +14,7 @@
 
 #include "LibDef.h"
 
+class CAutoplayerLogic;
 class CAutoplayerTrace;
 class CFunctionCollection;
 
@@ -22,6 +23,9 @@ public:
   CFormula();
   ~CFormula();
 public:
+  CAutoplayerLogic* AutoplayerLogic() {
+    return _autoplayer_logic;
+  }
   CAutoplayerTrace* AutoplayerTrace() {
     return _autoplayer_trace;
   }
@@ -29,8 +33,9 @@ public:
     return _function_collection;
   }
 private:
+  CAutoplayerLogic* _autoplayer_logic;
   CAutoplayerTrace* _autoplayer_trace;
   CFunctionCollection* _function_collection;
 };
 
-CFormula* Formula();
+FORMULA_DLL_API CFormula* Formula();

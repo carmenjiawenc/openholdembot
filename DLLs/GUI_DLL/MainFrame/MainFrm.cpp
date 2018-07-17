@@ -16,7 +16,6 @@
 #include <process.h>
 
 ///#include "CAutoplayer.h"
-///#include "CAutoplayerFunctions.h"
 ///#include "CFlagsToolbar.h"
 ///#include "CHeartbeatThread.h"
 ///#include "CIteratorThread.h"

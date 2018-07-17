@@ -18,6 +18,7 @@
 #include "CIteratorThread.h"
 #include "CSymbolEngineIsOmaha.h"
 ///#include "CSymbolenginePokerval.h"
+#include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Preferences_DLL\Preferences.h"

@@ -222,6 +222,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowFunctions", "DLLs\Win
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HeartbeatThread", "DLLs\HeartbeatThread_DLL\heartbeatThread.vcxproj", "{8D6B043F-A270-479C-8692-3A609E560089}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenHoldem_GamestatePopulator", "DLLs\OpenHoldem_GamestatePopulator_DLL\OpenHoldem_GamestatePopulator.vcxproj", "{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -769,6 +771,20 @@ Global
 		{8D6B043F-A270-479C-8692-3A609E560089}.Template|Any CPU.Build.0 = Release|Win32
 		{8D6B043F-A270-479C-8692-3A609E560089}.Template|Win32.ActiveCfg = Release|Win32
 		{8D6B043F-A270-479C-8692-3A609E560089}.Template|Win32.Build.0 = Release|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Debug|Win32.Build.0 = Debug|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Release - Optimized|Any CPU.ActiveCfg = Release|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Release - Optimized|Any CPU.Build.0 = Release|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Release - Optimized|Win32.ActiveCfg = Release|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Release - Optimized|Win32.Build.0 = Release|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Release|Any CPU.ActiveCfg = Release|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Release|Win32.ActiveCfg = Release|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Release|Win32.Build.0 = Release|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Template|Any CPU.ActiveCfg = Release|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Template|Any CPU.Build.0 = Release|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Template|Win32.ActiveCfg = Release|Win32
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E}.Template|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -807,6 +823,7 @@ Global
 		{BFF9AF3C-0FDE-46B5-A2EA-2C077B353A78} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
 		{E87D7887-ADDE-41DB-AA09-3DDAB950FAA5} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
 		{8D6B043F-A270-479C-8692-3A609E560089} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
+		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = 

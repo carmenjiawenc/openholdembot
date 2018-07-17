@@ -16,7 +16,6 @@
 #include "CAutoplayerTrace.h"
 #include "CFormula.h"
 #include "CFunctionCollection.h"
-///#include "CAutoplayerFunctions.h"
 ///#include "CHandresetDetector.h"
 #include "COHScriptObject.h"
 ///#include "CopenHoldemStatusbar.h"

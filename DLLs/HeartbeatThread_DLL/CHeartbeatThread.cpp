@@ -78,7 +78,6 @@ UINT CHeartbeatThread::HeartbeatThreadFunction(LPVOID pParam) {
   ///CTablepointChecker tablepoint_checker;
 	// Seed the RNG
 	srand((unsigned)GetTickCount());
-
 	while (true) {
 		_heartbeat_counter++;
 		write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] Starting next cycle\n");
@@ -86,21 +85,16 @@ UINT CHeartbeatThread::HeartbeatThreadFunction(LPVOID pParam) {
 		if(::WaitForSingleObject(pParent->_m_stop_thread, 0) == WAIT_OBJECT_0) {
 			// Set event
       write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] Ending heartbeat thread\n");
-      LogMemoryUsage("Hc");
 			::SetEvent(pParent->_m_wait_thread);
 			AfxEndThread(0);
 		}
     ///assert(OpenHoldem()->TablemapLoader() != NULL);
-    LogMemoryUsage("H1");
 		///OpenHoldem()->TablemapLoader()->ReloadAllTablemapsIfChanged();
-    LogMemoryUsage("H2");
     assert(TableManagement()->AutoConnector() != NULL);
     write_log(Preferences()->debug_alltherest(), "[CHeartbeatThread] location Johnny_B\n");
     if (TableManagement()->AutoConnector()->IsConnectedToGoneWindow()) {
-      LogMemoryUsage("H3");
       TableManagement()->AutoConnector()->Disconnect("table disappeared");
     }
-    LogMemoryUsage("H4");
     if (!TableManagement()->AutoConnector()->IsConnectedToAnything()) {
       // Not connected
       AutoConnect();
@@ -108,32 +102,25 @@ UINT CHeartbeatThread::HeartbeatThreadFunction(LPVOID pParam) {
     // No "else" here
     // We want one fast scrape immediately after connection
     // without any heartbeat-sleeping.
-    LogMemoryUsage("H5");
     write_log(Preferences()->debug_alltherest(), "[CHeartbeatThread] location Johnny_C\n");
 		if (TableManagement()->AutoConnector()->IsConnectedToExistingWindow()) {
      /*# if (tablepoint_checker.TablepointsMismatchedTheLastNHeartbeats()) {
-        LogMemoryUsage("H6");
         TableManagement()->AutoConnector()->Disconnect("table theme changed (tablepoints)");
       } else*/ {
-        LogMemoryUsage("H7");
         TableManagement()->TablePositioner()->AlwaysKeepPositionIfEnabled();
         ScrapeEvaluateAct();
       } 		
 		}
-    LogMemoryUsage("H8");
     process_management.Watchdog()->HandleCrashedAndFrozenProcesses();
     if (Preferences()->use_auto_starter()) {
-      LogMemoryUsage("H9");
       process_management.OpenHoldemStarter()->StartNewInstanceIfNeeded();
     }
-    LogMemoryUsage("Ha");
     if (Preferences()->use_auto_shutdown()) {
       process_management.OpenHoldemStarter()->CloseThisInstanceIfNoLongerNeeded();
     }
-    LogMemoryUsage("Hb");
     _heartbeat_delay.FlexibleSleep();
 		write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] Heartbeat cycle ended\n");
-    LogMemoryUsage("End of heartbeat cycle");
+    LogMemoryUsage("Heartbeat cycle");
 	}
 }
 

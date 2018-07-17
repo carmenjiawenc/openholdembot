@@ -23,17 +23,11 @@ class CAutoplayerFunctions /*#: public CSpaceOptimizedGlobalObject */{
 	double GetAutoplayerFunctionValue(const int function_code);
  private:
   void CalcPrimaryFormulasOHScript();
-  void CalcPrimaryFormulasOpenPPL();
-  void TranslateOpenPPLDecisionToAutoplayerFunctions(double decision);
+  
   bool IsPercentagePotsizeBet(double decision);
   double BetSizeForPercentagedPotsizeBet(double decision); //!!!!! dupliate to betpot-calculations?
  private:
   void CheckIfDecisionMatchesElementaryAction(int decision, int action);
-  void CalculateSingleOpenPPLBackupAction(
-    int potential_action, int potential_backup);
-  void CalculateOpenPPLBackupActions();
- private:
-  bool IsFoldAllinSituation();
  private:
 	CCritSec	m_critsec;
 };
