@@ -11,25 +11,7 @@
 //
 //******************************************************************************
 
-#include "stdafx.h"
 #include "CLazyScraper.h"
-
-#include "CAutoplayer.h"
-#include "CCasinoInterface.h"
-#include "CEngineContainer.h"
-#include "CHandresetDetector.h"
-
-#include "CScraper.h"
-#include "CSymbolEngineActiveDealtPlaying.h"
-#include "CSymbolEngineHistory.h"
-#include "CSymbolEngineIsTournament.h"
-#include "CSymbolEngineGameType.h"
-#include "CSymbolEngineTime.h"
-#include "CSymbolEngineUserchair.h"
-#include "..\DLLs\Tablestate_DLL\TableState.h"
-
-
-CLazyScraper *p_lazyscraper = NULL;
 
 CLazyScraper::CLazyScraper() {
   _is_identical_scrape = false;

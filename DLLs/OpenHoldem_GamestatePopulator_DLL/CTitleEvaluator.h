@@ -14,6 +14,7 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
 ///#include "CSpaceOptimizedGlobalObject.h"
 
 class CTitleEvaluator /*#: public CSpaceOptimizedGlobalObject */{
@@ -22,13 +23,11 @@ class CTitleEvaluator /*#: public CSpaceOptimizedGlobalObject */{
   CTitleEvaluator();
   ~CTitleEvaluator();
  public:
-#ifdef OPENHOLDEM_PROGRAM
   void ClearAllDataOncePerHeartbeat();
   void EvaluateScrapedHandNumbers();
   void EvaluateTitleText();
   void EvaluateScrapedTitleTexts();
   void EvaluateScrapedGameInfo();
-#endif
  public:
    CString GetAllCombinedResultsForOpenScrape() {
      return _results_for_openscrape; }

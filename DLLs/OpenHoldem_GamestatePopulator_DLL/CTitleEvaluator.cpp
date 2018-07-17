@@ -13,18 +13,14 @@
 //
 //******************************************************************************
 
-#include "stdafx.h"
 #include "CTitleEvaluator.h"
-#include "..\DLLs\StringFunctions_DLL\string_functions.h"
-
-#ifdef OPENHOLDEM_PROGRAM
-
-#include "..\DLLs\Scraper_DLL\CScraper.h"
-#include "..\DLLs\Tablestate_DLL\TableState.h"
-#include "..\DLLs\Tablestate_DLL\CTableTitle.h"
-#endif 
-
-CTitleEvaluator *p_title_evaluator = NULL;
+#include "..\Debug_DLL\debug.h"
+#include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\StringFunctions_DLL\string_functions.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Tablestate_DLL\TableState.h"
+#include "..\Tablestate_DLL\CTableTitle.h"
 
 CTitleEvaluator::CTitleEvaluator() {
 }
@@ -32,35 +28,28 @@ CTitleEvaluator::CTitleEvaluator() {
 CTitleEvaluator::~CTitleEvaluator() {
 }
 
-#ifdef OPENHOLDEM_PROGRAM
 void CTitleEvaluator::ClearAllDataOncePerHeartbeat() {
   TableState()->_s_limit_info.Reset();
 }
-#endif
 
-#ifdef OPENHOLDEM_PROGRAM
 void CTitleEvaluator::EvaluateScrapedHandNumbers() {
-  CString text;
+  CString text = BasicScraper()->ScrapeRegion("c0handnumber");
   // r$c0handnumber
-  if (p_scraper->EvaluateRegion("c0handnumber", &text)) {
-    if (text != "") {
-      TableState()->_s_limit_info._handnumber = ExtractHandnumFromString(text);
-    }
-    write_log(Preferences()->debug_scraper(), "[CScraper] c0handnumber, result %s\n", text.GetString());
+  if (text != "") {
+    TableState()->_s_limit_info._handnumber = ExtractHandnumFromString(text);
   }
+  write_log(Preferences()->debug_scraper(), "[CScraper] c0handnumber, result %s\n", text.GetString());
   for (int j = 0; j <= 9; j++) {
     // r$c0handnumberX
     CString tablemap_symbol;
     tablemap_symbol.Format("c0handnumber%d", j);
-    if (p_scraper->EvaluateRegion(tablemap_symbol, &text)) {
-      if (text != "") {
-        TableState()->_s_limit_info._handnumber = ExtractHandnumFromString(text);
-      }
-      write_log(Preferences()->debug_scraper(), "[CScraper] c0handnumber%d, result %s\n", j, text.GetString());
+    text = BasicScraper()->ScrapeRegion(tablemap_symbol);
+    if (text != "") {
+      TableState()->_s_limit_info._handnumber = ExtractHandnumFromString(text);
     }
+    write_log(Preferences()->debug_scraper(), "[CScraper] c0handnumber%d, result %s\n", j, text.GetString());
   }
 }
-#endif
 
 CString CTitleEvaluator::ExtractHandnumFromString(CString t) {
   CString resulting_handumber_digits_only;
@@ -75,7 +64,6 @@ CString CTitleEvaluator::ExtractHandnumFromString(CString t) {
   return resulting_handumber_digits_only;
 }
 
-#ifdef OPENHOLDEM_PROGRAM
 void CTitleEvaluator::EvaluateTitleText() {
   CString titletext = TableState()->TableTitle()->PreprocessedTitle();
   CString title_format = BasicScraper()->Tablemap()->GetTMSymbol("ttlimits");
@@ -88,9 +76,7 @@ void CTitleEvaluator::EvaluateTitleText() {
     ProcessTitle(titletext, title_format);
   }
 }
-#endif
 
-#ifdef OPENHOLDEM_PROGRAM
 void CTitleEvaluator::EvaluateScrapedTitleTexts() {
   EvaluateC0LimitsX("c0limits");
   for (int i = 0; i < k_max_number_of_titletexts; i++) {
@@ -99,9 +85,7 @@ void CTitleEvaluator::EvaluateScrapedTitleTexts() {
     EvaluateC0LimitsX(c0limitsX);
   }
 }
-#endif
 
-#ifdef OPENHOLDEM_PROGRAM
 void CTitleEvaluator::EvaluateC0LimitsX(CString c0limitsX) {
   // c0limits needs both
   // * a region r$c0limits to define where to scrape the limis 
@@ -117,34 +101,29 @@ void CTitleEvaluator::EvaluateC0LimitsX(CString c0limitsX) {
     return;
   }
   // Scrape the region r$c0limitsX from the table
-  CString scraped_title;
-  if (p_scraper->EvaluateRegion(c0limitsX, &scraped_title)) {
-    ProcessTitle(scraped_title, title_format);
-  }
+  CString scraped_title = BasicScraper()->ScrapeRegion(c0limitsX);
+  ProcessTitle(scraped_title, title_format);
 }
-#endif
 
-#ifdef OPENHOLDEM_PROGRAM
 void CTitleEvaluator::EvaluateScrapedGameInfo() {
   CString result;
   // r$c0smallblind
-  p_scraper->EvaluateRegion("c0smallblind", &result);
+  result = BasicScraper()->ScrapeRegion("c0smallblind");
   TableState()->_s_limit_info._sblind.SetValue(result);
   // r$c0bigblind
-  p_scraper->EvaluateRegion("c0bigblind", &result);
+  result = BasicScraper()->ScrapeRegion("c0bigblind");
   TableState()->_s_limit_info._bblind.SetValue(result);
   // r$c0bigbet
-  p_scraper->EvaluateRegion("c0bigbet", &result);
+  result = BasicScraper()->ScrapeRegion("c0bigbet");
   TableState()->_s_limit_info._bbet.SetValue(result);
   // r$c0ante
-  p_scraper->EvaluateRegion("c0ante", &result);
+  result = BasicScraper()->ScrapeRegion("c0ante");
   TableState()->_s_limit_info._ante.SetValue(result);
   // r$c0isfinaltable
-  p_scraper->EvaluateTrueFalseRegion(&TableState()->_s_limit_info._is_final_table, "c0isfinaltable");
+  ///BasicScraper()->EvaluateTrueFalseRegion(&TableState()->_s_limit_info._is_final_table, "c0isfinaltable");
   write_log(Preferences()->debug_scraper(), "[CScraper] small blind at the very end: %.2f\n",
     TableState()->_s_limit_info._sblind.GetValue());
 }
-#endif
 
 // Former ParseStringBSL()
 // For OpenHoldem 7.3.1 we removed the superfluous parameters
@@ -387,7 +366,6 @@ bool CTitleEvaluator::ProcessTitle(CString title, CString ttlimits_format) {
       return false;
     }
   }
-#ifdef OPENHOLDEM_PROGRAM
   // Perfect match found.
   // Write temporary results back.
   // Only if the known value is "undefined",
@@ -451,12 +429,11 @@ bool CTitleEvaluator::ProcessTitle(CString title, CString ttlimits_format) {
   write_log(Preferences()->debug_scraper(),
 	  "[CTransform] prizepoolmultiplier = %d\n",
 	  TableState()->_s_limit_info.prizepoolmultiplier());
-#endif
   return true;
 }
 
 
-/*
+/*# ???
 // save what we just scanned through
 if (l_handnumber != "") {
 TableState()->_s_limit_info._handnumber = l_handnumber;
