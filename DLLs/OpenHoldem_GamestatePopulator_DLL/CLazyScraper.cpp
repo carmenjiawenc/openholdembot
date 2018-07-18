@@ -12,6 +12,18 @@
 //******************************************************************************
 
 #include "CLazyScraper.h"
+#include <assert.h>
+#include "..\CasinoInterface_DLL\CCasinoInterface.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
+#include "..\Symbols_DLL\CEngineContainer.h"
+#include "..\Symbols_DLL\CHandresetDetector.h"
+#include "..\Symbols_DLL\CSymbolEngineActiveDealtPlaying.h"
+#include "..\Symbols_DLL\CSymbolEngineGameType.h"
+#include "..\Symbols_DLL\CSymbolEngineHistory.h"
+#include "..\Symbols_DLL\CSymbolengineTime.h"
+#include "..\Symbols_DLL\CSymbolengineUserchair.h"
+#include "..\TableState_DLL\TableState.h"
 
 CLazyScraper::CLazyScraper() {
   _is_identical_scrape = false;
@@ -60,25 +72,25 @@ CLazyScraper::~CLazyScraper() {
 // If in doubt be conservative.
 
 void CLazyScraper::DoScrape() {
-	if (p_scraper->IsIdenticalScrape())	{
+	if (scraper.IsIdenticalScrape())	{
 		_is_identical_scrape = true;
     return;
 	}
   _is_identical_scrape = false;
-	p_scraper->ScrapeLimits();
+	scraper.ScrapeLimits();
 	if (NeedDealerChair()) { 
-		p_scraper->ScrapeDealer();
+		scraper.ScrapeDealer();
 	}
 	if (NeedUsersCards())	{
-		assert(p_engine_container->symbol_engine_userchair()->userchair_confirmed());
-		p_scraper->ScrapePlayerCards(p_engine_container->symbol_engine_userchair()->userchair());
+		assert(EngineContainer()->symbol_engine_userchair()->userchair_confirmed());
+		scraper.ScrapePlayerCards(EngineContainer()->symbol_engine_userchair()->userchair());
 	}
-	p_scraper->ScrapeSeatedActive();
+	scraper.ScrapeSeatedActive();
 	if (NeedAllPlayersCards()) {
-		p_scraper->ScrapeAllPlayerCards(); 
+		scraper.ScrapeAllPlayerCards(); 
 	}
 	if (NeedCommunityCards())	{
-		p_scraper->ScrapeCommonCards();
+		scraper.ScrapeCommonCards();
 	}
 	if (NeedFoldButton())	{
 		// For fast detection of my turn
@@ -86,36 +98,36 @@ void CLazyScraper::DoScrape() {
     // No extra-scrape of fold-button for improved reaction time
 	}
 	if (NeedActionbuttons()) {
-		p_scraper->ScrapeActionButtons();
-		p_scraper->ScrapeActionButtonLabels();
+		scraper.ScrapeActionButtons();
+		scraper.ScrapeActionButtonLabels();
 	}
 	if (NeedInterfaceButtons())	{
-		p_scraper->ScrapeInterfaceButtons();
+		scraper.ScrapeInterfaceButtons();
 	}
 	if (NeedBetpotButtons()) {
-		p_scraper->ScrapeBetpotButtons();
+		scraper.ScrapeBetpotButtons();
 	}
 	if (NeedSlider())	{
-		p_scraper->ScrapeSlider();
+		scraper.ScrapeSlider();
 	}
 	// Swagbox AKA i3edit does not need to be scraped
 	// The CasinoInterface checks the existence and uses this region automatically
 	if (NeedBetsAndBalances()) {
-		p_scraper->ScrapeBetsAndBalances();
-		p_scraper->ScrapePots();
+		scraper.ScrapeBetsAndBalances();
+		scraper.ScrapePots();
 	}
 	if (NeedAllPlayerNames())	{
-		p_scraper->ClearAllPlayerNames();
+		scraper.ClearAllPlayerNames();
 		ScrapeUnknownPlayerNames();
 	}
 	if (NeedUnknownPlayerNames())	{
 		ScrapeUnknownPlayerNames();
 	}
   if (NeedColourCodes()) {
-    p_scraper->ScrapeColourCodes();
+    scraper.ScrapeColourCodes();
   }
   if (NeedMTTRegions()) {
-    p_scraper->ScrapeMTTRegions();
+    scraper.ScrapeMTTRegions();
   }
 }
 
@@ -128,7 +140,7 @@ bool CLazyScraper::NeedHandNumber() {
 }
 
 bool CLazyScraper::NeedUsersCards() {
-	return (p_engine_container->symbol_engine_userchair()->userchair_confirmed());
+	return (EngineContainer()->symbol_engine_userchair()->userchair_confirmed());
 }
 
 bool CLazyScraper::NeedAllPlayersCards() {
@@ -153,8 +165,8 @@ bool CLazyScraper::NeedInterfaceButtons() {
 }
 
 bool CLazyScraper::NeedBetpotButtons() {
-	return (p_casino_interface->IsMyTurn()
-		&& (p_engine_container->symbol_engine_gametype()->isnl() || p_engine_container->symbol_engine_gametype()->ispl()));
+	return (CasinoInterface()->IsMyTurn()
+		&& (EngineContainer()->symbol_engine_gametype()->isnl() || EngineContainer()->symbol_engine_gametype()->ispl()));
 }
 
 bool CLazyScraper::NeedSlider() {
@@ -170,14 +182,14 @@ bool CLazyScraper::NeedAllPlayerNames() {
 	// It is enough if we do this until our turn, because
 	// * at our turn we have stable frames
 	// * new players after our turn can't affect the current hand
-  if (p_engine_container->symbol_engine_history()->DidActThisHand()) {
+  if (EngineContainer()->symbol_engine_history()->DidActThisHand()) {
     return false;
   }
   // We can also stop scraping names if we see new cards 
   // after a hand-reset because then a poterntial new player
   // can no longer join the game.
-  if ((p_engine_container->symbol_engine_time()->elapsedhand() > 2)
-      && (p_engine_container->symbol_engine_active_dealt_playing()->nplayersdealt() >= 2)) {
+  if ((EngineContainer()->symbol_engine_time()->elapsedhand() > 2)
+      && (EngineContainer()->symbol_engine_active_dealt_playing()->nplayersdealt() >= 2)) {
     return false;
   }
   return true;
@@ -195,10 +207,10 @@ bool CLazyScraper::NeedCommunityCards() {
 }
 
 void CLazyScraper::ScrapeUnknownPlayerNames() {
-	for (int i=0; i<p_tablemap->nchairs(); i++) {
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++) {
 		if (TableState()->Player(i)->seated()
 			  && (TableState()->Player(i)->name() == "")) {
-			p_scraper->ScrapeName(i);
+			scraper.ScrapeName(i);
 		}
 	}
 }
@@ -206,13 +218,13 @@ void CLazyScraper::ScrapeUnknownPlayerNames() {
 bool CLazyScraper::NeedColourCodes() {
   // Scrape colour-codes at the beginning of a session 
   // and at my turn -- that's enough.
-  return (p_casino_interface->IsMyTurn()
-    || (p_handreset_detector->hands_played() <= 1));
+  return (CasinoInterface()->IsMyTurn()
+    || (EngineContainer()->HandresetDetector()->hands_played() <= 1));
 }
 
 bool CLazyScraper::NeedMTTRegions() {
   // return when it is our turn
   // or if we have played less than 3 hands (for possible mtt detect)
-  return (p_casino_interface->IsMyTurn()
-	  || p_handreset_detector->hands_played() < 3);
+  return (CasinoInterface()->IsMyTurn()
+	  || EngineContainer()->HandresetDetector()->hands_played() < 3);
 }

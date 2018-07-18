@@ -140,7 +140,7 @@ bool CPlayer::PostingBothBlinds() {
   // We have to calculate in cents here, as IsApproximatellyEqual uses rounding internally.
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=18743
   double bet_in_cents = 100 * _bet.GetValue();
-  double both_blinds_in_cents = 100 * 1; //!!!!!!! (p_engine_container->symbol_engine_tablelimits()->sblind() + p_engine_container->symbol_engine_tablelimits()->bblind());
+  double both_blinds_in_cents = 100 * 1; //!!!!!!! (EngineContainer()->symbol_engine_tablelimits()->sblind() + EngineContainer()->symbol_engine_tablelimits()->bblind());
   return (_seated && _active && HasAnyCards()
     && IsApproximatellyEqual(bet_in_cents, both_blinds_in_cents));
 }
@@ -161,7 +161,7 @@ bool CPlayer::PostingAnte() {
   if (_bet.GetValue() <= 0) {
     return false;
   }
-  if (_bet.GetValue() >= 1) { //!!!!!!!p_engine_container->symbol_engine_tablelimits()->sblind()) {
+  if (_bet.GetValue() >= 1) { //!!!!!!!EngineContainer()->symbol_engine_tablelimits()->sblind()) {
     // Assuming the ante is smaller as the small blind
     // There are exceptions, but we use this function 
     // only as one of many handreset-methods.

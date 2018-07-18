@@ -13,6 +13,7 @@
 //******************************************************************************
 
 ///#include "CSpaceOptimizedGlobalObject.h"
+#include "CScraper.h"
 
 class CLazyScraper /*#: public CSpaceOptimizedGlobalObject */{
  public:
@@ -46,5 +47,6 @@ class CLazyScraper /*#: public CSpaceOptimizedGlobalObject */{
 	bool CardScrapeNeeded();
 	bool CompleteScrapeNeeded();
  private:
+   CScraper scraper;
   bool _is_identical_scrape;
 };

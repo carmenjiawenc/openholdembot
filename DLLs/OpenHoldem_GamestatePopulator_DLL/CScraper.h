@@ -14,11 +14,10 @@
 //
 //******************************************************************************
 
-#ifndef INC_CSCRAPER_H
-#define INC_CSCRAPER_H
-
+#include <afxwin.h>
 #include <stdint.h>
-#include "..\..\..\CTablemap/CTablemap.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
+
 //#include "CSpaceOptimizedGlobalObject.h"
 
 class CScraper /*#: public CSpaceOptimizedGlobalObject */{
@@ -98,5 +97,3 @@ class CScraper /*#: public CSpaceOptimizedGlobalObject */{
 	HBITMAP			_entire_window_last;
   HBITMAP			_entire_window_cur;
 };
-
-

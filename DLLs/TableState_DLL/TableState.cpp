@@ -42,13 +42,13 @@ void CTableState::Reset() {
 }
 
 CPlayer *CTableState::User() {
-  /*!!!!!!!if (p_engine_container->symbol_engine_userchair() == NULL) {
+  /*!!!!!!!if (EngineContainer()->symbol_engine_userchair() == NULL) {
     return &_players[kFakeEntryForUnknownUserchair];
   }
-  if (!p_engine_container->symbol_engine_userchair()->userchair_confirmed()) {
+  if (!EngineContainer()->symbol_engine_userchair()->userchair_confirmed()) {
     return &_players[kFakeEntryForUnknownUserchair];
   }*/
-  int userchair = 1; //!!!!!!!= p_engine_container->symbol_engine_userchair()->userchair();
+  int userchair = 1; //!!!!!!!= EngineContainer()->symbol_engine_userchair()->userchair();
   //!!!!!!!AssertRange(userchair, 0, kLastChair);
   return &_players[userchair];
 }

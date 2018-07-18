@@ -13,10 +13,9 @@
 //
 //******************************************************************************
 
-#include "StdAfx.h"
 #include "CScraper.h"
 
-#include "Bitmaps.h" 
+/*##include "Bitmaps.h" 
 #include "CardFunctions.h"
 #include "CAutoconnector.h"
 #include "CCasinoInterface.h"
@@ -39,7 +38,7 @@
 #include "..\CTransform\hash\lookup3.h"
 
 #include "MainFrm.h"
-#include "OpenHoldem.h"
+#include "OpenHoldem.h"*/
 
 CScraper *p_scraper = NULL;
 
@@ -161,7 +160,7 @@ void CScraper::ScrapeInterfaceButtons() {
 	for (int i=0; i<k_max_number_of_i86X_buttons; i++) {
 		button_name.Format("i86%dstate", i);
 		if (EvaluateRegion(button_name, &result))	{
-      p_casino_interface->_technical_i86X_spam_buttons[i].SetState(result);
+      CasinoInterface()->_technical_i86X_spam_buttons[i].SetState(result);
 		}
 	}
 }
@@ -172,9 +171,9 @@ void CScraper::ScrapeActionButtons() {
 	for (int i=0; i<k_max_number_of_buttons; ++i)	{
 		button_name.Format("i%cstate", HexadecimalChar(i)); 
 		if (EvaluateRegion(button_name, &result)) {
-      p_casino_interface->_technical_autoplayer_buttons[i].SetState(result);
+      CasinoInterface()->_technical_autoplayer_buttons[i].SetState(result);
 		}
-    if ((i == 5) && p_engine_container->symbol_engine_casino()->ConnectedToManualMode()) {
+    if ((i == 5) && EngineContainer()->symbol_engine_casino()->ConnectedToManualMode()) {
       // Ugly WinHoldem convention
       // When using ManualMode, grab i5state for PT network
       p_tablemap->set_network(result);
@@ -188,10 +187,10 @@ void CScraper::ScrapeActionButtonLabels() {
   // Every button needs a label
   // No longer using any WinHoldem defaults
 	for (int i=0; i<k_max_number_of_buttons; ++i)	{
-    p_casino_interface->_technical_autoplayer_buttons[i].SetLabel("");
+    CasinoInterface()->_technical_autoplayer_buttons[i].SetLabel("");
 		label.Format("i%clabel", HexadecimalChar(i));
 		if (EvaluateRegion(label, &result))	{
-      p_casino_interface->_technical_autoplayer_buttons[i].SetLabel(result);
+      CasinoInterface()->_technical_autoplayer_buttons[i].SetLabel(result);
 		}
 	}
 }
@@ -202,7 +201,7 @@ void CScraper::ScrapeBetpotButtons() {
 	for (int i=0; i<k_max_betpot_buttons; i++) {
     button_name.Format("%sstate", k_betpot_button_name[i]);
 		if (EvaluateRegion(button_name, &result))	{
-      p_casino_interface->_technical_betpot_buttons[i].SetState(result);
+      CasinoInterface()->_technical_betpot_buttons[i].SetState(result);
 		}
 	}
 }
@@ -230,8 +229,8 @@ void CScraper::ScrapeBetsAndBalances() {
 		//   * scrape everybody up to my first action (then we know who was dealt)
 		//   * after that we scrape only dealt players
 		//   * and also players who have cards (fresh sitdown and hand-reset, former playersdealt is wrong)
-		if ((!p_engine_container->symbol_engine_history()->DidActThisHand())
-			|| IsBitSet(p_engine_container->symbol_engine_active_dealt_playing()->playersdealtbits(), i)
+		if ((!EngineContainer()->symbol_engine_history()->DidActThisHand())
+			|| IsBitSet(EngineContainer()->symbol_engine_active_dealt_playing()->playersdealtbits(), i)
       || TableState()->Player(i)->HasAnyCards())
 		{
 			ScrapeBet(i);
@@ -337,10 +336,10 @@ void CScraper::ScrapeSlider() {
 	slider = p_tablemap->r$()->find("i3slider");
   if (handleCI!=p_tablemap->r$()->end() 
       && slider!=p_tablemap->r$()->end() 
-      && p_casino_interface->BetsizeConfirmationButton()->IsClickable())	{
+      && CasinoInterface()->BetsizeConfirmationButton()->IsClickable())	{
 		int j = slider->second.right - handleCI->second.left;
 		text = "";
-    p_casino_interface->_allin_slider.ResetHandlePosition();
+    CasinoInterface()->_allin_slider.ResetHandlePosition();
 		for (int k=0; k<=j; ++k) {
 			handleI = p_tablemap->set_r$()->find("i3handle");
 			handleI->second.left  += k;
@@ -352,7 +351,7 @@ void CScraper::ScrapeSlider() {
 				handleCI = p_tablemap->r$()->find("i3handle");
 				handle_xy.x = handleCI->second.left + k;
 				handle_xy.y = handleCI->second.top;
-        p_casino_interface->_allin_slider.SetHandlePosition(handle_xy);
+        CasinoInterface()->_allin_slider.SetHandlePosition(handle_xy);
 				write_log(Preferences()->debug_scraper(), "[CScraper] i3handle, result %d,%d\n", handle_xy.x, handle_xy.y);
         __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
 				return;
@@ -750,28 +749,28 @@ void CScraper::ScrapePots() {
 }
 
 void CScraper::ScrapeMTTRegions() {
-  assert(p_engine_container->symbol_engine_mtt_info() != NULL);
+  assert(EngineContainer()->symbol_engine_mtt_info() != NULL);
 	CString result;
 	if (EvaluateRegion("mtt_number_entrants", &result)) {	
-		p_engine_container->symbol_engine_mtt_info()->set_mtt_number_entrants(result);
+		EngineContainer()->symbol_engine_mtt_info()->set_mtt_number_entrants(result);
 	}
 	if (EvaluateRegion("mtt_players_remaining", &result)) {
-		p_engine_container->symbol_engine_mtt_info()->set_mtt_players_remaining(result);
+		EngineContainer()->symbol_engine_mtt_info()->set_mtt_players_remaining(result);
 	}
 	if (EvaluateRegion("mtt_my_rank", &result)) {
-		p_engine_container->symbol_engine_mtt_info()->set_mtt_my_rank(result);
+		EngineContainer()->symbol_engine_mtt_info()->set_mtt_my_rank(result);
 	}
 	if (EvaluateRegion("mtt_paid_places", &result)) {
-		p_engine_container->symbol_engine_mtt_info()->set_mtt_paid_places(result);
+		EngineContainer()->symbol_engine_mtt_info()->set_mtt_paid_places(result);
 	}
 	if (EvaluateRegion("mtt_largest_stack", &result)) {
-		p_engine_container->symbol_engine_mtt_info()->set_mtt_largest_stack(result);
+		EngineContainer()->symbol_engine_mtt_info()->set_mtt_largest_stack(result);
 	}
 	if (EvaluateRegion("mtt_average_stack", &result)) {
-		p_engine_container->symbol_engine_mtt_info()->set_mtt_average_stack(result);
+		EngineContainer()->symbol_engine_mtt_info()->set_mtt_average_stack(result);
 	}
 	if (EvaluateRegion("mtt_smallest_stack", &result)) {
-		p_engine_container->symbol_engine_mtt_info()->set_mtt_smallest_stack(result);
+		EngineContainer()->symbol_engine_mtt_info()->set_mtt_smallest_stack(result);
 	}
 }
 
