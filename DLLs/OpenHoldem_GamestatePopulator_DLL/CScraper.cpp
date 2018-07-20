@@ -14,36 +14,38 @@
 //******************************************************************************
 
 #include "CScraper.h"
+#include "Bitmaps.h" 
+#include "CTitleEvaluator.h"
+#include "..\CardFunctions.DLL\CardFunctions.h"
+#include "..\CasinoInterface_DLL\CCasinoInterface.h"
+#include "..\Debug_DLL\debug.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
+#include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
+#include "..\Scraper_DLL\CTransform\CTransform.h"
+#include "..\StringFunctions_DLL\string_functions.h"
+#include "..\Symbols_DLL\CEngineContainer.h"
+#include "..\Symbols_DLL\CSymbolengineMTTInfo.h"
+#include "..\TableManagement_DLL\CAutoConnector.h"
+#include "..\TableManagement_DLL\CTableManagement.h"
+#include "..\TableState_DLL\TableState.h"
+#include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
-/*##include "Bitmaps.h" 
-#include "CardFunctions.h"
+/*##include "CardFunctions.h"
 #include "CAutoconnector.h"
-#include "CCasinoInterface.h"
-#include "CEngineContainer.h"
 
 #include "CStringMatch.h"
-#include "CSymbolEngineActiveDealtPlaying.h"
-#include "CSymbolEngineAutoplayer.h"
-#include "CSymbolEngineCasino.h"
-#include "CSymbolEngineDebug.h"
-#include "CSymbolEngineHistory.h"
-#include "CSymbolEngineIsOmaha.h"
-#include "CSymbolEngineMTTInfo.h"
-#include "CSymbolEngineUserchair.h"
-#include "CSymbolEngineTableLimits.h"
 #include "..\DLLs\Tablestate_DLL\TableState.h"
 #include "..\DLLs\Tablestate_DLL\CTableTitle.h"
-#include "CTitleEvaluator.h"
 #include "..\CTransform\CTransform.h"
 #include "..\CTransform\hash\lookup3.h"
 
 #include "MainFrm.h"
 #include "OpenHoldem.h"*/
 
-CScraper *p_scraper = NULL;
-
 #define __HDC_HEADER 		HBITMAP		old_bitmap = NULL; \
-	HDC				hdc = GetDC(p_autoconnector->attached_hwnd()); \
+	HDC				hdc = GetDC(TableManagement()->AutoConnector()->attached_hwnd()); \
 	HDC				hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL); \
 	HDC				hdcCompatible = CreateCompatibleDC(hdcScreen); \
   ++_leaking_GDI_objects;
@@ -51,7 +53,7 @@ CScraper *p_scraper = NULL;
 #define __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK \
   DeleteDC(hdcCompatible); \
 	DeleteDC(hdcScreen); \
-	ReleaseDC(p_autoconnector->attached_hwnd(), hdc); \
+	ReleaseDC(TableManagement()->AutoConnector()->attached_hwnd(), hdc); \
   --_leaking_GDI_objects;
 
 CScraper::CScraper(void) {
@@ -59,10 +61,12 @@ CScraper::CScraper(void) {
   _leaking_GDI_objects = 0;
   total_region_counter = 0;
   identical_region_counter = 0;
+  title_evaluator = new CTitleEvaluator;
 }
 
 CScraper::~CScraper(void) {
 	TableState()->Reset();
+  ///!!!release title_evaluator
   if (_leaking_GDI_objects != 0 ) {
     write_log(k_always_log_errors, "[CScraper] ERROR! Leaking GDI objects: %i\n",
       _leaking_GDI_objects);
@@ -111,8 +115,8 @@ bool CScraper::EvaluateRegion(CString name, CString *result) {
   write_log(Preferences()->debug_scraper(),
     "[CScraper] EvaluateRegion %s\n", name);
 	CTransform	trans;
-	RMapCI		r_iter = p_tablemap->r$()->find(name.GetString());
-	if (r_iter != p_tablemap->r$()->end()) {
+	RMapCI		r_iter = BasicScraper()->Tablemap()->r$()->find(name.GetString());
+	if (r_iter != BasicScraper()->Tablemap()->r$()->end()) {
     // Potential for optimization here
     ++total_region_counter;
 		if (ProcessRegion(r_iter)) {
@@ -173,10 +177,10 @@ void CScraper::ScrapeActionButtons() {
 		if (EvaluateRegion(button_name, &result)) {
       CasinoInterface()->_technical_autoplayer_buttons[i].SetState(result);
 		}
-    if ((i == 5) && EngineContainer()->symbol_engine_casino()->ConnectedToManualMode()) {
+    if ((i == 5) && CasinoInterface()->ConnectedToManualMode()) {
       // Ugly WinHoldem convention
       // When using ManualMode, grab i5state for PT network
-      p_tablemap->set_network(result);
+      BasicScraper()->Tablemap()->set_network(result);
     }
 	}
 }
@@ -207,7 +211,7 @@ void CScraper::ScrapeBetpotButtons() {
 }
 
 void CScraper::ScrapeSeatedActive() {
-	for (int i=0; i<p_tablemap->nchairs(); i++)	{
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)	{
     TableState()->Player(i)->set_active(false);
     // Me must NOT set_seated(false) here,
     // as that would reset all player data.
@@ -220,7 +224,7 @@ void CScraper::ScrapeSeatedActive() {
 }
 
 void CScraper::ScrapeBetsAndBalances() {
-	for (int i=0; i<p_tablemap->nchairs(); i++)
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)
 	{
 		// We have to scrape "every" player,
     //   * as people might bet-fold-standup.
@@ -229,9 +233,10 @@ void CScraper::ScrapeBetsAndBalances() {
 		//   * scrape everybody up to my first action (then we know who was dealt)
 		//   * after that we scrape only dealt players
 		//   * and also players who have cards (fresh sitdown and hand-reset, former playersdealt is wrong)
-		if ((!EngineContainer()->symbol_engine_history()->DidActThisHand())
+    ///!!! Not here -> lazy
+		/*#if ((!EngineContainer()->symbol_engine_history()->DidActThisHand())
 			|| IsBitSet(EngineContainer()->symbol_engine_active_dealt_playing()->playersdealtbits(), i)
-      || TableState()->Player(i)->HasAnyCards())
+      || TableState()->Player(i)->HasAnyCards())*/
 		{
 			ScrapeBet(i);
 			ScrapeBalance(i);
@@ -272,10 +277,10 @@ void CScraper::ScrapeDealer() {
 	// That's why we scrape all chairs
 	CString dealer;
 	CString result;
-	for (int i=0; i<p_tablemap->nchairs(); i++)	{
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)	{
 		TableState()->Player(i)->set_dealer(false);
 	}
-	for (int i=0; i<p_tablemap->nchairs(); i++)	{
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)	{
 		dealer.Format("p%ddealer", i);
 		if (EvaluateRegion(dealer, &result)) {
 			if (p_string_match->IsStringDealer(result))	{
@@ -315,7 +320,7 @@ void CScraper::ScrapeActive(int chair) {
 void CScraper::ScrapeColourCodes() {
   CString result;
   CString region;
-  for (int i=0; i<p_tablemap->nchairs(); i++) {
+  for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++) {
     region.Format("p%icolourcode", i);
     if (EvaluateRegion(region, &result)) {
       TableState()->Player(i)->set_colourcode(atoi(result));
@@ -332,23 +337,23 @@ void CScraper::ScrapeSlider() {
 	CString text;
 	POINT handle_xy;
   // find handle
-	handleCI = p_tablemap->r$()->find("i3handle");
-	slider = p_tablemap->r$()->find("i3slider");
-  if (handleCI!=p_tablemap->r$()->end() 
-      && slider!=p_tablemap->r$()->end() 
+	handleCI = BasicScraper()->Tablemap()->r$()->find("i3handle");
+	slider = BasicScraper()->Tablemap()->r$()->find("i3slider");
+  if (handleCI!=BasicScraper()->Tablemap()->r$()->end() 
+      && slider!=BasicScraper()->Tablemap()->r$()->end() 
       && CasinoInterface()->BetsizeConfirmationButton()->IsClickable())	{
 		int j = slider->second.right - handleCI->second.left;
 		text = "";
     CasinoInterface()->_allin_slider.ResetHandlePosition();
 		for (int k=0; k<=j; ++k) {
-			handleI = p_tablemap->set_r$()->find("i3handle");
+			handleI = BasicScraper()->Tablemap()->set_r$()->find("i3handle");
 			handleI->second.left  += k;
 			handleI->second.right += k;
       EvaluateRegion("i3handle", &text);
 			handleI->second.left  -= k;
 			handleI->second.right -= k;
 			if (text == "handle" || text == "true") {
-				handleCI = p_tablemap->r$()->find("i3handle");
+				handleCI = BasicScraper()->Tablemap()->r$()->find("i3handle");
 				handle_xy.x = handleCI->second.left + k;
 				handle_xy.y = handleCI->second.top;
         CasinoInterface()->_allin_slider.SetHandlePosition(handle_xy);
@@ -364,10 +369,10 @@ void CScraper::ScrapeSlider() {
 
 int CScraper::CardString2CardNumber(CString card) {
 	int result;
-	if (StdDeck_stringToCard((char*) card.GetString(), &result)) {
+	/*#!!!if (StdDeck_stringToCard((char*) card.GetString(), &result)) {
     AssertRange(result, 0, 255);
 	  return result;
-  } else {
+  } else */{
     return CARD_UNDEFINED;
   }
 }
@@ -440,7 +445,7 @@ int CScraper::ScrapeNoCard(CString base_name){
 //   * cardbacks
 int CScraper::ScrapeCard(CString name) {
   int result = CARD_UNDEFINED;
-  if (p_tablemap->cardscrapemethod() == 1) {
+  if (BasicScraper()->Tablemap()->cardscrapemethod() == 1) {
     // Some casinos display additional cardbacks, 
     // even if a player has card-faces
     // For these casinos we have to scrape the faces first
@@ -470,7 +475,7 @@ int CScraper::ScrapeCard(CString name) {
   if (result == CARD_NOCARD) {
     return CARD_NOCARD;
   }
-  if (p_tablemap->cardscrapemethod() != 1) {
+  if (BasicScraper()->Tablemap()->cardscrapemethod() != 1) {
     // If not already done so scrape card-faces
     // This order of scraping (backs, nocard, faces)
     // works for most casinos and has a very good performance
@@ -520,7 +525,7 @@ void CScraper::ScrapePlayerCards(int chair) {
 	CString card_name;
 	int card = CARD_UNDEFINED;
   int number_of_cards_to_be_scraped = kNumberOfCardsPerPlayerHoldEm;
-  if (p_tablemap->SupportsOmaha()) {
+  if (BasicScraper()->Tablemap()->SupportsOmaha()) {
     number_of_cards_to_be_scraped = kNumberOfCardsPerPlayerOmaha;
   }
 	for (int i=0; i<number_of_cards_to_be_scraped; i++) {
@@ -584,7 +589,7 @@ void CScraper::ClearAllPlayerNames() {
 }
 
 void CScraper::ScrapeName(int chair) {
-	RETURN_IF_OUT_OF_RANGE (chair, p_tablemap->LastChair())
+	RETURN_IF_OUT_OF_RANGE (chair, BasicScraper()->Tablemap()->LastChair())
 
 	CString				result;
 	CString				s = "";
@@ -635,7 +640,7 @@ CString CScraper::ScrapeUPBalance(int chair, char scrape_u_else_p) {
 }
 
 void CScraper::ScrapeBalance(int chair) {
-	RETURN_IF_OUT_OF_RANGE (chair, p_tablemap->LastChair())
+	RETURN_IF_OUT_OF_RANGE (chair, BasicScraper()->Tablemap()->LastChair())
   // Scrape uXbalance and pXbalance
   CString balance = ScrapeUPBalance(chair, 'p');
   if (TableState()->Player(chair)->_balance.SetValue(balance)) {
@@ -648,7 +653,7 @@ void CScraper::ScrapeBalance(int chair) {
 }
 
 void CScraper::ScrapeBet(int chair) {
-  RETURN_IF_OUT_OF_RANGE (chair, p_tablemap->LastChair())
+  RETURN_IF_OUT_OF_RANGE (chair, BasicScraper()->Tablemap()->LastChair())
 
 	__HDC_HEADER;
 	CString				text = "";
@@ -673,8 +678,8 @@ void CScraper::ScrapeBet(int chair) {
   }
 	// pXchip00
 	s.Format("p%dchip00", chair);
-	RMapCI r_iter = p_tablemap->r$()->find(s.GetString());
-	if (r_iter != p_tablemap->r$()->end() && TableState()->Player(chair)->_bet.GetValue() == 0) 	{
+	RMapCI r_iter = BasicScraper()->Tablemap()->r$()->find(s.GetString());
+	if (r_iter != BasicScraper()->Tablemap()->r$()->end() && TableState()->Player(chair)->_bet.GetValue() == 0) 	{
 		old_bitmap = (HBITMAP) SelectObject(hdcCompatible, _entire_window_cur);
 		double chipscrape_res = DoChipScrape(r_iter);
 		SelectObject(hdcCompatible, old_bitmap);
@@ -694,7 +699,7 @@ void CScraper::ScrapeAllPlayerCards() {
 		}
 	}
 	write_log(Preferences()->debug_scraper(), "[CScraper] ScrapeAllPlayerCards()\n");
-	for (int i=0; i<p_tablemap->nchairs(); i++) {
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++) {
 		write_log(Preferences()->debug_scraper(), "[CScraper] Calling ScrapePlayerCards, chair %d.\n", i);
 		ScrapePlayerCards(i);
 	}
@@ -705,7 +710,7 @@ void CScraper::ScrapePots() {
 	CString			text = "";
 	CTransform	trans;
 	CString			s = "", t="";
-	RMapCI			r_iter = p_tablemap->r$()->end();
+	RMapCI			r_iter = BasicScraper()->Tablemap()->r$()->end();
 
   TableState()->ResetPots();
 	for (int j=0; j<kMaxNumberOfPots; j++) {
@@ -718,8 +723,8 @@ void CScraper::ScrapePots() {
     }
 		// r$c0potXchip00_index
 		s.Format("c0pot%dchip00", j);
-		r_iter = p_tablemap->r$()->find(s.GetString());
-		if (r_iter != p_tablemap->r$()->end() && TableState()->Pot(j) == 0) {
+		r_iter = BasicScraper()->Tablemap()->r$()->find(s.GetString());
+		if (r_iter != BasicScraper()->Tablemap()->r$()->end() && TableState()->Pot(j) == 0) {
 			ProcessRegion(r_iter);
 			//old_bitmap = (HBITMAP) SelectObject(hdcCompatible, r_iter->second.cur_bmp);
 			//trans.DoTransform(r_iter, hdcCompatible, &text);
@@ -734,14 +739,14 @@ void CScraper::ScrapePots() {
 
 			// update the bitmap for second chip position in the first stack
 			s.Format("c0pot%dchip01", j);
-			r_iter = p_tablemap->r$()->find(s.GetString());
-			if (r_iter != p_tablemap->r$()->end()) {
+			r_iter = BasicScraper()->Tablemap()->r$()->find(s.GetString());
+			if (r_iter != BasicScraper()->Tablemap()->r$()->end()) {
 				ProcessRegion(r_iter);
       }
 			// update the bitmap for first chip position in the second stack
 			s.Format("c0pot%dchip10", j);
-			r_iter = p_tablemap->r$()->find(s.GetString());
-			if (r_iter != p_tablemap->r$()->end())
+			r_iter = BasicScraper()->Tablemap()->r$()->find(s.GetString());
+			if (r_iter != BasicScraper()->Tablemap()->r$()->end())
 				ProcessRegion(r_iter);
 		}
 	}
@@ -775,12 +780,12 @@ void CScraper::ScrapeMTTRegions() {
 }
 
 void CScraper::ScrapeLimits() {
-  assert(p_title_evaluator != NULL);
-  p_title_evaluator->ClearAllDataOncePerHeartbeat();
-  p_title_evaluator->EvaluateScrapedHandNumbers();
-  p_title_evaluator->EvaluateTitleText();
-  p_title_evaluator->EvaluateScrapedTitleTexts();
-  p_title_evaluator->EvaluateScrapedGameInfo(); 
+  assert(title_evaluator != NULL);
+  title_evaluator->ClearAllDataOncePerHeartbeat();
+  title_evaluator->EvaluateScrapedHandNumbers();
+  title_evaluator->EvaluateTitleText();
+  title_evaluator->EvaluateScrapedTitleTexts();
+  title_evaluator->EvaluateScrapedGameInfo(); 
 }
 
 void CScraper::CreateBitmaps(void) {
@@ -788,12 +793,12 @@ void CScraper::CreateBitmaps(void) {
 
 	// Whole window
 	RECT			cr = {0};
-	GetClientRect(p_autoconnector->attached_hwnd(), &cr);
+	GetClientRect(TableManagement()->AutoConnector()->attached_hwnd(), &cr);
 	_entire_window_last = CreateCompatibleBitmap(hdcScreen, cr.right, cr.bottom);
 	_entire_window_cur = CreateCompatibleBitmap(hdcScreen, cr.right, cr.bottom);
 
 	// r$regions
-	for (RMapI r_iter=p_tablemap->set_r$()->begin(); r_iter!=p_tablemap->set_r$()->end(); r_iter++)
+	for (RMapI r_iter=BasicScraper()->Tablemap()->set_r$()->begin(); r_iter!=BasicScraper()->Tablemap()->set_r$()->end(); r_iter++)
 	{
 		int w = r_iter->second.right - r_iter->second.left + 1;
 		int h = r_iter->second.bottom - r_iter->second.top + 1;
@@ -810,7 +815,7 @@ void CScraper::DeleteBitmaps(void) {
   delete_entire_window_cur();
 
 	// Common cards
-	for (RMapI r_iter=p_tablemap->set_r$()->begin(); r_iter!=p_tablemap->set_r$()->end(); r_iter++)
+	for (RMapI r_iter=BasicScraper()->Tablemap()->set_r$()->begin(); r_iter!=BasicScraper()->Tablemap()->set_r$()->end(); r_iter++)
 	{
 		DeleteObject(r_iter->second.last_bmp); r_iter->second.last_bmp=NULL;
 		DeleteObject(r_iter->second.cur_bmp); r_iter->second.cur_bmp=NULL;
@@ -819,7 +824,7 @@ void CScraper::DeleteBitmaps(void) {
 
 // This is the chip scrape routine
 const double CScraper::DoChipScrape(RMapCI r_iter) {
-	HDC				hdc = GetDC(p_autoconnector->attached_hwnd());
+	HDC				hdc = GetDC(TableManagement()->AutoConnector()->attached_hwnd());
 
 	int				j = 0, stackindex = 0, chipindex = 0;
 	int				hash_type = 0, pixcount = 0, chipwidth = 0, chipheight = 0;
@@ -831,7 +836,7 @@ const double CScraper::DoChipScrape(RMapCI r_iter) {
 
 	CString			type = "";
 	int				vertcount = 0, horizcount = 0;
-	RMapCI			r_start = p_tablemap->r$()->end();
+	RMapCI			r_start = BasicScraper()->Tablemap()->r$()->end();
 	RMapCI			r_vert[10];
 	RMapCI			r_horiz[10];
 	CString			s = "";
@@ -839,14 +844,14 @@ const double CScraper::DoChipScrape(RMapCI r_iter) {
 	// Initialize arrays
 	for (int j=0; j<10; j++)
 	{
-		r_vert[j] = p_tablemap->r$()->end();
-		r_horiz[j] = p_tablemap->r$()->end();
+		r_vert[j] = BasicScraper()->Tablemap()->r$()->end();
+		r_horiz[j] = BasicScraper()->Tablemap()->r$()->end();
 	}
 
 	// Check for bad parameters
-	if (r_iter == p_tablemap->r$()->end())
+	if (r_iter == BasicScraper()->Tablemap()->r$()->end())
 	{
-		ReleaseDC(p_autoconnector->attached_hwnd(), hdc);
+		ReleaseDC(TableManagement()->AutoConnector()->attached_hwnd(), hdc);
 		return 0.;
 	}
 
@@ -859,29 +864,29 @@ const double CScraper::DoChipScrape(RMapCI r_iter) {
 
 	else
 	{
-		ReleaseDC(p_autoconnector->attached_hwnd(), hdc);
+		ReleaseDC(TableManagement()->AutoConnector()->attached_hwnd(), hdc);
 		return 0.;
 	}
 
 	// find start, vert stride, and horiz stride regions
 	s.Format("%s00", type.GetString());
-	r_start = p_tablemap->r$()->find(s.GetString());
-	if (r_start == p_tablemap->r$()->end())
+	r_start = BasicScraper()->Tablemap()->r$()->find(s.GetString());
+	if (r_start == BasicScraper()->Tablemap()->r$()->end())
 	{
-		ReleaseDC(p_autoconnector->attached_hwnd(), hdc);
+		ReleaseDC(TableManagement()->AutoConnector()->attached_hwnd(), hdc);
 		return 0.;
 	}
 
 	for (int j = 1; j<=9; j++)
 	{
 		s.Format("%s0%d", type.GetString(), j);
-		r_vert[j] = p_tablemap->r$()->find(s.GetString());
-		if (r_vert[j] != p_tablemap->r$()->end())
+		r_vert[j] = BasicScraper()->Tablemap()->r$()->find(s.GetString());
+		if (r_vert[j] != BasicScraper()->Tablemap()->r$()->end())
 			vertcount++;
 
 		s.Format("%s%d0", type.GetString(), j);
-		r_horiz[j] = p_tablemap->r$()->find(s.GetString());
-		if (r_horiz[j] != p_tablemap->r$()->end())
+		r_horiz[j] = BasicScraper()->Tablemap()->r$()->find(s.GetString());
+		if (r_horiz[j] != BasicScraper()->Tablemap()->r$()->end())
 			horizcount++;
 	}
 
@@ -891,13 +896,13 @@ const double CScraper::DoChipScrape(RMapCI r_iter) {
 	HDC hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL);
 	HDC hdcCompat = CreateCompatibleDC(hdcScreen);
 	RECT rect;
-	GetClientRect(p_autoconnector->attached_hwnd(), &rect);
+	GetClientRect(TableManagement()->AutoConnector()->attached_hwnd(), &rect);
 	HBITMAP attached_bitmap = CreateCompatibleBitmap(hdcScreen, rect.right, rect.bottom);
 	HBITMAP	old_bitmap = (HBITMAP) SelectObject(hdcCompat, attached_bitmap);
 	BitBlt(hdcCompat, 0, 0, rect.right, rect.bottom, hdc, 0, 0, SRCCOPY);
 	
 	// Get chipscrapemethod option from tablemap, if specified
-	CString res = p_tablemap->chipscrapemethod();
+	CString res = BasicScraper()->Tablemap()->chipscrapemethod();
 	CString cs_method = res.MakeLower();
 	int cs_method_x = 0, cs_method_y = 0;
 	if (cs_method!="" && cs_method!="all" && cs_method.Find("x")!=-1)
@@ -922,7 +927,7 @@ const double CScraper::DoChipScrape(RMapCI r_iter) {
 			}
 			else
 			{
-				if (r_vert[chipindex+1] == p_tablemap->r$()->end())
+				if (r_vert[chipindex+1] == BasicScraper()->Tablemap()->r$()->end())
 				{
 					stop_loop = true;
 				}
@@ -940,7 +945,7 @@ const double CScraper::DoChipScrape(RMapCI r_iter) {
 			}
 			else
 			{
-				if (r_horiz[stackindex+1] == p_tablemap->r$()->end())
+				if (r_horiz[stackindex+1] == BasicScraper()->Tablemap()->r$()->end())
 				{
 					stop_loop = true;
 				}
@@ -960,7 +965,7 @@ const double CScraper::DoChipScrape(RMapCI r_iter) {
 				if (hash_type>=1 && hash_type<=3)
 				{
 					pixcount = 0;
-					for (PMapCI p_iter=p_tablemap->p$(hash_type)->begin(); p_iter!=p_tablemap->p$(hash_type)->end(); p_iter++)
+					for (PMapCI p_iter=BasicScraper()->Tablemap()->p$(hash_type)->begin(); p_iter!=BasicScraper()->Tablemap()->p$(hash_type)->end(); p_iter++)
 					{
 							int x = p_iter->second.x;
 							int y = p_iter->second.y;
@@ -975,10 +980,10 @@ const double CScraper::DoChipScrape(RMapCI r_iter) {
 				}
 
 				// lookup hash in h$ records
-				HMapCI h_iter = p_tablemap->h$(hash_type)->find(hash);
+				HMapCI h_iter = BasicScraper()->Tablemap()->h$(hash_type)->find(hash);
 
 				// no hash match
-				if (h_iter == p_tablemap->h$(hash_type)->end())
+				if (h_iter == BasicScraper()->Tablemap()->h$(hash_type)->end())
 				{
 					// See if we should stop horiz or vert loops on a non-match
 					if (cs_method == "")
@@ -1018,7 +1023,7 @@ const double CScraper::DoChipScrape(RMapCI r_iter) {
 	DeleteDC(hdcCompat);
 	DeleteDC(hdcScreen);
 
-	ReleaseDC(p_autoconnector->attached_hwnd(), hdc);
+	ReleaseDC(TableManagement()->AutoConnector()->attached_hwnd(), hdc);
 	return result;
 }
 
@@ -1033,7 +1038,7 @@ bool CScraper::IsIdenticalScrape() {
 
 	// Get bitmap of whole window
 	RECT		cr = {0};
-	GetClientRect(p_autoconnector->attached_hwnd(), &cr);
+	GetClientRect(TableManagement()->AutoConnector()->attached_hwnd(), &cr);
 
 	old_bitmap = (HBITMAP) SelectObject(hdcCompatible, _entire_window_cur);
 	BitBlt(hdcCompatible, 0, 0, cr.right, cr.bottom, hdc, cr.left, cr.top, SRCCOPY);
@@ -1048,7 +1053,7 @@ bool CScraper::IsIdenticalScrape() {
       && !TableState()->TableTitle()->TitleChangedSinceLastHeartbeat()) 	{
 		DeleteDC(hdcCompatible);
 		DeleteDC(hdcScreen);
-		ReleaseDC(p_autoconnector->attached_hwnd(), hdc);
+		ReleaseDC(TableManagement()->AutoConnector()->attached_hwnd(), hdc);
 		write_log(Preferences()->debug_scraper(), "[CScraper] IsIdenticalScrape() true\n");
     __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
 		return true;

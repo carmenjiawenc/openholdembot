@@ -18,6 +18,8 @@
 #include <stdint.h>
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
 
+class CTitleEvaluator;
+
 //#include "CSpaceOptimizedGlobalObject.h"
 
 class CScraper /*#: public CSpaceOptimizedGlobalObject */{
@@ -84,6 +86,8 @@ class CScraper /*#: public CSpaceOptimizedGlobalObject */{
 #define ENT CSLock lock(m_critsec);
   void delete_entire_window_cur() { ENT DeleteObject(_entire_window_cur);}
 #undef ENT
+ private:
+  CTitleEvaluator* title_evaluator;
  private:
 	// private variables - use public accessors and public mutators to address these
   CCritSec		m_critsec;

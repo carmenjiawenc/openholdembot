@@ -44,7 +44,7 @@ const int WMA_ISREADY = WM_APP + 7;
 LRESULT COpenHoldemHopperCommunication::OnConnectedHwndMessage(WPARAM, LPARAM)
 {
 	write_log(Preferences()->debug_hopper_messages(), "[COpenHoldemHopperCommunication] Received 0x8004: OnConnectedHwndMessage\n");
-	return (LRESULT) 42;///p_autoconnector->attached_hwnd();
+	return (LRESULT) 42;///TableManagement()->AutoConnector()->attached_hwnd();
 }
 
 

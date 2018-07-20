@@ -40,11 +40,11 @@ CTableTitle::~CTableTitle() {
 
 void CTableTitle::UpdateTitle() {
 #ifdef OPENHOLDEM_PROGRAM
-  if (!p_autoconnector->IsConnectedToAnything()) {
+  if (!TableManagement()->AutoConnector()->IsConnectedToAnything()) {
     return;
   }
 	char title[MAX_WINDOW_TITLE];
-	GetWindowText(p_autoconnector->attached_hwnd(), title, MAX_WINDOW_TITLE-1);
+	GetWindowText(TableManagement()->AutoConnector()->attached_hwnd(), title, MAX_WINDOW_TITLE-1);
   SetTitle(title);
 #endif 
 }
