@@ -15,11 +15,12 @@
 
 #include "afxwin.h"
 #include "CVirtualSymbolEngine.h"
+#include "LibDef.h"
 
 // The number of cards per player depends on the game-type.
 // This affects cards to be scraped and evaluated.
 // The data containers must be large enough to store kMaxNumberOfCardsPerPlayer.
-int NumberOfCardsPerPlayer();
+SYMBOLS_DLL_API int NumberOfCardsPerPlayer();
 
 class CSymbolEngineIsOmaha: public CVirtualSymbolEngine
 {

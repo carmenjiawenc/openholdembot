@@ -11,6 +11,8 @@
 //
 //*******************************************************************************
 
+#define SCRAPER_DLL_EXPORTS
+
 #include "CTransform.h"
 #include <math.h>
 #include "WebSafeColours.h"

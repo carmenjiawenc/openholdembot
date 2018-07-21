@@ -26,6 +26,7 @@
 #include "..\Scraper_DLL\CTransform\CTransform.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
+#include "..\Symbols_DLL\CSymbolEngineIsOmaha.h"
 #include "..\Symbols_DLL\CSymbolengineMTTInfo.h"
 #include "..\TableManagement_DLL\CAutoConnector.h"
 #include "..\TableManagement_DLL\CTableManagement.h"
@@ -252,9 +253,7 @@ void CScraper::ScrapeSeated(int chair) {
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=20567
 	seated.Format("p%dseated", chair);
 	if (EvaluateRegion(seated, &result)) {
-		if (result != "")	{
-			TableState()->Player(chair)->set_seated(p_string_match->IsStringSeated(result));
-		}
+		TableState()->Player(chair)->set_seated(result);
 	}
 	if (TableState()->Player(chair)->seated()) {
 		return;
@@ -262,12 +261,12 @@ void CScraper::ScrapeSeated(int chair) {
 	// try u region next uXseated,
 	// but only if we didn't get a positive result from the p region
 	seated.Format("u%dseated", chair);
-	if (EvaluateRegion(seated, &result)) {
-		if (result != "")	{
-			TableState()->Player(chair)->set_seated(p_string_match->IsStringSeated(result));
-      return;
-		}
-	}
+  if (EvaluateRegion(seated, &result)) {
+    TableState()->Player(chair)->set_seated(result);
+  }
+  if (TableState()->Player(chair)->seated()) {
+    return;
+  }
   // Failed. Not seated
   TableState()->Player(chair)->set_seated(false);
 }
@@ -283,18 +282,12 @@ void CScraper::ScrapeDealer() {
 	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)	{
 		dealer.Format("p%ddealer", i);
 		if (EvaluateRegion(dealer, &result)) {
-			if (p_string_match->IsStringDealer(result))	{
-				TableState()->Player(i)->set_dealer(true);
-				return;
-			}
+			TableState()->Player(i)->set_dealer(result);
 		}
 		// Now search for uXdealer
 		dealer.Format("u%ddealer", i);
 		if (EvaluateRegion(dealer, &result)) {
-			if (p_string_match->IsStringDealer(result))	{
-				TableState()->Player(i)->set_dealer(true);
-				return;
-			}
+			TableState()->Player(i)->set_dealer(result);
 		}
 	}
 }
@@ -306,14 +299,14 @@ void CScraper::ScrapeActive(int chair) {
   // try p region first pXactive
 	active.Format("p%dactive", chair);
 	if (EvaluateRegion(active, &result)) {
-		TableState()->Player(chair)->set_active(p_string_match->IsStringActive(result));
+		TableState()->Player(chair)->set_active(result);
 	}
 	if (TableState()->Player(chair)->active()) {
 		return;
 	}
 	active.Format("u%dactive", chair);
 	if (EvaluateRegion(active, &result)) {
-		TableState()->Player(chair)->set_active(p_string_match->IsStringActive(result));
+		TableState()->Player(chair)->set_active(result);
 	}
 }
 
@@ -618,7 +611,7 @@ CString CScraper::ScrapeUPBalance(int chair, char scrape_u_else_p) {
   assert((scrape_u_else_p == 'u') || (scrape_u_else_p == 'p'));
   name.Format("%c%dbalance", scrape_u_else_p, chair);
   if (EvaluateRegion(name, &text)) {
-		if (p_string_match->IsStringAllin(text)) { 
+		if (IsStringAllin(text)) { 
       write_log(Preferences()->debug_scraper(), "[CScraper] %s, result ALLIN", name);
        return Number2CString(0.0);
 		}	else if (	text.MakeLower().Find("out")!=-1
@@ -973,7 +966,7 @@ const double CScraper::DoChipScrape(RMapCI r_iter) {
 							if (x<chipwidth && y<chipheight)
 								pix[pixcount++] = GetPixel(hdcCompat, left + x, top + y);
 					}
-
+          // !!! here?
 					if (hash_type==1) hash = hashword(&pix[0], pixcount, HASH_SEED_1);
 					else if (hash_type==2) hash = hashword(&pix[0], pixcount, HASH_SEED_2);
 					else if (hash_type==3) hash = hashword(&pix[0], pixcount, HASH_SEED_3);
@@ -1035,17 +1028,13 @@ bool CScraper::IsExtendedNumberic(CString text) {
 
 bool CScraper::IsIdenticalScrape() {
   __HDC_HEADER
-
 	// Get bitmap of whole window
 	RECT		cr = {0};
 	GetClientRect(TableManagement()->AutoConnector()->attached_hwnd(), &cr);
-
 	old_bitmap = (HBITMAP) SelectObject(hdcCompatible, _entire_window_cur);
 	BitBlt(hdcCompatible, 0, 0, cr.right, cr.bottom, hdc, cr.left, cr.top, SRCCOPY);
 	SelectObject(hdcCompatible, old_bitmap);
-
   TableState()->TableTitle()->UpdateTitle();
-	
 	// If the bitmaps are the same, then return now
 	// !! How often does this happen?
 	// !! How costly is the comparison?
@@ -1062,10 +1051,28 @@ bool CScraper::IsIdenticalScrape() {
 	old_bitmap = (HBITMAP) SelectObject(hdcCompatible, _entire_window_last);
 	BitBlt(hdcCompatible, 0, 0, cr.right-cr.left+1, cr.bottom-cr.top+1, hdc, cr.left, cr.top, SRCCOPY);
 	SelectObject(hdc, old_bitmap);
-
 	__HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
 	write_log(Preferences()->debug_scraper(), "[CScraper] IsIdenticalScrape() false\n");
 	return false;
+}
+
+bool CScraper::IsStringAllin(const CString s) {
+  // Check for bad parameters
+  if (!s || s == "") {
+    return false;
+  }
+  CString s_lower_case = s;
+  s_lower_case.MakeLower();
+  s_lower_case.Remove(' ');
+  s_lower_case.Remove('-');
+  s_lower_case = s_lower_case.Left(5);
+  return (s_lower_case == "allin"
+    || s_lower_case == "a11in"
+    || s_lower_case == "allln"
+    || s_lower_case == "a111n"
+    || s_lower_case == "aiiin"
+    || s_lower_case == "buyin"
+    || s_lower_case.Left(3) == "max");
 }
 
 #undef __HDC_HEADER 

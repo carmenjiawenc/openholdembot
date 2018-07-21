@@ -14,6 +14,7 @@
 
 #include <afxwin.h>
 #include <stdint.h>
+#include "..\LibDef.h"
 #include "hash/lookup3.h"
 #include "pdiff/CompareArgs.h"
 #include "pdiff/Metric.h"
@@ -35,7 +36,7 @@
 ///////////////////////////////
 // classes
 ///////////////////////////////
-class CTransform
+class SCRAPER_DLL_API CTransform
 {
  public:
   CTransform();

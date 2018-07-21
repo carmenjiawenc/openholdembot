@@ -80,6 +80,7 @@ class CScraper /*#: public CSpaceOptimizedGlobalObject */{
  private:
 	bool ProcessRegion(RMapCI r_iter);
 	bool IsExtendedNumberic(CString text);
+  bool IsStringAllin(const CString s);
  private:
   void ResetLimitInfo();
  private:

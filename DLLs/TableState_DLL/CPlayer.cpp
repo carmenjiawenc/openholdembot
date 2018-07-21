@@ -118,7 +118,7 @@ void CPlayer::CheckPlayerCardsForConsistency() {
     _hole_cards[1].SetValue(CARD_BACK);
     _hole_cards[2].SetValue(CARD_BACK);
     _hole_cards[3].SetValue(CARD_BACK);
-  } 
+  }
 }
 
 bool CPlayer::IsAllin() {
@@ -170,7 +170,7 @@ bool CPlayer::PostingAnte() {
   return true;
 }
 
-void CPlayer::set_seated(bool is_seated) { 
+void CPlayer::set_seated(bool is_seated) {
   if ((is_seated == false)) {
     // Change from seated to non-seated
     // We should clear all player data in this case
@@ -178,7 +178,57 @@ void CPlayer::set_seated(bool is_seated) {
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=20567
     Reset();
   }
-  _seated = is_seated; 
+  _seated = is_seated;
+}
+
+void CPlayer::set_seated(CString scraped_info) {
+  // Check for bad parameters
+  if (!scraped_info || scraped_info == "") {
+    return;
+  }
+  CString s_lower_case = scraped_info;
+  s_lower_case.MakeLower();
+  if (s_lower_case.Left(5) == "false" || s_lower_case.Left(8) == "unseated") {
+    set_seated(false);
+    return;
+  }
+  if (s_lower_case.Left(4) == "true" || s_lower_case.Left(6) == "seated") {
+    set_seated(true);
+  }
+}
+
+void CPlayer::set_active(CString scraped_info) {
+  // Check for bad parameters
+  if (!scraped_info || scraped_info == "") {
+    return;
+  }
+  CString s_lower_case = scraped_info;
+  s_lower_case.MakeLower();
+  if (s_lower_case.Left(5) == "false"
+    || s_lower_case.Left(8) == "inactive"
+    || s_lower_case.Left(3) == "out"
+    || s_lower_case.Left(6) == "sitout"
+    || s_lower_case.Left(4) == "away") {
+    set_active(false);
+    return;
+  }
+  // old method: inactive unless pXactive returns true/active
+  if (s_lower_case.Left(4) == "true" || s_lower_case.Left(6) == "active") {
+    set_active(true);
+  }
+}
+
+void CPlayer::set_dealer(CString scraped_info) {
+  // Check for bad parameters
+  if (!scraped_info || scraped_info == "") {
+    return;
+  }
+  CString s_lower_case = scraped_info;
+  s_lower_case.MakeLower();
+  if (s_lower_case.Left(4) == "true"
+    || s_lower_case.Left(6) == "dealer") {
+    set_dealer(true);
+  }
 }
 
 CString CPlayer::DataDump() {

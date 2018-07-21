@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -11,9 +12,7 @@
 //
 //******************************************************************************
 
-#ifndef INC_CPLAYER_H
-#define INC_CPLAYER_H
-
+#include <afxwin.h>
 #include "Card.h"
 #include "CScrapedMoney.h"
 #include "LibDef.h"
@@ -62,6 +61,11 @@ class TABLESTATE_DLL_API CPlayer {
   void set_active(bool is_active) { _active = is_active; }
   void set_dealer(bool is_dealer) { _dealer = is_dealer; }
  public:
+  // Public setters (must only be used by CScraper)
+  void set_seated(CString scraped_info);
+  void set_active(CString scraped_info);
+  void set_dealer(CString scraped_info);
+ public:
   // For the log-file
   CString DataDump();
  public:
@@ -78,5 +82,3 @@ class TABLESTATE_DLL_API CPlayer {
   bool _active;
   bool _dealer;
 };
-
-#endif INC_CPLAYER_H

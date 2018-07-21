@@ -14,9 +14,10 @@
 
 #include <afxwin.h>
 #include "CCasinoHotkey.h"
+#include "LibDef.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
-class CAutoplayerButton {
+class CASINO_INTERFACE_DLL_API CAutoplayerButton {
   friend class CScraper;
  public:
   CAutoplayerButton();

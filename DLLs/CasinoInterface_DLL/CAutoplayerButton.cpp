@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define CASINO_INTERFACE_DLL_EXPORTS
+
 #include "CAutoplayerButton.h"
 #include "CCasinoHotkey.h"
 #include "CCasinoInterface.h"

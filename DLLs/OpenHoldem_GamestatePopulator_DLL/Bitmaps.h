@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -15,9 +16,6 @@
 //
 //******************************************************************************
 
-#ifndef INC_BITMAPS_H
-#define INC_BITMAPS_H
+#include <afxwin.h>
 
 bool BitmapsAreEqual(HBITMAP HBitmapLeft, HBITMAP HBitmapRight) ;
-
-#endif INC_BITMAPS_H

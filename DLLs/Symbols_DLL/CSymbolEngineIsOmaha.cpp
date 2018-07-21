@@ -12,6 +12,8 @@
 //
 //******************************************************************************
 
+#define  SYMBOLS_DLL_EXPORTS
+
 #include "CSymbolEngineIsOmaha.h"
 #include <assert.h>
 #include "CEngineContainer.h"

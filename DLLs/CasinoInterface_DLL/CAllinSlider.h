@@ -14,8 +14,9 @@
 //******************************************************************************
 
 #include <afxwin.h>
+#include "LibDef.h"
 
-class CAllinSlider {
+class CASINO_INTERFACE_DLL_API CAllinSlider {
  public:
   CAllinSlider();
   ~CAllinSlider();

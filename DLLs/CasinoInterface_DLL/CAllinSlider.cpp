@@ -12,6 +12,8 @@
 //
 //******************************************************************************
 
+#define CASINO_INTERFACE_DLL_EXPORTS
+
 #include "CAllinSlider.h"
 //#include "CAutoConnector.h"
 #include "CBetsizeInputBox.h"

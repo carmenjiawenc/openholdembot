@@ -11,11 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bitmaps.cpp" />
     <ClCompile Include="CLazyScraper.cpp" />
     <ClCompile Include="CScraper.cpp" />
     <ClCompile Include="CTitleEvaluator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bitmaps.h" />
     <ClInclude Include="CLazyScraper.h" />
     <ClInclude Include="COpenHoldemGamestatePopulator.h" />
     <ClInclude Include="CScraper.h" />
@@ -74,11 +76,10 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)GamestateValidation.dll</OutputFile>
-      <ModuleDefinitionFile>GamestateValidation.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>$(OutDir)window_functions.lib;psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)BasicScraper.lib;$(OutDir)CardFunctions.lib;$(OutDir)CasinoInterface.lib;$(OutDir)Debug.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)Preferences.lib;$(OutDir)StringFunctions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -92,13 +93,12 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)GamestateValidation.dll</OutputFile>
-      <ModuleDefinitionFile>GamestateValidation.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>$(OutDir)window_functions.lib;psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)BasicScraper.lib;$(OutDir)CardFunctions.lib;$(OutDir)CasinoInterface.lib;$(OutDir)Debug.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)Preferences.lib;$(OutDir)StringFunctions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

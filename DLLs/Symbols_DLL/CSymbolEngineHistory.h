@@ -17,10 +17,11 @@
 #include "CVirtualSymbolEngine.h"
 #include "CBetroundCalculator.h"
 #include "CSymbolEngineUserChair.h"
+#include "LibDef.h"
 
 const int k_hist_sym_count = 93; 
 
-class CSymbolEngineHistory: public CVirtualSymbolEngine {
+class SYMBOLS_DLL_API CSymbolEngineHistory: public CVirtualSymbolEngine {
  public:
 	CSymbolEngineHistory();
 	~CSymbolEngineHistory();

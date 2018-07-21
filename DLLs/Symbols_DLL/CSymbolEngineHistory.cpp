@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define SYMBOLS_DLL_ÉXPORTS
+
 #include "CSymbolEngineHistory.h"
 #include "CBetroundCalculator.h"
 #include "CEngineContainer.h"

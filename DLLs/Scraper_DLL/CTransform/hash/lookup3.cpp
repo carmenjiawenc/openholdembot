@@ -1,3 +1,5 @@
+#define SCRAPER_DLL_EXPORTS
+
 #include "lookup3.h"
 
 /*
