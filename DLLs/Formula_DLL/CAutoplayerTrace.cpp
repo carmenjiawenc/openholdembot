@@ -13,6 +13,7 @@
 
 #define FORMULA_DLL_EXPORTS
 
+#include "CAutoplayerLogic.h"
 #include "CAutoplayerTrace.h"
 #include "CFormula.h"
 #include "CFunctionCollection.h"
@@ -167,7 +168,7 @@ void CAutoplayerTrace::Print(const char *action_taken, bool full_log_for_primary
 
 CString CAutoplayerTrace::BestAction() {
   for (int i=k_autoplayer_function_allin; i<=k_autoplayer_function_fold; ++i) {
-    if (1/*#Formula()->FunctionCollection()->AutoplayerLogic()->GetAutoplayerFunctionValue(i)*/) {
+    if (Formula()->AutoplayerLogic()->GetValue(i)) {
       if (i == k_autoplayer_function_betsize) {
         // Special treatment for f$betsize
         // e.g. "f$betsize = 201.47"

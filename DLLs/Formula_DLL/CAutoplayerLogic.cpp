@@ -17,6 +17,7 @@
 #include "CAutoplayerLogic.h"
 #include <assert.h>
 #include "CFormula.h"
+#include "CFunction.h"
 #include "CFunctionCollection.h"
 #include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
@@ -52,12 +53,12 @@ void CAutoplayerLogic::TranslateOpenPPLDecisionToAutoplayerFunctions(double deci
     // OpenHoldem uses f$betsize in dollars
     ///assert(EngineContainer()->symbol_engine_tablelimits() != NULL);
     double betsize = 42; ///decision * EngineContainer()->symbol_engine_tablelimits()->bblind();
-    Formula()->FunctionCollection()->SetAutoplayerFunctionValue(k_autoplayer_function_betsize,
+    Formula()->AutoplayerLogic()->SetValue(k_autoplayer_function_betsize,
       betsize);
   }
   else if (IsPercentagePotsizeBet(decision)) {
     double betsize = 42; ///BetSizeForPercentagedPotsizeBet(decision);
-    Formula()->FunctionCollection()->SetAutoplayerFunctionValue(k_autoplayer_function_betsize,
+    Formula()->AutoplayerLogic()->SetValue(k_autoplayer_function_betsize,
       betsize);
   }
   else if (decision < -1000) {
@@ -71,8 +72,8 @@ void CAutoplayerLogic::TranslateOpenPPLDecisionToAutoplayerFunctions(double deci
     assert(decision == kUndefinedZero);
     write_log(Preferences()->debug_symbolengine_open_ppl(),
       "[CAutoplayerLogic] OpenPPL-decision undefined. Defaulting to check/fold.\n");
-    Formula()->FunctionCollection()->SetAutoplayerFunctionValue(k_autoplayer_function_check, true);
-    Formula()->FunctionCollection()->SetAutoplayerFunctionValue(k_autoplayer_function_fold, true);
+    Formula()->AutoplayerLogic()->SetValue(k_autoplayer_function_check, true);
+    Formula()->AutoplayerLogic()->SetValue(k_autoplayer_function_fold, true);
   }
 }
 
@@ -85,9 +86,9 @@ void CAutoplayerLogic::CalculateOpenPPLBackupActions() {
   if (Formula()->FunctionCollection()->EvaluateAutoplayerFunction(
     k_autoplayer_function_beep)) {
     // Turn check/fold off
-    Formula()->FunctionCollection()->SetAutoplayerFunctionValue(
+    Formula()->AutoplayerLogic()->SetValue(
       k_autoplayer_function_check, false);
-    Formula()->FunctionCollection()->SetAutoplayerFunctionValue(
+    Formula()->AutoplayerLogic()->SetValue(
       k_autoplayer_function_fold, false);
     return;
   }
@@ -143,7 +144,7 @@ void CAutoplayerLogic::CalculateSingleOpenPPLBackupAction(int potential_action, 
       "[CAutoplayerLogic] Backup action added: %s -> %s\n",
       k_standard_function_names[potential_action],
       k_standard_function_names[potential_backup]);
-    Formula()->FunctionCollection()->SetAutoplayerFunctionValue(
+    Formula()->AutoplayerLogic()->SetValue(
       potential_backup, true);
   }
 }
@@ -229,6 +230,33 @@ void CAutoplayerLogic::CheckIfDecisionMatchesElementaryAction(int decision, int 
   if (decision == open_ppl_action_code) {
     write_log(Preferences()->debug_symbolengine_open_ppl(),
       "[CAutoplayerLogic] Decision matches action\n");
-    Formula()->FunctionCollection()->SetAutoplayerFunctionValue(action, true);
+    Formula()->AutoplayerLogic()->SetValue(action, true);
   }
 }
+
+double CAutoplayerLogic::GetValue(const int function_code) {
+  CString function_name = k_standard_function_names[function_code];
+  assert(function_name != "");
+  CFunction *p_function = (CFunction *)Formula()->FunctionCollection()->LookUp(function_name);
+  if (p_function == NULL) {
+    return kUndefinedZero;
+  }
+  return p_function->Evaluate(); /// log?
+}
+
+void CAutoplayerLogic::SetValue(const int function_code, double new_value) {
+  CString function_name = k_standard_function_names[function_code];
+  assert(function_name != "");
+  CFunction *p_function = (CFunction *)Formula()->FunctionCollection()->LookUp(function_name);
+  if (p_function == NULL) {
+    return;
+  }
+  p_function->SetValue(new_value);
+}
+
+
+
+
+
+
+

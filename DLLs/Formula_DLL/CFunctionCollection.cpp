@@ -363,14 +363,6 @@ void CFunctionCollection::CheckForDefaultFormulaEntries() {
     CString(k_standard_function_names[k_prwin_number_of_iterations]));
 }
 
-void CFunctionCollection::SetAutoplayerFunctionValue(int function_code, double value) {
-  CString function_name = k_standard_function_names[function_code];
-  assert(function_name != "");
-  CFunction *p_function = (CFunction *)LookUp(function_name);
-  if (p_function == NULL) return;
-  p_function->SetValue(value);
-}
-
 void CFunctionCollection::CreateEmptyDefaultFunctionIfFunctionDoesNotExist(CString &function_name) {
   if (Exists(function_name)) {
     write_log(Preferences()->debug_formula(), 

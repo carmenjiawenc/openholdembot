@@ -18,6 +18,7 @@
 #include "LibDef.h"
 
 class FORMULA_DLL_API CFunction: public COHScriptObject{
+  friend class CAutoplayerLogic;
   friend class CParseTreeRotator;
   friend class CFunctionCollection;
  public:

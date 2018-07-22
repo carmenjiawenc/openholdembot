@@ -95,8 +95,6 @@ class FORMULA_DLL_API CFunctionCollection {
   void SetPath(CString path)	  { _path = path; }
   // For OpenPPL, which evaluates f$preflop, ...
   // instead of f$beep, f$alli, ...
-  /// duplicate?
-  void SetAutoplayerFunctionValue(int function_code, double value);
  private:
   void CreateEmptyDefaultFunctionIfFunctionDoesNotExist(CString &function_name);
   CString GetSimilarNameWithDifferentCases(CString function_name);

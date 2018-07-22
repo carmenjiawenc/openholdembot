@@ -16,12 +16,17 @@
 #include "LibDef.h"
 
 class FORMULA_DLL_API CAutoplayerLogic {
+  friend class CAutoplayer;
+  friend class CAutoplayerTrace;
 public:
   CAutoplayerLogic();
   ~CAutoplayerLogic();
 public:
   void EvaluateOpenPPL();
   ///double EvaluateAutoplayerFunction(const int function_code);
+public:
+  double GetValue(const int function_code);
+  void SetValue(const int function_code, double new_value);
 private:
   void CalcPrimaryFormulasOpenPPL();
   void TranslateOpenPPLDecisionToAutoplayerFunctions(double decision);
