@@ -27,6 +27,9 @@ public:
 public:
   double GetValue(const int function_code);
   void SetValue(const int function_code, double new_value);
+public:
+  void CalcPrimaryFormulas();
+  void CalcSecondaryFormulas();
 private:
   void CalcPrimaryFormulasOpenPPL();
   void TranslateOpenPPLDecisionToAutoplayerFunctions(double decision);

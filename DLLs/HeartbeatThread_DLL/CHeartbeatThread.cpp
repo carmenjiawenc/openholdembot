@@ -130,15 +130,15 @@ void CHeartbeatThread::ScrapeEvaluateAct() {
 
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// Scrape window
-  TableState()->TableTitle()->UpdateTitle();
+  
   write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] Calling DoScrape.\n");
-  ///p_lazyscraper->DoScrape();
+  Popilaqte();
   // We must not check if the scrape of the table changed, because:
   //   * some symbol-engines must be evaluated no matter what
   //   * we might need to act (sitout, ...) on empty/non-changing tables
   //   * auto-player needs stable frames too
 	EngineContainer()->EvaluateAll();
-	// Reply-frames no longer here in the heartbeat.
+	// Replay-frames no longer here in the heartbeat.
   // we have a "ReplayFrameController for that.
   LeaveCriticalSection(&pParent->cs_update_in_progress);
   /// check if gui exists
@@ -146,7 +146,7 @@ void CHeartbeatThread::ScrapeEvaluateAct() {
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// OH-Validator
 	write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] Calling Validator.\n");
-  CValidator validator;
+  CValidator validator; //???
   validator.Validate();
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// Autoplayer
