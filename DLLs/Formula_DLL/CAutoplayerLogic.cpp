@@ -44,7 +44,7 @@ void CAutoplayerLogic::CalcPrimaryFormulasOpenPPL() {
 }
 
 void CAutoplayerLogic::TranslateOpenPPLDecisionToAutoplayerFunctions(double decision) {
-  write_log(Preferences()->debug_formula(), "[CAutoplayerFunctions] TranslateOpenPPLDecisionToAutoplayerFunctions()\n");
+  write_log(Preferences()->debug_formula(), "[CAutoplayerLogic] TranslateOpenPPLDecisionToAutoplayerLogic()\n");
   // Positive values mean:  betsizes (in big-blinds)
   // Small negative values: percentaged potsized bets
   // Large negative values: action constants
@@ -70,7 +70,7 @@ void CAutoplayerLogic::TranslateOpenPPLDecisionToAutoplayerFunctions(double deci
     // This can only be undefined == 0.0
     assert(decision == kUndefinedZero);
     write_log(Preferences()->debug_symbolengine_open_ppl(),
-      "[CAutoplayerFunctions] OpenPPL-decision undefined. Defaulting to check/fold.\n");
+      "[CAutoplayerLogic] OpenPPL-decision undefined. Defaulting to check/fold.\n");
     Formula()->FunctionCollection()->SetAutoplayerFunctionValue(k_autoplayer_function_check, true);
     Formula()->FunctionCollection()->SetAutoplayerFunctionValue(k_autoplayer_function_fold, true);
   }
@@ -78,7 +78,7 @@ void CAutoplayerLogic::TranslateOpenPPLDecisionToAutoplayerFunctions(double deci
 
 void CAutoplayerLogic::CalculateOpenPPLBackupActions() {
   write_log(Preferences()->debug_formula(),
-    "[CAutoplayerFunctions] CalculateOpenPPLBackupActions()\n");
+    "[CAutoplayerLogic] CalculateOpenPPLBackupActions()\n");
   // Beep is a stand-alone action
   // No backup, can't be combined with pother actions
   // (contrary to f$beep in OH-script).
@@ -135,12 +135,12 @@ void CAutoplayerLogic::CalculateSingleOpenPPLBackupAction(int potential_action, 
   double action_value = Formula()->FunctionCollection()->EvaluateAutoplayerFunction(
     potential_action);
   write_log(Preferences()->debug_formula(),
-    "[CAutoplayerFunctions] %s -> %.3f\n",
+    "[CAutoplayerLogic] %s -> %.3f\n",
     k_standard_function_names[potential_action],
     action_value);
   if (action_value) {
     write_log(Preferences()->debug_formula(),
-      "[CAutoplayerFunctions] Backup action added: %s -> %s\n",
+      "[CAutoplayerLogic] Backup action added: %s -> %s\n",
       k_standard_function_names[potential_action],
       k_standard_function_names[potential_backup]);
     Formula()->FunctionCollection()->SetAutoplayerFunctionValue(
@@ -155,10 +155,10 @@ bool CAutoplayerLogic::IsFoldAllinSituation() {
   // Raise. call and check must not.
   CString fckra = "42"; ///!!!
   write_log(Preferences()->debug_formula(),
-    "[CAutoplayerFunctions] Buttons seen: %s\n", fckra);
+    "[CAutoplayerLogic] Buttons seen: %s\n", fckra);
   if (fckra == "F...A") {
     write_log(Preferences()->debug_formula(),
-      "[CAutoplayerFunctions] Fold / allin situation\n");
+      "[CAutoplayerLogic] Fold / allin situation\n");
     return true;
   }
   return false;
@@ -224,11 +224,11 @@ void CAutoplayerLogic::CheckIfDecisionMatchesElementaryAction(int decision, int 
   }
   double open_ppl_action_code = Formula()->FunctionCollection()->Evaluate(action_name);
   write_log(Preferences()->debug_symbolengine_open_ppl(),
-    "[CAutoplayerFunctions] Checking if decision %.3f matches action %s (%.3f)\n",
+    "[CAutoplayerLogic] Checking if decision %.3f matches action %s (%.3f)\n",
     decision, action_name, open_ppl_action_code);
   if (decision == open_ppl_action_code) {
     write_log(Preferences()->debug_symbolengine_open_ppl(),
-      "[CAutoplayerFunctions] Decision matches action\n");
+      "[CAutoplayerLogic] Decision matches action\n");
     Formula()->FunctionCollection()->SetAutoplayerFunctionValue(action, true);
   }
 }
