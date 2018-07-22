@@ -14,14 +14,19 @@
 //
 //******************************************************************************
 
-class CLazyScraper;
+#include "COpenHoldemGamestatePopulator.h"
+#include "CLazyScraper.h"
+#include "..\TableState_DLL\TableState.h"
 
-class COpenHoldemGamestatePopulator {
-public:
-  COpenHoldemGamestatePopulator();
-  ~COpenHoldemGamestatePopulator();
-public:
-  void Populate();
-private:
-  CLazyScraper* lazy_scraper;
-};
+COpenHoldemGamestatePopulator::COpenHoldemGamestatePopulator() {
+  lazy_scraper = new CLazyScraper;
+}
+
+COpenHoldemGamestatePopulator::~COpenHoldemGamestatePopulator() {
+  /// !!! delete objects
+}
+
+void COpenHoldemGamestatePopulator::Populate() {
+  TableState()->TableTitle()->UpdateTitle();
+  lazy_scraper->DoScrape();
+}
