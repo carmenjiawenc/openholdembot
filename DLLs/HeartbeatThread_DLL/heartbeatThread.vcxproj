@@ -27,10 +27,11 @@
     <ClInclude Include="CRebuyManagement.h" />
     <ClInclude Include="CStableFramesCounter.h" />
     <ClInclude Include="CValidator.h" />
+    <ClInclude Include="LibDef.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8D6B043F-A270-479C-8692-3A609E560089}</ProjectGuid>
-    <RootNamespace>ReferenceMouseDLL</RootNamespace>
+    <RootNamespace>HeartbeatThread</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <ProjectName>HeartbeatThread</ProjectName>
@@ -85,7 +86,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)BasicScraper.lib;$(OutDir)CasinoInterface.lib;$(OutDir)Debug.lib;$(OutDir)Formula.lib;$(OutDir)GamestateValidation.lib;$(OutDir)GUI.lib;$(OutDir)MemoryManagement.lib;$(OutDir)OpenHoldem_GamestatePopulator.lib;$(OutDir)Preferences.lib;$(OutDir)ProcessManagement.lib;$(OutDir)StringFunctions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -104,7 +105,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)BasicScraper.lib;$(OutDir)CasinoInterface.lib;$(OutDir)Debug.lib;$(OutDir)Formula.lib;$(OutDir)GamestateValidation.lib;$(OutDir)GUI.lib;$(OutDir)MemoryManagement.lib;$(OutDir)OpenHoldem_GamestatePopulator.lib;$(OutDir)Preferences.lib;$(OutDir)ProcessManagement.lib;$(OutDir)StringFunctions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

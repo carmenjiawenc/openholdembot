@@ -14,12 +14,14 @@
 
 #include <afxwin.h>
 #include "CHeartbeatDelay.h"
+#include "LibDef.h"
 #include "..\..\Shared\CCritSec\CCritSec.h"
 ///#include "CSpaceOptimizedGlobalObject.h"
 
 class CAutoplayer;
+class COpenHoldemGamestatePopulator;
 
-class CHeartbeatThread /*: public CSpaceOptimizedGlobalObject */{
+class HEARTBEATTHREAD_DLL_API CHeartbeatThread /*: public CSpaceOptimizedGlobalObject */{
  public:
 	// public functions
 	CHeartbeatThread();
@@ -44,6 +46,8 @@ class CHeartbeatThread /*: public CSpaceOptimizedGlobalObject */{
 	static		long int _heartbeat_counter;
  private:
   static CHeartbeatDelay _heartbeat_delay;
+ private:
+  static COpenHoldemGamestatePopulator* _gamestate_populator;
  private:
 	HANDLE		_m_stop_thread;
 	HANDLE		_m_wait_thread;

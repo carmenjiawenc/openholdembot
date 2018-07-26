@@ -156,7 +156,7 @@ double CHeartbeatDelay::SleepingFactorActiveButFolded() {
       // Hand will continue for some time    }
       return 2.5;
     }
-    else if (BETROUND <= kBetroundTurn) {
+    else if (EngineContainer()->BetroundCalculator()->betround() <= kBetroundTurn) {
       // Not yet river
       // Hand will probably continue for some time
       return 2.0;

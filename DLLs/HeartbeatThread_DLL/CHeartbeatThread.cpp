@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define HEARTBEATTHREAD_DLL_EXPORTS
+
 #include "CHeartbeatThread.h"
 #include <process.h>
 #include "CAutoplayer.h"
@@ -19,12 +21,12 @@
 #include "..\Debug_DLL\debug.h"
 #include "..\GUI_DLL\CGUI.h"
 #include "..\MemoryManagement_DLL\MemoryLogging.h"
+#include "..\OpenHoldem_GamestatePopulator_DLL\COpenHoldemGamestatePopulator.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\ProcessManagement\COpenHoldemStarter.h"
 #include "..\ProcessManagement\CProcessManagement.h"
 #include "..\ProcessManagement\CWatchdog.h"
 #include "..\StringFunctions_DLL\string_functions.h"
-#include "..\Symbols_DLL\CBetroundCalculator.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\Symbols_DLL\CSymbolEngineAutoplayer.h"
 #include "..\Symbols_DLL\CSymbolEngineChipAmounts.h"
@@ -38,12 +40,14 @@ CRITICAL_SECTION	 CHeartbeatThread::cs_update_in_progress;
 long int			     CHeartbeatThread::_heartbeat_counter = 0;
 CHeartbeatThread   *CHeartbeatThread::pParent = NULL;
 CHeartbeatDelay    CHeartbeatThread::_heartbeat_delay;
+COpenHoldemGamestatePopulator* CHeartbeatThread::_gamestate_populator = NULL;
 
 CAutoplayer* _autoplayer; //!!!
 
 CHeartbeatThread::CHeartbeatThread() {
 	InitializeCriticalSectionAndSpinCount(&cs_update_in_progress, 4000);
   _heartbeat_counter = 0;
+  _gamestate_populator = new COpenHoldemGamestatePopulator; ///!!! clean up
   // Create events
 	_m_stop_thread = CreateEvent(0, TRUE, FALSE, 0);
 	_m_wait_thread = CreateEvent(0, TRUE, FALSE, 0);
@@ -132,7 +136,7 @@ void CHeartbeatThread::ScrapeEvaluateAct() {
 	// Scrape window
   
   write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] Calling DoScrape.\n");
-  Popilaqte();
+  _gamestate_populator->Populate();
   // We must not check if the scrape of the table changed, because:
   //   * some symbol-engines must be evaluated no matter what
   //   * we might need to act (sitout, ...) on empty/non-changing tables
