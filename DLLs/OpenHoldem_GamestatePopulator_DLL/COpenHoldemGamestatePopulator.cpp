@@ -14,6 +14,8 @@
 //
 //******************************************************************************
 
+#define GAMESTATE_POPULATOR_DLL_EXPORTS
+
 #include "COpenHoldemGamestatePopulator.h"
 #include "CLazyScraper.h"
 #include "..\TableState_DLL\TableState.h"

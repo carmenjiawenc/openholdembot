@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once 
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -8,22 +8,12 @@
 //
 //******************************************************************************
 //
-// Purpose: Collecting info from the casino
-//   and populating the gamestate.class,
-//   usually done by scraping.
+// Purpose: single import/export macro for all header-files
 //
 //******************************************************************************
 
-#include "LibDef.h"
-
-class CLazyScraper;
-
-class GAMESTATE_POPULATOR_API COpenHoldemGamestatePopulator {
-public:
-  COpenHoldemGamestatePopulator();
-  ~COpenHoldemGamestatePopulator();
-public:
-  void Populate();
-private:
-  CLazyScraper* lazy_scraper;
-};
+#ifdef GAMESTATE_POPULATOR_DLL_EXPORTS
+#define GAMESTATE_POPULATOR_API __declspec(dllexport)
+#else
+#define GAMESTATE_POPULATOR_API __declspec(dllimport)
+#endif
