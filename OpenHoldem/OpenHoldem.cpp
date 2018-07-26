@@ -12,7 +12,10 @@
 //******************************************************************************
 
 #include "..\DLLs\GUI_DLL\CGUI.h"
+#include "..\DLLs\HeartbeatThread_DLL\CHeartbeatThread.h"
 
 void main() {
-  GUI()->Update();
+  ///GUI()->Update();
+  CHeartbeatThread heartbeat_thread;
+  heartbeat_thread.StartThread();
 }

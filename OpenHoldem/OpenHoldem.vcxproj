@@ -112,7 +112,7 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(OutDir)GUI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)GUI.lib;$(OutDir)HeartbeatThread.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)OpenHoldem.exe</OutputFile>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -156,7 +156,7 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(OutDir)GUI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)GUI.lib;$(OutDir)HeartbeatThread.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)OpenHoldem.exe</OutputFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -194,7 +194,7 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>imm32.lib;psapi.lib;..\Release\Preferences.lib;..\Release\TableState.lib;..\Release\globals.lib;secur32.lib;..\pokereval\Release\poker-eval.lib;..\lib\libpq.lib;..\lib\PerlEz.lib;..\Release\Reference User DLL.lib;..\Release\window_functions.lib;..\Release\string_functions.lib;..\Release\debug.lib;..\Release\GameStateValidation.lib;..\Release\files.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)GUI.lib;$(OutDir)HeartbeatThread.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName).exe</OutputFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
