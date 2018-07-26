@@ -1,4 +1,3 @@
-#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -12,23 +11,17 @@
 //
 //******************************************************************************
 
-#include "LibDef.h"
+#define PROCESS_MANAGEMEMT_DLL_EXPORTS
 
-class COpenHoldemStarter;
-class CWatchdog;
+#include "CProcessManagement.h"
+#include "COpenHoldemStarter.h"
+#include "CWatchdog.h"
 
-class PROCESS_MANAGEMEMT__DLL_API CProcessManagement {
-public:
-  CProcessManagement();
-  ~CProcessManagement();
-public:
-  COpenHoldemStarter* OpenHoldemStarter() {
-    return _openholdem_starter;
-  }
-  CWatchdog* Watchdog() {
-    return _watchdog;
-  }
-private:
-  COpenHoldemStarter* _openholdem_starter;
-  CWatchdog* _watchdog;
-};
+CProcessManagement::CProcessManagement() {
+  _openholdem_starter = new COpenHoldemStarter;
+  _watchdog = new CWatchdog;
+}
+
+CProcessManagement::~CProcessManagement() {
+  ///!!! clean up
+}
