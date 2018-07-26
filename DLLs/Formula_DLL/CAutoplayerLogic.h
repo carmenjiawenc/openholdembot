@@ -38,6 +38,8 @@ private:
     int potential_action, int potential_backup);
   void CheckIfDecisionMatchesElementaryAction(int decision, int action);
 private:
+  void CalcPrimaryFormulasOHScript();
+private:
   // Aggressive backup-actions
   bool IsFoldAllinSituation(); // To do: FCA
 private:

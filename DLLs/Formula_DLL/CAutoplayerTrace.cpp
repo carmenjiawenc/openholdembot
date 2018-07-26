@@ -202,5 +202,3 @@ void CAutoplayerTrace::LogAutoPlayerTrace() {
   }
   write_log_separator(true, "");
 }
-
-

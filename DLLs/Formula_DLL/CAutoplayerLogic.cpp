@@ -254,9 +254,30 @@ void CAutoplayerLogic::SetValue(const int function_code, double new_value) {
   p_function->SetValue(new_value);
 }
 
+void CAutoplayerLogic::CalcPrimaryFormulas() {
+  write_log(Preferences()->debug_formula(), "[CAutoplayerFunctions] CalcPrimaryFormulas()\n");
+  ///assert(EngineContainer()->symbol_engine_autoplayer()->isfinalanswer());
 
+  // Otherwiese: OH-script
+  assert(!Formula()->FunctionCollection()->IsOpenPPLProfile());
+  CalcPrimaryFormulasOHScript();
+}
 
+void CAutoplayerLogic::CalcPrimaryFormulasOHScript() {
+  write_log(Preferences()->debug_formula(), "[CAutoplayerFunctions] CalcPrimaryFormulasOHScript()\n");
+  for (int i = k_autoplayer_function_beep; i <= k_autoplayer_function_fold; i++) {
+    double result = Formula()->FunctionCollection()->Evaluate(k_standard_function_names[i], kAlwaysLogAutoplayerFunctions);
+    write_log(Preferences()->debug_formula(), "[CAutoplayerFunctions] Primary formulas; %s: %f\n",
+      k_standard_function_names[i], result);
+  }
+}
 
-
-
-
+void CAutoplayerLogic::CalcSecondaryFormulas(void) {
+  // Not considering k_standard_function_shoot_replay_frame here,
+  // as this function gets handled by CSymbolEngineReplayFrameController
+  for (int i = k_hopper_function_sitin; i <= k_standard_function_allin_on_betsize_balance_ratio; ++i) {
+    double result = Formula()->FunctionCollection()->Evaluate(k_standard_function_names[i], Preferences()->log_hopper_functions());
+    write_log(Preferences()->debug_formula(), "[CAutoplayerFunctions] Secondary formulas; %s: %f\n",
+      k_standard_function_names[i], result);
+  }
+}
