@@ -12,6 +12,7 @@
 //
 //******************************************************************************
 
+#define SYMBOLS_DLL_EXPORTS
 
 #include "CHandresetDetector.h"
 #include <assert.h>

@@ -205,10 +205,10 @@ void CSymbolEngineCallers::CalculateCallers() {
     // Special fail-safe-code for callbits: currently none,
     // because it is very unlikely that a mis-scrape
     // causes the bet of a raiser to look like a call.
-    int new_callbits = _callbits[BETROUND] | k_exponents[chair];
-    _callbits[BETROUND] = new_callbits;
+    int new_callbits = _callbits[EngineContainer()->BetroundCalculator()->betround()] | k_exponents[chair];
+    _callbits[EngineContainer()->BetroundCalculator()->betround()] = new_callbits;
 	}
-	AssertRange(_callbits[BETROUND], 0, k_bits_all_ten_players_1_111_111_111);
+	AssertRange(_callbits[EngineContainer()->BetroundCalculator()->betround()], 0, k_bits_all_ten_players_1_111_111_111);
   AssertRange(_nopponentscalling,   0, kMaxNumberOfPlayers);
 }
 

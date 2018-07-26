@@ -134,7 +134,7 @@ bool CSymbolEngineVersus::GetCounts() {
 	long			pos = 0;
 	int				listnum = 0;
 	
-	int betround = BetroundCalculator()->betround();
+	int betround = EngineContainer()->BetroundCalculator()->betround();
 	for (int i=0; i<kNumberOfCardsPerPlayerHoldEm; i++) {
     card_player[i] = TableState()->User()->hole_cards(i)->GetValue();
   }

@@ -14,8 +14,9 @@
 //******************************************************************************
 
 #include "CVirtualSymbolEngine.h"
+#include "LibDef.h"
 
-class CSymbolEngineIsRush: public CVirtualSymbolEngine {
+class SYMBOLS_DLL_API CSymbolEngineIsRush: public CVirtualSymbolEngine {
  public:
 	CSymbolEngineIsRush();
 	~CSymbolEngineIsRush();

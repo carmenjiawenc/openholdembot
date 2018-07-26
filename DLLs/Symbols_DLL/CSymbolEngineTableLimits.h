@@ -1,3 +1,4 @@
+#pragma once
 //****************************************************************************** 
 //
 // This file is part of the OpenHoldem project
@@ -11,10 +12,8 @@
 //
 //****************************************************************************** 
 
-#ifndef INC_CTABLELIMITS_H
-#define INC_CTABLELIMITS_H
-
 #include "CVirtualSymbolEngine.h"
+#include "LibDef.h"
 
 #define BIG_BLIND EngineContainer()->symbol_engine_tablelimits()->bblind()
 #define SMALL_BLIND EngineContainer()->symbol_engine_tablelimits()->sblind()
@@ -27,7 +26,7 @@ struct STableLimit {
 	// They get stored separately and not auto-locked.
 };
 
-class CSymbolEngineTableLimits: public CVirtualSymbolEngine {
+class SYMBOLS_DLL_API CSymbolEngineTableLimits: public CVirtualSymbolEngine {
  public:
 	CSymbolEngineTableLimits();
 	~CSymbolEngineTableLimits();
@@ -84,5 +83,3 @@ class CSymbolEngineTableLimits: public CVirtualSymbolEngine {
  private:
 	double _ante;
 };
-
-#endif // INC_CTABLELIMITS_H

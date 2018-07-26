@@ -17,9 +17,9 @@
 // by the symbol-engine-container / all other symbol-engines
 // in advance (just like hand-resets).
 
-#define BETROUND BetroundCalculator()->betround()
+#include "LibDef.h"
 
-class CBetroundCalculator
+class SYMBOLS_DLL_API CBetroundCalculator
 {
 public:
 	CBetroundCalculator();
@@ -35,5 +35,3 @@ private:
 	int _betround;
 	int _betround_previous_heartbeat;
 };
-
-CBetroundCalculator* BetroundCalculator(); ///R!!!

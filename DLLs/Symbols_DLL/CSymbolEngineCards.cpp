@@ -568,7 +568,7 @@ void CSymbolEngineCards::CalcUnknownCards()
 				handval_common_plus1 = Hand_EVAL_N(commonCards, ncommonCards+1);
 				CardMask_UNSET(commonCards, i);
 
-				if (BETROUND < kBetroundRiver 
+				if (EngineContainer()->BetroundCalculator()->betround() < kBetroundRiver 
 					&& HandVal_HANDTYPE(handval_std_plus1) > HandVal_HANDTYPE(handval_std) 
 					&& EngineContainer()->symbol_engine_pokerval()->CalculatePokerval(handval_std_plus1, nstdCards+1, &dummy, CARD_NOCARD, CARD_NOCARD) > EngineContainer()->symbol_engine_pokerval()->pokerval()
 					&& HandVal_HANDTYPE(handval_std_plus1) > HandVal_HANDTYPE(handval_common_plus1))

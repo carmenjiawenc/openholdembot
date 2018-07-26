@@ -177,7 +177,7 @@ double CSymbolEngineRaisers::MinimumStartingBetCurrentOrbit(bool searching_for_r
     return TableState()->Player(last_known_actor)->_bet.GetValue();
   }
   // Not yet acted: 0 bb (postflop) or 1 bb (preflop) for the first orbit
-  if (BetroundCalculator()->betround() > kBetroundPreflop) {
+  if (EngineContainer()->BetroundCalculator()->betround() > kBetroundPreflop) {
     // Postflop
     return 0.0;
   }
@@ -238,12 +238,12 @@ void CSymbolEngineRaisers::CalculateRaisers() {
       write_log(Preferences()->debug_symbolengine(), 
         "[CSymbolEngineRaisers] chair %d is not raising\n", chair);
       continue;
-    } else if ((BetroundCalculator()->betround() == kBetroundPreflop)
+    } else if ((EngineContainer()->BetroundCalculator()->betround() == kBetroundPreflop)
 				&& (current_players_bet <= EngineContainer()->symbol_engine_tablelimits()->bblind())) {
       write_log(Preferences()->debug_symbolengine(), 
         "[CSymbolEngineRaisers] chair %d so-called \"blind raiser\". To be ignored.\n", chair);
       continue;
-    } else if ((BetroundCalculator()->betround() == kBetroundPreflop)
+    } else if ((EngineContainer()->BetroundCalculator()->betround() == kBetroundPreflop)
       && TableState()->Player(chair)->PostingBothBlinds()) {
       write_log(Preferences()->debug_symbolengine(), 
         "[CSymbolEngineRaisers] chair %d is posting both blinds at once. To be ignored.\n", chair);
@@ -262,7 +262,7 @@ void CSymbolEngineRaisers::CalculateRaisers() {
       _firstraiser_chair = chair;
     }
     AssertRange(_raischair, kUndefined, kLastChair);
-    _lastraised[BETROUND] = _raischair;
+    _lastraised[EngineContainer()->BetroundCalculator()->betround()] = _raischair;
     // We have to be very careful
     // if we accumulate info based on dozens of unstable frames
     // when it is not our turn and the casino potentially
@@ -277,7 +277,7 @@ void CSymbolEngineRaisers::CalculateRaisers() {
     // (at least as long as we are playing, and that's all that matters).
     _temp_raisbits_current_orbit |= k_exponents[chair];
     if (EngineContainer()->symbol_engine_autoplayer()->ismyturn()) {
-      _raisbits[BETROUND] |= _temp_raisbits_current_orbit;
+      _raisbits[EngineContainer()->BetroundCalculator()->betround()] |= _temp_raisbits_current_orbit;
     }
 	}
 	write_log(Preferences()->debug_symbolengine(), "[CSymbolEngineRaisers] nopponentstruelyraising: %i\n", _nopponentstruelyraising);
@@ -287,7 +287,7 @@ void CSymbolEngineRaisers::CalculateRaisers() {
 
 int CSymbolEngineRaisers::raisbits(int betround) {
   AssertRange(betround, kBetroundPreflop, kBetroundRiver);
-  if (betround == BETROUND) {
+  if (betround == EngineContainer()->BetroundCalculator()->betround()) {
     // Compute the result based on known good data and temp data
     // (potentially unstable, but best what we have)
     return (_raisbits[betround] | _temp_raisbits_current_orbit);

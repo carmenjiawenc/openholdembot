@@ -217,7 +217,7 @@ void CSymbolEngineChipAmounts::CalculateBetsToCallToRaise() {
 double CSymbolEngineChipAmounts::Largestbet() {
 	double largest_bet = 0.0;
 	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); ++i)	{
-    if ((BetroundCalculator()->betround() == kBetroundPreflop)
+    if ((EngineContainer()->BetroundCalculator()->betround() == kBetroundPreflop)
         && (TableState()->Player(i)->PostingBothBlinds())) {
       // Does not count as largest bet
       // and there must be a regular big blind,

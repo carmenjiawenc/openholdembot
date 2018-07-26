@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define SYMBOLS_DLL_EXPORTS
+
 #include "CSymbolEngineAutoplayer.h"
 /*#include "CAutoconnector.h"*/
 #include "CEngineContainer.h"

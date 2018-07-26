@@ -157,15 +157,15 @@ void CSymbolEngineHistory::UpdateAfterAutoplayerAction(int autoplayer_action_cod
 		  || (autoplayer_action_code == k_autoplayer_function_check)) {
 		if (IsSmallerOrEqual(EngineContainer()->symbol_engine_chip_amounts()->call(), 0.0)) {
 			// It was free to check
-			_autoplayer_actions[BETROUND][k_autoplayer_function_check]++;
+			_autoplayer_actions[EngineContainer()->BetroundCalculator()->betround()][k_autoplayer_function_check]++;
 			SetPrevaction(k_autoplayer_function_check);
 		}	else {
 			// There was name positive amount to call
-			_autoplayer_actions[BETROUND][k_autoplayer_function_call]++;
+			_autoplayer_actions[EngineContainer()->BetroundCalculator()->betround()][k_autoplayer_function_call]++;
 			SetPrevaction(k_autoplayer_function_call);	
 		}
 	}	else {
-		_autoplayer_actions[BETROUND][autoplayer_action_code]++; //!!! betpot? Todo: set _didswag
+		_autoplayer_actions[EngineContainer()->BetroundCalculator()->betround()][autoplayer_action_code]++; //!!! betpot? Todo: set _didswag
 		SetPrevaction(autoplayer_action_code);
 	}
 }
@@ -212,15 +212,15 @@ void CSymbolEngineHistory::CalculateHistory() {
   // Per definition we need to get the value at last myturn in betround N.
   write_log(Preferences()->debug_symbolengine(),
     "[SymbolEngineHistory] Update on my turn\n");
-  int	betround = BetroundCalculator()->betround();
+  int	betround = EngineContainer()->BetroundCalculator()->betround();
   for (int i = 0; i<k_hist_sym_count; ++i) {
     double result;
     EngineContainer()->EvaluateSymbol(k_hist_sym_strings[i], &result);
     _hist_sym[i][betround] = result;
   }
 
-	if (_nplayersround[BETROUND] == 0) {
-		_nplayersround[BETROUND] = 
+	if (_nplayersround[EngineContainer()->BetroundCalculator()->betround()] == 0) {
+		_nplayersround[EngineContainer()->BetroundCalculator()->betround()] = 
 			EngineContainer()->symbol_engine_active_dealt_playing()->nplayersplaying();
 	}
   double maxbet = 0.0;
@@ -238,7 +238,7 @@ void CSymbolEngineHistory::CalculateHistory() {
   double bet = MAX(EngineContainer()->symbol_engine_tablelimits()->bet(), EngineContainer()->symbol_engine_tablelimits()->bblind());
 	if (bet > 0) {
 		maxbet /= bet;
-		_nbetsround[BETROUND] = MAX(_nbetsround[BETROUND], maxbet);	
+		_nbetsround[EngineContainer()->BetroundCalculator()->betround()] = MAX(_nbetsround[EngineContainer()->BetroundCalculator()->betround()], maxbet);	
 	}	else {
 		write_log(Preferences()->debug_symbolengine(), "[SymbolEngineHistory] CSymbolEngineHistory::CalculateHistory() Skipping calculation of nbetsround due to unknown min-bet\n");
 	}
@@ -259,17 +259,17 @@ bool CSymbolEngineHistory::EvaluateSymbol(const CString name, double *result, bo
   FAST_EXIT_ON_OPENPPL_SYMBOLS(name);
 	if (memcmp(name, "did", 3) == 0)	{
 		if (memcmp(name, "didchec", 7)==0 && strlen(name)==7)	{
-			*result = didchec(BetroundCalculator()->betround());
+			*result = didchec(EngineContainer()->BetroundCalculator()->betround());
 		}	else if (memcmp(name, "didcall", 7)==0 && strlen(name)==7) {
-			*result = didcall(BetroundCalculator()->betround());
+			*result = didcall(EngineContainer()->BetroundCalculator()->betround());
 		}	else if (memcmp(name, "didrais", 7)==0 && strlen(name)==7) {
-			*result = didrais(BetroundCalculator()->betround());
+			*result = didrais(EngineContainer()->BetroundCalculator()->betround());
 		}	else if (memcmp(name, "didbetsize", 10)==0 && strlen(name)==10) {
-			*result = didswag(BetroundCalculator()->betround());
+			*result = didswag(EngineContainer()->BetroundCalculator()->betround());
 		}	else if (memcmp(name, "didfold", 7)==0 && strlen(name)==7) {
-			*result = didfold(BetroundCalculator()->betround());
+			*result = didfold(EngineContainer()->BetroundCalculator()->betround());
 		}	else if (memcmp(name, "didalli", 7)==0 && strlen(name)==7) {
-			*result = didalli(BetroundCalculator()->betround());
+			*result = didalli(EngineContainer()->BetroundCalculator()->betround());
 		}	else if (memcmp(name, "didchecround", 12)==0 && strlen(name)==13)	{
 			*result = didchec(RightDigitCharacterToNumber(name));
 		}	else if (memcmp(name, "didcallround", 12)==0 && strlen(name)==13)	{
@@ -291,7 +291,7 @@ bool CSymbolEngineHistory::EvaluateSymbol(const CString name, double *result, bo
 	}	else if (memcmp(name, "nplayersround", 13)==0) {
 		if (memcmp(name, "nplayersround", 13)==0 && strlen(name)==13) {
       // For current betting round
-			*result = nplayersround(BetroundCalculator()->betround());
+			*result = nplayersround(EngineContainer()->BetroundCalculator()->betround());
 		}	else if (memcmp(name, "nplayersround", 13)==0 && strlen(name)==14) {
 			*result = nplayersround(RightDigitCharacterToNumber(name));
 		}	else {
@@ -303,7 +303,7 @@ bool CSymbolEngineHistory::EvaluateSymbol(const CString name, double *result, bo
 	}	else if (memcmp(name, "prevaction", 10)==0 && strlen(name)==10)	{
 		*result = prevaction();
 	}	else if (memcmp(name, "nbetsround", 10)==0 && strlen(name)==10)	{
-		*result = nbetsround(BetroundCalculator()->betround());
+		*result = nbetsround(EngineContainer()->BetroundCalculator()->betround());
 	}	else if (memcmp(name, "nbetsround", 10)==0 && strlen(name)==11)	{
 		*result = nbetsround(RightDigitCharacterToNumber(name));
 	} else if (memcmp(name, "hi_", 3)==0) {
@@ -325,14 +325,14 @@ bool CSymbolEngineHistory::EvaluateSymbol(const CString name, double *result, bo
 bool CSymbolEngineHistory::DidAct() {
   // Extra pre-caution for preflop, in case of failed hand-reset,
   // including another extra fail-safe for unknown big-blind
-  if ((BETROUND == kBetroundPreflop)
+  if ((EngineContainer()->BetroundCalculator()->betround() == kBetroundPreflop)
       && EngineContainer()->symbol_engine_userchair()->userchair_confirmed()
       && ((TableState()->User()->_bet.GetValue() < EngineContainer()->symbol_engine_tablelimits()->bblind())
         || (TableState()->User()->_bet.GetValue() == 0))) {
     return false;
   }
   // Otherwise: return "normal" value, depending on didbetsize, didrais, ...
-	return DidAct(BETROUND);
+	return DidAct(EngineContainer()->BetroundCalculator()->betround());
 }
 
 bool CSymbolEngineHistory::DidAct(int betround) {
@@ -352,7 +352,7 @@ bool CSymbolEngineHistory::DidAct(int betround) {
   if (currentbet > EngineContainer()->symbol_engine_tablelimits()->bblind()) {
     return true;
   }
-  if ((BetroundCalculator()->betround() > kBetroundPreflop)
+  if ((EngineContainer()->BetroundCalculator()->betround() > kBetroundPreflop)
     && (currentbet > 0)) {
     return true;
   }

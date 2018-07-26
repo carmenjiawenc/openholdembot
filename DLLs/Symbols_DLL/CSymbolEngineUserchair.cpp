@@ -61,7 +61,7 @@ void CSymbolEngineUserchair::UpdateOnHeartbeat() {
 bool CSymbolEngineUserchair::IsNotShowdown() {
   int num_buttons_enabled = 2;/// CasinoInterface()->NumberOfVisibleAutoplayerButtons();
   if (num_buttons_enabled >= k_min_buttons_needed_for_my_turn) return true;
-  ///if (BetroundCalculator()->betround() < kBetroundRiver) return true;
+  ///if (EngineContainer()->BetroundCalculator()->betround() < kBetroundRiver) return true;
   return false;
 }
 

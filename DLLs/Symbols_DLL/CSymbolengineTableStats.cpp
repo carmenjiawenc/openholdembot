@@ -76,7 +76,7 @@ void CSymbolEngineTableStats::ShiftOldestDataAway() {
 }
 
 void CSymbolEngineTableStats::UpdateData() {
-  switch (BETROUND) {
+  switch (EngineContainer()->BetroundCalculator()->betround()) {
     case kBetroundPreflop:
       dealt_players[kIndexCurrentHand] = EngineContainer()->symbol_engine_active_dealt_playing()->nplayersdealt();
       bets_preflop[kIndexCurrentHand] = EngineContainer()->symbol_engine_chip_amounts()->ncallbets();

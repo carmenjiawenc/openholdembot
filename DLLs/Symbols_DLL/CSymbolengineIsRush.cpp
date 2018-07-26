@@ -12,6 +12,8 @@
 //
 //******************************************************************************
 
+#define SYMBOLS_DLL_EXPORTS
+
 #include "CSymbolEngineIsRush.h"
 #include "CEngineContainer.h"
 #include "CSymbolEngineActiveDealtPlaying.h"

@@ -317,7 +317,7 @@ void CEngineContainer::EvaluateAll() {
 		// Not safe to evaluate anything
 		return;
 	}
-	BetroundCalculator()->OnNewHeartbeat();
+	EngineContainer()->BetroundCalculator()->OnNewHeartbeat();
 	///OpenHoldem()->HandresetDetector()->OnNewHeartbeat();
 	// table-limits depend on betround
 	p_symbol_engine_tablelimits->CalcTableLimits();
@@ -330,7 +330,7 @@ void CEngineContainer::EvaluateAll() {
 	/*#if (OpenHoldem()->HandresetDetector()->IsHandreset()) 	{
 		UpdateOnHandreset();
 	}*/
-	if (BetroundCalculator()->IsNewBetround())	{
+	if (EngineContainer()->BetroundCalculator()->IsNewBetround())	{
 		UpdateOnNewRound();
 	}
 	/*#if (CasinoInterface()->IsMyTurn())	{

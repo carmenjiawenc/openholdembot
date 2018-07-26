@@ -11,14 +11,14 @@
 //
 //******************************************************************************
 
+#define SYMBOLS_DLL_EXPORTS
+
 #include "CBetroundCalculator.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Tablestate_DLL\TableState.h"
-
-CBetroundCalculator *p_betround_calculator = NULL;
 
 CBetroundCalculator::CBetroundCalculator() {
 	// Betround will be indirectly used 

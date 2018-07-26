@@ -197,9 +197,9 @@ void CSymbolEnginePokerval::CalcPokerValues() {
 	write_log(Preferences()->debug_symbolengine(), "[CSymbolEnginePokerval] pokerval = %i\n", _pokerval);
 	write_log(Preferences()->debug_symbolengine(), "[CSymbolEnginePokerval] pcbits = %i\n", _pcbits);
 
-	_phandval[BETROUND-1] = _pokerval & 0xff000000; 
-  if (BETROUND > kBetroundPreflop
-		&& _phandval[BETROUND] > _phandval[BETROUND-1]) {
+	_phandval[EngineContainer()->BetroundCalculator()->betround()-1] = _pokerval & 0xff000000; 
+  if (EngineContainer()->BetroundCalculator()->betround() > kBetroundPreflop
+		&& _phandval[EngineContainer()->BetroundCalculator()->betround()] > _phandval[EngineContainer()->BetroundCalculator()->betround()-1]) {
 		_ishandup = true;														
 	}
   CalculateHandType(); 
@@ -216,9 +216,9 @@ void CSymbolEnginePokerval::CalcPokerValues() {
 	handval = HandEval(_board_cards);
 
 	_pokervalcommon = CalculatePokerval(handval, CardCount(_board_cards), &dummy, CARD_NOCARD, CARD_NOCARD); 
-  _chandval[BETROUND] = _pokervalcommon & 0xff000000; 
-	if (BETROUND > kBetroundPreflop 
-			&& _chandval[BETROUND] > _chandval[BETROUND-1])	{
+  _chandval[EngineContainer()->BetroundCalculator()->betround()] = _pokervalcommon & 0xff000000; 
+	if (EngineContainer()->BetroundCalculator()->betround() > kBetroundPreflop 
+			&& _chandval[EngineContainer()->BetroundCalculator()->betround()] > _chandval[EngineContainer()->BetroundCalculator()->betround()-1])	{
 		_ishandupcommon = true;
 	}
 }

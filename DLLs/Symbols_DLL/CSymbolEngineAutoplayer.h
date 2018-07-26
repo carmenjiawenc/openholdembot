@@ -15,9 +15,10 @@
 #include <assert.h>
 #include "CVirtualSymbolEngine.h"
 #include "CSymbolEngineTableLimits.h"
+#include "LibDef.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
-class CSymbolEngineAutoplayer: public CVirtualSymbolEngine {
+class SYMBOLS_DLL_API CSymbolEngineAutoplayer: public CVirtualSymbolEngine {
  public:
 	CSymbolEngineAutoplayer();
 	~CSymbolEngineAutoplayer();

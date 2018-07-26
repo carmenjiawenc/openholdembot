@@ -11,6 +11,8 @@
 //
 //****************************************************************************** 
 
+#define SYMBOLS_DLL_EXPORTS
+
 #include "CSymbolEngineTableLimits.h"
 #include <assert.h>
 #include "CBetroundCalculator.h"
@@ -293,7 +295,7 @@ double CSymbolEngineTableLimits::bet(int betround) {
 }
 
 double CSymbolEngineTableLimits::bet() {
-	return (bet(BetroundCalculator()->betround()));
+	return (bet(EngineContainer()->BetroundCalculator()->betround()));
 }
 
 bool CSymbolEngineTableLimits::EvaluateSymbol(const CString name, double *result, bool log /* = false */) {

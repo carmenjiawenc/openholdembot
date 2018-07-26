@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="COpenHoldemStarter.cpp" />
+    <ClCompile Include="CProcessManagement.cpp" />
     <ClCompile Include="CWatchdog.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

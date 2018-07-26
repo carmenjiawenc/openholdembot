@@ -80,9 +80,9 @@ bool CSymbolEngineVariousDataLookup::EvaluateSymbol(const CString name, double *
   // Various symbols below
   // without any optimized lookup.
   // Betting rounds
-  if (memcmp(name, "betround", 8)==0 && strlen(name)==8)	*result = BetroundCalculator()->betround();
-  else if (name == "currentround") *result = BetroundCalculator()->betround();
-  else if (name == "previousround") *result = BetroundCalculator()->PreviousRound();
+  if (memcmp(name, "betround", 8)==0 && strlen(name)==8)	*result = EngineContainer()->BetroundCalculator()->betround();
+  else if (name == "currentround") *result = EngineContainer()->BetroundCalculator()->betround();
+  else if (name == "previousround") *result = EngineContainer()->BetroundCalculator()->PreviousRound();
   // GENERAL
   else if (memcmp(name, "session", 7)==0 && strlen(name)==7)	*result = SessionCounter()->session_id();
   else if (memcmp(name, "version", 7)==0 && strlen(name)==7)	*result = VERSION_NUMBER;

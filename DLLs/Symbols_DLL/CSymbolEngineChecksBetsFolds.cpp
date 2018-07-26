@@ -142,16 +142,16 @@ void CSymbolEngineChecksBetsFolds::CalculateFoldBits() {
 	// remove players, who didn't get dealt.
 	new_foldbits &= EngineContainer()->symbol_engine_active_dealt_playing()->playersdealtbits();
 	// remove players, who folded in earlier betting-rounds.
-	if (BETROUND >= kBetroundFlop) {
+	if (EngineContainer()->BetroundCalculator()->betround() >= kBetroundFlop) {
 		new_foldbits &= (~_foldbits[kBetroundPreflop]);
 	}
-	if (BETROUND >= kBetroundTurn) {
+	if (EngineContainer()->BetroundCalculator()->betround() >= kBetroundTurn) {
 		new_foldbits &= (~_foldbits[kBetroundFlop]);
 	}
-	if (BETROUND >= kBetroundRiver)	{
+	if (EngineContainer()->BetroundCalculator()->betround() >= kBetroundRiver)	{
 		new_foldbits &= (~_foldbits[kBetroundTurn]);
 	}
-	_foldbits[BETROUND] = new_foldbits;
+	_foldbits[EngineContainer()->BetroundCalculator()->betround()] = new_foldbits;
   // We have to be very careful
   // if we accumulate info based on dozens of unstable frames
   // when it is not our turn and the casino potentially
