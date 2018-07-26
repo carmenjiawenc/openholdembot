@@ -56,7 +56,7 @@ void CHandHistoryDealPhase::UpdateOnMyTurn() {
 void CHandHistoryDealPhase::UpdateOnHeartbeat() {
   /*#
   if (_job_done) return;
-///  if (BETROUND > kBetroundPreflop) {
+///  if (EngineContainer()->BetroundCalculator()->betround() > kBetroundPreflop) {
     // Can only happen when we join a table
     // in the middle of a hand
     _job_done = true;
