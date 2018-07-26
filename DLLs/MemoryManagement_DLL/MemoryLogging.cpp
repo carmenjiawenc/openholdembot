@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define MEMORY_MANAGEMENT_DLL_EXPORTS
+
 #include "MemoryLogging.h"
 #include <afx.h>
 #include <assert.h>
