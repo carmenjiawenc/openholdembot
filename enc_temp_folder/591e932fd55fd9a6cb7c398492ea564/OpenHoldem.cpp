@@ -14,26 +14,17 @@
 // OpenHoldem.cpp : Defines the class behaviors for the application.
 //
 
-#include "stdafx.h"
 #include "OpenHoldem.h"
+#include <afxadv.h>
+#include <afxdisp.h>
+#include <afxwin.h>
 #include <assert.h>
-#include <psapi.h>
-///#include <windows.h>
-///#include "..\CTablemap\CTablemap.h"
-///#include "..\CTablemap\CTableMapAccess.h"
-/*#include "CAutoConnector.h"
-#include "CFormulaParser.h"
-#include "CHeartbeatThread.h"
-#include "CIteratorThread.h"
-#include "COpenHoldemHopperCommunication.h"
-#include "COpenHoldemTitle.h"
-#include "DialogFormulaScintilla.h"
-#include "MainFrm.h"*/
+#include "..\DLLs\Debug_DLL\debug.h"
+#include "..\DLLs\Files_DLL\Files.h"
+#include "..\DLLs\HeartbeatThread_DLL\CHeartbeatThread.h"
+#include "..\DLLs\Preferences_DLL\Preferences.h"
 #include "..\DLLs\SessionCounter_DLL\CSessionCounter.h"
-#include "..\DLLs\WindowFunctions_DLL\window_functions.h"
-///#include "OpenHoldemDoc.h"
-///#include "OpenHoldemView.h"
-///#include "Singletons.h"
+#include "..\Shared\MagicNumbers\MagicNumbers.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -46,8 +37,8 @@ AFX_STATIC_DATA const TCHAR _afxPreviewSection[] = _T("Settings");
 AFX_STATIC_DATA const TCHAR _afxPreviewEntry[] = _T("PreviewPages");
 
 // COpenHoldemApp
-extern bool Scintilla_RegisterClasses(void *hInstance);
-extern bool Scintilla_ReleaseResources();
+///extern bool Scintilla_RegisterClasses(void *hInstance);
+///extern bool Scintilla_ReleaseResources();
 
 // COpenHoldemApp construction
 
@@ -83,7 +74,7 @@ BOOL COpenHoldemApp::InitInstance() {
 	// no matter how it is named.
 	// For the technical details please see:
 	// http://msdn.microsoft.com/de-de/library/xykfyy20(v=vs.80).aspx
-	Scintilla_RegisterClasses(AfxGetInstanceHandle());
+	///Scintilla_RegisterClasses(AfxGetInstanceHandle());
 	// Initialize richedit2 library
 	AfxInitRichEdit2();
 	// Change class name of Dialog
@@ -186,7 +177,7 @@ int COpenHoldemApp::ExitInstance() {
   // by CMainFrame::DestroyWindow().
   // Now we cancontinue with singletons.
 	///DeleteAllSingletons();
-	Scintilla_ReleaseResources();
+	///Scintilla_ReleaseResources();
   stop_log();
 	return CWinApp::ExitInstance();
 }

@@ -3,4 +3,15 @@
   <ItemGroup>
     <ClCompile Include="OpenHoldem.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="OpenHoldem.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OpenHoldem.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OpenHoldem.def" />
+    <None Include="res\OpenHoldem.ico" />
+    <None Include="res\OpenHoldem.rc2" />
+  </ItemGroup>
 </Project>

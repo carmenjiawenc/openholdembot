@@ -12,16 +12,10 @@
 //
 //******************************************************************************
 
-#ifndef __AFXWIN_H__
-	#error "include 'stdafx.h' before including this file for PCH"
-#endif
+#include <afxwin.h>
 
-#include "CHeartBeatThread.h"
-///#include "..\DLLs\Formula_DLL\CFormulaParser.h"
-///#include "..\DLLs\SessionCounter_DLL\CSessionCounter.h"
-
-class CTableMapLoader; 
-class CHandresetDetector;
+class CGUI;
+class CHeartbeatThread;
 
 class COpenHoldemApp : public CWinApp {
  public:
@@ -30,7 +24,7 @@ class COpenHoldemApp : public CWinApp {
 	void MyLoadStdProfileSettings(UINT nMaxMRU);
 	virtual BOOL InitInstance();
 	afx_msg void OnAppAbout();
-	DECLARE_MESSAGE_MAP()
+	///DECLARE_MESSAGE_MAP()
 	virtual int ExitInstance();
  public:
 	void StoreLastRecentlyUsedFileList();
@@ -47,6 +41,3 @@ private:
 };
 
 COpenHoldemApp* OpenHoldem(); //!!!!!
-
-extern COpenHoldemApp theApp;//!!!!!
-
