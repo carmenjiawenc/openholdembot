@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define GUI_DLL_EXPORTS
+
 #include "MainFrm.h"
 #include <io.h>
 #include <process.h>

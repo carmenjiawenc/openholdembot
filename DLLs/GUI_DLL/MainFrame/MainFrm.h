@@ -13,13 +13,14 @@
 //******************************************************************************
 
 #include <afxwin.h>
+#include "..\LibDef.h"
 #include "..\..\..\Shared\CCritSec\CCritSec.h"
 
 #define HWND_CHECK_TIMER				1
 #define ENABLE_BUTTONS_TIMER    2
 #define UPDATE_STATUS_BAR_TIMER 3
 
-class CMainFrame : public CFrameWnd 
+class GUI_DLL_API CMainFrame : public CFrameWnd
 {
 protected: // create from serialization only
 	DECLARE_DYNCREATE(CMainFrame)
