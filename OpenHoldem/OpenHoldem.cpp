@@ -11,9 +11,6 @@
 //
 //******************************************************************************
 
-// OpenHoldem.cpp : Defines the class behaviors for the application.
-//
-
 #include "OpenHoldem.h"
 #include <afxadv.h>
 #include <afxdisp.h>
@@ -21,6 +18,10 @@
 #include <assert.h>
 #include "..\DLLs\Debug_DLL\debug.h"
 #include "..\DLLs\Files_DLL\Files.h"
+#include "..\DLLs\GUI_DLL\MainFrame\MainFrm.h"
+#include "..\DLLs\GUI_DLL\MainFrame\OpenHoldemDoc.h"
+#include "..\DLLs\GUI_DLL\MainFrame\OpenHoldemView.h"
+#include "..\DLLs\GUI_DLL\resource.h"
 #include "..\DLLs\HeartbeatThread_DLL\CHeartbeatThread.h"
 #include "..\DLLs\Preferences_DLL\Preferences.h"
 #include "..\DLLs\SessionCounter_DLL\CSessionCounter.h"
@@ -81,7 +82,7 @@ BOOL COpenHoldemApp::InitInstance() {
 	WNDCLASS wc;
 	GetClassInfo(AfxGetInstanceHandle(), "#32770", &wc);
 	wc.lpszClassName = "OpenHoldemFormula";
-	///wc.hIcon = AfxGetApp()->LoadIcon(IDI_ICON1);
+	wc.hIcon = AfxGetApp()->LoadIcon(IDI_ICON1);
 	RegisterClass(&wc);
   CWinApp::InitInstance();
  	// Initialize OLE libraries
@@ -102,30 +103,30 @@ BOOL COpenHoldemApp::InitInstance() {
 	// Start logging immediatelly after the loading the preferences
 	// and initializing the sessioncounter, which is necessary for 
 	// the filename of the log (oh_0.log, etc).
-  /*fn.Format("%s\\oh%d.log", _startup_path, theApp.sessionnum);
+  bool log_needs_to_be_deleted = false;
   struct stat file_stats = { 0 };
-  if (stat(fn.GetString(), &file_stats) == 0) {
+  if (stat(LogFilePath(SessionCounter()->session_id()).GetString(), &file_stats) == 0) {
     unsigned long int max_file_size = 1E06 * Preferences()->log_max_logsize();
     size_t file_size = file_stats.st_size;
     if (file_size > max_file_size) {
-      delete_log();
-    }*/
-	start_log(SessionCounter()->session_id(), false); //!!!!!
+      log_needs_to_be_deleted = true;
+    }
+  }
+	start_log(SessionCounter()->session_id(), log_needs_to_be_deleted);
   // ...then re-Load the preferences immediately after creation 
   // of the log-file again, as We might want to to log the preferences too,
   // which was not yet possible some lines above.
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=124&t=20281&p=142334#p142334
   Preferences()->LoadPreferences();
-	///InstantiateAllSingletons();
 	LoadLastRecentlyUsedFileList();
 	// Register the application's document templates.  Document templates
 	// serve as the connection between documents, frame windows and views
-	///CSingleDocTemplate* pDocTemplate;
+	CSingleDocTemplate* pDocTemplate;
 	// Document template and doc/view
   // https://msdn.microsoft.com/en-us/library/hts9a4xz.aspx
 	// https://msdn.microsoft.com/en-us/library/d1e9fe7d.aspx
 	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to create CSingleDocTemplate()\n");
-/*#	pDocTemplate = new CSingleDocTemplate(
+	pDocTemplate = new CSingleDocTemplate(
 		IDR_MAINFRAME,
 		RUNTIME_CLASS(COpenHoldemDoc),
 		RUNTIME_CLASS(CMainFrame),	   // main SDI frame window
@@ -133,7 +134,7 @@ BOOL COpenHoldemApp::InitInstance() {
 	if (!pDocTemplate) {
 		write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Creating CSingleDocTemplate() failed\n");
 		return FALSE;
-	}*/
+	}
 	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to AddDocTemplate()\n");
 	AddDocTemplate(pDocTemplate);
 	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to EnableShellOpen()\n");
@@ -153,11 +154,11 @@ BOOL COpenHoldemApp::InitInstance() {
     m_pMainWnd);
   // The one and only window has been initialized, so show and update it
   if (Preferences()->gui_first_visible() && (SessionCounter()->session_id() == 0)) {
-    ///m_pMainWnd->ShowWindow(SW_SHOW);
+    m_pMainWnd->ShowWindow(SW_SHOW);
   } else {
-    ///m_pMainWnd->ShowWindow(SW_MINIMIZE);
+    m_pMainWnd->ShowWindow(SW_MINIMIZE);
   }
-  ///m_pMainWnd->UpdateWindow();
+  m_pMainWnd->UpdateWindow();
   // call DragAcceptFiles only if there's a suffix
   // In an SDI app, this should occur after ProcessShellCommand
   // Enable drag/drop open
@@ -175,17 +176,16 @@ int COpenHoldemApp::ExitInstance() {
   // timers and threads are already stopped 
   // by CMainFrame::DestroyWindow().
   // Now we cancontinue with singletons.
-	///DeleteAllSingletons();
 	///Scintilla_ReleaseResources();
   stop_log();
 	return CWinApp::ExitInstance();
 }
 
-/*#// App command to run the dialog
+// App command to run the dialog
 void COpenHoldemApp::OnAppAbout() {
-	CDlgAbout aboutDlg;
-	aboutDlg.DoModal();
-}*/
+	///CDlgAbout aboutDlg;
+	///aboutDlg.DoModal();
+}
 
 void COpenHoldemApp::LoadLastRecentlyUsedFileList() {
 	// Added due to inability to get standard LoadStdProfileSettings working properly
@@ -243,6 +243,6 @@ void COpenHoldemApp::InitializeThreads() {
   write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to start heartbeat thread\n");
   assert(_p_heartbeat_thread == NULL);
   _p_heartbeat_thread = new CHeartbeatThread();
-  ///assert(__p_heartbeat_thread != NULL); //duplicate!!!!! prwin missing
-  ///__p_heartbeat_thread->StartThread();
+  assert(_p_heartbeat_thread != NULL); //duplicate!!!!! prwin missing
+  _p_heartbeat_thread->StartThread();
 }
