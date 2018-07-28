@@ -12,6 +12,7 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
 #include "..\LibDef.h"
 
 // OpenHoldemDoc.h : interface of the COpenHoldemDoc class

@@ -21,6 +21,7 @@
     <ClCompile Include="CGUI.cpp" />
     <ClCompile Include="MainFrame\MainFrm.cpp" />
     <ClCompile Include="MainFrame\OpenHoldemDoc.cpp" />
+    <ClCompile Include="MainFrame\OpenHoldemView.cpp" />
     <ClCompile Include="OpenHoldem_title\COpenHoldemTitle.cpp" />
     <ClCompile Include="preferences_dialog\DialogSAPrefs10.cpp" />
     <ClCompile Include="preferences_dialog\DialogSAPrefs11.cpp" />
@@ -146,6 +147,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>E:\OpenHoldem\pokereval\include;E:\OpenHoldem\pokereval\include\inlines;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)GUI.dll</OutputFile>

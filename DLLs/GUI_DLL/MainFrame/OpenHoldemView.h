@@ -14,8 +14,8 @@
 
 #include "OpenHoldemDoc.h"
 #include "..\LibDef.h"
-#include "..\DLLs\Tablestate_DLL\Card.h"
-#include "..\..\Shared\MagicNumbers\MagicNumbers.h"
+#include "..\..\Tablestate_DLL\Card.h"
+#include "..\..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 #define DISPLAY_UPDATE_TIMER	111
 

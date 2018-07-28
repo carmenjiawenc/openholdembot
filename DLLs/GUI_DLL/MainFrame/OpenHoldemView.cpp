@@ -11,33 +11,28 @@
 //
 //******************************************************************************
 
-// OpenHoldemView.cpp : implementation of the COpenHoldemView class
-//
+#define GUI_DLL_EXPORTS
 
-#include "stdafx.h"
 #include "OpenHoldemView.h"
-
-#include "CAutoplayerTrace.h"
-#include "CEngineContainer.h"
-#include "CHandresetDetector.h"
-#include "CHeartbeatThread.h"
-
-#include "CCasinoInterface.h"
-#include "CScraper.h"
-#include "CStringMatch.h"
-#include "CSymbolengineAutoplayer.h"
-#include "CSymbolengineChipAmounts.h"
-#include "CSymbolengineColourCodes.h"
-#include "CSymbolengineGameType.h"
-#include "CSymbolEngineIsOmaha.h"
-#include "CSymbolEngineIsTournament.h"
-#include "CSymbolEngineTableLimits.h"
-#include "..\CTablemap\CTablemap.h"
-#include "..\DLLs\Tablestate_DLL\TableState.h"
-#include "CWhiteInfoBox.h"
-
-#include "OpenHoldem.h"
-#include "OpenHoldemDoc.h"
+#include "..\..\CardFunctions.DLL\CardFunctions.h"
+#include "..\..\CasinoInterface_DLL\CCasinoInterface.h"
+#include "..\..\Debug_DLL\debug.h"
+#include "..\..\Preferences_DLL\Preferences.h"
+#include "..\..\Scraper_DLL\CBasicScraper.h"
+#include "..\..\Scraper_DLL\CTablemap\CTablemap.h"
+#include "..\..\StringFunctions_DLL\string_functions.h"
+#include "..\..\Symbols_DLL\CEngineContainer.h"
+#include "..\..\Symbols_DLL\CHandresetDetector.h"
+#include "..\..\Symbols_DLL\CSymbolEngineChipAmounts.h"
+#include "..\..\Symbols_DLL\CSymbolengineColourCodes.h"
+#include "..\..\Symbols_DLL\CSymbolEngineGameType.h"
+#include "..\..\Symbols_DLL\CSymbolEngineIsOmaha.h"
+#include "..\..\Symbols_DLL\CSymbolEngineIsTournament.h"!
+#include "..\..\Symbols_DLL\CSymbolEngineTableLimits.h"
+#include "..\..\TableState_DLL\CPlayer.h"
+#include "..\..\TableState_DLL\TableState.h"
+#include "..\..\..\Shared\MagicNumbers\MagicNumbers.h"
+#include "..\..\..\pokereval\include\poker_defs.h"
 
 // Table layouts
 int		cc[kNumberOfCommunityCards][2] = 
@@ -189,12 +184,12 @@ void COpenHoldemView::OnTimer(UINT_PTR nIDEvent) {
 	if (nIDEvent == DISPLAY_UPDATE_TIMER) 
 	{
 		// Only do this if we are not in the middle of a scraper/symbol update
-		if (TryEnterCriticalSection(&p_heartbeat_thread->cs_update_in_progress))
+		/*#if (TryEnterCriticalSection(&p_heartbeat_thread->cs_update_in_progress))
 		{
 			UpdateDisplay(false);
       write_log(Preferences()->debug_alltherest(), "[GUI] location Johnny_2\n");
 			LeaveCriticalSection(&p_heartbeat_thread->cs_update_in_progress);
-		}
+		}*/
 	}
 	// Otherwise: continue with parent class
 	CView::OnTimer(nIDEvent);
@@ -204,7 +199,7 @@ void COpenHoldemView::UpdateDisplay(const bool update_all) {
 	bool		update_it = false;
 	CDC			*pDC = GetDC();
 
-	CString sym_handnumber = p_handreset_detector->GetHandNumber();
+	CString sym_handnumber = EngineContainer()->HandresetDetector()->GetHandNumber();
 	double  sym_bblind = EngineContainer()->symbol_engine_tablelimits()->bblind();
 	double  sym_sblind = EngineContainer()->symbol_engine_tablelimits()->sblind();
 	double  sym_ante = EngineContainer()->symbol_engine_tablelimits()->ante();
@@ -262,12 +257,12 @@ void COpenHoldemView::UpdateDisplay(const bool update_all) {
 		update_it = true;
 	}
 
-  if ((EngineContainer()->symbol_engine_autoplayer()->ismyturn()) || update_it || update_all) 
+  if (CasinoInterface()->IsMyTurn() || update_it || update_all) 
 	{
-		assert(p_white_info_box != NULL);
+		/*#assert(p_white_info_box != NULL);
     p_white_info_box->Draw(_client_rect, _logfont, pDC,
       &_black_pen, &_white_brush);
-    ReleaseDC(pDC);
+    ReleaseDC(pDC);*/
 	}
 
 	// Draw button state indicators
@@ -290,7 +285,7 @@ void COpenHoldemView::UpdateDisplay(const bool update_all) {
 		}
 	}
   // Draw collection of player info
-	for (int i=0; i<p_tablemap->nchairs(); i++)
+	for (int i=0; i<BasicScraper()->Tablemap()->nchairs(); i++)
   {
 		write_log(Preferences()->debug_gui(), "[GUI] COpenHoldemView::UpdateDisplay() checking changes for chair %i\n", i);
 		// Figure out if we need to redraw this seat
@@ -369,44 +364,44 @@ void COpenHoldemView::DrawButtonIndicators(void) {
 	fold_drawn = call_drawn = check_drawn = raise_drawn = allin_drawn = false;
 
   // Draw "on" buttons
-  assert(p_casino_interface != NULL);
-  if (p_casino_interface->LogicalAutoplayerButton(k_autoplayer_function_fold)->IsClickable()) {
+  assert(CasinoInterface() != NULL);
+  if (CasinoInterface()->LogicalAutoplayerButton(k_autoplayer_function_fold)->IsClickable()) {
     DrawSpecificButtonIndicator('F', true, _client_rect.right - 84, _client_rect.bottom - 16, _client_rect.right - 70, _client_rect.bottom - 2);
     fold_drawn = true;
   }
-  if (p_casino_interface->LogicalAutoplayerButton(k_autoplayer_function_call)->IsClickable()) {
+  if (CasinoInterface()->LogicalAutoplayerButton(k_autoplayer_function_call)->IsClickable()) {
     DrawSpecificButtonIndicator('C', true, _client_rect.right - 67, _client_rect.bottom - 16, _client_rect.right - 53, _client_rect.bottom - 2);
     call_drawn = true;
   }
-  if (p_casino_interface->LogicalAutoplayerButton(k_autoplayer_function_check)->IsClickable()) {
+  if (CasinoInterface()->LogicalAutoplayerButton(k_autoplayer_function_check)->IsClickable()) {
     DrawSpecificButtonIndicator('K', true, _client_rect.right - 50, _client_rect.bottom - 16, _client_rect.right - 36, _client_rect.bottom - 2);
     check_drawn = true;
   }
-  if (p_casino_interface->LogicalAutoplayerButton(k_autoplayer_function_raise)->IsClickable()) {
+  if (CasinoInterface()->LogicalAutoplayerButton(k_autoplayer_function_raise)->IsClickable()) {
     DrawSpecificButtonIndicator('R', true, _client_rect.right - 33, _client_rect.bottom - 16, _client_rect.right - 19, _client_rect.bottom - 2);
     raise_drawn = true;
   }
-  if (p_casino_interface->LogicalAutoplayerButton(k_autoplayer_function_allin)->IsClickable()) {
+  if (CasinoInterface()->LogicalAutoplayerButton(k_autoplayer_function_allin)->IsClickable()) {
     DrawSpecificButtonIndicator('A', true, _client_rect.right - 16, _client_rect.bottom - 16, _client_rect.right - 2, _client_rect.bottom - 2);
     allin_drawn = true;
   }
-  if (p_casino_interface->LogicalAutoplayerButton(k_hopper_function_autopost)->IsClickable()) {
+  if (CasinoInterface()->LogicalAutoplayerButton(k_hopper_function_autopost)->IsClickable()) {
     DrawSpecificButtonIndicator('T', true, _client_rect.left + 2, _client_rect.bottom - 16, _client_rect.left + 16, _client_rect.bottom - 2);
     autopost_drawn = true;
   }
-  if (p_casino_interface->LogicalAutoplayerButton(k_hopper_function_sitin)->IsClickable()) {
+  if (CasinoInterface()->LogicalAutoplayerButton(k_hopper_function_sitin)->IsClickable()) {
     DrawSpecificButtonIndicator('I', true, _client_rect.left + 19, _client_rect.bottom - 16, _client_rect.left + 33, _client_rect.bottom - 2);
     sitin_drawn = true;
   }
-  if (p_casino_interface->LogicalAutoplayerButton(k_hopper_function_sitout)->IsClickable()) {
+  if (CasinoInterface()->LogicalAutoplayerButton(k_hopper_function_sitout)->IsClickable()) {
     DrawSpecificButtonIndicator('O', true, _client_rect.left + 36, _client_rect.bottom - 16, _client_rect.left + 50, _client_rect.bottom - 2);
     sitout_drawn = true;
   }
-  if (p_casino_interface->LogicalAutoplayerButton(k_hopper_function_leave)->IsClickable()) {
+  if (CasinoInterface()->LogicalAutoplayerButton(k_hopper_function_leave)->IsClickable()) {
     DrawSpecificButtonIndicator('L', true, _client_rect.left + 53, _client_rect.bottom - 16, _client_rect.left + 67, _client_rect.bottom - 2);
     leave_drawn = true;
   }
-	if (p_casino_interface->LogicalAutoplayerButton(k_standard_function_prefold)->IsClickable()) {
+	if (CasinoInterface()->LogicalAutoplayerButton(k_standard_function_prefold)->IsClickable()) {
 		DrawSpecificButtonIndicator('P', true, _client_rect.left+70, _client_rect.bottom-16, _client_rect.left+84, _client_rect.bottom-2);
 		prefold_drawn = true;
 	}
@@ -547,10 +542,10 @@ void COpenHoldemView::DrawSeatedActiveCircle(const int chair) {
 	pDC->SetBkColor(COLOR_GRAY);
 
 	// Figure placement of circle
-	left = _client_rect.right * pc[p_tablemap->nchairs()][chair][0] - CARDSIZEX - 6;
-	top = _client_rect.bottom * pc[p_tablemap->nchairs()][chair][1] - CARDSIZEX - 5;
-	right = _client_rect.right * pc[p_tablemap->nchairs()][chair][0] + CARDSIZEX + 5;
-	bottom = _client_rect.bottom * pc[p_tablemap->nchairs()][chair][1] + CARDSIZEX + 5;
+	left = _client_rect.right * pc[BasicScraper()->Tablemap()->nchairs()][chair][0] - CARDSIZEX - 6;
+	top = _client_rect.bottom * pc[BasicScraper()->Tablemap()->nchairs()][chair][1] - CARDSIZEX - 5;
+	right = _client_rect.right * pc[BasicScraper()->Tablemap()->nchairs()][chair][0] + CARDSIZEX + 5;
+	bottom = _client_rect.bottom * pc[BasicScraper()->Tablemap()->nchairs()][chair][1] + CARDSIZEX + 5;
 
 	pTempPen = (CPen*)pDC->SelectObject(&_black_pen);
 	oldpen.FromHandle((HPEN)pTempPen);					// Save old pen
@@ -580,10 +575,10 @@ void COpenHoldemView::DrawDealerButton(const int chair) {
 	pDC->SetBkColor(COLOR_GRAY);
 
 	// Figure placement of circle
-	left = _client_rect.right * pc[p_tablemap->nchairs()][chair][0] - 8;
-	top = _client_rect.bottom * pc[p_tablemap->nchairs()][chair][1] - 8;
-	right = _client_rect.right * pc[p_tablemap->nchairs()][chair][0] + 8;
-	bottom = _client_rect.bottom * pc[p_tablemap->nchairs()][chair][1] + 8;
+	left = _client_rect.right * pc[BasicScraper()->Tablemap()->nchairs()][chair][0] - 8;
+	top = _client_rect.bottom * pc[BasicScraper()->Tablemap()->nchairs()][chair][1] - 8;
+	right = _client_rect.right * pc[BasicScraper()->Tablemap()->nchairs()][chair][0] + 8;
+	bottom = _client_rect.bottom * pc[BasicScraper()->Tablemap()->nchairs()][chair][1] + 8;
 
   pTempPen = (CPen*)pDC->SelectObject(&_black_pen);
 	oldpen.FromHandle((HPEN)pTempPen);					// Save old pen
@@ -720,10 +715,10 @@ void COpenHoldemView::DrawNameBox(const int chair) {
   // Background color
 	pDC->SetBkColor(COLOR_GRAY);
   // Figure placement of box
-	left = _client_rect.right * pc[p_tablemap->nchairs()][chair][0] - 36;
-	top = _client_rect.bottom * pc[p_tablemap->nchairs()][chair][1] + 15;
-	right = _client_rect.right * pc[p_tablemap->nchairs()][chair][0] + 35;
-	bottom = _client_rect.bottom * pc[p_tablemap->nchairs()][chair][1] + 30;
+	left = _client_rect.right * pc[BasicScraper()->Tablemap()->nchairs()][chair][0] - 36;
+	top = _client_rect.bottom * pc[BasicScraper()->Tablemap()->nchairs()][chair][1] + 15;
+	right = _client_rect.right * pc[BasicScraper()->Tablemap()->nchairs()][chair][0] + 35;
+	bottom = _client_rect.bottom * pc[BasicScraper()->Tablemap()->nchairs()][chair][1] + 30;
   // Set font basics
 	_logfont.lfHeight = -12;
 	_logfont.lfWeight = FW_NORMAL;
@@ -790,10 +785,10 @@ void COpenHoldemView::DrawBalanceBox(const int chair) {
   // Background color
 	pDC->SetBkColor(COLOR_GRAY);
   // Figure placement of box
-	left = _client_rect.right * pc[p_tablemap->nchairs()][chair][0] - 26;
-	top = _client_rect.bottom * pc[p_tablemap->nchairs()][chair][1] + 30;
-	right = _client_rect.right * pc[p_tablemap->nchairs()][chair][0] + 25;
-	bottom = _client_rect.bottom * pc[p_tablemap->nchairs()][chair][1] + 45;
+	left = _client_rect.right * pc[BasicScraper()->Tablemap()->nchairs()][chair][0] - 26;
+	top = _client_rect.bottom * pc[BasicScraper()->Tablemap()->nchairs()][chair][1] + 30;
+	right = _client_rect.right * pc[BasicScraper()->Tablemap()->nchairs()][chair][0] + 25;
+	bottom = _client_rect.bottom * pc[BasicScraper()->Tablemap()->nchairs()][chair][1] + 45;
   // Set font basics
 	_logfont.lfHeight = -12;
 	_logfont.lfWeight = FW_NORMAL;
@@ -873,10 +868,10 @@ void COpenHoldemView::DrawPlayerBet(const int chair) {
   // Background color
 	pDC->SetBkColor(COLOR_GRAY);
   // Figure placement
-	xcenter = _client_rect.right * pc[p_tablemap->nchairs()][chair][0];
-	ycenter = _client_rect.bottom * pc[p_tablemap->nchairs()][chair][1];
-	xadj = pcbet[p_tablemap->nchairs()][chair][0];
-	yadj = pcbet[p_tablemap->nchairs()][chair][1];
+	xcenter = _client_rect.right * pc[BasicScraper()->Tablemap()->nchairs()][chair][0];
+	ycenter = _client_rect.bottom * pc[BasicScraper()->Tablemap()->nchairs()][chair][1];
+	xadj = pcbet[BasicScraper()->Tablemap()->nchairs()][chair][0];
+	yadj = pcbet[BasicScraper()->Tablemap()->nchairs()][chair][1];
   // Set font basics
 	_logfont.lfHeight = -12;
 	_logfont.lfWeight = FW_NORMAL;
@@ -938,12 +933,12 @@ void COpenHoldemView::DrawPlayerCards(const int chair) {
 	// Get size of current client window
 	GetClientRect(&_client_rect);
   // Calculate fixed y-position
-  int pos_y_top = _client_rect.bottom * pc[p_tablemap->nchairs()][chair][1] - CARDSIZEY / 2;
+  int pos_y_top = _client_rect.bottom * pc[BasicScraper()->Tablemap()->nchairs()][chair][1] - CARDSIZEY / 2;
   int pos_y_bottom = pos_y_top + CARDSIZEY - 1;
   // x-offset between two cards, with some overlap due ti space restrictions
   int x_offset_to_next_card = CARDSIZEX - 10;
   // Calculate starting position for first card
-  int first_pos_x_right = _client_rect.right * pc[p_tablemap->nchairs()][chair][0] + 7;
+  int first_pos_x_right = _client_rect.right * pc[BasicScraper()->Tablemap()->nchairs()][chair][0] + 7;
   if (EngineContainer()->symbol_engine_isomaha()->isomaha()) {
     // Original positions were designed for HoldEm.
     // If we play Omaha, then move everything one card to the left
@@ -968,12 +963,12 @@ void COpenHoldemView::DrawColourCodes(const int chair) {
   }
   int right = 0;
   // Figure placement of box
-  int bottom = _client_rect.bottom * pc[p_tablemap->nchairs()][chair][1] + 16;
+  int bottom = _client_rect.bottom * pc[BasicScraper()->Tablemap()->nchairs()][chair][1] + 16;
   int top    = bottom - 10;
-  if (chair >= (p_tablemap->nchairs() / 2)) {
-    right = _client_rect.right * pc[p_tablemap->nchairs()][chair][0] - 20;
+  if (chair >= (BasicScraper()->Tablemap()->nchairs() / 2)) {
+    right = _client_rect.right * pc[BasicScraper()->Tablemap()->nchairs()][chair][0] - 20;
   } else {
-    right = _client_rect.right * pc[p_tablemap->nchairs()][chair][0] + 31;
+    right = _client_rect.right * pc[BasicScraper()->Tablemap()->nchairs()][chair][0] + 31;
   }
   int left = right - 10;
   // Draw it

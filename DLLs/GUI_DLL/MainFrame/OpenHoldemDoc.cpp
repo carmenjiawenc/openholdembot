@@ -16,17 +16,15 @@
 
 #define GUI_DLL_EXPORTS
 
-#include "CAutoplayer.h"
-#include "CFormulaParser.h"
-#include "..\DLLs\Symbols_DLL\CFunctionCollection.h"
-#include "COpenHoldemHopperCommunication.h"
-#include "COpenHoldemTitle.h"
-
-#include "DialogFormulaScintilla.h"
-#include "MainFrm.h"
-#include "..\DLLs\WindowFunctions_DLL\window_functions.h"
-#include "OpenHoldem.h"
 #include "OpenHoldemDoc.h"
+#include <assert.h>
+#include "MainFrm.h"
+#include "..\CGUI.h"
+#include "..\..\Debug_DLL\debug.h"
+#include "..\..\Formula_DLL\CFormula.h"
+#include "..\..\Formula_DLL\CFunctionCollection.h"
+#include "..\..\Preferences_DLL\Preferences.h"
+#include "..\..\WindowFunctions_DLL\window_functions.h"
 
 // COpenHoldemDoc
 IMPLEMENT_DYNCREATE(COpenHoldemDoc, CDocument)
@@ -37,7 +35,7 @@ END_MESSAGE_MAP()
 // COpenHoldemDoc construction/destruction
 COpenHoldemDoc::COpenHoldemDoc() {
 	write_log(Preferences()->debug_openholdem(), "[COpenHoldemDoc] Going to call  FunctionCollection()->DeleteAll\n");
-	FunctionCollection()->DeleteAll(false, true);
+	Formula()->FunctionCollection()->DeleteAll(false, true);
 }
 
 COpenHoldemDoc::~COpenHoldemDoc() {
@@ -71,7 +69,7 @@ BOOL COpenHoldemDoc::OnNewDocument() {
     return FALSE;
   }
 	// Default bot
-	FunctionCollection()->SetEmptyDefaultBot();
+	Formula()->FunctionCollection()->SetEmptyDefaultBot();
 	SetModifiedFlag(false);
 	GUI()->OpenHoldemTitle()->UpdateTitle();
 	return true;
@@ -85,7 +83,7 @@ void COpenHoldemDoc::Serialize(CArchive& ar)
 	if (ar.IsStoring()) 
 	{
 		// Store archive in the new OpenHoldem format
-		FunctionCollection()->Save(ar);
+		Formula()->FunctionCollection()->Save(ar);
 		// Do not close this archive here.
 		// It's expected to stay open at this point!
 	}
@@ -113,15 +111,15 @@ void COpenHoldemDoc::Serialize(CArchive& ar)
 		//
 		// So we decided to go that route.
 		//
-		if (p_autoplayer->autoplayer_engaged())
+		/*#if (p_autoplayer->autoplayer_engaged())
 		{
 			MessageBox_Interactive("Can't load formula while autoplayer engaged.", "ERROR", 0);
 			return;
-		}
+		}*/
 		// Read ohf file
-    assert(OpenHoldem()->FormulaParser() != NULL);
+    ///assert(OpenHoldem()->FormulaParser() != NULL);
 		write_log(Preferences()->debug_openholdem(), "[COpenHoldemDoc::Serialize] Going to call OpenHoldem()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic \n");
-		OpenHoldem()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic(ar);
+		///OpenHoldem()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic(ar);
 		SetModifiedFlag(false);
 		GUI()->OpenHoldemTitle()->UpdateTitle();
 	}
@@ -132,4 +130,3 @@ COpenHoldemDoc * COpenHoldemDoc::GetDocument()
 	CFrameWnd * pFrame = (CFrameWnd *)(AfxGetApp()->m_pMainWnd);
 	return (COpenHoldemDoc *) pFrame->GetActiveDocument();
 }
-
