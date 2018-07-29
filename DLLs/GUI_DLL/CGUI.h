@@ -21,6 +21,8 @@
 #include "OpenHoldem_title\COpenHoldemTitle.h"
 #include "white_info_box\CWhiteInfoBox.h"
 
+class CSingleDocTemplate;
+
 class GUI_DLL_API CGUI {
 public:
   CGUI();
@@ -49,6 +51,8 @@ public:
   CWhiteInfoBox* WhiteInfoBox() { 
     return _p_white_infobox;
   }
+public:
+  CSingleDocTemplate* CreateCSingleDocTemplate();
 private:
   void UpdateOnConnection();
   void UpdateOnDisconnection();

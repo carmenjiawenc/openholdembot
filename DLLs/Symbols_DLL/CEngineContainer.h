@@ -73,7 +73,7 @@ class CSymbolEngineVariousDataLookup;
 class CSymbolEngineVersus;
 class CSymbolEngineICM;
 
-class  SYMBOLS_DLL_API CEngineContainer/*#: public CSpaceOptimizedGlobalObject*/ {
+class SYMBOLS_DLL_API CEngineContainer/*#: public CSpaceOptimizedGlobalObject*/ {
  public:
   CEngineContainer();
   ~CEngineContainer();

@@ -76,8 +76,9 @@ void CFormulaParser::EnterParserCode() {
 }
 
 void CFormulaParser::LeaveParserCode() {
-  assert(_is_parsing_counter >= 0);
+  assert(_is_parsing_counter >= 1);
   --_is_parsing_counter;
+  assert(_is_parsing_counter >= 0);
 }
 
 void CFormulaParser::InitNewParse() {
@@ -360,11 +361,11 @@ void CFormulaParser::ParseListBody(COHScriptList *list) {
         return;
       }
 		}	else {
-			CParseErrors::UnexpectedToken("Unexpected token inside list.\n"
+			CParseErrors::UnexpectedToken("Unexpected token inside hand-list.\n"
         "This does not look like valid hole-cards.\n",
         "Allowed are\n:"
         "  AA  KK...  pairs\n"
-        "  AKs AQo... suited hands\n" 
+        "  AKs AQs... suited hands\n" 
         "  AKo AQo... offsuited hands\n",
         token_ID);
 			return;

@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define SYMBOLS_DLL_EXPORTS
+
 #include "CSymbolEngineColourCodes.h"
 #include "CBetroundCalculator.h"
 #include "..\Globals_DLL\globals.h"

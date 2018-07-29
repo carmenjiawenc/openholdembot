@@ -22,9 +22,11 @@
 // OpenHoldemView.h : interface of the COpenHoldemView class
 
 class GUI_DLL_API COpenHoldemView : public CView {
- protected: // create from serialization only
+  //!!!
+  DECLARE_DYNCREATE(COpenHoldemView)
+protected: // create from serialization only
 	COpenHoldemView();
-	DECLARE_DYNCREATE(COpenHoldemView)
+	//!!!DECLARE_DYNCREATE(COpenHoldemView)
 	DECLARE_MESSAGE_MAP()
   afx_msg void OnTimer(UINT nIDEvent);
  public:

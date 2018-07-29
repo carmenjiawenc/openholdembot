@@ -13,8 +13,9 @@
 //******************************************************************************
 
 #include "CVirtualSymbolEngine.h"
+#include "LibDef.h"
 
-class CSymbolEngineColourCodes: public CVirtualSymbolEngine {
+class SYMBOLS_DLL_API CSymbolEngineColourCodes: public CVirtualSymbolEngine {
  public:
 	CSymbolEngineColourCodes();
 	~CSymbolEngineColourCodes();

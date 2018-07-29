@@ -18,6 +18,7 @@
 #include <assert.h>
 #include "..\DLLs\Debug_DLL\debug.h"
 #include "..\DLLs\Files_DLL\Files.h"
+#include "..\DLLs\GUI_DLL\CGUI.h"
 #include "..\DLLs\GUI_DLL\MainFrame\MainFrm.h"
 #include "..\DLLs\GUI_DLL\MainFrame\OpenHoldemDoc.h"
 #include "..\DLLs\GUI_DLL\MainFrame\OpenHoldemView.h"
@@ -126,7 +127,7 @@ BOOL COpenHoldemApp::InitInstance() {
   // https://msdn.microsoft.com/en-us/library/hts9a4xz.aspx
 	// https://msdn.microsoft.com/en-us/library/d1e9fe7d.aspx
 	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to create CSingleDocTemplate()\n");
-	pDocTemplate = new CSingleDocTemplate(
+	/*#pDocTemplate = new CSingleDocTemplate(
 		IDR_MAINFRAME,
 		RUNTIME_CLASS(COpenHoldemDoc),
 		RUNTIME_CLASS(CMainFrame),	   // main SDI frame window
@@ -135,12 +136,14 @@ BOOL COpenHoldemApp::InitInstance() {
 		write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Creating CSingleDocTemplate() failed\n");
 		return FALSE;
 	}
-	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to AddDocTemplate()\n");
+	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to AddDocTemplate()\n");*/
+  CGUI gui;
+  pDocTemplate = gui.CreateCSingleDocTemplate();
 	AddDocTemplate(pDocTemplate);
 	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to EnableShellOpen()\n");
 	EnableShellOpen();
 	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to RegisterShellFileTypes(false)\n");
-	RegisterShellFileTypes(false);
+	///RegisterShellFileTypes(false);
   write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to InitializeThreads()\n");
   InitializeThreads();
   write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to OpenLastRecentlyUsedFile()\n");
