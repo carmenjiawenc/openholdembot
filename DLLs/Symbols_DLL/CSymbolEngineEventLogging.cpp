@@ -147,10 +147,6 @@ void CSymbolEngineEventLogging::LogBasicInfo(const char *action_taken) {
   ///write_log(k_always_log_basic_information, "  Best action:   %s\n", BestAction().GetString());
   write_log(k_always_log_basic_information, "  Action taken:  %s\n",    action_taken);
   write_log_separator(k_always_log_basic_information, "");
-  // Also show "BestAction" in the statusbar.
-  // This needs to be set exactly once to avoid multiple evaluations
-  // of the autoplayer functions
-  ///GUI()->OpenholdemStatusbar()->SetLastAction(BestAction());OpenholdemStatusbar()->SetLastAction(BestAction());
 }
 
 void CSymbolEngineEventLogging::LogPlayers() {

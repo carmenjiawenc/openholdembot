@@ -107,7 +107,6 @@ bool CSymbolEngineVariousDataLookup::EvaluateSymbol(const CString name, double *
     if (!Formula()->FormulaParser()->IsParsing()) {
       write_log(Preferences()->debug_auto_trace(), 
         "[CSymbolEngineVariousDataLookup] %s -> 0.000 [just logged]\n", name);
-      ///GUI()->WhiteInfoBox()->SetCustomLogMessage(name);
     }
     // True (1) is convenient in sequences of ANDed conditions
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=110&t=19421
