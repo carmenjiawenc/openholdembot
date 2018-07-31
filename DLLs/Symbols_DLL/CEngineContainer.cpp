@@ -97,7 +97,8 @@ void CEngineContainer::CreateSpecialSymbolEngines() {
   // Some engines are "special", because we need to call them up-front,
   // e.g. to detect a hand-reset.
   // So they work slightly different and also get their own initialization.
-  ///p_betround_calculator = new CBetroundCalculator();	
+  p_betround_calculator = new CBetroundCalculator();	
+  p_handreset_detector = new CHandresetDetector();
 }
 
 void CEngineContainer::AddSymbolEngine(CVirtualSymbolEngine *new_symbol_engine) {

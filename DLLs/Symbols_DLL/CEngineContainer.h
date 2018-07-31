@@ -108,10 +108,10 @@ class SYMBOLS_DLL_API CEngineContainer/*#: public CSpaceOptimizedGlobalObject*/ 
   CString _list_of_symbols;
 public:
   CBetroundCalculator *BetroundCalculator() {
-    return NULL; ///!!!
+    return p_betround_calculator;
   }
   CHandresetDetector *HandresetDetector() {
-    return NULL; ///!!!
+    return p_handreset_detector;
   }
   CSymbolEngineActiveDealtPlaying *symbol_engine_active_dealt_playing()
     { return p_symbol_engine_active_dealt_playing; }
@@ -261,7 +261,9 @@ private:
   CHandHistoryUncontested *p_handhistory_uncontested;
   CHandHistoryShowdown *p_handhistory_showdown;
   CHandHistoryWriter *p_handhistory_writer;
+private:
+  CBetroundCalculator *p_betround_calculator;
+  CHandresetDetector *p_handreset_detector;
 };
 
-///!!!
 SYMBOLS_DLL_API CEngineContainer* EngineContainer();
