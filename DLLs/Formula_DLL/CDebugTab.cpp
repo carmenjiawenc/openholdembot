@@ -15,6 +15,7 @@
 #define FORMULA_DLL_EXPORTS
 
 #include "CDebugTab.h"
+#include "CFormula.h"
 #include "CFormulaParser.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
@@ -46,7 +47,7 @@ CDebugTab::~CDebugTab() {
 }
 
 void CDebugTab::Parse() {
-  FormulaParser()->ParseDebugTab(_function_text);
+  Formula()->FormulaParser()->ParseDebugTab(_function_text);
 }
 
 CString CDebugTab::EvaluateAll() {

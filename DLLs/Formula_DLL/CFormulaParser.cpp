@@ -1059,8 +1059,3 @@ void CFormulaParser::ParseDebugTab(CString function_text) {
   _is_parsing_debug_tab = false;
   LeaveParserCode();
 }
-
-
-CFormulaParser* FormulaParser() {
-  return 0;
-} //!!!!!

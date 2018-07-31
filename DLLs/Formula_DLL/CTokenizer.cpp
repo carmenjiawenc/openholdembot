@@ -14,6 +14,7 @@
 
 #include "CTokenizer.h"
 #include "assert.h"
+#include "CFormula.h"
 #include "CFormulaparser.h"
 #include "COHScriptObject.h"
 #include "CParseErrors.h"
@@ -387,7 +388,7 @@ NegativeNumber:
 				RETURN_DEFAULT_SINGLE_CHARACTER_OPERATOR(kTokenOperatorPercentage);
 			}
       ///assert(OpenHoldem()->FormulaParser() != NULL);
-      if (FormulaParser()->IsParsingDebugTab()) {
+      if (Formula()->FormulaParser()->IsParsingDebugTab()) {
         // http://www.maxinmontreal.com/forums/viewtopic.php?f=297&t=19973&p=140389#p140389
         MessageBox_Error_Warning("Operator % in debug-tab detected.\n"
           "\n"

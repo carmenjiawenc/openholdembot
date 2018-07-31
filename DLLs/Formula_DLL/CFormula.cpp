@@ -17,11 +17,13 @@
 #include <afxwin.h>
 #include "CAutoplayerLogic.h"
 #include "CAutoplayerTrace.h"
+#include "CFormulaParser.h"
 #include "CFunctionCollection.h"
 
 CFormula::CFormula() {
   _autoplayer_logic = new CAutoplayerLogic;
   _autoplayer_trace = new CAutoplayerTrace;
+  _formula_parser = new CFormulaParser;
   _function_collection = new CFunctionCollection;
 }
 

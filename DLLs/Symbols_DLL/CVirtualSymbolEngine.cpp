@@ -15,11 +15,12 @@
 #include "CEngineContainer.h"
 #include "CSymbolEngineIsOmaha.h"
 #include "..\CasinoInterface_DLL\CCasinoInterface.h"
+#include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFormulaParser.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 
 void CVirtualSymbolEngine::WarnIfSymbolRequiresMyTurn(CString name) {
-  if (FormulaParser()->IsParsing()) {
+  if (Formula()->FormulaParser()->IsParsing()) {
     // No error-message while parsing,
     // as we only verify existence, 
     // but don't care about the result.

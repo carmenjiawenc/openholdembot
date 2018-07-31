@@ -132,7 +132,7 @@ EXE_IMPLEMENTS char* GetTableTitle() {
 
 EXE_IMPLEMENTS void ParseHandList(const char* name_of_list, const char* list_body) {
   COHScriptList* p_new_list = new COHScriptList(name_of_list, list_body);
-  FormulaParser()->ParseFormula(p_new_list);
+  Formula()->FormulaParser()->ParseFormula(p_new_list);
   Formula()->FunctionCollection()->Add(p_new_list);
 }
 

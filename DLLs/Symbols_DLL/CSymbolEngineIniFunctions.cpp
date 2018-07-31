@@ -18,7 +18,6 @@
 #include "CSymbolEngineIniFunctions.h"
 #include <assert.h>
 #include "CEngineContainer.h"
-///#include "CFormulaParser.h"
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include "CSymbolEngineAutoplayer.h"
 #include "CSymbolEngineBlinds.h"
@@ -48,7 +47,7 @@
 // This was no problem on startup, but caused crashes
 // when we tried to load a new formula.
 // http://www.maxinmontreal.com/forums/viewtopic.php?f=110&t=16788&start=30
-#define RETURN_IF_LOADING_NEW_FORMULA if ((Formula()->FunctionCollection() == NULL) || ((FormulaParser() != NULL) && (FormulaParser()->IsParsing()))) return;
+#define RETURN_IF_LOADING_NEW_FORMULA if ((Formula()->FunctionCollection() == NULL) || ((Formula()->FormulaParser() != NULL) && (Formula()->FormulaParser()->IsParsing()))) return;
 
 CSymbolEngineIniFunctions::CSymbolEngineIniFunctions() {
   // The values of some symbol-engines depend on other engines.

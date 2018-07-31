@@ -19,6 +19,7 @@
 #include "CEngineContainer.h"
 ///#include "CFormulaParser.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFormulaParser.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
@@ -133,7 +134,7 @@ CString CSymbolEngineMultiplexer::MultiplexedSymbolName(CString name) {
   EngineContainer()->EvaluateSymbol(postfix, &evaluated_postfix, false);
   if (evaluated_postfix == kUndefined) {
     // Valid postfix, but invalid (negative) value
-	  if (FormulaParser()->IsParsing()) {
+	  if (Formula()->FormulaParser()->IsParsing()) {
       // Some (chair) values are not available,
       // but we want to continue to verify the entire multiplexer-symbol.
       // Continue with chair 0

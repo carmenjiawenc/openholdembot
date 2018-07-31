@@ -22,6 +22,7 @@
 #include "CSymbolEngineRaisers.h"
 #include "CSymbolEngineUserchair.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFormulaParser.h"
 #include "..\Formula_DLL\CParseErrors.h"
 #include "..\Formula_DLL\CParseTreeTerminalNodeEndOfFunction.h"
@@ -177,7 +178,7 @@ bool CSymbolEnginePokerTracker::EvaluateSymbol(const CString name, double *resul
 	int chair = 0;
 	if (!_p_poker_tracker_thread->IsConnected()) 	{
 		if (!EngineContainer()->symbol_engine_userchair()->userchair_confirmed() 
-      || FormulaParser()->IsParsing()) {
+      || Formula()->FormulaParser()->IsParsing()) {
 			// We are not yet seated or formula is getting parsed.
 			// Symbol-lookup happens, because of Formula-validation.
 			// Not a problem, if we do not yet have a DB-connection.

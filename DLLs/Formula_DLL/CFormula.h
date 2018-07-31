@@ -16,6 +16,7 @@
 
 class CAutoplayerLogic;
 class CAutoplayerTrace;
+class CFormulaParser;
 class CFunctionCollection;
 
 class FORMULA_DLL_API CFormula {
@@ -29,12 +30,16 @@ public:
   CAutoplayerTrace* AutoplayerTrace() {
     return _autoplayer_trace;
   }
+  CFormulaParser* FormulaParser() {
+    return _formula_parser;
+  }
   CFunctionCollection* FunctionCollection() {
     return _function_collection;
   }
 private:
   CAutoplayerLogic* _autoplayer_logic;
   CAutoplayerTrace* _autoplayer_trace;
+  CFormulaParser* _formula_parser;
   CFunctionCollection* _function_collection;
 };
 

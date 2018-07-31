@@ -15,7 +15,7 @@
 
 #include "COHScriptList.h"
 
-///#include "..\CardFunctions.DLL\CardFunctions.h"
+#include "CFormula.h"
 #include "CFormulaParser.h"
 ///#include "CMemoryPool.h"
 #include "CParseErrors.h"
@@ -203,7 +203,7 @@ void COHScriptList::Parse() {
   if (NeedsToBeParsed()) {
     write_log(Preferences()->debug_formula() || Preferences()->debug_parser(),
       "[CFunction] Parsing %s\n", _name);
-    FormulaParser()->ParseFormula(this);
+    Formula()->FormulaParser()->ParseFormula(this);
     MarkAsParsed();
   }
   else {

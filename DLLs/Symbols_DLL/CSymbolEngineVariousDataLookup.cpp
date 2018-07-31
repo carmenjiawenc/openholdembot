@@ -23,6 +23,7 @@
 #include "Chair$Symbols.h"
 #include "CSymbolEngineUserchair.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFormulaParser.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
@@ -96,14 +97,14 @@ bool CSymbolEngineVariousDataLookup::EvaluateSymbol(const CString name, double *
     // We might however want to show a message if we are not yet connected,
     // e.g. in f$ini_function_pn_startup
     write_log(Preferences()->debug_alltherest(), "[CSymbolEngineVariousDataLookup] location Johnny_8\n");
-    if (FormulaParser()->IsParsing()) {
+    if (Formula()->FormulaParser()->IsParsing()) {
 	    *result = 0;
     } else {
 	    MessageBox_OH_Script_Messages(name);
 	    *result = 0;
     }
   } else if ((memcmp(name, "log$", 4)==0) && (strlen(name)>4)) {
-    if (!FormulaParser()->IsParsing()) {
+    if (!Formula()->FormulaParser()->IsParsing()) {
       write_log(Preferences()->debug_auto_trace(), 
         "[CSymbolEngineVariousDataLookup] %s -> 0.000 [just logged]\n", name);
       ///GUI()->WhiteInfoBox()->SetCustomLogMessage(name);

@@ -313,7 +313,7 @@ void CEngineContainer::EvaluateAll() {
 		// until OnConnection() got executed.
 		return;
 	}
-	if (FormulaParser()->IsParsing()) {
+	if (Formula()->FormulaParser()->IsParsing()) {
 		// Not safe to evaluate anything
 		return;
 	}
@@ -428,7 +428,7 @@ bool CEngineContainer::EvaluateSymbol(const CString name, double *result, bool l
     }
   }
   // Unknown symbol
-  if (FormulaParser()->IsParsing()) {
+  if (Formula()->FormulaParser()->IsParsing()) {
     // Generate a verbose error-message
     // with line number and code-snippet
     CParseErrors::ErrorUnknownIdentifier(name);

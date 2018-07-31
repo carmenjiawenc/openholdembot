@@ -22,6 +22,7 @@
 #include "..\CGUI.h"
 #include "..\..\Debug_DLL\debug.h"
 #include "..\..\Formula_DLL\CFormula.h"
+#include "..\..\Formula_DLL\CFormulaParser.h"
 #include "..\..\Formula_DLL\CFunctionCollection.h"
 #include "..\..\Preferences_DLL\Preferences.h"
 #include "..\..\WindowFunctions_DLL\window_functions.h"
@@ -71,7 +72,7 @@ BOOL COpenHoldemDoc::OnNewDocument() {
 	// Default bot
 	Formula()->FunctionCollection()->SetEmptyDefaultBot();
 	SetModifiedFlag(false);
-	GUI()->OpenHoldemTitle()->UpdateTitle();
+	///GUI()->OpenHoldemTitle()->UpdateTitle();
 	return true;
 }
 
@@ -117,11 +118,11 @@ void COpenHoldemDoc::Serialize(CArchive& ar)
 			return;
 		}*/
 		// Read ohf file
-    ///assert(OpenHoldem()->FormulaParser() != NULL);
-		write_log(Preferences()->debug_openholdem(), "[COpenHoldemDoc::Serialize] Going to call OpenHoldem()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic \n");
-		///OpenHoldem()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic(ar);
+    assert(Formula()->FormulaParser() != NULL);
+		write_log(Preferences()->debug_openholdem(), "[COpenHoldemDoc::Serialize] Going to call OpenHoldem()->Formula()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic \n");
+		Formula()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic(ar);
 		SetModifiedFlag(false);
-		GUI()->OpenHoldemTitle()->UpdateTitle();
+		///GUI()->OpenHoldemTitle()->UpdateTitle();
 	}
 }
 

@@ -18,6 +18,7 @@
 #include "CSymbolEnginePokerval.h"
 #include "..\CardFunctions.DLL\CardFunctions.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFormulaParser.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
@@ -96,7 +97,7 @@ void CSymbolEngineOpenPPLHandAndBoardExpression::UpdateOnHeartbeat() {
 }
 
 void CSymbolEngineOpenPPLHandAndBoardExpression::CheckForProbablyMistakenSpadesInsteadOfSuited(CString expression) {
-  if (!FormulaParser()->IsParsing()) {
+  if (!Formula()->FormulaParser()->IsParsing()) {
     // We want this check and warning only once at parse-time
     return;
   }
