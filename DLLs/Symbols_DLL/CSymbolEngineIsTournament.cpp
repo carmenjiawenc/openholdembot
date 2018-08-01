@@ -24,6 +24,7 @@
 #include "CSymbolEngineChipAmounts.h"
 #include "CSymbolEngineTime.h"
 #include "CSymbolEngineTableLimits.h"
+#include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
@@ -292,12 +293,12 @@ void CSymbolEngineIsTournament::TryToDetectTournament() {
 	}
   // If we play at DDPoker the game is a tournament,
   // even though it can~t be detected by titlestring.
-  /*#if (EngineContainer()->symbol_engine_casino()->ConnectedToDDPoker()) {
+  if (CasinoInterface()->ConnectedToDDPoker()) {
     write_log(Preferences()->debug_istournament(), "[CSymbolEngineIsTournament] DDPoker tournament\n");
     _istournament    = true;
 		_decision_locked = true;
 		return;
-  }*/
+  }
   // If the title-string looks like a tournament then it is a tournament.
   // This should be checked before the size of the blinds,
   // because incorrectly detecting a cash-game as tournament
@@ -335,10 +336,10 @@ void CSymbolEngineIsTournament::TryToDetectTournament() {
   // If it is ManualMode, then we detect it by title-string "tourney".
   // High blinds (default) don~t make it a tournament.
   // Therefore don't continue.
-  /*#if (EngineContainer()->symbol_engine_casino()->ConnectedToManualMode()) {
+  if (CasinoInterface()->ConnectedToManualMode()) {
 		write_log(Preferences()->debug_istournament(), "[CSymbolEngineIsTournament] ManualMode, but no tournament identifier\n");
     return;
-  }*/
+  }
 	// If there are antes then it is a tournament.
 	if (AntesPresent())	{
 		write_log(Preferences()->debug_istournament(), "[CSymbolEngineIsTournament] Game with antes; therefore tournament\n");
