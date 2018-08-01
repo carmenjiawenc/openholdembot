@@ -58,7 +58,7 @@ CAutoConnector::CAutoConnector() {
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] CAutoConnector()\n");
   CString MutexName = CString(Preferences()->mutex_name()) + "AutoConnector";
 	_autoconnector_mutex = new CMutex(false, MutexName);
-	set_attached_hwnd(NULL);
+	///!!!!!!!set_attached_hwnd(NULL); superfluous, endöess recursiuon
 }
 
 CAutoConnector::~CAutoConnector() {

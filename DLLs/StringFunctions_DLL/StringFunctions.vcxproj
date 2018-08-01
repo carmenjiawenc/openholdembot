@@ -11,9 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="string_functions.def" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="string_functions.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -70,7 +67,6 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)StringFunctions.dll</OutputFile>
-      <ModuleDefinitionFile>string_functions.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -88,7 +84,6 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)StringFunctions.dll</OutputFile>
-      <ModuleDefinitionFile>string_functions.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
