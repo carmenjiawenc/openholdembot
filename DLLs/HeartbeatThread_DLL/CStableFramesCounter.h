@@ -13,10 +13,10 @@
 //
 //******************************************************************************
 
-///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
-class CStableFramesCounter /*#: public CSpaceOptimizedGlobalObject */{
+class CStableFramesCounter: public CSpaceOptimizedGlobalObject {
  public:
 	CStableFramesCounter();
 	~CStableFramesCounter();

@@ -13,9 +13,9 @@
 //******************************************************************************
 
 #include <afxwin.h>
-///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class COpenHoldemTitle /*#: public CSpaceOptimizedGlobalObject*/
+class COpenHoldemTitle: public CSpaceOptimizedGlobalObject
 {
 public:
 	COpenHoldemTitle();

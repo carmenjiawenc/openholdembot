@@ -15,9 +15,9 @@
 
 #include <afxwin.h>
 #include <map>
-///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class CParserSymbolTable /*: public CSpaceOptimizedGlobalObject */{
+class CParserSymbolTable: public CSpaceOptimizedGlobalObject {
  public:
   CParserSymbolTable();
   ~CParserSymbolTable();

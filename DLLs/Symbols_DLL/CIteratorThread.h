@@ -14,7 +14,7 @@
 
 #include <afxwin.h>
 #include "inlines/eval.h"
-///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 #include "..\..\pokereval\include\poker_defs.h"
 #include "..\..\pokereval\include\rules_std.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
@@ -42,7 +42,7 @@ struct sprw1326
   sprw1326_chair  chair[kMaxNumberOfPlayers];  // structures for each chair
 };
 
-class CIteratorThread /*!!!!!: public CSpaceOptimizedGlobalObject */{
+class CIteratorThread: public CSpaceOptimizedGlobalObject {
  public:
 	// public functions
 	CIteratorThread();

@@ -30,13 +30,14 @@
 
 #include <afxwin.h>
 #include <time.h>
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 #include "..\..\Shared\CCritSec\CCritSec.h"
 
 // names are limited to 8 chars, including the dot.
 // If you changes this name you also have to change the linker pragmas
 #define kOpenHoldemSharedmemorySegment ".ohshmem"
 
-class TABLE_MANAGEMENT_DLL_API CSharedMem /*#: public CSpaceOptimizedGlobalObject */{
+class TABLE_MANAGEMENT_DLL_API CSharedMem: public CSpaceOptimizedGlobalObject {
  public:
 	CSharedMem();
 	~CSharedMem();

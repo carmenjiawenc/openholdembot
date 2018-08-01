@@ -13,10 +13,10 @@
 //******************************************************************************
 
 #include "LibDef.h"
-///#include "CSpaceOptimizedGlobalObject.h"
 #include <afxwin.h>
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class TABLE_MANAGEMENT_DLL_API CPopupHandler /*#: public CSpaceOptimizedGlobalObject */
+class TABLE_MANAGEMENT_DLL_API CPopupHandler : public CSpaceOptimizedGlobalObject 
 {
 public:
 	CPopupHandler();

@@ -15,10 +15,10 @@
 #include <afxwin.h>
 #include <map>
 #include "LibDef.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 #include "..\..\Shared\CCritSec\CCritSec.h"
-///#include "CSpaceOptimizedGlobalObject.h"
 
-class FORMULA_DLL_API CAutoplayerTrace /*#: public CSpaceOptimizedGlobalObject */{
+class FORMULA_DLL_API CAutoplayerTrace: public CSpaceOptimizedGlobalObject {
  public:
    CAutoplayerTrace();
    ~CAutoplayerTrace();

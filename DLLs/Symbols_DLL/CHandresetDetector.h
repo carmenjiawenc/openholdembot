@@ -15,10 +15,10 @@
 
 #include <afxwin.h>
 #include "LibDef.h"
-///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
-class SYMBOLS_DLL_API CHandresetDetector /*#: public CSpaceOptimizedGlobalObject */{
+class SYMBOLS_DLL_API CHandresetDetector: public CSpaceOptimizedGlobalObject {
  public:
 	CHandresetDetector();
 	~CHandresetDetector();

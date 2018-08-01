@@ -14,9 +14,9 @@
 
 #include "LibDef.h"
 #include <afxwin.h>
-///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class CONFIGURATION_CHECK_DLL_API CConfigurationCheck /*#: public CSpaceOptimizedGlobalObject */{
+class CONFIGURATION_CHECK_DLL_API CConfigurationCheck: public CSpaceOptimizedGlobalObject {
  public:
 	CConfigurationCheck();
 	~CConfigurationCheck();

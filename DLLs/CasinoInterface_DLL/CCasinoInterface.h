@@ -17,9 +17,9 @@
 #include "CCasinoHotkey.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 #include "LibDef.h"
-///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class CASINO_INTERFACE_DLL_API CCasinoInterface /*: public CSpaceOptimizedGlobalObject */ {
+class CASINO_INTERFACE_DLL_API CCasinoInterface: public CSpaceOptimizedGlobalObject {
   friend class CAllinSlider;
   friend class CAutoplayer;
   friend class CScraper;

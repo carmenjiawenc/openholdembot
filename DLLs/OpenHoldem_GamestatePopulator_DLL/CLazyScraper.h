@@ -12,10 +12,10 @@
 //
 //******************************************************************************
 
-///#include "CSpaceOptimizedGlobalObject.h"
 #include "CScraper.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class CLazyScraper /*#: public CSpaceOptimizedGlobalObject */{
+class CLazyScraper: public CSpaceOptimizedGlobalObject {
  public:
 	CLazyScraper();
 	~CLazyScraper();

@@ -12,9 +12,9 @@
 //
 //******************************************************************************
 
-///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class COcclusionCheck/*#: public CSpaceOptimizedGlobalObject */{
+class COcclusionCheck: public CSpaceOptimizedGlobalObject {
 public:
 	COcclusionCheck();
 	~COcclusionCheck();

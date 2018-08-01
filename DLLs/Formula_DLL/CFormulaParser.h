@@ -28,11 +28,11 @@
 #include "CParseTreeTerminalNodeBetsizeAction.h"
 #include "CParseTreeTerminalNodeIdentifier.h"
 #include "CShankySymbolNameTranslator.h"
-///#include "CSpaceOptimizedGlobalObject.h"
 #include "CTokenizer.h"
 #include "LibDef.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class FORMULA_DLL_API CFormulaParser /*: public CSpaceOptimizedGlobalObject */{
+class FORMULA_DLL_API CFormulaParser: public CSpaceOptimizedGlobalObject {
   friend class CDebugTab;
  public:
   CFormulaParser();

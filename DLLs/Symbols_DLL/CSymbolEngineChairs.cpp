@@ -217,7 +217,7 @@ bool CSymbolEngineChairs::MissingSmallBlind() {
   if (EngineContainer()->symbol_engine_active_dealt_playing()->nplayersseated() < 2) {
     return false;
   }
-  if (false/*#EngineContainer()->BetroundCalculator()->betround() > kBetroundPreflop*/) {
+  if (EngineContainer()->BetroundCalculator()->betround() > kBetroundPreflop) {
     // Gets initialized at our first action preflop
     return _missing_smallblind;
   }

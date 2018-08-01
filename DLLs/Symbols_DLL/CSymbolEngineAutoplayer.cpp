@@ -133,12 +133,12 @@ void CSymbolEngineAutoplayer::CalculateFinalAnswer() {
 		_isfinalanswer = false;
 	}
 	// Change from only requiring one visible button (OpenHoldem 2008-04-03)
-  /*#else if (CasinoInterface()->NumberOfVisibleAutoplayerButtons() < k_min_buttons_needed_for_my_turn)	{
+  else if (CasinoInterface()->NumberOfVisibleAutoplayerButtons() < k_min_buttons_needed_for_my_turn)	{
 	  write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Not Final Answer because too few buttons visible\n");
 	  write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Buttons visible: %i\n", CasinoInterface()->NumberOfVisibleAutoplayerButtons());
 	  write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Either not your turn or problem with the tablemap\n");
 	  _isfinalanswer = false;
-	}*/
+	}
   // if we are not playing (occluded?) 2008-03-25 Matrix
 	else if (!TableState()->User()->HasKnownCards())	{
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Not Final Answer because the user is \"not playing\"\n");

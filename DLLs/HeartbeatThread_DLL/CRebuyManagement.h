@@ -15,9 +15,9 @@
 #include <afxwin.h>
 #include <time.h>
 #include "COcclusionCheck.h"
-///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class CRebuyManagement /*#: public CSpaceOptimizedGlobalObject*/
+class CRebuyManagement: public CSpaceOptimizedGlobalObject
 {
 public:
 	CRebuyManagement();

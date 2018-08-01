@@ -24,7 +24,7 @@
 // BOOL CALLBACK EnumProcTopLevelWindowList(HWND hwnd, LPARAM lparam) 
 TABLEMAP_LOADER_DLL_API bool Check_TM_Against_Single_Window(int MapIndex, HWND h);
 
-class TABLEMAP_LOADER_DLL_API CTableMapLoader //!!! public CSpaceOptimizedGlobalObject 
+class TABLEMAP_LOADER_DLL_API CTableMapLoader: public CSpaceOptimizedGlobalObject 
 {
  public:
 	CTableMapLoader();

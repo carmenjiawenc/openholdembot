@@ -20,9 +20,9 @@
 
 class CTitleEvaluator;
 
-//#include "CSpaceOptimizedGlobalObject.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class CScraper /*#: public CSpaceOptimizedGlobalObject */{
+class CScraper: public CSpaceOptimizedGlobalObject {
   friend class CLazyScraper;
   friend class CAutoConnector;
  public:

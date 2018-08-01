@@ -14,10 +14,10 @@
 
 #include <afxwin.h>
 #include "LibDef.h"
-//!!!!!!!#include "CSpaceOptimizedGlobalObject.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
-class TABLESTATE_DLL_API CTableTitle /*!!!!!!!: public CSpaceOptimizedGlobalObject*/ {
+class TABLESTATE_DLL_API CTableTitle: public CSpaceOptimizedGlobalObject {
   friend class CDlgEditSymbols;
  public:
   CTableTitle();

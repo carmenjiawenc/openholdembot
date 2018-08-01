@@ -127,16 +127,6 @@ BOOL COpenHoldemApp::InitInstance() {
   // https://msdn.microsoft.com/en-us/library/hts9a4xz.aspx
 	// https://msdn.microsoft.com/en-us/library/d1e9fe7d.aspx
 	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to create CSingleDocTemplate()\n");
-	/*#pDocTemplate = new CSingleDocTemplate(
-		IDR_MAINFRAME,
-		RUNTIME_CLASS(COpenHoldemDoc),
-		RUNTIME_CLASS(CMainFrame),	   // main SDI frame window
-		RUNTIME_CLASS(COpenHoldemView));
-	if (!pDocTemplate) {
-		write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Creating CSingleDocTemplate() failed\n");
-		return FALSE;
-	}
-	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to AddDocTemplate()\n");*/
   CGUI gui;
   pDocTemplate = gui.CreateCSingleDocTemplate();
 	AddDocTemplate(pDocTemplate);

@@ -25,6 +25,7 @@
 ///#include "CStableFramesCounter.h"
 #include "CSymbolEngineAutoplayer.h"
 #include "CSymbolEngineCasino.h"
+#include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFunctionCollection.h"
@@ -60,11 +61,11 @@ void CSymbolEngineReplayFrameController::UpdateOnMyTurn() {
 }
 
 void CSymbolEngineReplayFrameController::UpdateOnHeartbeat() {
-	/*#if (EngineContainer()->symbol_engine_casino()->ConnectedToOHReplay()){
+	if (CasinoInterface()->ConnectedToOHReplay()){
     // No point in shooting frames when connected to OHReplay
     write_log(Preferences()->debug_replayframes(), "[CSymbolEngineReplayFrameController] No replay required, as connected to OHReplay\n");
 		return;	
-	}*/
+	}
 	if (false/*#p_lazyscraper->IsIdenticalScrape()*/) {
 	  // There is no benefit in duplicate frames, so we abort
 	  write_log(Preferences()->debug_replayframes(), "[CSymbolEngineReplayFrameController] No replay required, as identical scrape\n");
