@@ -22,14 +22,6 @@
 #include "..\..\StringFunctions_DLL\string_functions.h"
 #include "..\..\..\Shared\MagicNumbers\MagicNumbers.h"
 
-#ifdef OPENHOLDEM_PROGRAM
-//include "../DLLs/Debug_DLL\debug.h"
-#endif
-
-#ifdef OPENSCRAPE_PROGRAM
-#include "../OpenScrape/debug.h"
-#endif
-
 CTransform::CTransform() {
 }
 

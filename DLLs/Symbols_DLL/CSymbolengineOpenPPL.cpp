@@ -18,7 +18,10 @@
 #include "CEngineContainer.h"
 #include "CSymbolEngineOpenPPLUserVariables.h"
 #include "CSymbolEngineVariousDataLookup.h"
+#include "..\Formula_DLL\CFormula.h"
+#include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
+#include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 const char* kOpenPPLUpdateOnHandReset =
   "UpdateMemorySymbolsOnHandReset";
@@ -45,7 +48,7 @@ CSymbolEngineOpenPPL::~CSymbolEngineOpenPPL() {
 }
 
 void CSymbolEngineOpenPPL::CheckExistenceOfOpenPPLFunction(CString function) {
-  if (false/*!!!!!!!Formula()->FunctionCollection()->Exists(function)*/) {
+  if (Formula()->FunctionCollection()->Exists(function)) {
     CString message;
     message.Format("Can't find initialization-function\n"
       "%s\n"
@@ -67,15 +70,15 @@ void CSymbolEngineOpenPPL::UpdateOnConnection() {
 }
 
 void CSymbolEngineOpenPPL::UpdateOnHandreset() {
-  /*!!!!!!!Formula()->FunctionCollection()->Evaluate(
+  Formula()->FunctionCollection()->Evaluate(
     kOpenPPLUpdateOnHandReset,
-    kAlwaysLogOpenPPLInitialization);*/
+    kAlwaysLogOpenPPLInitialization);
 }
 
 void CSymbolEngineOpenPPL::UpdateOnNewRound() {
-  /*!!!!!!!Formula()->FunctionCollection()->Evaluate(
+  Formula()->FunctionCollection()->Evaluate(
     kOpenPPLUpdateOnNewRound,
-    kAlwaysLogOpenPPLInitialization);*/
+    kAlwaysLogOpenPPLInitialization);
 }
 
 void CSymbolEngineOpenPPL::UpdateOnMyTurn() {
@@ -93,9 +96,9 @@ void CSymbolEngineOpenPPL::UpdateOnHeartbeat() {
 }
 
 void CSymbolEngineOpenPPL::UpdateAfterAutoplayerAction(int autoplayer_action_code) {
-  /*!!!!!!!Formula()->FunctionCollection()->Evaluate(
+  Formula()->FunctionCollection()->Evaluate(
     kOpenPPLUpdateMemorySymbolsAfterAutoplayerAction,
-    kAlwaysLogOpenPPLInitialization);*/
+    kAlwaysLogOpenPPLInitialization);
 }
 
 bool CSymbolEngineOpenPPL::EvaluateSymbol(const CString name, double *result, bool log /* = false */) {

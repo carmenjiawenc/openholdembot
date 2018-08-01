@@ -15,7 +15,6 @@
 #include "CParseTreeTerminalNodeFixedAction.h"
 #include <math.h>
 ///#include "CAutoplayerTrace.h"
-
 ///#include "CMemoryPool.h"
 #include "CFunctionCollection.h"
 #include "CParserSymbolTable.h"

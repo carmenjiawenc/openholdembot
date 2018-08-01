@@ -14,7 +14,6 @@
 #define FORMULA_DLL_EXPORTS
 
 #include "CFunction.h"
-///#include "CAutoplayer.h"
 #include "CAutoplayerTrace.h"
 #include "CFormula.h"
 #include "CFormulaParser.h"

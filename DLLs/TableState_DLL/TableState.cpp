@@ -15,6 +15,7 @@
 #define TABLESTATE_DLL_EXPORTS
 
 #include "TableState.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 
 /*!!!!!!!#include "CEngineContainer.h"
 #include "CSymbolEngineUserchair.h"
@@ -48,23 +49,23 @@ CPlayer *CTableState::User() {
   if (!EngineContainer()->symbol_engine_userchair()->userchair_confirmed()) {
     return &_players[kFakeEntryForUnknownUserchair];
   }*/
-  int userchair = 1; //!!!!!!!= EngineContainer()->symbol_engine_userchair()->userchair();
-  //!!!!!!!AssertRange(userchair, 0, kLastChair);
+  int userchair = 42; //!!!!!!!= EngineContainer()->symbol_engine_userchair()->userchair();
+  AssertRange(userchair, 0, kLastChair);
   return &_players[userchair];
 }
 
 CPlayer *CTableState::Player(int chair) {
-  //!!!!!!!AssertRange(chair, 0, kLastChair);
+  AssertRange(chair, 0, kLastChair);
   return &_players[chair];
 }
 
 double CTableState::Pot(int sidepot_index) {
-  //!!!!!!!AssertRange(sidepot_index, 0, kLastPot);
+  AssertRange(sidepot_index, 0, kLastPot);
   return  _pot[sidepot_index].GetValue();
 }
 
 bool CTableState::set_pot(int sidepot_index, CString new_value) {
-  //!!!!!!!AssertRange(sidepot_index, 0, kLastPot);
+  AssertRange(sidepot_index, 0, kLastPot);
   return _pot[sidepot_index].SetValue(new_value);
 }
 
@@ -75,7 +76,7 @@ void CTableState::ResetPots() {
 }
 
 Card *CTableState::CommonCards(int common_card_index) {
-  //!!!!!!!AssertRange(common_card_index, 0, kIndexOfLastCommunityCard);
+  AssertRange(common_card_index, 0, kIndexOfLastCommunityCard);
   return &_common_cards[common_card_index];
 }
 
@@ -107,7 +108,7 @@ bool CTableState::ShowdownCardsVisible() {
       continue;
     }
     if (Player(i)->HasKnownCards()) {
-      // Opoonent with visible cards, usually showdown.
+      // Opponent with visible cards, usually showdown.
       // Might also be a poker-simulatpr sh owing all players face-cards
       // Might also be new user-chair after table-change in MTT, ...
       // but thenwe had a handreset, all OK.

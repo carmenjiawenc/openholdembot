@@ -30,8 +30,7 @@
 #include "..\WindowFunctions_DLL\window_functions.h"
 
 void CreateMemoryPools() {
-  /*#
-  assert(MemoryPoolTablemaps() == NULL);
+  /*#assert(MemoryPoolTablemaps() == NULL);
   assert(MemoryPoolScraper() == NULL);
   assert(MemoryPoolUserLogic() == NULL);
   assert(MemoryPoolLibraryLogic() == NULL);
@@ -45,12 +44,11 @@ void CreateMemoryPools() {
 }
 
 void DeleteAllMemoryPools() {
-  /*#
   delete MemoryPoolTablemaps();
   delete MemoryPoolScraper();
   delete MemoryPoolUserLogic();
   delete MemoryPoolLibraryLogic();
-  delete MemoryPoolGlobal();*/
+  delete MemoryPoolGlobal();
 }
 
 // 64 KB = 1 default block at 64-bit-Windows 

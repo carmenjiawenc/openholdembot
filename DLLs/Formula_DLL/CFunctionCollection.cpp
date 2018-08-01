@@ -19,14 +19,14 @@
 #define FORMULA_DLL_EXPORTS
 
 #include "CFunctionCollection.h"
+#include <time.h>
 #include "CAutoplayerTrace.h"
 #include "CFormula.h"
+#include "CFormulaParser.h"
 #include "CFunction.h"
 #include "CParseErrors.h"
-#include "CSelftestParserEvaluator.h" // there???
+#include "CSelftestParserEvaluator.h"
 ///#include "CDebugTab.h"
-///#include "CEngineContainer.h"
-///#include "CFormulaParser.h"
 ///#include "CParserSymbolTable.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
@@ -176,11 +176,11 @@ void CFunctionCollection::Add(COHScriptObject *new_function) {
   }
   write_log(Preferences()->debug_formula(), 
 	  "[CFunctionCollection] Adding %s -> %i\n", name, new_function);
-/*#  if (OpenHoldem()->Formula()->FormulaParser()->IsParsingReadOnlyFunctionLibrary()) { 
+  if (Formula()->FormulaParser()->IsParsingReadOnlyFunctionLibrary()) { 
     write_log(Preferences()->debug_formula(),
       "[CFunctionCollection] Making function read-only\n");
     new_function->SetAsReadOnlyLibraryFunction();
-  }*/
+  }
   _function_map[name] = new_function;
 }
 
@@ -308,10 +308,9 @@ void CFunctionCollection::SetEmptyDefaultBot() {
 void CFunctionCollection::ExecuteSelftest() {
   write_log(Preferences()->debug_formula(), 
     "[CFunctionCollection] Executing self-test\n");
-  /*!!!!!if (Exists(kSelftestName)) {
-    //
+  if (Exists(kSelftestName)) {
     return;
-  }*/
+  }
   CFunction *p_function = new CFunction(kSelftestName, kSelftestFunction);
   // The parser assunes that every function to ber parsed
   // exists in the collection
@@ -499,7 +498,7 @@ void CFunctionCollection::Save(CArchive &ar) {
   // First write the date
   char nowtime[26] = {0};
   CString s;
-  /*!!!!!s.Format("##%s##\r\n\r\n", get_time(nowtime)); */
+  ///s.Format("##%s##\r\n\r\n", get_time(nowtime));
   ar.WriteString(s);
   // Notes are a bit special "functions",
   // so they get extra treatment.
@@ -712,10 +711,10 @@ bool CFunctionCollection::EvaluateSymbol(const CString name, double *result, boo
       }
       // Function does not exist
       *result = kUndefinedZero;
-/*#      if (OpenHoldem()->Formula()->FormulaParser()->IsParsing()) {
+      if (Formula()->FormulaParser()->IsParsing()) {
         // EvaluateSymbol() got called as part of the parse-time-verification
         return false;
-      }*/
+      }
       // Runtime-evaluatzion
       // This symbol is something that HAS TO be evaluated here,
       // We didn't find it, so we treat it as zero/false/whatever.

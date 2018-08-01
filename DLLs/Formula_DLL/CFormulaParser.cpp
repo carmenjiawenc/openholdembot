@@ -21,6 +21,7 @@
 #include "CFormulaParser.h"
 #include <assert.h>
 #include <io.h>
+#include <time.h>
 #include "CDebugTab.h"
 #include "CFormula.h"
 #include "CFunction.h"
@@ -334,9 +335,9 @@ void CFormulaParser::ParseFormula(COHScriptObject* function_or_list_to_be_parsed
     return;
   }
   assert(function_or_list_to_be_parsed != NULL);
-  //!!!!!assert(function_or_list_to_be_parsed->IsFunction());
+  assert(function_or_list_to_be_parsed->IsFunction());
   ((CFunction*)function_or_list_to_be_parsed)->SetParseTree(function_body);
-  //Formula()->FunctionCollection()->Add((COHScriptObject*)p_new_function);
+  ///!!!!!?Formula()->FunctionCollection()->Add((COHScriptObject*)p_new_function);
   assert(Formula()->FunctionCollection()->Exists(_function_name));
   // Care about operator precendence
   _parse_tree_rotator.Rotate((CFunction*)function_or_list_to_be_parsed);
