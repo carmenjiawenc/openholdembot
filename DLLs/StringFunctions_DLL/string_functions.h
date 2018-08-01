@@ -1,3 +1,4 @@
+#pragma once
 //******************************************************************************
 //
 // This file is part of the OpenHoldem project
@@ -11,16 +12,13 @@
 //
 //******************************************************************************
 
-#ifndef INC_STRING_FUNCTIONS_H
-#define INC_STRING_FUNCTIONS_H
-
 #ifdef STRING_FUNCTIONS_EXPORTS
-#define STRING_FUNCTIONS_API __declspec(dllexport)
+#define STRING_FUNCTIONS_API extern "C" __declspec(dllexport)
 #else
-#define STRING_FUNCTIONS_API __declspec(dllimport)
+#define STRING_FUNCTIONS_API extern "C" __declspec(dllimport)
 #endif
 
-#include <atlstr.h>
+#include <afxwin.h>
 
 STRING_FUNCTIONS_API CString Bool2CString(bool b);
 STRING_FUNCTIONS_API CString CStringRemoveLeft(CString string, int number_of_characters_to_remove);
@@ -50,5 +48,3 @@ STRING_FUNCTIONS_API void StringFunctionsTest();
 STRING_FUNCTIONS_API double StringToMoney(const CString inStr);
 STRING_FUNCTIONS_API bool StringIsExactMatch(const char *string_a, const char *string_b);
 STRING_FUNCTIONS_API void WarnAboutNonASCIICharacters(const CString *s);
-
-#endif // INC_STRING_FUNCTIONS_H 

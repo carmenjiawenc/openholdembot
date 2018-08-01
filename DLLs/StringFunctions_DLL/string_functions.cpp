@@ -39,19 +39,14 @@
 #define _WIN32_IE 0x0600	// Change this to the appropriate value to target other versions of IE.
 #endif
 
+#define STRING_FUNCTIONS_EXPORTS
+
+#include "string_functions.h"
 #include <afxwin.h>
 #include <assert.h>
 #include <math.h>
-#include <windows.h>
 #include "assert.h"
-#include "string_functions.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
-#include "Psapi.h"
-
-#ifdef OPENHOLDEM_PROGRAM
-#include "..\OpenHoldem\MessageBox.h"
-#include "..\OpenHoldem\CSymbolEngineReplayFrameController.h"
-#endif
 
 const char kUnprintableBeepChar = 0x07;
 const char kCharToBeRemoved = kUnprintableBeepChar;
