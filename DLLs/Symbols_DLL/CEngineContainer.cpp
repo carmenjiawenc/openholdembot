@@ -87,6 +87,9 @@
 CEngineContainer::CEngineContainer() {
   write_log(Preferences()->debug_engine_container(), "[EngineContainer] CEngineContainer()\n");
   write_log(Preferences()->debug_engine_container(), "[EngineContainer] CEngineContainer() finished\n");
+  // Do not call CreateSymbolEngines(); here
+  // This would lead to endless-recursion
+  // due to lazy-initialization on the fly.
 }
 
 CEngineContainer::~CEngineContainer() {
@@ -99,6 +102,7 @@ void CEngineContainer::CreateSpecialSymbolEngines() {
   // So they work slightly different and also get their own initialization.
   p_betround_calculator = new CBetroundCalculator();	
   p_handreset_detector = new CHandresetDetector();
+  /// !!! destroy
 }
 
 void CEngineContainer::AddSymbolEngine(CVirtualSymbolEngine *new_symbol_engine) {
@@ -476,6 +480,7 @@ CEngineContainer* EngineContainer() {
   if (engine_container == NULL) {
     // Lazy initialization 
     engine_container = new CEngineContainer;
+    engine_container->CreateSymbolEngines();
   }
   return engine_container;
 }
