@@ -348,7 +348,4 @@ private:
   CString ini_filename;
 };
 
-
-
-//!!!!!!!
 PREFERENCES_DLL_API CPreferences* Preferences();

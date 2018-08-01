@@ -14,12 +14,12 @@
 #define PREFERENCES_DLL_EXPORTS
 
 #include "Preferences.h"
-//#include "..\..\OpenHoldem\NumericalFunctions.h"
-#include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Files_DLL\Files.h"
+#include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
+#include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 //
 // Constructor and destructor
@@ -367,7 +367,7 @@ void CPreferences::WriteReg(const LPCTSTR registry_key, const double registry_va
 
 void CPreferences::SetValue(int index_of_variable, LPCSTR value) {
   ENT
-  //!!!!!AssertRange(index_of_variable, 0, k_prefs_last_CString_value);
+  AssertRange(index_of_variable, 0, k_prefs_last_CString_value);
   prefs_CString_values[index_of_variable] = value;
   WriteReg(k_registry_keys_for_CStrings[index_of_variable], value);
   /*write_log(debug_preferences(), "[CPreferences] %s = %s\n",
@@ -376,14 +376,14 @@ void CPreferences::SetValue(int index_of_variable, LPCSTR value) {
 
 void CPreferences::SetValue(int index_of_variable, double value) {
   ENT
-  //!!!!!AssertRange(index_of_variable, 0, k_prefs_last_numerical_value);
+  AssertRange(index_of_variable, 0, k_prefs_last_numerical_value);
   prefs_numerical_values[index_of_variable] = value;
-  /*//!!!!!if (IsInteger(value)) {
+  if (IsInteger(value)) {
     WriteReg(k_registry_keys_for_numerical_values[index_of_variable], int(value));
   }
-  else */{
+  else {
     WriteReg(k_registry_keys_for_numerical_values[index_of_variable], value);
   }
-  /*write_log(debug_preferences(), "[CPreferences] %s = %s\n",
-    k_registry_keys_for_numerical_values[index_of_variable], Number2CString(value));*/
+  write_log(debug_preferences(), "[CPreferences] %s = %s\n",
+    k_registry_keys_for_numerical_values[index_of_variable], Number2CString(value));
 }
