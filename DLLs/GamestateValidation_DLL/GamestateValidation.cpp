@@ -16,7 +16,6 @@
 
 #include "GamestateValidation.h"
 #include <afxwin.h>
-// !!!!! move to numerical DLL
 #include "..\Numerical_Functions_DLL\FloatingPoint_Comparisions.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"

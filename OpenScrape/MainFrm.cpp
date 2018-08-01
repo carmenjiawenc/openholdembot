@@ -814,7 +814,6 @@ void CMainFrame::SaveBmpPbits(void)
 
 CArray <STableList, STableList>		g_tlist; 
 
-//!!!!!?? still used
 BOOL CALLBACK EnumProcTopLevelWindowList(HWND hwnd, LPARAM lparam) 
 {
 	CString				title, winclass;
