@@ -301,7 +301,16 @@ void CFormulaParser::ParseFormula(COHScriptObject* function_or_list_to_be_parsed
   // to the function collection (to avoid deletion).
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=111&t=19616
   TPParseTreeNode function_body = NULL;
-  if (function_or_list_to_be_parsed->IsFunction() 
+  if (_function_name.MakeLower() == "dll") {
+   // Deprecated ##DLL##.
+   // Formerly nothing to do, now ignore it.
+  } else if (function_or_list_to_be_parsed->IsNotes()) {
+    // ##Notes##
+    write_log(Preferences()->debug_parser(),
+      "[FormulaParser] Found ##Notes##. Nothing to parse\n");
+    // Don't do anything.
+    // This is just a special type of global comment.
+  } else if (function_or_list_to_be_parsed->IsFunction() 
       || function_or_list_to_be_parsed->IsOpenPPLSymbol()) {
     // ##f$functionXYZ##
     // ##OpenPPL##
@@ -319,15 +328,6 @@ void CFormulaParser::ParseFormula(COHScriptObject* function_or_list_to_be_parsed
     ParseListBody((COHScriptList*)function_or_list_to_be_parsed);
     LeaveParserCode();
     return;
-  } else if (_function_name.MakeLower() == "dll") {
-    // Deprecated ##DLL##.
-    // Formerly nothing to do, now ignore it.
-  } else if (_function_name.MakeLower() == "notes") {
-    // ##Notes##
-    write_log(Preferences()->debug_parser(), 
-	  "[FormulaParser] Found ##Notes##. Nothing to parse\n");
-    // Don't do anything.
-    // This is just a special type of global comment.
   } else {
     CParseErrors::Error("Found unknown function type.\n"
       "Did you forget \"f$\"?\n");

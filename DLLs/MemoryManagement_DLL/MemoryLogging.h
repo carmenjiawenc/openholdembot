@@ -12,6 +12,7 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
 #include "LibDef.h"
 
 // Logs memory-usage if enabled at debugging-preferences

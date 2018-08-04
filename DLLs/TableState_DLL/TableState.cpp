@@ -51,11 +51,13 @@ CPlayer *CTableState::User() {
   }*/
   int userchair = 42; //!!!!!!!= EngineContainer()->symbol_engine_userchair()->userchair();
   AssertRange(userchair, 0, kLastChair);
-  return &_players[userchair];
+  ///!!! handle fake-entry
+  return Player(userchair);
 }
 
 CPlayer *CTableState::Player(int chair) {
-  AssertRange(chair, 0, kLastChair);
+  assert(chair >= 0);
+  assert(chair < kNumberOfPlayerEntries);
   return &_players[chair];
 }
 

@@ -42,7 +42,7 @@ CHeartbeatThread   *CHeartbeatThread::pParent = NULL;
 CHeartbeatDelay    CHeartbeatThread::_heartbeat_delay;
 COpenHoldemGamestatePopulator* CHeartbeatThread::_gamestate_populator = NULL;
 
-CAutoplayer* _autoplayer; //!!!
+CAutoplayer* _autoplayer; ///!!!
 
 CHeartbeatThread::CHeartbeatThread() {
 	InitializeCriticalSectionAndSpinCount(&cs_update_in_progress, 4000);
@@ -83,6 +83,7 @@ UINT CHeartbeatThread::HeartbeatThreadFunction(LPVOID pParam) {
 	// Seed the RNG
 	srand((unsigned)GetTickCount());
 	while (true) {
+    MessageBox(0, "HeartBeatThread", "Info", 0);
 		_heartbeat_counter++;
 		write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] Starting next cycle\n");
 		// Check event for stop thread
