@@ -82,7 +82,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>$(OutDir)BasicScraper.lib;$(OutDir)Checksums.lib;$(OutDir)Debug.lib;$(OutDir)Preferences.lib;$(OutDir)SessionCounter.lib;$(OutDir)StringFunctions.lib;$(OutDir)TablemapLoader.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)BasicScraper.lib;$(OutDir)Checksums.lib;$(OutDir)Debug.lib;$(OutDir)MemoryManagement.lib;$(OutDir)Preferences.lib;$(OutDir)SessionCounter.lib;$(OutDir)StringFunctions.lib;$(OutDir)TablemapLoader.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -101,7 +101,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>$(OutDir)BasicScraper.lib;$(OutDir)Checksums.lib;$(OutDir)Debug.lib;$(OutDir)Preferences.lib;$(OutDir)SessionCounter.lib;$(OutDir)StringFunctions.lib;$(OutDir)TablemapLoader.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)BasicScraper.lib;$(OutDir)Checksums.lib;$(OutDir)Debug.lib;$(OutDir)MemoryManagement.lib;$(OutDir)Preferences.lib;$(OutDir)SessionCounter.lib;$(OutDir)StringFunctions.lib;$(OutDir)TablemapLoader.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ForceFileOutput>Enabled</ForceFileOutput>
     </Link>
   </ItemDefinitionGroup>

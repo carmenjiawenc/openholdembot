@@ -24,25 +24,25 @@ public:
   CTableManagement();
   ~CTableManagement();
 public:
+  void Initialize();
+public:
   CAutoConnector *AutoConnector() {
-     return &_auto_connector;
+     return _auto_connector;
   }
   CPopupHandler *PopupHandler() {
-    return &_popup_handler;
+    return _popup_handler;
   }
   CSharedMem *SharedMem() {
-    return &_shared_mem;
+    return _shared_mem;
   }
   CTablePositioner *TablePositioner() {
-    return &_table_positioner;
+    return _table_positioner;
   }
 private:
-  // CSharedMem shared_mem first, because order of initialization matters.
-  // The auto-connector needs it.
-  CSharedMem _shared_mem;
-  CAutoConnector _auto_connector;
-  CPopupHandler _popup_handler;
-  CTablePositioner _table_positioner;
+  CSharedMem* _shared_mem;
+  CAutoConnector* _auto_connector;
+  CPopupHandler* _popup_handler;
+  CTablePositioner* _table_positioner;
 };
 
 TABLE_MANAGEMENT_DLL_API CTableManagement *TableManagement();
