@@ -15,19 +15,12 @@
 //
 //******************************************************************************
 
-#ifdef GLOBALS_DLL_EXPORTS
-#define GLOBALS_DLL_API __declspec(dllexport)
+#ifdef OPENHOLDEM_CALLBACK_DLL_EXPORTS
+#define OPENHOLDEM_CALLBACK_DLL_API __declspec(dllexport)
 #else
-#define GLOBALS_DLL_API __declspec(dllimport)
+#define OPENHOLDEM_CALLBACK_DLL_API __declspec(dllimport)
 #endif
 
-class CEngineContainer;
+#include <afxwin.h>
 
-class CFunctionCollection;
-class CGUI;
-class CPreferences;
-class CTableState;
-///GLOBALS_DLL_API CEngineContainer* EngineContainer();
-///GLOBALS_DLL_API CFunctionCollection* FunctionCollection();
-///GLOBALS_DLL_API CTableState* TableState();
-
+OPENHOLDEM_CALLBACK_DLL_API double EvaluateSymbol(CString symbol);

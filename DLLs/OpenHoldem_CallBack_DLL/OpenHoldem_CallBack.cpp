@@ -14,11 +14,14 @@
 //
 //******************************************************************************
 
-#define GLOBALS_DLL_EXPORTS
+#define OPENHOLDEM_CALLBACK_DLL_EXPORTS
 
-#include "globals.h"
+#include "OpenHoldem_CallBack.h"
 #include "..\GUI_DLL\CGUI.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\TableState_DLL\TableState.h"
 
+double EvaluateSymbol(CString symbol) { 
+  return 42; 
+}

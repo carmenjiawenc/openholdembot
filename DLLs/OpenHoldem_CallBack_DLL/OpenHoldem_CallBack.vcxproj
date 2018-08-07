@@ -11,10 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="globals.cpp" />
+    <ClCompile Include="OpenHoldem_CallBack.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="globals.h" />
+    <ClInclude Include="OpenHoldem_CallBack.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{49099A5E-FD74-48D8-BF74-CF0483863343}</ProjectGuid>
