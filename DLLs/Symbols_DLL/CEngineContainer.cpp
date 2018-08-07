@@ -65,6 +65,8 @@
 #include "CSymbolEngineVariousDataLookup.h"
 #include "CSymbolEngineVersus.h"
 #include "UnknownSymbols.h"
+#include "..\CardFunctions.DLL\CardFunctions.h"
+#include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Formula_DLL\CAutoplayerTrace.h"
 #include "..\Formula_DLL\CFormula.h"
@@ -72,17 +74,8 @@
 #include "..\Formula_DLL\CFunction.h"
 #include "..\Formula_DLL\COHScriptList.h"
 #include "..\Formula_DLL\CParseErrors.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\SessionCounter_DLL\CSessionCounter.h"
-
-/*##include "CAutoplayerTrace.h"
-
-#include "CFormulaParser.h"
-
-
-#include "CParseErrors.h"
-*/
 
 CEngineContainer::CEngineContainer() {
   write_log(Preferences()->debug_engine_container(), "[EngineContainer] CEngineContainer()\n");
@@ -332,15 +325,15 @@ void CEngineContainer::EvaluateAll() {
 	// * UpdateOnHandreset()
 	// * UpdateOnNewRound()
 	// * UpdateOnMyTurn()
-	/*#if (OpenHoldem()->HandresetDetector()->IsHandreset()) 	{
+	if (HandresetDetector()->IsHandreset()) 	{
 		UpdateOnHandreset();
-	}*/
+	}
 	if (EngineContainer()->BetroundCalculator()->IsNewBetround())	{
 		UpdateOnNewRound();
 	}
-	/*#if (CasinoInterface()->IsMyTurn())	{
+	if (CasinoInterface()->IsMyTurn())	{
 		UpdateOnMyTurn();
-	}*/
+	}
 	// And finally UpdateOnHeartbeat() gets always called.
 	UpdateOnHeartbeat();
 }

@@ -16,7 +16,6 @@
 #include "COHScriptObject.h"
 #include "CFormula.h"
 #include "CFunctionCollection.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 COHScriptObject::COHScriptObject() {

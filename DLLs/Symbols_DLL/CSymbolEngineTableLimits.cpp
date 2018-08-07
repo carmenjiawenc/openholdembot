@@ -23,7 +23,6 @@
 #include "CSymbolEngineIsTournament.h"
 #include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Numerical_Functions_DLL\Median.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Preferences_DLL\Preferences.h"

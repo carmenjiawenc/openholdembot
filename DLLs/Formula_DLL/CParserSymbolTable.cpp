@@ -17,7 +17,7 @@
 #include "CFunction.h"
 #include "CFunctionCollection.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Globals_DLL\globals.h"
+#include "..\OpenHoldem_CallBack_DLL\OpenHoldem_CallBack.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
@@ -93,7 +93,7 @@ void CParserSymbolTable::VerifySymbol(CString name) {
   // Magic number 0xCDCDCDCD is the same as undefined pointer in VS debug-mode
   const int kSymbolDoesNotExist = 0xCDCDCDCD;
   double result = kSymbolDoesNotExist;
-  if (1) {///EngineContainer()->EvaluateSymbol(name, &result, false)) {//#
+  if (true/*#EvaluateSymbol(name, &result, false)*/) {//#
     // Remember the good symbol for faster access later
     // (the engine-containers LookUp() is partially sequential)
     write_log(Preferences()->debug_symbol_verification(),

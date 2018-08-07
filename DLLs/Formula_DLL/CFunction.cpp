@@ -17,12 +17,10 @@
 #include "CAutoplayerTrace.h"
 #include "CFormula.h"
 #include "CFormulaParser.h"
-///#include "CMemoryPool.h"
 #include "COHScriptObject.h"
 #include "CParseTreeNode.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Formula_DLL\CFormulaParser.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
@@ -72,7 +70,7 @@ void CFunction::Parse() {
   if (NeedsToBeParsed()) { 
     write_log(Preferences()->debug_formula() || Preferences()->debug_parser(),
       "[CFunction] Parsing %s\n", _name);
-    Formula()->FormulaParser()->ParseFormula(this); /// FP part of OH?
+    Formula()->FormulaParser()->ParseFormula(this);
     MarkAsParsed();
   } else {
     write_log(Preferences()->debug_formula() || Preferences()->debug_parser(),

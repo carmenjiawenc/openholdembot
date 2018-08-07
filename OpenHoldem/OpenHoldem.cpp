@@ -18,6 +18,8 @@
 #include <assert.h>
 #include "..\DLLs\Debug_DLL\debug.h"
 #include "..\DLLs\Files_DLL\Files.h"
+#include "..\DLLs\Formula_DLL\CFormula.h"
+#include "..\DLLs\Formula_DLL\CFormulaParser.h"
 #include "..\DLLs\GUI_DLL\CGUI.h"
 #include "..\DLLs\GUI_DLL\MainFrame\MainFrm.h"
 #include "..\DLLs\GUI_DLL\MainFrame\OpenHoldemDoc.h"
@@ -137,7 +139,7 @@ BOOL COpenHoldemApp::InitInstance() {
   write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to InitializeThreads()\n");
   InitializeThreads();
   write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to OpenLastRecentlyUsedFile()\n");
-  ///OpenHoldem()->Formula()->FormulaParser()->ParseDefaultLibraries(); 
+  Formula()->FormulaParser()->ParseDefaultLibraries(); 
 	OpenLastRecentlyUsedFile();
 	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] m_pMainWnd = %i\n",
 		m_pMainWnd);
@@ -172,12 +174,6 @@ int COpenHoldemApp::ExitInstance() {
 	///Scintilla_ReleaseResources();
   stop_log();
 	return CWinApp::ExitInstance();
-}
-
-// App command to run the dialog
-void COpenHoldemApp::OnAppAbout() {
-	///CDlgAbout aboutDlg;
-	///aboutDlg.DoModal();
 }
 
 void COpenHoldemApp::LoadLastRecentlyUsedFileList() {
@@ -231,11 +227,13 @@ void COpenHoldemApp::OpenLastRecentlyUsedFile() {
 	}
 }
 
+CHeartbeatThread hbt; ///!!!!!
+
 void COpenHoldemApp::InitializeThreads() {
   // Heartbeat thread cares about everything: connecting, scraping, playing
   write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to start heartbeat thread\n");
   assert(_p_heartbeat_thread == NULL);
-  _p_heartbeat_thread = new CHeartbeatThread();
+  _p_heartbeat_thread = &hbt; ///!!!new CHeartbeatThread();
   assert(_p_heartbeat_thread != NULL); //duplicate!!!!! prwin missing
   _p_heartbeat_thread->StartThread();
 }

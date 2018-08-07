@@ -21,7 +21,6 @@
 #include "..\Formula_DLL\COHScriptList.h"
 #include "..\Formula_DLL\CFormulaParser.h"
 #include "..\Formula_DLL\CFunctionCollection.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\TableState_DLL\CTableTitle.h"

@@ -14,8 +14,6 @@
 #include "CRebuyManagement.h"
 #include <atlstr.h>
 #include <time.h>
-///#include "CAutoconnector.h"
-///#include "CHandresetDetector.h"
 ///#include "COcclusionCheck.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Formula_DLL\CFormula.h"

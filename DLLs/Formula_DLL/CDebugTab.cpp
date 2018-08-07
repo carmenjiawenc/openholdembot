@@ -18,7 +18,6 @@
 #include "CFormula.h"
 #include "CFormulaParser.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\MemoryManagement_DLL\CMemoryPool.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
@@ -95,9 +94,9 @@ void CDebugTab::AddExpression(CString expression_text, TPParseTreeNode expressio
 }
 
 void* CDebugTab::operator new(size_t size) {
-  ///assert(PMemoryPoolGlobal() != NULL);
+  assert(MemoryPoolGlobal() != NULL);
   write_log(Preferences()->debug_memory_usage(), "[CDebugTab] Allocating %i bytes\n", size);
-  return malloc(size);///MemoryPoolGlobal()->Allocate(size);
+  return MemoryPoolGlobal()->Allocate(size);
 }
 
 CString CDebugTab::function_text() {

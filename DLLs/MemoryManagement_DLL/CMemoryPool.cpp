@@ -29,26 +29,31 @@
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 
+CMemoryPool memory_pool_tablemaps;
+CMemoryPool memory_pool_scraper;
+CMemoryPool memory_pool_user_logic;
+CMemoryPool memory_pool_library_logic;
+CMemoryPool memory_pool_global;
+
 void CreateMemoryPools() {
-  /*#assert(MemoryPoolTablemaps() == NULL);
-  assert(MemoryPoolScraper() == NULL);
-  assert(MemoryPoolUserLogic() == NULL);
-  assert(MemoryPoolLibraryLogic() == NULL);
-  assert(MemoryPoolGlobal() == NULL);
-  MemoryPoolTablemaps() = new CMemoryPool;
-  MemoryPoolScraper() = new CMemoryPool;
-  MemoryPoolUserLogic() = new CMemoryPool;
-  MemoryPoolLibraryLogic() = new CMemoryPool;
-  MemoryPoolGlobal() = new CMemoryPool;
-  */
+  /*#assert(memory_pool_tablemaps == NULL);
+  assert(memory_pool_scraper == NULL);
+  assert(memory_pool_user_logic == NULL);
+  assert(memory_pool_library_logic == NULL);
+  assert(memory_pool_global == NULL);
+  memory_pool_tablemaps = new CMemoryPool;
+  memory_pool_scraper = new CMemoryPool;
+  memory_pool_user_logic = new CMemoryPool;
+  memory_pool_library_logic = new CMemoryPool;
+  memory_pool_global = new CMemoryPool;*/
 }
 
 void DeleteAllMemoryPools() {
-  delete MemoryPoolTablemaps();
+  /*#delete MemoryPoolTablemaps();
   delete MemoryPoolScraper();
   delete MemoryPoolUserLogic();
   delete MemoryPoolLibraryLogic();
-  delete MemoryPoolGlobal();
+  delete MemoryPoolGlobal();*/
 }
 
 // 64 KB = 1 default block at 64-bit-Windows 
@@ -142,12 +147,6 @@ CMemoryPool *PMemoryPoolParser(bool for_read_only_openppl_library_and_default_bo
   assert(MemoryPoolUserLogic() != NULL);
   return MemoryPoolUserLogic();
 }
-
-CMemoryPool memory_pool_tablemaps;
-CMemoryPool memory_pool_scraper;
-CMemoryPool memory_pool_user_logic;
-CMemoryPool memory_pool_library_logic;
-CMemoryPool memory_pool_global;
 
 CMemoryPool* MemoryPoolTablemaps() {
   return &memory_pool_tablemaps;

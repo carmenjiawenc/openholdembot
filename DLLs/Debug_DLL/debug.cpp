@@ -128,7 +128,7 @@ void delete_log() {
 
 void clear_log() {
   stop_log();
-  assert(session_ID > 0);
+  assert(session_ID >= 0);
   start_log(session_ID, true);
 }
 

@@ -17,7 +17,7 @@
 #include "CMemorySymbolsCollection.h"
 #include <assert.h>
 #include "..\Debug_DLL\debug.h"
-#include "..\Globals_DLL\globals.h"
+#include "..\OpenHoldem_CallBack_DLL\OpenHoldem_CallBack.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
@@ -181,8 +181,7 @@ double CMemorySymbolsCollection::EvaluateRightHandExpression(CString right_hand_
     right_hand_value.Replace('_', '.');
     result = atof(right_hand_value);
   } else {
-    result = 42;///CParseTreeTerminalNodeIdentifier::EvaluateIdentifier(
-      ///right_hand_value, true); // !!! Needs function parameter
+    EvaluateSymbol(right_hand_value, &result, true);
   }
   write_log(Preferences()->debug_memorysymbols(), 
     "[CMemorySymbolsCollection] Evaluating %s -> %.3f\n",

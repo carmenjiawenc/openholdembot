@@ -23,7 +23,6 @@
 #include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFormulaParser.h"
 #include "..\Formula_DLL\CFunctionCollection.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 

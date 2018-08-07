@@ -14,7 +14,6 @@
 #include "DialogSAPrefs20.h"
 #include <assert.h>
 #include "SAPrefsSubDlg.h"
-#include "..\..\Globals_DLL\globals.h"
 #include "..\..\Preferences_DLL\Preferences.h"
 
 // CDlgSAPrefs20 dialog

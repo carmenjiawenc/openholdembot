@@ -646,7 +646,7 @@ bool CFunctionCollection::ParseAll() {
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=16230
   CheckForDefaultFormulaEntries();
   CSLock lock(m_critsec);
-  ///assert(OpenHoldem()->FormulaParser() != NULL);
+  assert(Formula()->FormulaParser() != NULL);
   ///p_parser_symbol_table->Clear();
   COHScriptObject *p_oh_script_object = GetFirst();
   while (p_oh_script_object != NULL) {

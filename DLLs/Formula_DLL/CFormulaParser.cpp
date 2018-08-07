@@ -44,7 +44,6 @@
 #include "..\Debug_DLL\debug.h"
 #include "..\Files_DLL\Files.h"
 #include "..\Formula_DLL\CDebugTab.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
@@ -133,7 +132,7 @@ void CFormulaParser::ParseDefaultLibraries() {
   LoadOptionalFunctionLibrary(CustomLibraryPath());
   LoadDefaultBot();
   // Check again after the custom library, not here!!!
-  ///EngineContainer()->symbol_engine_open_ppl()->VerifyExistenceOfOpenPPLInitializationInLibrary();
+  ///EngineContainer()->symbol_engine_open_ppl()->VerifyExistenceOfOpenPPLInitializationInLibrary(); not there
   Formula()->FunctionCollection()->ParseAll(); 
   _is_parsing_read_only_function_library = false;
   LeaveParserCode();
@@ -337,7 +336,7 @@ void CFormulaParser::ParseFormula(COHScriptObject* function_or_list_to_be_parsed
   assert(function_or_list_to_be_parsed != NULL);
   assert(function_or_list_to_be_parsed->IsFunction());
   ((CFunction*)function_or_list_to_be_parsed)->SetParseTree(function_body);
-  ///!!!!!?Formula()->FunctionCollection()->Add((COHScriptObject*)p_new_function);
+  Formula()->FunctionCollection()->Add((COHScriptObject*)function_or_list_to_be_parsed);
   assert(Formula()->FunctionCollection()->Exists(_function_name));
   // Care about operator precendence
   _parse_tree_rotator.Rotate((CFunction*)function_or_list_to_be_parsed);

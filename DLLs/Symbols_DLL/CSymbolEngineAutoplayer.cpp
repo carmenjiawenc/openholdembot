@@ -16,7 +16,6 @@
 #include "CSymbolEngineAutoplayer.h"
 /*#include "CAutoconnector.h"*/
 #include "CEngineContainer.h"
-///#include "CFunctionCollection.h"
 #include "CIteratorThread.h"
 ///#include "CStableFramesCounter.h"*/
 #include "CSymbolEnginePrwin.h"
@@ -26,7 +25,6 @@
 #include "..\Debug_DLL\debug.h"
 #include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFunctionCollection.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Tablestate_DLL\TableState.h"
 
@@ -81,7 +79,7 @@ void CSymbolEngineAutoplayer::UpdateOnHeartbeat() {
 void CSymbolEngineAutoplayer::CalculateMyTurnBits() {
 	write_log(Preferences()->debug_symbolengine(), "[CSymbolEngineAutoplayer] myturnbits reset: %i\n", _myturnbits);
 	for (int i=0; i<k_max_number_of_buttons; i++) {
-		/*#if (CasinoInterface()->_technical_autoplayer_buttons[i].IsClickable()) {
+		if (CasinoInterface()->_technical_autoplayer_buttons[i].IsClickable()) {
       // myturnbits  
       // Since OH 7.7.2 in the form FCKRA 
       // like the butons in the GUI (F =lowest bit) 
@@ -98,14 +96,14 @@ void CSymbolEngineAutoplayer::CalculateMyTurnBits() {
 			}	else if (CasinoInterface()->_technical_autoplayer_buttons[i].IsAutopost()) {
 				_isautopost = true;
 			}
-		}*/
-	}
+		}
+  }
 	write_log(Preferences()->debug_symbolengine(), "[CSymbolEngineAutoplayer] myturnbits now: %i\n", _myturnbits);
 }
 
 void CSymbolEngineAutoplayer::CalculateSitInState() {
   for (int i=0; i<k_max_number_of_buttons; ++i) {
-    /*#if (CasinoInterface()->_technical_autoplayer_buttons[i].IsSitin()) {
+    if (CasinoInterface()->_technical_autoplayer_buttons[i].IsSitin()) {
 	    // Sitin-button found
       // We are sitting in if that button can NOT be clicked
 	    _issittingin = !CasinoInterface()->_technical_autoplayer_buttons[i].IsClickable();
@@ -115,7 +113,7 @@ void CSymbolEngineAutoplayer::CalculateSitInState() {
       // We are sitting in if that button CAN be clicked
 	    _issittingin = (CasinoInterface()->_technical_autoplayer_buttons[i].IsClickable());
 	    return;
-    }*/
+    }
   }
 }
 
@@ -213,7 +211,7 @@ bool CSymbolEngineAutoplayer::EvaluateSymbol(const CString name, double *result,
 		{
 			*result = issittingout();
 		}
-		else if (memcmp(name, "isautopost", 10)==0 && strlen(name)==10)	
+  		else if (memcmp(name, "isautopost", 10)==0 && strlen(name)==10)	
 		{
 			*result = isautopost();
 		}

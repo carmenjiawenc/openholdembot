@@ -14,12 +14,10 @@
 #include "CParseTreeTerminalNodeNumber.h"
 #include <math.h>
 #include "CAutoplayerTrace.h"
-///#include "CMemoryPool.h"
 #include "CFormula.h"
 #include "CFunctionCollection.h"
 #include "CParserSymbolTable.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Numerical_Functions_DLL\FloatingPoint_Comparisions.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Preferences_DLL\Preferences.h"

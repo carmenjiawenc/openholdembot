@@ -15,10 +15,9 @@
 #include "CParseTreeNode.h"
 
 #include "CFunction.h"
-///#include "CMemoryPool.h"
 #include "TokenizerConstants.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Globals_DLL\globals.h"
+#include "..\MemoryManagement_DLL\CMemoryPool.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
@@ -132,8 +131,10 @@ CString CParseTreeNode::Serialize() {
   return "";
 }
 
+#define blergh true /*# !!!!! */
+
 void* CParseTreeNode::operator new(size_t size) {
-  ///assert(PMemoryPoolParser() != NULL);
+  assert(PMemoryPoolParser(blergh) != NULL);
   write_log(Preferences()->debug_memory_usage(), "[CParseTreeNode] Allocating %i bytes\n", size);
-  return malloc(size); /// PMemoryPoolParser()->Allocate(size);
+  return PMemoryPoolParser(blergh)->Allocate(size);
 }

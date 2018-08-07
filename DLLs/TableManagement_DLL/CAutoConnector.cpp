@@ -58,7 +58,6 @@ CAutoConnector::CAutoConnector() {
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] CAutoConnector()\n");
   CString MutexName = CString(Preferences()->mutex_name()) + "AutoConnector";
 	_autoconnector_mutex = new CMutex(false, MutexName);
-	///!!!!!!!set_attached_hwnd(NULL); superfluous, endöess recursiuon
 }
 
 CAutoConnector::~CAutoConnector() {
@@ -112,9 +111,9 @@ bool CAutoConnector::IsConnectedToGoneWindow() {
 void CAutoConnector::Check_TM_Against_All_Windows_Or_TargetHWND(int tablemap_index, HWND targetHWnd) {
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Check_TM_Against_All_Windows(..)\n");
   if (targetHWnd == NULL) {
-		///EnumWindows(EnumProcTopLevelWindowList, (LPARAM) tablemap_index);
+		EnumWindows(EnumProcTopLevelWindowList, (LPARAM) tablemap_index);
   } else {
-		///EnumProcTopLevelWindowList(targetHWnd, (LPARAM) tablemap_index);
+		EnumProcTopLevelWindowList(targetHWnd, (LPARAM) tablemap_index);
   }
 }
 
@@ -257,7 +256,7 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
   // We have to check and return very early, we must not do this
   // after locking the mutex, otherwiese we block other instances forever.
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=110&t=19407&p=140417#p140417
-  //!!!!! DONOWORKS if noi GUI
+  //!!!!! DONOWORKS if no GUI
   /*#if (OpenHoldem()->TablePositioner() == NULL) return false;
   if (p_autoplayer == NULL) return false;
   if (p_casino_interface == NULL) return false;

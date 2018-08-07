@@ -16,6 +16,7 @@
 
 #include "TableState.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
+#include "..\OpenHoldem_CallBack_DLL\OpenHoldem_CallBack.h"
 
 /*!!!!!!!#include "CEngineContainer.h"
 #include "CSymbolEngineUserchair.h"
@@ -49,7 +50,7 @@ CPlayer *CTableState::User() {
   if (!EngineContainer()->symbol_engine_userchair()->userchair_confirmed()) {
     return &_players[kFakeEntryForUnknownUserchair];
   }*/
-  int userchair = 42; //!!!!!!!= EngineContainer()->symbol_engine_userchair()->userchair();
+  int userchair = EvaluateSymbol("userchair");
   AssertRange(userchair, 0, kLastChair);
   ///!!! handle fake-entry
   return Player(userchair);

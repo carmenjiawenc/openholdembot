@@ -37,12 +37,12 @@ CHeartbeatDelay::~CHeartbeatDelay(){
 void CHeartbeatDelay::FlexibleSleep() {
   double default_heartbeat_delay = Preferences()->scrape_delay();
   double sleeping_factor = SleepingFactor();
-  ///if (EngineContainer()->symbol_engine_casino()->ConnectedToManualMode()) {
+  if (CasinoInterface()->ConnectedToManualMode()) {
     // Don't become too laggy at ManualMode,
     // response-time to euser is more important
     // than "performance", usually single-tabling.
-    ///sleeping_factor = MIN(sleeping_factor, 2);
-  ///}
+    sleeping_factor = MIN(sleeping_factor, 2);
+  }
   double modified_heartbeat_delay = default_heartbeat_delay * sleeping_factor;
   write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] default delay   %.3f ms.\n", default_heartbeat_delay);
   write_log(Preferences()->debug_heartbeat(), "[HeartBeatThread] sleeping factor %.3f .\n", sleeping_factor);

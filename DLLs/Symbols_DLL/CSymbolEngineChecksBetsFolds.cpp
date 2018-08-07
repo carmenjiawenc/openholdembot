@@ -25,7 +25,6 @@
 #include "CSymbolEngineHistory.h"
 #include "CSymbolEngineTableLimits.h"
 #include "CSymbolEngineUserchair.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"

@@ -36,10 +36,10 @@ const int WMA_SETFLAG = WM_APP + 5;
 const int WMA_RESETFLAG = WM_APP + 6;
 const int WMA_ISREADY = WM_APP + 7;
 
-//IMPLEMENT_DYNAMIC(COpenHoldemHopperCommunication, CWnd)
+///IMPLEMENT_DYNAMIC(COpenHoldemHopperCommunication, CWnd)
 
-///BEGIN_MESSAGE_MAP(COpenHoldemHopperCommunication, CWnd)  
-///END_MESSAGE_MAP()
+BEGIN_MESSAGE_MAP(COpenHoldemHopperCommunication, CWnd)  
+END_MESSAGE_MAP()
 
 LRESULT COpenHoldemHopperCommunication::OnConnectedHwndMessage(WPARAM, LPARAM)
 {

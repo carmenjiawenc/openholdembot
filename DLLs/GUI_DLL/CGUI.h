@@ -12,6 +12,7 @@
 //
 //******************************************************************************
 
+#include <afxwin.h>
 #include "LibDef.h"
 #include "formula_editor\DialogFormulaScintilla.h"
 #include "dialog_scraper_output\DialogScraperOutput.h"
@@ -23,7 +24,7 @@
 
 class CSingleDocTemplate;
 
-class GUI_DLL_API CGUI {
+class GUI_DLL_API CGUI: public CWnd {
 public:
   CGUI();
   ~CGUI();
@@ -53,9 +54,13 @@ public:
   }
 public:
   CSingleDocTemplate* CreateCSingleDocTemplate();
+protected:
+  DECLARE_MESSAGE_MAP()
 private:
   void UpdateOnConnection();
   void UpdateOnDisconnection();
+private:
+  afx_msg void OnAbout();
 private:
   ///!!! init
   CFlagsToolbar* _p_flags_toolbar;

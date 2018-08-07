@@ -27,7 +27,6 @@
 #include "CSymbolEngineUserchair.h"
 #include "..\CardFunctions.DLL\CardFunctions.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Scraper_DLL\CTransform\CTransform.h"

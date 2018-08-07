@@ -15,7 +15,6 @@
 
 #include "CSymbolEngineColourCodes.h"
 #include "CBetroundCalculator.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Tablestate_DLL\CPlayer.h"
 #include "..\Tablestate_DLL\TableState.h"

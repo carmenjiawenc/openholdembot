@@ -21,6 +21,7 @@
 #include "CFunctionCollection.h"
 #include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\OpenHoldem_CallBack_DLL\OpenHoldem_CallBack.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
@@ -51,13 +52,12 @@ void CAutoplayerLogic::TranslateOpenPPLDecisionToAutoplayerFunctions(double deci
   // Large negative values: action constants
   if (decision > 0) {
     // OpenHoldem uses f$betsize in dollars
-    ///assert(EngineContainer()->symbol_engine_tablelimits() != NULL);
-    double betsize = 42; ///decision * EngineContainer()->symbol_engine_tablelimits()->bblind();
+    double betsize = decision * EvaluateSymbol("bblind");
     Formula()->AutoplayerLogic()->SetValue(k_autoplayer_function_betsize,
       betsize);
   }
   else if (IsPercentagePotsizeBet(decision)) {
-    double betsize = 42; ///BetSizeForPercentagedPotsizeBet(decision);
+    double betsize = 42;///BetSizeForPercentagedPotsizeBet(decision);
     Formula()->AutoplayerLogic()->SetValue(k_autoplayer_function_betsize,
       betsize);
   }

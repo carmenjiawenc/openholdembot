@@ -26,7 +26,6 @@
 #include "..\Formula_DLL\CFormulaParser.h"
 #include "..\Formula_DLL\CParseErrors.h"
 #include "..\Formula_DLL\CParseTreeTerminalNodeEndOfFunction.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\PokerTracker_QueryDefinitions\pokertracker_query_definitions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"

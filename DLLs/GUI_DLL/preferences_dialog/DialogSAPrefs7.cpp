@@ -13,7 +13,6 @@
 
 #include "SAPrefsSubDlg.h"
 #include "DialogSAPrefs7.h"
-#include "..\..\Globals_DLL\globals.h"
 #include "..\..\Preferences_DLL\Preferences.h"
 
 // CDlgSAPrefs7 dialog

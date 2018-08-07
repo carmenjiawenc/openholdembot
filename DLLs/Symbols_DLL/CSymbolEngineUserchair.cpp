@@ -16,7 +16,6 @@
 #include "CSymbolEngineUserchair.h"
 ///#include "CBetroundCalculator.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Tablestate_DLL\TableState.h"

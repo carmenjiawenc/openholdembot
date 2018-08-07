@@ -22,7 +22,6 @@
 #include "CSymbolEnginePositions.h"
 #include "CSymbolEngineTableLimits.h"
 #include "CSymbolEngineUserchair.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\StringFunctions_DLL\string_functions.h"

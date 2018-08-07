@@ -12,15 +12,10 @@
 //******************************************************************************
 
 #include "CBetsizeInputBox.h"
-///#include "CAutoConnector.h"
-///#include "CAutoplayerTrace.h"
 #include "CCasinoInterface.h"
-///#include "SwagAdjustment.h"
 #include "low_level\keyboard.h"
 #include "low_level\mouse.h"
 #include "..\Debug_DLL\debug.h"
-///#include "..\Formula_DLL\CAutoplayerLogic.h"
-///#include "..\Formula_DLL\CFormula.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"

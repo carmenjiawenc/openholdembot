@@ -23,8 +23,6 @@ class COpenHoldemApp : public CWinApp {
 	~COpenHoldemApp();
 	void MyLoadStdProfileSettings(UINT nMaxMRU);
 	virtual BOOL InitInstance();
-	afx_msg void OnAppAbout();
-	///DECLARE_MESSAGE_MAP()
 	virtual int ExitInstance();
  public:
 	void StoreLastRecentlyUsedFileList();

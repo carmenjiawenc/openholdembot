@@ -32,7 +32,6 @@
 #include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Formula_DLL\COHScriptList.h"
 #include "..\Formula_DLL\CParseErrors.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Tablestate_DLL\TableState.h"

@@ -18,7 +18,7 @@
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\Symbols_DLL\CSymbolEngineIsTournament.h"
 #include "..\Symbols_DLL\CSymbolEngineReplayFrameController.h"
-///#include "..\Symbols_DLL\CSymbolEngineVersus.h"
+#include "..\Symbols_DLL\CSymbolEngineVersus.h"
 #include "..\GamestateValidation_DLL\GamestateValidation.h"
 
 CValidator::CValidator() {
@@ -45,7 +45,7 @@ void CValidator::Validate() {
 		  || (_enabled_manually)) {
     bool success = ValidateGamestate(Preferences()->validator_use_heuristic_rules(),
       EngineContainer()->symbol_engine_istournament()->istournament(),
-      false /*#EngineContainer()->symbol_engine_versus()->VersusBinLoaded()*/);
+      EngineContainer()->symbol_engine_versus()->VersusBinLoaded());
     if (success) {
       return;
     }

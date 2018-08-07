@@ -23,7 +23,7 @@ class COpenHoldemHopperCommunication: public CWnd {
 	LRESULT OnSetFlagMessage(WPARAM, LPARAM flag_to_set);
 	LRESULT OnResetFlagMessage(WPARAM, LPARAM flag_to_reset);
  protected:
-	///DECLARE_MESSAGE_MAP()
+	DECLARE_MESSAGE_MAP()
 };
 
 /*#

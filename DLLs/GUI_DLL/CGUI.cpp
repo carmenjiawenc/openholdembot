@@ -14,13 +14,20 @@
 #define GUI_DLL_EXPORTS
 
 #include "CGUI.h"
+#include "dialog_about\DialogAbout.h"
 #include "dialog_scraper_output\DialogScraperOutput.h"
 #include "MainFrame\MainFrm.h"
 #include "OpenHoldem_title\COpenHoldemTitle.h"
 #include "statusbar\COpenHoldemStatusbar.h"
 #include "Toolbar\CFlagsToolbar.h"
+#include "..\Debug_DLL\debug.h"
+#include "..\Preferences_DLL\Preferences.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\Symbols_DLL\CSymbolEngineHandrank.h"
+
+BEGIN_MESSAGE_MAP(CGUI, CWnd)
+  ON_COMMAND(ID_APP_ABOUT, &CGUI::OnAbout)
+END_MESSAGE_MAP()
 
 CGUI::CGUI() {
 }
@@ -72,6 +79,7 @@ void CGUI::UpdateOnDisconnection() {
   FlagsToolbar()->ResetButtonsOnDisconnect();
 }
 
+///!!!
 #include "MainFrame\OpenHoldemDoc.h"
 #include "MainFrame\OpenHoldemView.h"
 
@@ -89,12 +97,15 @@ CSingleDocTemplate* CGUI::CreateCSingleDocTemplate() {
      RUNTIME_CLASS(CMainFrame),	   // main SDI frame window
      RUNTIME_CLASS(COpenHoldemView));
   if (!pDocTemplate) {
-    ///write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Creating CSingleDocTemplate() failed\n");
+    write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Creating CSingleDocTemplate() failed\n");
     return NULL;
   }
-  ///write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to AddDocTemplate()\n");
-  ///AddDocTemplate(pDocTemplate);*/
   return pDocTemplate;
+}
+
+void CGUI::OnAbout() {
+  CDlgAbout aboutDlg;
+  aboutDlg.DoModal();
 }
 
 CGUI* gui = NULL;

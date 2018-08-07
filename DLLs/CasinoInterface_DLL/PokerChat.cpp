@@ -20,7 +20,6 @@
 #include <afxwin.h>
 #include <math.h>
 #include <time.h>
-#include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 
 char *_the_chat_message = NULL;

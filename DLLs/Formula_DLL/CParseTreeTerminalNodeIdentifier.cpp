@@ -17,13 +17,12 @@
 
 #include <math.h>
 #include "CAutoplayerTrace.h"
-///#include "CMemoryPool.h"
 #include "CFormula.h"
 #include "CFunctionCollection.h"
 #include "CParserSymbolTable.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
+#include "..\OpenHoldem_CallBack_DLL\OpenHoldem_CallBack.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
@@ -85,8 +84,7 @@ CString CParseTreeTerminalNodeIdentifier::EvaluateToString(bool log /* = false *
 double CParseTreeTerminalNodeIdentifier::EvaluateIdentifier(CString name, bool log) {
 	// EvaluateSymbol cares about ALL symbols, 
 	// including DLL and PokerTracker.
-	double result = 42;
-	///EngineContainer()->EvaluateSymbol(name, &result, log);
+	double result = EvaluateSymbol(name/*#, log*/);
 	return result;
 }
 

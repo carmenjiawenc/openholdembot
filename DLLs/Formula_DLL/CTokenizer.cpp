@@ -21,7 +21,6 @@
 #include "TokenizerConstants.h"
 #include "..\CardFunctions.DLL\CardFunctions.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Globals_DLL\globals.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
@@ -387,7 +386,7 @@ NegativeNumber:
 			if (_inside_OpenPPL_function) {
 				RETURN_DEFAULT_SINGLE_CHARACTER_OPERATOR(kTokenOperatorPercentage);
 			}
-      ///assert(OpenHoldem()->FormulaParser() != NULL);
+      assert(Formula()->FormulaParser() != NULL);
       if (Formula()->FormulaParser()->IsParsingDebugTab()) {
         // http://www.maxinmontreal.com/forums/viewtopic.php?f=297&t=19973&p=140389#p140389
         MessageBox_Error_Warning("Operator % in debug-tab detected.\n"
