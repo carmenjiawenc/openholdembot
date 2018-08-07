@@ -89,7 +89,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)BasicScraper.lib;$(OutDir)Debug.lib;$(OutDir)MemoryManagement.lib;$(OutDir)Preferences.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)StringFunctions.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)BasicScraper.lib;$(OutDir)Debug.lib;$(OutDir)MemoryManagement.lib;$(OutDir)OpenHoldem_CallBack.lib;$(OutDir)Preferences.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)StringFunctions.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -109,7 +109,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)BasicScraper.lib;$(OutDir)Debug.lib;$(OutDir)MemoryManagement.lib;$(OutDir)Preferences.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)StringFunctions.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;$(OutDir)BasicScraper.lib;$(OutDir)Debug.lib;$(OutDir)MemoryManagement.lib;$(OutDir)OpenHoldem_CallBack.lib;$(OutDir)Preferences.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)StringFunctions.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -87,6 +87,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>E:\OpenHoldem\pokereval\include\inlines;E:\OpenHoldem\pokereval\include;E:\OpenHoldem\pokereval;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)Scraper.dll</OutputFile>

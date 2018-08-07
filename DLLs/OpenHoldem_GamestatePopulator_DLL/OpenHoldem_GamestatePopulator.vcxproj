@@ -74,13 +74,14 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>E:\OpenHoldem\pokereval\include\inlines;E:\OpenHoldem\pokereval;E:\OpenHoldem\pokereval\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)OpenHoldem_GamestatePopulator.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>$(OutDir)BasicScraper.lib;$(OutDir)CardFunctions.lib;$(OutDir)CasinoInterface.lib;$(OutDir)Debug.lib;$(OutDir)MemoryManagement.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)Preferences.lib;$(OutDir)StringFunctions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)BasicScraper.lib;$(OutDir)CardFunctions.lib;$(OutDir)CasinoInterface.lib;$(OutDir)Debug.lib;$(OutDir)MemoryManagement.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)Preferences.lib;$(OutDir)StringFunctions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;psapi.lib;;..\..\pokereval\Release\poker-eval.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -99,7 +100,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>$(OutDir)BasicScraper.lib;$(OutDir)CardFunctions.lib;$(OutDir)CasinoInterface.lib;$(OutDir)Debug.lib;$(OutDir)MemoryManagement.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)Preferences.lib;$(OutDir)StringFunctions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)BasicScraper.lib;$(OutDir)CardFunctions.lib;$(OutDir)CasinoInterface.lib;$(OutDir)Debug.lib;$(OutDir)MemoryManagement.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)Preferences.lib;$(OutDir)StringFunctions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;psapi.lib;;..\..\pokereval\Release\poker-eval.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

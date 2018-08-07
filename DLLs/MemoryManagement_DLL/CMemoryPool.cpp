@@ -36,28 +36,19 @@ CMemoryPool memory_pool_library_logic;
 CMemoryPool memory_pool_global;
 
 void CreateMemoryPools() {
-  /*#assert(memory_pool_tablemaps == NULL);
-  assert(memory_pool_scraper == NULL);
-  assert(memory_pool_user_logic == NULL);
-  assert(memory_pool_library_logic == NULL);
-  assert(memory_pool_global == NULL);
-  memory_pool_tablemaps = new CMemoryPool;
-  memory_pool_scraper = new CMemoryPool;
-  memory_pool_user_logic = new CMemoryPool;
-  memory_pool_library_logic = new CMemoryPool;
-  memory_pool_global = new CMemoryPool;*/
+  // Nothing to do here, they are ATM global
 }
 
 void DeleteAllMemoryPools() {
-  /*#delete MemoryPoolTablemaps();
-  delete MemoryPoolScraper();
-  delete MemoryPoolUserLogic();
-  delete MemoryPoolLibraryLogic();
-  delete MemoryPoolGlobal();*/
+  memory_pool_tablemaps.ReleaseAll();
+  memory_pool_scraper.ReleaseAll();
+  memory_pool_user_logic.ReleaseAll();
+  memory_pool_library_logic.ReleaseAll();
+  memory_pool_global.ReleaseAll();
 }
 
 // 64 KB = 1 default block at 64-bit-Windows 
-//       = 16 default blocks at 52-bit-Windows
+//       = 16 default blocks at 32-bit-Windows
 const int kMemoryBlockSize = 65536;
 
 CMemoryPool::CMemoryPool() {
@@ -167,4 +158,3 @@ CMemoryPool* MemoryPoolLibraryLogic() {
 CMemoryPool* MemoryPoolGlobal() {
   return &memory_pool_global;
 }
-

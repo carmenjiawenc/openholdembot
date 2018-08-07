@@ -300,7 +300,7 @@ void CFormulaParser::ParseFormula(COHScriptObject* function_or_list_to_be_parsed
   // to the function collection (to avoid deletion).
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=111&t=19616
   TPParseTreeNode function_body = NULL;
-  if (_function_name.MakeLower() == "dll") {
+  if (_function_name.CompareNoCase("dll") == 0) {
    // Deprecated ##DLL##.
    // Formerly nothing to do, now ignore it.
   } else if (function_or_list_to_be_parsed->IsNotes()) {
@@ -334,7 +334,6 @@ void CFormulaParser::ParseFormula(COHScriptObject* function_or_list_to_be_parsed
     return;
   }
   assert(function_or_list_to_be_parsed != NULL);
-  assert(function_or_list_to_be_parsed->IsFunction());
   ((CFunction*)function_or_list_to_be_parsed)->SetParseTree(function_body);
   Formula()->FunctionCollection()->Add((COHScriptObject*)function_or_list_to_be_parsed);
   assert(Formula()->FunctionCollection()->Exists(_function_name));

@@ -16,12 +16,11 @@
 #include "low_level\keyboard.h"
 #include "low_level\mouse.h"
 #include "..\Debug_DLL\debug.h"
-#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\OpenHoldem_CallBack_DLL\OpenHoldem_CallBack.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\StringFunctions_DLL\string_functions.h"
-#include "..\Symbols_DLL\CEngineContainer.h"
-#include "..\Symbols_DLL\CSymbolEngineHistory.h"
 #include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 
@@ -127,9 +126,9 @@ bool CBetsizeInputBox::EnterBetsize(double total_betsize_in_dollars) {
       return false;
     }
   }
-  /*#int betround = EngineContainer()->BetroundCalculator()->betround();
+  int betround = EvaluateSymbol("betround");
   write_log(Preferences()->debug_autoplayer(), "[CBetsizeInputBox] ...ending DoBetsize, 'didbetsize' now: %d\n",
-    EngineContainer()->symbol_engine_history()->didswag(betround));*/
+    EvaluateSymbol("didbetsize"));
   return (!lost_focus); 
 }
 

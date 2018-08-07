@@ -93,7 +93,7 @@ bool CRebuyManagement::NoCards(){
 	return false;
 }
 
-/*#bool CRebuyManagement::OcclusionCheck() {
+bool CRebuyManagement::OcclusionCheck() {
 	if (!Preferences()->rebuy_condition_heuristic_check_for_occlusion()) {
 		return true;
 	}	else if (occlusion_check.UserBalanceOccluded()) {
@@ -102,7 +102,7 @@ bool CRebuyManagement::NoCards(){
 	}
   write_log(Preferences()->debug_rebuy(), "[CRebuyManagement] OcclusionCheck: true (not occluded)\n");
 	return true;
-}*/
+}
 
 bool CRebuyManagement::RebuyPossible() {
 	if (MinimumDelayElapsed()

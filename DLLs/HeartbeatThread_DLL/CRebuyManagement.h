@@ -33,7 +33,7 @@ private:
 	bool MinimumDelayElapsed();
 	bool ChangeInHandNumber();
 	bool NoCards();
-	///bool OcclusionCheck();
+	bool OcclusionCheck();
 	bool RebuyPossible();
 	// CAUTION! DO NOT USE THIS FUNCTION DIRECTLY!
 	// It has to be protected by a mutex.

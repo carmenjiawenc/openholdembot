@@ -14,6 +14,7 @@
 //******************************************************************************
 
 #include "CScraper.h"
+#include <poker_defs.h>
 #include "Bitmaps.h" 
 #include "CTitleEvaluator.h"
 #include "..\CardFunctions.DLL\CardFunctions.h"
@@ -26,6 +27,8 @@
 #include "..\Scraper_DLL\CTransform\CTransform.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
+#include "..\Symbols_DLL\CSymbolEngineActiveDealtPlaying.h"
+#include "..\Symbols_DLL\CSymbolEngineHistory.h"
 #include "..\Symbols_DLL\CSymbolEngineIsOmaha.h"
 #include "..\Symbols_DLL\CSymbolengineMTTInfo.h"
 #include "..\TableManagement_DLL\CAutoConnector.h"
@@ -229,15 +232,15 @@ void CScraper::ScrapeBetsAndBalances() {
 	{
 		// We have to scrape "every" player,
     //   * as people might bet-fold-standup.
-    //   * as people might be missing in tournament, but we use ICM
+    //   * as people might be missing in tournament, but post blinds
 		// Improvement: 
 		//   * scrape everybody up to my first action (then we know who was dealt)
 		//   * after that we scrape only dealt players
 		//   * and also players who have cards (fresh sitdown and hand-reset, former playersdealt is wrong)
     ///!!! Not here -> lazy
-		/*#if ((!EngineContainer()->symbol_engine_history()->DidActThisHand())
+		if ((!EngineContainer()->symbol_engine_history()->DidActThisHand())
 			|| IsBitSet(EngineContainer()->symbol_engine_active_dealt_playing()->playersdealtbits(), i)
-      || TableState()->Player(i)->HasAnyCards())*/
+      || TableState()->Player(i)->HasAnyCards())
 		{
 			ScrapeBet(i);
 			ScrapeBalance(i);
@@ -362,10 +365,10 @@ void CScraper::ScrapeSlider() {
 
 int CScraper::CardString2CardNumber(CString card) {
 	int result;
-	/*#!!!if (StdDeck_stringToCard((char*) card.GetString(), &result)) {
+	if (StdDeck_stringToCard((char*) card.GetString(), &result)) {
     AssertRange(result, 0, 255);
 	  return result;
-  } else */{
+  } else {
     return CARD_UNDEFINED;
   }
 }
