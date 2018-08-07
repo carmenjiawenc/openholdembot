@@ -114,7 +114,19 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>imm32.lib;psapi.lib;..\Release\Preferences.lib;..\Release\TableState.lib;..\Release\globals.lib;secur32.lib;..\pokereval\Release\poker-eval.lib;..\lib\libpq.lib;..\lib\PerlEz.lib;..\Release\Reference User DLL.lib;..\Release\WindowFunctions.lib;..\Release\StringFunctions.lib;..\Release\debug.lib;..\Release\GameStateValidation.lib;..\Release\files.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>
+	    $(OutDir)Debug.lib;
+		$(OutDir)Files.lib;
+	    $(OutDir)Formula.lib;
+		$(OutDir)GUI.lib;
+	    $(OutDir)GameStateValidation.lib;
+		$(OutDir)HeartbeatThread.lib;
+		$(OutDir)Preferences.lib;
+		$(OutDir)SessionCounter.lib;
+		$(OutDir)StringFunctions.lib;
+		$(OutDir)TableState.lib;
+		$(OutDir)WindowFunctions.lib; 
+	 imm32.lib;psapi.lib;secur32.lib;..\pokereval\Release\poker-eval.lib;..\lib\libpq.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName).exe</OutputFile>
       <OutputFile>$(OutDir)OpenHoldem.exe</OutputFile>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -199,7 +211,7 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>imm32.lib;psapi.lib;..\Release\Preferences.lib;..\Release\TableState.lib;..\Release\globals.lib;secur32.lib;..\pokereval\Release\poker-eval.lib;..\lib\libpq.lib;..\lib\PerlEz.lib;..\Release\Reference User DLL.lib;..\Release\WindowFunctions.lib;..\Release\StringFunctions.lib;..\Release\debug.lib;..\Release\GameStateValidation.lib;..\Release\files.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>imm32.lib;psapi.lib;..\Release\Preferences.lib;..\Release\TableState.lib;secur32.lib;..\pokereval\Release\poker-eval.lib;..\lib\libpq.lib;..\lib\PerlEz.lib;..\Release\Reference User DLL.lib;..\Release\WindowFunctions.lib;..\Release\StringFunctions.lib;..\Release\debug.lib;..\Release\GameStateValidation.lib;..\Release\files.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName).exe</OutputFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
