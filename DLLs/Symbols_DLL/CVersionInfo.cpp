@@ -16,14 +16,15 @@
 //
 //******************************************************************************
 
-
 #include "CVersionInfo.h"
 #include <assert.h>
-#include "..\DLLs\Symbols_DLL\CFunctionCollection.h"
-#include "..\CTablemap\CTablemap.h"
-#include "MD5_Checksum.h"
-
-CVersionInfo *p_version_info = NULL;
+#include "..\Checksums_DLL\MD5_Checksum.h"
+#include "..\Files_DLL\Files.h"
+#include "..\Formula_DLL\CFormula.h"
+#include "..\Formula_DLL\CFunctionCollection.h"
+#include "..\GUI_DLL\resource.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\Scraper_DLL\CTablemap\CTablemap.h"
 
 CVersionInfo::CVersionInfo()
 {
@@ -37,17 +38,13 @@ CVersionInfo::~CVersionInfo()
 CString CVersionInfo::GetVersionInfo()
 {
 	CString version_info;
-
-	assert(p_function_collection != NULL);
-	assert(p_tablemap != NULL);
-
   version_info.Format("OpenHoldem\n"
     "  Version  [%s, %s]\n"
     "  Formula  [%s]\n"
     "  Tablemap [%s]\n",
     VERSION_TEXT,
     _openholdem_MD5,
-    FunctionCollection()->FormulaName(),
+    Formula()->FunctionCollection()->FormulaName(),
     BasicScraper()->Tablemap()->filename());
 	return version_info;
 }

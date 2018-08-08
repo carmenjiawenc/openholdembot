@@ -17,9 +17,9 @@
 //
 //******************************************************************************
 
-///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
-class CVersionInfo /*#: public CSpaceOptimizedGlobalObject*/{
+class CVersionInfo: public CSpaceOptimizedGlobalObject {
 public:
 	CVersionInfo();
 	~CVersionInfo();

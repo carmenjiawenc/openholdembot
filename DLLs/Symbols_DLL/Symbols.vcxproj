@@ -69,6 +69,7 @@
     <ClCompile Include="CSymbolengineUserDLL.cpp" />
     <ClCompile Include="CSymbolEngineVariousDataLookup.cpp" />
     <ClCompile Include="CSymbolEngineVersus.cpp" />
+    <ClCompile Include="CVersionInfo.cpp" />
     <ClCompile Include="CVirtualSymbolEngine.cpp" />
     <ClCompile Include="mtrand.cpp" />
     <ClCompile Include="PrWinHandranges.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="CSymbolengineUserDLL.h" />
     <ClInclude Include="CSymbolEngineVariousDataLookup.h" />
     <ClInclude Include="CSymbolengineVersus.h" />
+    <ClInclude Include="CVersionInfo.h" />
     <ClInclude Include="CVirtualSymbolEngine.h" />
     <ClInclude Include="LibDef.h" />
     <ClInclude Include="mtrand.h" />
