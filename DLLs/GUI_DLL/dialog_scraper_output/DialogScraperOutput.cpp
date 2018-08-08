@@ -16,7 +16,6 @@
 #include "..\Toolbar\CFlagsToolbar.h"
 #include "..\..\Preferences_DLL\Preferences.h"
 #include "..\..\Scraper_DLL\CBasicScraper.h"
-///#include "..\..\Scraper_DLL\CTransform\CTransform.h"
 
 #define ID_SCRAPEROUTPUT_SIZERBAR 5555
 

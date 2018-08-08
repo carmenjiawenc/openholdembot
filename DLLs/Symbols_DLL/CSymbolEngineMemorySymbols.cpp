@@ -14,8 +14,6 @@
 
 #include "CSymbolEngineMemorySymbols.h"
 #include <assert.h>
-///#include "CParseErrors.h"
-///#include "CParseTreeTerminalNode.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Formula_DLL\CParseTreeTerminalNodeIdentifier.h"
 #include "..\Preferences_DLL\Preferences.h"

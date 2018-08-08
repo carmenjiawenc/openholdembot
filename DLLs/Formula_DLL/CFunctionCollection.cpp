@@ -26,8 +26,6 @@
 #include "CFunction.h"
 #include "CParseErrors.h"
 #include "CSelftestParserEvaluator.h"
-///#include "CDebugTab.h"
-///#include "CParserSymbolTable.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
@@ -498,7 +496,7 @@ void CFunctionCollection::Save(CArchive &ar) {
   // First write the date
   char nowtime[26] = {0};
   CString s;
-  ///s.Format("##%s##\r\n\r\n", get_time(nowtime));
+  s.Format("##%s##\r\n\r\n", get_time(nowtime));
   ar.WriteString(s);
   // Notes are a bit special "functions",
   // so they get extra treatment.

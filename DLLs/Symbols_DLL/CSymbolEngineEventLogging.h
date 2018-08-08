@@ -14,6 +14,7 @@
 //******************************************************************************
 
 #include "CVirtualSymbolEngine.h"
+#include "CVersionInfo.h"
 
 class CSymbolEngineEventLogging: public CVirtualSymbolEngine
 {
@@ -35,4 +36,6 @@ public:
 private:
   void LogBasicInfo(const char *action_taken);
   void LogPlayers();
+private:
+  CVersionInfo version_info;
 };

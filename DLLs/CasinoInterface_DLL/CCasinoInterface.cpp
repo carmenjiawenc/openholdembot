@@ -14,7 +14,7 @@
 #define CASINO_INTERFACE_DLL_EXPORTS
 
 #include "CCasinoInterface.h"
-///#include "CMyMutex.h"
+#include "CMyMutex.h"
 #include "PokerChat.hpp"
 #include "low_level\keyboard.h"
 #include "low_level\mouse.h"
@@ -150,8 +150,10 @@ int CCasinoInterface::NumberOfVisibleAutoplayerButtons() {
 bool CCasinoInterface::HandleInterfacebuttonsI86(void) {
   for (int i = 0; i<k_max_number_of_i86X_buttons; ++i) {
     if (CasinoInterface()->_technical_i86X_spam_buttons[i].IsClickable()) {
-      ///CMyMutex mutex;
-      ///if (!mutex.IsLocked()) return false;
+      CMyMutex mutex;
+      if (!mutex.IsLocked()) {
+        return false;
+      }
       write_log(Preferences()->debug_autoplayer(), "[CasinoInterface] Clicking i86X (%d) button.\n", i);
       return CasinoInterface()->_technical_i86X_spam_buttons[i].Click();
     }

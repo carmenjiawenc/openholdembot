@@ -12,8 +12,6 @@
 //******************************************************************************
 
 #include "DialogSAPrefs6.h"
-///#include "OpenHoldem.h"
-///#include "MainFrm.h"
 #include "SAPrefsSubDlg.h"
 #include "..\..\Debug_DLL\debug.h"
 #include "..\..\Preferences_DLL\Preferences.h"

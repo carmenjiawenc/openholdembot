@@ -15,7 +15,6 @@
 #include "CSymbolEngineIsTournament.h"
 #include <assert.h>
 #include "CEngineContainer.h"
-///#include "CHandresetDetector.h"
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include "CSymbolEngineAutoplayer.h"
 #include "CSymbolEngineCasino.h"

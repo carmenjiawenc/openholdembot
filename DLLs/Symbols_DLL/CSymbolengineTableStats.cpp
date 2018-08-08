@@ -14,7 +14,6 @@
 #include "CSymbolEngineTableStats.h"
 #include "CBetroundCalculator.h"
 #include "CEngineContainer.h"
-///#include "CHandresetDetector.h"
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include "CSymbolEngineChipAmounts.h"
 

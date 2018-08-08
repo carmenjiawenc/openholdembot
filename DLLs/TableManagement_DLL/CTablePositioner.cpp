@@ -19,7 +19,6 @@
 #include "CAutoConnector.h"
 #include "CSharedMem.h"
 #include "CTableManagement.h"
-///#include "../CTablemap/CTableMapAccess.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"

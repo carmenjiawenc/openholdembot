@@ -32,7 +32,6 @@
 #include "..\Scraper_DLL\CTransform\CTransform.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Tablestate_DLL\TableState.h"
-///#include "inlines/eval.h"
 
 CSymbolEnginePokerval::CSymbolEnginePokerval() {
 	// The values of some symbol-engines depend on other engines.

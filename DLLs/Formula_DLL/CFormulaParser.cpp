@@ -47,7 +47,6 @@
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
-///#include "..\..\OpenHoldem\CWatchdog.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 #ifdef _DEBUG

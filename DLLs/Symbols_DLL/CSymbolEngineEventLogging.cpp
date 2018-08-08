@@ -22,6 +22,7 @@
 #include "CSymbolEngineHandrank.h"
 #include "CSymbolEnginePokerval.h"
 #include "CSymbolEngineUserchair.h"
+#include "CVersionInfo.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Formula_DLL\CAutoplayerTrace.h"
 #include "..\Formula_DLL\CFormula.h"
@@ -31,7 +32,6 @@
 #include "..\Tablestate_DLL\TableState.h"
 #include "..\Tablestate_DLL\CTableTitle.h"
 #include "..\..\OpenHoldem_old\stdafx.h"
-///#include "CVersionInfo.h"
 
 CSymbolEngineEventLogging::CSymbolEngineEventLogging()
 {}
@@ -57,7 +57,7 @@ void CSymbolEngineEventLogging::UpdateOnHandreset() {
     "==============================================\n"
     "HAND RESET\n"
     "==============================================\n",
-    "", //#p_version_info->GetVersionInfo(), 
+    "", version_info->GetVersionInfo(), 
     TableState()->TableTitle()->Title());
 }
 

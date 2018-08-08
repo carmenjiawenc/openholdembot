@@ -15,7 +15,7 @@
 
 #include "LibDef.h"
 
-///#include "CSpaceOptimizedGlobalObject.h"
+#include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
 // Shared memory to coordinate the auto-connectors
 // of multiple instances of OpenHoldem.

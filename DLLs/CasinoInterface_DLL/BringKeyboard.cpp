@@ -19,8 +19,7 @@
 #include "..\Symbols_DLL\CSymbolEngineAutoplayer.h"
 #include "..\TableManagement_DLL\CAutoConnector.h"
 #include "..\TableManagement_DLL\CTableManagement.h"
-///#include "MainFrm.h"
-///#include "CMyMutex.h"
+#include "CMyMutex.h"
 
 void CheckBringKeyboard(void) {
 	HMENU			bringsysmenu = NULL;
@@ -104,8 +103,10 @@ void CheckBringKeyboard(void) {
 		input[input_count].ki.dwFlags = KEYEVENTF_KEYUP;
 		input_count++;
 
-		///CMyMutex mutex;
-    ///if (!mutex.IsLocked()) return;
+		CMyMutex mutex;
+    if (!mutex.IsLocked()) {
+      return;
+    }
 
 		hwnd_focus = GetFocus();
 		GetCursorPos(&cur_pos);

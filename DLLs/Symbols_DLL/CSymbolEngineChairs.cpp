@@ -13,7 +13,6 @@
 //******************************************************************************
 
 #include "CSymbolEngineChairs.h"
-///#include "CBetroundCalculator.h"
 #include "CEngineContainer.h"
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include "CSymbolEngineChecksBetsFolds.h"

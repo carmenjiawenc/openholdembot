@@ -13,7 +13,6 @@
  
 #include "CParseTreeTerminalNodeUserVariable.h"
 #include <math.h>
-///#include "CAutoplayerTrace.h"
 #include "CFormula.h"
 #include "CFunctionCollection.h"
 #include "CParserSymbolTable.h"

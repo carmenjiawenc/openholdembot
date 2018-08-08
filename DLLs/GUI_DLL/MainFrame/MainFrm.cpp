@@ -16,15 +16,6 @@
 #include "MainFrm.h"
 #include <io.h>
 #include <process.h>
-
-///#include "CAutoplayer.h"
-///#include "CFlagsToolbar.h"
-///#include "CHeartbeatThread.h"
-///#include "CIteratorThread.h"
-///#include "COpenHoldemHopperCommunication.h"
-///#include "COpenHoldemStatusbar.h"
-
-///#include "CProblemSolver.h"
 #include "..\CGUI.h"
 #include "..\formula_editor\DialogFormulaScintilla.h"
 #include "..\dialog_scraper_output\DialogScraperOutput.h"
@@ -41,7 +32,6 @@
 #include "..\..\Symbols_DLL\CSymbolEngineUserchair.h"
 #include "..\..\Symbols_DLL\CSymbolEngineTableLimits.h"
 #include "..\..\WindowFunctions_DLL\window_functions.h"
-///#include "CValidator.h"
 #include "..\formula_editor\DialogFormulaScintilla.h"
 #include "..\preferences_dialog\DialogSAPrefs2.h"
 #include "..\preferences_dialog\DialogSAPrefs3.h"
@@ -63,9 +53,6 @@
 #include "..\preferences_dialog\DialogSAPrefs21.h"
 #include "..\preferences_dialog\DialogSAPrefs22.h"
 #include "..\dialog_scraper_output\DialogScraperOutput.h"
-///#include "inlines/eval.h"
-///#include "SAPrefsDialog.h"
-///#include "Singletons.h"
 #include "..\..\TableManagement_DLL\CAutoConnector.h"
 #include "..\..\TableManagement_DLL\CTableManagement.h"
 #include "..\..\..\OpenHoldem_old\OpenHoldemDoc.h" /// here?

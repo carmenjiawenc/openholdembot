@@ -24,7 +24,6 @@
 #include "..\..\TableManagement_DLL\CTableManagement.h"
 #include "..\..\Tablestate_DLL\TableState.h"
 #include "..\..\Tablestate_DLL\CTableTitle.h"
-///#include "..\MainFrm.h"
 
 COpenHoldemTitle *p_openholdem_title = NULL;
 

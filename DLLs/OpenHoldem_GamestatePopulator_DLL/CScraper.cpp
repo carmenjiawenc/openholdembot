@@ -36,18 +36,6 @@
 #include "..\TableState_DLL\TableState.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
-/*##include "CardFunctions.h"
-#include "CAutoconnector.h"
-
-#include "CStringMatch.h"
-#include "..\DLLs\Tablestate_DLL\TableState.h"
-#include "..\DLLs\Tablestate_DLL\CTableTitle.h"
-#include "..\CTransform\CTransform.h"
-#include "..\CTransform\hash\lookup3.h"
-
-#include "MainFrm.h"
-#include "OpenHoldem.h"*/
-
 #define __HDC_HEADER 		HBITMAP		old_bitmap = NULL; \
 	HDC				hdc = GetDC(TableManagement()->AutoConnector()->attached_hwnd()); \
 	HDC				hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL); \

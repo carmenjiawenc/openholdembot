@@ -14,9 +14,6 @@
 #define PROCESS_MANAGEMEMT_DLL_EXPORTS
 
 #include "COpenHoldemStarter.h"
-///#include "CAutoConnector.h"
-///#include "CSharedMem.h"
-///#include "OpenHoldem.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Files_DLL\Files.h"
 #include "..\Preferences_DLL\Preferences.h"

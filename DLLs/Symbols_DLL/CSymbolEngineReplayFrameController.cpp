@@ -17,12 +17,7 @@
 
 #include <assert.h>
 #include "CSymbolEngineReplayFrameController.h"
-///#include "CAutoPlayer.h"
 #include "CEngineContainer.h"
-///#include "CHeartbeatThread.h"
-///#include "CLazyScraper.h"
-///#include "CReplayFrame.h"
-///#include "CStableFramesCounter.h"
 #include "CSymbolEngineAutoplayer.h"
 #include "CSymbolEngineCasino.h"
 #include "..\CasinoInterface_DLL\CCasinoInterface.h"
