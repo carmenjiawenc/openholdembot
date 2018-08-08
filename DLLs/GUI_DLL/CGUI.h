@@ -14,7 +14,7 @@
 
 #include <afxwin.h>
 #include "LibDef.h"
-#include "formula_editor\DialogFormulaScintilla.h"
+#include "formula_editor\CFormulaEditor.h"
 #include "dialog_scraper_output\DialogScraperOutput.h"
 #include "Toolbar\CFlagsToolbar.h"
 #include "MainFrame\MainFrm.h"
@@ -34,6 +34,9 @@ public:
   CFlagsToolbar *FlagsToolbar() {
     return _p_flags_toolbar;
   }
+  CFormulaEditor *FormulaEditor() {
+    return &_formula_editor;
+  }
   CMainFrame *MainFrame() {
     return _p_main_frame;
   }
@@ -42,9 +45,6 @@ public:
   }
   COpenHoldemTitle* OpenHoldemTitle() {
     return _p_openholdem_title;
-  }
-  CDlgFormulaScintilla* DlgFormulaScintilla() {
-    return _p_dialog_formula_scintilla;
   }
   CDlgScraperOutput *DlgScraperOutput() {
     return _p_dialog_scraper_output;
@@ -67,9 +67,10 @@ private:
   CMainFrame* _p_main_frame;
   COpenHoldemStatusbar* _p_openholdem_statusbar; 
   COpenHoldemTitle* _p_openholdem_title;
-  CDlgFormulaScintilla* _p_dialog_formula_scintilla;
   CDlgScraperOutput* _p_dialog_scraper_output;
   CWhiteInfoBox* _p_white_infobox;
+private:
+  CFormulaEditor _formula_editor;
 };
 
 GUI_DLL_API CGUI* GUI();

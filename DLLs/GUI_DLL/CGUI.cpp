@@ -51,14 +51,9 @@ void CGUI::Update() {
   /// GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_FORMULA, false);
 
   // Reset "ScraperOutput" dialog, if it is live
-  //if (GUI()->DlgScraperOutput()) {
-  //  GUI()->DlgScraperOutput()->Reset();
-  //}
-  //
-  // Reset "ScraperOutput" dialog, if it is live
-  /*#if (GUI()->DlgScraperOutput()) {
-  GUI()->DlgScraperOutput()->Reset();
-  }*/
+  if (GUI()->DlgScraperOutput()) {
+    GUI()->DlgScraperOutput()->Reset();
+  }
   /*// The main GUI gets created by another thread.
       // This can be slowed down if there are popups (parse-errors).
       // Handle the race-condition

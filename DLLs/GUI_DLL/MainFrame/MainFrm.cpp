@@ -239,31 +239,11 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs) {
 // CMainFrame message handlers
 
 void CMainFrame::OnEditFormula() {
-	if (GUI()->DlgFormulaScintilla()) {
-		if (GUI()->DlgFormulaScintilla()->m_dirty)	{
-			if (MessageBox_Interactive(
-				  "The Formula Editor has un-applied changes.\n"
-				  "Really exit?", 
-				  "Formula Editor", MB_ICONWARNING|MB_YESNO) == IDNO) {
-				///GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_FORMULA, true);
-				return;
-			}
-		}
-    BOOL	bWasShown = ::IsWindow(GUI()->DlgFormulaScintilla()->m_hWnd) && GUI()->DlgFormulaScintilla()->IsWindowVisible();
-    GUI()->DlgFormulaScintilla()->DestroyWindow();
-    if (bWasShown) {
-			return;
-    }
-	}
-  ///if (p_autoplayer->autoplayer_engaged()) {
-    // The menu item Edit->Formula is disabled,
-    // this is just an extra failsafe.
-    return;
-  ///}
-  //!!!!!m_formulaScintillaDlg = new CDlgFormulaScintilla(this);
-	GUI()->DlgFormulaScintilla()->Create(CDlgFormulaScintilla::IDD,this);
-	GUI()->DlgFormulaScintilla()->ShowWindow(SW_SHOW);
-	///GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_FORMULA, true);
+  if (GUI()->FormulaEditor()->IsCreated()) {
+    GUI()->FormulaEditor()->DestroyEditor();
+  } else {
+    GUI()->FormulaEditor()->CreateEditor();
+  }
 }
 
 void CMainFrame::OnEditViewLog() {

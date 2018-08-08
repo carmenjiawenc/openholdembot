@@ -14,10 +14,8 @@
 #define SYMBOLS_DLL_EXPORTS
 
 #include "CSymbolEngineAutoplayer.h"
-/*#include "CAutoconnector.h"*/
 #include "CEngineContainer.h"
 #include "CIteratorThread.h"
-///#include "CStableFramesCounter.h"*/
 #include "CSymbolEnginePrwin.h"
 #include "CSymbolEngineTime.h"
 #include "CSymbolEngineUserchair.h"

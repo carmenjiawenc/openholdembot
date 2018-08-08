@@ -41,8 +41,9 @@ AFX_STATIC_DATA const TCHAR _afxPreviewSection[] = _T("Settings");
 AFX_STATIC_DATA const TCHAR _afxPreviewEntry[] = _T("PreviewPages");
 
 // COpenHoldemApp
-///extern bool Scintilla_RegisterClasses(void *hInstance);
-///extern bool Scintilla_ReleaseResources();
+///!!!
+extern bool Scintilla_RegisterClasses(void *hInstance);
+extern bool Scintilla_ReleaseResources();
 
 // COpenHoldemApp construction
 
@@ -78,7 +79,8 @@ BOOL COpenHoldemApp::InitInstance() {
 	// no matter how it is named.
 	// For the technical details please see:
 	// http://msdn.microsoft.com/de-de/library/xykfyy20(v=vs.80).aspx
-	///Scintilla_RegisterClasses(AfxGetInstanceHandle());
+	///!!!
+  Scintilla_RegisterClasses(AfxGetInstanceHandle());
 	// Initialize richedit2 library
 	AfxInitRichEdit2();
 	// Change class name of Dialog
@@ -171,7 +173,8 @@ int COpenHoldemApp::ExitInstance() {
   // timers and threads are already stopped 
   // by CMainFrame::DestroyWindow().
   // Now we cancontinue with singletons.
-	///Scintilla_ReleaseResources();
+	///!!!
+  Scintilla_ReleaseResources();
   stop_log();
 	return CWinApp::ExitInstance();
 }
