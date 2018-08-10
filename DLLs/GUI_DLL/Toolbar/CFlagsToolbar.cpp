@@ -42,6 +42,7 @@ CFlagsToolbar::~CFlagsToolbar() {
 
 void CFlagsToolbar::ResetButtonsOnConnect() {
 	ResetButtonsOnAutoplayerOff();
+  m_MainToolBar.GetToolBarCtrl().EnableButton(ID_MAIN_TOOLBAR_AUTOPLAYER, true);
 	m_MainToolBar.GetToolBarCtrl().EnableButton(ID_MAIN_TOOLBAR_SHOOTFRAME, true);
   m_MainToolBar.GetToolBarCtrl().EnableButton(ID_MAIN_TOOLBAR_SCRAPER_OUTPUT, true);
 }
@@ -49,6 +50,7 @@ void CFlagsToolbar::ResetButtonsOnConnect() {
 void CFlagsToolbar::ResetButtonsOnDisconnect() {
   ResetButtonsOnAutoplayerOff();
 	m_MainToolBar.GetToolBarCtrl().CheckButton(ID_MAIN_TOOLBAR_AUTOPLAYER, false);
+  m_MainToolBar.GetToolBarCtrl().EnableButton(ID_MAIN_TOOLBAR_SHOOTFRAME, false);
   m_MainToolBar.GetToolBarCtrl().EnableButton(ID_MAIN_TOOLBAR_SCRAPER_OUTPUT, false);
 }
 
@@ -57,6 +59,7 @@ void CFlagsToolbar::ResetButtonsOnAutoplayerOn() {
 	m_MainToolBar.GetToolBarCtrl().EnableButton(ID_FILE_OPEN, false);
   m_MainToolBar.GetToolBarCtrl().EnableButton(ID_EDIT_FORMULA, false);
   CheckButton(ID_MAIN_TOOLBAR_AUTOPLAYER, true);
+  ///???ID_MAIN_TOOLBAR_FORMULA
 }
 
 void CFlagsToolbar::ResetButtonsOnAutoplayerOff() {

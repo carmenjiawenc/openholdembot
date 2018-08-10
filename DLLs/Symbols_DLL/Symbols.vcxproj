@@ -73,7 +73,6 @@
     <ClCompile Include="CVirtualSymbolEngine.cpp" />
     <ClCompile Include="mtrand.cpp" />
     <ClCompile Include="PrWinHandranges.cpp" />
-    <ClCompile Include="Symbols.cpp" />
     <ClCompile Include="UnknownSymbols.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -141,7 +140,6 @@
     <ClInclude Include="LibDef.h" />
     <ClInclude Include="mtrand.h" />
     <ClInclude Include="PrWinHandranges.h" />
-    <ClInclude Include="Symbols.h" />
     <ClInclude Include="UnknownSymbols.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

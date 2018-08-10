@@ -13,9 +13,13 @@
 
 #include "DialogSAPrefs6.h"
 #include "SAPrefsSubDlg.h"
+#include "..\CGUI.h"
+#include "..\MainFrame\MainFrm.h"
 #include "..\..\Debug_DLL\debug.h"
 #include "..\..\Preferences_DLL\Preferences.h"
+#include "..\..\Symbols_DLL\CEngineContainer.h"
 #include "..\..\Symbols_DLL\CPokerTrackerThread.h"
+#include "..\..\Symbols_DLL\CSymbolEnginePokerTracker.h"
 #include "..\..\WindowFunctions_DLL\window_functions.h"
 
 // CDlgSAPrefs6 dialog
@@ -85,35 +89,35 @@ void CDlgSAPrefs6::OnOK()
 }
 
 void CDlgSAPrefs6::OnBnClickedPtTest() {
-	CString			conn_str = "", ip_addr = "", port = "", user = "", pass = "", dbname = "", e = "";
-
+	CString	conn_str;
+  CString ip_addr; 
+  CString port; 
+  CString user; 
+  CString pass; 
+  CString dbname; 
 	m_pt_ip.GetWindowText(ip_addr);
 	m_pt_port.GetWindowText(port);
 	m_pt_user.GetWindowText(user);
 	m_pt_pass.GetWindowText(pass);
 	m_pt_dbname.GetWindowText(dbname);
-
 	if (dbname.IsEmpty()) {
 		// http://www.postgresql.org/docs/8.1/static/libpq.html
 		write_log(Preferences()->debug_pokertracker(), "[PokerTracker] Test: PostgreSQL DB Name not set ! Default : It will be set to '%s'\n", user);
 		MessageBox_Interactive("PostgreSQL DB Name not set !\nBy Default : the same as the Username",
 					   "Warning", MB_OK);
 	}
-
-	///conn_str = EngineContainer()->PokerTrackerThread()->CreateConnectionString(ip_addr, 
-		///port, user, pass, dbname);
-
-	// Set busy cursor
-	///PMainframe()->set_wait_cursor(true);
-	///PMainframe()->BeginWaitCursor();
-
-	// Test the connection parameters
+  /*# not here
+  conn_str = EngineContainer()->PokerTrackerThread()->CreateConnectionString(ip_addr, 
+		port, user, pass, dbname);
+    */
+  // Set busy cursor
+	GUI()->MainFrame()->set_wait_cursor(true);
+	GUI()->MainFrame()->BeginWaitCursor();
+  // Test the connection parameters
 	PGconn	*pgconn = PQconnectdb(conn_str.GetString());
-
-	// Unset busy cursor
-	///PMainframe()->EndWaitCursor();
-	///PMainframe()->set_wait_cursor(false);
-
+  // Unset busy cursor
+	GUI()->MainFrame()->EndWaitCursor();
+	GUI()->MainFrame()->set_wait_cursor(false);
 	if (PQstatus(pgconn) == CONNECTION_OK) {
 		write_log(Preferences()->debug_pokertracker(), "[PokerTracker] Test: PostgreSQL DB opened successfully <%s/%s/%s>\n", ip_addr, port, dbname);
 		if (PQisthreadsafe()) {
@@ -127,13 +131,12 @@ void CDlgSAPrefs6::OnBnClickedPtTest() {
 		PQfinish(pgconn);
 	} else {
 		write_log(Preferences()->debug_pokertracker(), "[PokerTracker] Test: ERROR opening PostgreSQL DB: %s\n\n", PQerrorMessage(pgconn));
-		e = "ERROR opening PostgreSQL DB:\n";
-		e += PQerrorMessage(pgconn);
-		e += "\nConn string:";
-		e += conn_str;
-
-		MessageBox_Interactive(e.GetString(), "ERROR", MB_OK);
-
+    CString error;
+		error = "ERROR opening PostgreSQL DB:\n";
+		error += PQerrorMessage(pgconn);
+		error += "\nConn string:";
+		error += conn_str;
+		MessageBox_Interactive(error.GetString(), "ERROR", MB_OK);
 		PQfinish(pgconn);
 	}
 }

@@ -56,7 +56,7 @@ BOOL COpenHoldemDoc::OnNewDocument() {
 	// Default bot
 	Formula()->FunctionCollection()->SetEmptyDefaultBot();
 	SetModifiedFlag(false);
-	///GUI()->OpenHoldemTitle()->UpdateTitle();
+	GUI()->OpenHoldemTitle()->UpdateTitle();
 	return true;
 }
 
@@ -106,7 +106,7 @@ void COpenHoldemDoc::Serialize(CArchive& ar)
 		write_log(Preferences()->debug_openholdem(), "[COpenHoldemDoc::Serialize] Going to call OpenHoldem()->Formula()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic \n");
 		Formula()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic(ar);
 		SetModifiedFlag(false);
-		///GUI()->OpenHoldemTitle()->UpdateTitle();
+		GUI()->OpenHoldemTitle()->UpdateTitle();
 	}
 }
 

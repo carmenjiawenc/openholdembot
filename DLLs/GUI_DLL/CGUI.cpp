@@ -45,23 +45,19 @@ void CGUI::Update() {
   ///OpenHoldemStatusbar()->SetHandrank(_handrank169);
   /// To do: set and clear last action in statusbar
   /// Query custom log-message for white info-box
-  ///
-  /// Update buttons, menus and toolbars
-  /// Uncheck formula button on main toolbar
-  /// GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_FORMULA, false);
 
   // Reset "ScraperOutput" dialog, if it is live
   if (GUI()->DlgScraperOutput()) {
     GUI()->DlgScraperOutput()->Reset();
   }
   /*// The main GUI gets created by another thread.
-      // This can be slowed down if there are popups (parse-errors).
-      // Handle the race-condition
-      // !!!!! create timer function unmain-frame instead
-      ///WAIT_FOR_CONDITION(PMainframe() != NULL)
-      ///assert(PMainframe() != NULL);
-			// Reset display
-			///PMainframe()->ResetDisplay();*/
+  // This can be slowed down if there are popups (parse-errors).
+  // Handle the race-condition
+  /// !!!!! create timer function unmain-frame instead
+  ///WAIT_FOR_CONDITION(PMainframe() != NULL)
+  ///assert(PMainframe() != NULL);
+	// Reset display*/
+	MainFrame()->ResetDisplay();
 }
 
 /// To do: detect and call

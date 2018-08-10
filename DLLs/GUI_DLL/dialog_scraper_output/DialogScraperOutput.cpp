@@ -16,6 +16,7 @@
 #include "..\Toolbar\CFlagsToolbar.h"
 #include "..\..\Preferences_DLL\Preferences.h"
 #include "..\..\Scraper_DLL\CBasicScraper.h"
+#include "..\..\Scraper_DLL\CTransform\CTransform.h"
 
 #define ID_SCRAPEROUTPUT_SIZERBAR 5555
 
@@ -119,6 +120,7 @@ BOOL CDlgScraperOutput::DestroyWindow() {
 	GetWindowPlacement(&wp);
   Preferences()->SetValue(k_prefs_scraper_zoom, m_Zoom.GetCurSel());
 	// Uncheck scraper output button on main toolbar
+  ///? here?
 	GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_SCRAPER_OUTPUT, false);
 	return CDialog::DestroyWindow();
 }
@@ -182,14 +184,13 @@ void CDlgScraperOutput::DoBitblt(HBITMAP bitmap, RMapCI r_iter) {
 	HDC			hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL);
 	HDC			hdcCompat1 = CreateCompatibleDC(hdcScreen);
 	HDC			hdcCompat2 = CreateCompatibleDC(hdcScreen);
-	HBITMAP		hbm2 = NULL, old_bitmap1 = NULL, old_bitmap2 = NULL;
+	HBITMAP	hbm2 = NULL, old_bitmap1 = NULL, old_bitmap2 = NULL;
 	int			w = 0, h = 0, zoom = 0;
 	RECT		rect = {0};
-	CBrush		gray_brush, *pTempBrush = NULL, oldbrush;
+	CBrush	gray_brush, *pTempBrush = NULL, oldbrush;
 	CPen		null_pen, *pTempPen = NULL, oldpen;
-	CString		res = "";
-	///CTransform	trans;
-
+	CString	res = "";
+	
 	if (in_startup)	{
 		DeleteDC(hdcCompat1);
 		DeleteDC(hdcCompat2);
@@ -197,10 +198,8 @@ void CDlgScraperOutput::DoBitblt(HBITMAP bitmap, RMapCI r_iter) {
 		ReleaseDC(pDC);
 		return;
 	}
-
-	m_ScraperBitmap.GetWindowRect(&rect);
-
-	// Erase control area
+  m_ScraperBitmap.GetWindowRect(&rect);
+  // Erase control area
 	gray_brush.CreateSolidBrush(COLOR_GRAY);
 	pTempBrush = (CBrush*)pDC->SelectObject(&gray_brush);
 	oldbrush.FromHandle((HBRUSH)pTempBrush);			// Save old brush
@@ -210,8 +209,7 @@ void CDlgScraperOutput::DoBitblt(HBITMAP bitmap, RMapCI r_iter) {
 	pDC->Rectangle(1, 1, rect.right-rect.left, rect.bottom-rect.top);
 	pDC->SelectObject(oldbrush);
 	pDC->SelectObject(oldpen);
-
-	// return if all we needed to do was erase display
+  // return if all we needed to do was erase display
 	if (bitmap == NULL)	{
 		DeleteDC(hdcCompat1);
 		DeleteDC(hdcCompat2);
@@ -219,35 +217,30 @@ void CDlgScraperOutput::DoBitblt(HBITMAP bitmap, RMapCI r_iter) {
 		ReleaseDC(pDC);
 		return;
 	}
-
-	// load bitmap into 1st DC and stretchblt to 2nd DC
+  // load bitmap into 1st DC and stretchblt to 2nd DC
 	old_bitmap1 = (HBITMAP) SelectObject(hdcCompat1, bitmap);
 	zoom = m_Zoom.GetCurSel()==0 ? 1 :
 		     m_Zoom.GetCurSel()==1 ? 2 :
 		     m_Zoom.GetCurSel()==2 ? 4 :
 		     m_Zoom.GetCurSel()==3 ? 8 :
 		     m_Zoom.GetCurSel()==4 ? 16 : 1;
-
-	w = (r_iter->second.right - r_iter->second.left) * zoom;
+  w = (r_iter->second.right - r_iter->second.left) * zoom;
 	h = (r_iter->second.bottom - r_iter->second.top) * zoom;
-
-	hbm2 = CreateCompatibleBitmap(hdcScreen, w, h);
+  hbm2 = CreateCompatibleBitmap(hdcScreen, w, h);
 	old_bitmap2 = (HBITMAP) SelectObject(hdcCompat2, hbm2);
 	StretchBlt(	hdcCompat2, 0, 0, w, h,
 				hdcCompat1, 0, 0,
 				r_iter->second.right - r_iter->second.left,
 				r_iter->second.bottom - r_iter->second.top,
 				SRCCOPY );
-
-	// Copy 2nd DC to control
+  // Copy 2nd DC to control
 	BitBlt( hdcControl, 1, 1, rect.right-rect.left-2, rect.bottom-rect.top-2,
 			hdcCompat2, 0, 0, SRCCOPY );
-
-	// Output result
-	///trans.DoTransform(r_iter, hdcCompat1, &res);
+  // Output result
+  CTransform	trans;
+	trans.DoTransform(r_iter, hdcCompat1, &res);
 	m_ScraperResult.SetWindowText(res);
-
-	// Clean up
+  // Clean up
 	SelectObject(hdcCompat1, old_bitmap1);
 	SelectObject(hdcCompat2, old_bitmap2);
 	DeleteObject(hbm2);

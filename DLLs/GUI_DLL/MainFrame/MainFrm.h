@@ -91,6 +91,3 @@ private:
 };
 
 BOOL CALLBACK EnumProcTopLevelWindowList(HWND hwnd, LPARAM lparam);
-
-// Accessor function because p_mainframe never gets initialized.
-CMainFrame* PMainframe();

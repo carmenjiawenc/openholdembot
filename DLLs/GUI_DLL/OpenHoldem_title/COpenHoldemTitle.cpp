@@ -13,6 +13,8 @@
 
 #include "COpenHoldemTitle.h"
 #include <assert.h>
+#include "..\CGUI.h"
+#include "..\MainFrame\MainFrm.h"
 #include "..\..\Debug_DLL\debug.h"
 #include "..\..\Files_DLL\Files.h"
 #include "..\..\Formula_DLL\CFormula.h"
@@ -48,9 +50,6 @@ CString COpenHoldemTitle::GetTitle() {
 }
 
 CString COpenHoldemTitle::FullTitle() {
-	///assert(p_autoconnector != NULL);
-	///assert(p_function_collection != NULL);
-	///assert(p_tablemap != NULL);
   CString full_title;
   write_log(Preferences()->debug_alltherest(), "[COpenHoldemTitle] location Johnny_6\n");
 	if (TableManagement()->AutoConnector()->IsConnectedToAnything())	{
@@ -81,6 +80,6 @@ void COpenHoldemTitle::UpdateTitle() {
 	// -> endless recursion
 	static CString current_title;
 	current_title = GetTitle();
-	HWND main_window = HWND(42);///PMainframe()->GetSafeHwnd();
+	HWND main_window = GUI()->MainFrame()->GetSafeHwnd();
 	SetWindowText(main_window, current_title);
 }

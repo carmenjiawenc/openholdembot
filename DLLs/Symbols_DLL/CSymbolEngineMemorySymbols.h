@@ -13,9 +13,9 @@
 //
 //******************************************************************************
 
-///!!!
-#define _ALLOW_KEYWORD_MACROS
+///!!!#define _ALLOW_KEYWORD_MACROS
 
+#include <afxwin.h>
 #include <map>
 #include "CVirtualSymbolEngine.h"
 

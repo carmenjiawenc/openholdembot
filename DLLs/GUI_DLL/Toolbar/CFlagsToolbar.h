@@ -23,8 +23,7 @@ class CFlagsToolbar: public CWnd {
  public:
 	CFlagsToolbar(CFrameWnd *parent_window);
 	~CFlagsToolbar();
- public: /// To be refactored to get rid of dependencies!!!
-	void ResetButtonsOnConnect();
+ public: 
 	void ResetButtonsOnDisconnect();
   void ResetButtonsOnAutoplayerOn();
   void ResetButtonsOnAutoplayerOff();
@@ -54,12 +53,6 @@ class CFlagsToolbar: public CWnd {
 
 /*#
 void CAutoplayer::EngageAutoplayer(bool to_be_enabled_or_not) {
-ENT
-// Set correct button state
-// We have to be careful, as during initialization the GUI does not yet exist.
-assert(p_flags_toolbar != NULL);
-GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_AUTOPLAYER, to_be_enabled_or_not);
-
 if (to_be_enabled_or_not)
 {
 if (!Formula()->FunctionCollection()->BotLogicCorrectlyParsed())
@@ -68,11 +61,6 @@ if (!Formula()->FunctionCollection()->BotLogicCorrectlyParsed())
 // Can't autoplay
 to_be_enabled_or_not = false;
 }
-}
-if (to_be_enabled_or_not) {
-GUI()->FlagsToolbar()->ResetButtonsOnAutoplayerOn();
-} else {
-GUI()->FlagsToolbar()->ResetButtonsOnAutoplayerOff();
 }
 // Set value at the very last to be extra safe
 // and avoid problems with multiple threads

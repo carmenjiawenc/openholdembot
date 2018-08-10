@@ -21,9 +21,9 @@
 #include "..\dialog_handlist\DialogHandList.h"
 #include "..\dialog_new\DialogNew.h"
 #include "..\dialog_rename\DialogRename.h"
+#include "..\MainFrame\MainFrm.h"
 #include "..\Shared/scintilla/include/SciLexer.h"
 #include "..\Shared/scintilla/include/Scintilla.h"
-#include "..\MainFrame\MainFrm.h"
 #include "..\..\Debug_DLL\debug.h"
 #include "..\..\Formula_DLL\CAutoplayerTrace.h"
 #include "..\..\Formula_DLL\CFormula.h"
@@ -1725,14 +1725,11 @@ void CDlgFormulaScintilla::SetStyleColors(CScintillaWnd *pWnd) {
 	pWnd->SetBackground(19, RGB(250, 240, 0));  // SCE_C_GLOBALCLASS 19
 }
 
-BOOL CDlgFormulaScintilla::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
-{
-///	if (PMainframe()->wait_cursor())
-	{
+BOOL CDlgFormulaScintilla::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) {
+  if (GUI()->MainFrame()->wait_cursor()) {
 		RestoreWaitCursor();
 		return TRUE;
 	}
-
 	return CDialog::OnSetCursor(pWnd, nHitTest, message);
 }
 

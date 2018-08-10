@@ -80,5 +80,4 @@ return;
 //!!!!!m_formulaScintillaDlg = new CDlgFormulaScintilla(this);
 GUI()->DlgFormulaScintilla()->Create(CDlgFormulaScintilla::IDD, this);
 GUI()->DlgFormulaScintilla()->ShowWindow(SW_SHOW);
-///GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_FORMULA, true);
 */
