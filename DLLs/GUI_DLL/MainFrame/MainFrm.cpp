@@ -400,8 +400,6 @@ void CMainFrame::OnFileOpen() {
 	if (cfd.DoModal() == IDOK) {				
 		pDoc->OnOpenDocument(cfd.GetPathName());
 		pDoc->SetPathName(cfd.GetPathName());
-		// Update window title, registry
-		GUI()->OpenHoldemTitle()->UpdateTitle();
 		///theApp.StoreLastRecentlyUsedFileList();
 	}
 }

@@ -12,6 +12,8 @@
 //
 //******************************************************************************
 
+#include "LibDef.h"
+
 #include <afxwin.h>
 #include "inlines/eval.h"
 #include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
@@ -42,16 +44,16 @@ struct sprw1326
   sprw1326_chair  chair[kMaxNumberOfPlayers];  // structures for each chair
 };
 
-class CIteratorThread: public CSpaceOptimizedGlobalObject {
+class SYMBOLS_DLL_API CIteratorThread: public CSpaceOptimizedGlobalObject {
  public:
 	// public functions
 	CIteratorThread();
 	~CIteratorThread();
  public:
   // Public accessors()
-  double prwin()   { return _prwin; }
-  double prtie()   { return _prtie; }
-  double prlos()   { return _prlos; }
+  double prwin();
+  double prtie();
+  double prlos();
  public:
   static bool IteratorThreadComplete() { return _iterations_calculated >= _iterations_required; }
   bool IteratorThreadWorking()    { return ((_iterations_calculated > 0) && (_iterations_calculated < _iterations_required)); }
@@ -94,6 +96,4 @@ class CIteratorThread: public CSpaceOptimizedGlobalObject {
   static int _iterations_required;
   static int _total_weight[kMaxNumberOfPlayers];
   static int _nopponents;;
- private:
-  static double _prwin, _prtie, _prlos;
 };

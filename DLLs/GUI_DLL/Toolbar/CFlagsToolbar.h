@@ -24,6 +24,7 @@ class CFlagsToolbar: public CWnd {
 	CFlagsToolbar(CFrameWnd *parent_window);
 	~CFlagsToolbar();
  public: 
+  void ResetButtonsOnConnect();
 	void ResetButtonsOnDisconnect();
   void ResetButtonsOnAutoplayerOn();
   void ResetButtonsOnAutoplayerOff();
@@ -33,7 +34,6 @@ class CFlagsToolbar: public CWnd {
 	void CheckButton(int button_ID, bool new_status);
 	bool IsButtonChecked(int button_ID);
 	bool IsButtonEnabled(int button_ID);
- public:
  public:
 	afx_msg void OnClickedFlags();
 	DECLARE_MESSAGE_MAP()

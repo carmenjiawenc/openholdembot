@@ -16,10 +16,11 @@
 #include "assert.h"
 #include "CSymbolEngineUserChair.h"
 #include "CSymbolEngineTableLimits.h"
+#include "LibDef.h"
 
 class CIteratorThread;
 
-class CSymbolEnginePrwin: public CVirtualSymbolEngine {
+class SYMBOLS_DLL_API CSymbolEnginePrwin: public CVirtualSymbolEngine {
  public:
 	CSymbolEnginePrwin();
 	~CSymbolEnginePrwin();

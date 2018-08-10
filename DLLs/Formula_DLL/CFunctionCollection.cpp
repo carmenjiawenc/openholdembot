@@ -19,7 +19,6 @@
 #define FORMULA_DLL_EXPORTS
 
 #include "CFunctionCollection.h"
-#include <time.h>
 #include "CAutoplayerTrace.h"
 #include "CFormula.h"
 #include "CFormulaParser.h"

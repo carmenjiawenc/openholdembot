@@ -57,7 +57,7 @@ void CSymbolEngineEventLogging::UpdateOnHandreset() {
     "==============================================\n"
     "HAND RESET\n"
     "==============================================\n",
-    "", version_info->GetVersionInfo(), 
+    "", version_info.GetVersionInfo(), 
     TableState()->TableTitle()->Title());
 }
 

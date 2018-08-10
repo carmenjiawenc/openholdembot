@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define SYMBOLS_DLL_EXPORTS
+
 #include "CIteratorThread.h"
 #include <process.h>
 #include "mtrand.h"
@@ -38,9 +40,9 @@ int CIteratorThread::_iterations_calculated;
 int CIteratorThread::_iterations_required;
 int CIteratorThread::_nopponents;
 //int CIteratorThread::_generated_numbers[1326];
-double CIteratorThread::_prwin;
-double CIteratorThread::_prtie;
-double CIteratorThread::_prlos;
+double _prwin = 0;
+double _prtie = 0;
+double _prlos = 0;
 int CIteratorThread::_total_weight[kMaxNumberOfPlayers];
 
 // weighted prwin lookup tables for non-suited and suited cards
@@ -775,4 +777,16 @@ const	sprw1326* CIteratorThread::prw1326() {
 
 void CIteratorThread::set_prw1326_useme(const int i) { 
   _prw1326.useme = i; 
+}
+
+double CIteratorThread::prwin() { 
+  return _prwin; 
+}
+
+double CIteratorThread::prtie() { 
+  return _prtie; 
+}
+
+double CIteratorThread::prlos() { 
+  return _prlos; 
 }

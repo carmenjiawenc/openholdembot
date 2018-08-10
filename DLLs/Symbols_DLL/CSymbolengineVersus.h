@@ -14,7 +14,7 @@
 //******************************************************************************
 
 #include "CVirtualSymbolEngine.h"
-#include "inlines\eval.h"
+#include "..\..\pokereval\include\inlines\eval.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 #include "..\..\Shared\CCritSec\CCritSec.h"
 

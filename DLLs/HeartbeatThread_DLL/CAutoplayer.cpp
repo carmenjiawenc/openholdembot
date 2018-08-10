@@ -225,10 +225,10 @@ bool CAutoplayer::ExecutePrimaryFormulasIfNecessary() {
 	// So we have to take an action and are able to do so.
 	// This function will ALWAYS try to click a button,
 	// so we can handle the preparation once at the very beginning.
-	CMyMutex mutex;
+	/*#CMyMutex mutex;
   if (!mutex.IsLocked()) {
 		return false;
-	}
+	}*/
 	PrepareActionSequence();
 	if (Formula()->FunctionCollection()->EvaluateAutoplayerFunction(k_autoplayer_function_allin))	{
 		if (DoAllin()) {
@@ -285,10 +285,10 @@ bool CAutoplayer::ExecuteSecondaryFormulasIfNecessary() {
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Nothing to do.\n");
 		return false;
 	}
-	CMyMutex mutex;
+	/*#CMyMutex mutex;
 	if (!mutex.IsLocked()) {
 		return false;
-	}
+	}*/
 	PrepareActionSequence();
 	// Prefold, close, rebuy and chat work require different treatment,
 	// more than just clicking a simple region...
@@ -384,7 +384,8 @@ bool CAutoplayer::DoChat(void) {
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] No chat, because wrong chat code. Please read: ""Available chat messages"" .\n");
 		return false ;
 	}*/
-	return CasinoInterface()->EnterChatMessage(CString(_the_chat_message));
+	///return CasinoInterface()->EnterChatMessage(CString(_the_chat_message));
+  return false;
 }
 
 bool CAutoplayer::DoAllin(void) {

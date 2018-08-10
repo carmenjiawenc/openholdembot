@@ -25,6 +25,7 @@
 #include "..\GUI_DLL\resource.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
+#include "..\..\OpenHoldem\stdafx.h"
 
 CVersionInfo::CVersionInfo()
 {

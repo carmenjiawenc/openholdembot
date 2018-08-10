@@ -11,6 +11,8 @@
 //
 //******************************************************************************
 
+#define SYMBOLS_DLL_EXPORTS
+
 #include "CSymbolEnginePrwin.h"
 #include <assert.h>
 #include <math.h>
