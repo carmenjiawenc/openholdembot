@@ -20,6 +20,7 @@
 #include "..\formula_editor\DialogFormulaScintilla.h"
 #include "..\dialog_scraper_output\DialogScraperOutput.h"
 #include "..\OpenHoldem_title\COpenHoldemTitle.h"
+#include "..\statusbar\COpenHoldemStatusbar.h"
 #include "..\..\ConfigurationCheck_DLL\CProblemSolver.h"
 #include "..\..\Debug_DLL\debug.h"
 #include "..\..\Files_DLL\Files.h"
@@ -455,7 +456,7 @@ void CMainFrame::OnTimer(UINT_PTR nIDEvent) {
 	}	else if (nIDEvent == UPDATE_STATUS_BAR_TIMER) {
     write_log(Preferences()->debug_timers(), "[GUI] OnTimer updating statusbar\n");
     write_log(Preferences()->debug_alltherest(), "[GUI] location Johnny_P\n");
-		///GUI()->OpenholdemStatusbar()->OnUpdateStatusbar();
+		GUI()->OpenHoldemStatusbar()->OnUpdateStatusbar();
     write_log(Preferences()->debug_alltherest(), "[GUI] location Johnny_Q\n");
 	}
   write_log(Preferences()->debug_alltherest(), "[GUI] location Johnny_R\n");
@@ -479,7 +480,7 @@ void CMainFrame::OnValidator() {
 }
 
 void CMainFrame::OnUpdateStatus(CCmdUI *pCmdUI) {
-	///GUI()->OpenholdemStatusbar()->OnUpdateStatusbar();
+	GUI()->OpenHoldemStatusbar()->OnUpdateStatusbar();
 }
 
 BOOL CMainFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) {

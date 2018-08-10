@@ -22,16 +22,13 @@ class COpenHoldemStatusbar {
  public:
 	void OnUpdateStatusbar();
 	void GetWindowRect(RECT *statusbar_position);
- public:
-   void SetLastAction(CString action) { _last_action = action; }
-   void SetHandrank(int handrank)     { _handrank = handrank; }
-   void SetPrWin(double prwin, double prtie, double prlos);
  private:
 	void InitStatusbar();
+  void UpdateValues();
   CString LastAction();
  private:
 	CStatusBar _status_bar;
-	CWnd    *_main_window;
+	CWnd *_main_window;
  private:
   int _handrank;
   double _prwin;

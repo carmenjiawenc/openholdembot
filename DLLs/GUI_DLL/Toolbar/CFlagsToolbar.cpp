@@ -31,8 +31,6 @@ CFlagsToolbar::CFlagsToolbar(CFrameWnd *parent_window) {
 	CreateMainToolbar();
 	CreateFlagsToolbar();
 	AlignToolbars();
-  bool to_be_enabled_or_not = false;/// p_autoplayer->autoplayer_engaged();
-	m_MainToolBar.GetToolBarCtrl().CheckButton(ID_MAIN_TOOLBAR_AUTOPLAYER, to_be_enabled_or_not);
   ResetButtonsOnDisconnect();
   ResetButtonsOnAutoplayerOff();
 }

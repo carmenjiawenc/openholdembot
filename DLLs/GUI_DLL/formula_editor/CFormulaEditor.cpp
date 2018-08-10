@@ -12,6 +12,7 @@
 //******************************************************************************
 
 #include "CFormulaEditor.h"
+#include <assert.h>
 #include "DialogFormulaScintilla.h"
 #include "..\..\WindowFunctions_DLL\window_functions.h"
 
@@ -26,7 +27,15 @@ void CFormulaEditor::CreateEditor() {
   if (IsCreated()) {
     return;
   }
-  ///
+  /*#if (p_autoplayer->autoplayer_engaged()) {
+    // The menu item Edit->Formula is disabled,
+    // this is just an extra failsafe.
+    return;
+  }*/
+  assert(dialog_formula_scintilla == NULL);
+  dialog_formula_scintilla = new CDlgFormulaScintilla();///this);
+  dialog_formula_scintilla->Create(CDlgFormulaScintilla::IDD);///, this);
+  dialog_formula_scintilla->ShowWindow(SW_SHOW);
 }
  
 void CFormulaEditor::DestroyEditor() {
@@ -72,12 +81,4 @@ if (GUI()->DlgFormulaScintilla()) {
     return;
   }
 }
-///if (p_autoplayer->autoplayer_engaged()) {
-// The menu item Edit->Formula is disabled,
-// this is just an extra failsafe.
-return;
-///}
-//!!!!!m_formulaScintillaDlg = new CDlgFormulaScintilla(this);
-GUI()->DlgFormulaScintilla()->Create(CDlgFormulaScintilla::IDD, this);
-GUI()->DlgFormulaScintilla()->ShowWindow(SW_SHOW);
 */

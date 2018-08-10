@@ -22,6 +22,7 @@
 #include "..\dialog_new\DialogNew.h"
 #include "..\dialog_rename\DialogRename.h"
 #include "..\MainFrame\MainFrm.h"
+#include "..\MainFrame\OpenHoldemDoc.h"
 #include "..\Shared/scintilla/include/SciLexer.h"
 #include "..\Shared/scintilla/include/Scintilla.h"
 #include "..\..\Debug_DLL\debug.h"
@@ -1248,7 +1249,6 @@ void CDlgFormulaScintilla::PostNcDestroy()
 {
 	CDialog::PostNcDestroy();
 	delete this;
-	///!!!!!m_formulaScintillaDlg	=	NULL;
 }
 
 void CDlgFormulaScintilla::ClearCalcResult() {
@@ -1579,8 +1579,8 @@ void CDlgFormulaScintilla::OnBnClickedApply() {
       return;
     }
   }
-  ///COpenHoldemDoc		*pDoc = COpenHoldemDoc::GetDocument();
-  ///pDoc->SetModifiedFlag(true);
+  COpenHoldemDoc *pDoc = COpenHoldemDoc::GetDocument();
+  pDoc->SetModifiedFlag(true);
   // Re-calc symbols
   EngineContainer()->EvaluateAll(); // ??? disabled while parsing
   m_dirty = false;
@@ -1955,9 +1955,9 @@ void CDlgFormulaScintilla::PopulatePokerTrackerSymbols()
 
 void CDlgFormulaScintilla::PopulateSymbols()
 {
-	if (m_SymbolTree.GetRootItem() != NULL)
-		return;
-
+  if (m_SymbolTree.GetRootItem() != NULL) {
+    return;
+  }
 	hRawItem = AddSymbolTitle("All Symbols", NULL, NULL);
 	hCatItem = AddSymbolTitle("Categories", NULL, NULL);
 
@@ -2400,4 +2400,3 @@ void CDlgFormulaScintilla::FormerShowEnableHideCodeClone(CScintillaWnd *new_pAct
     m_pActiveScinCtrl->EnableWindow(true);
   }
 }
-

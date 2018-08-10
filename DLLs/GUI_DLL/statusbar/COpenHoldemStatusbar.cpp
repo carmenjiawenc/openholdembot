@@ -14,8 +14,9 @@
 #include "COpenHoldemStatusbar.h"
 #include "..\resource.h"
 #include "..\..\Formula_DLL\CFunctionCollection.h"
-#include "..\..\Symbols_DLL\CEngineContainer.h"
 #include "..\..\Scraper_DLL\CBasicScraper.h"
+#include "..\..\Symbols_DLL\CEngineContainer.h"
+#include "..\..\Symbols_DLL\CIteratorThread.h"
 #include "..\..\Symbols_DLL\CSymbolEngineAutoplayer.h"
 #include "..\..\Symbols_DLL\CSymbolEngineHandrank.h"
 #include "..\..\Symbols_DLL\CSymbolEngineIsOmaha.h"
@@ -27,10 +28,11 @@
 
 COpenHoldemStatusbar::COpenHoldemStatusbar(CWnd *main_window) {
   _main_window = main_window;
+  _handrank = kUndefinedZero;
+  _prwin = kUndefinedZero;
+  _prtie = kUndefinedZero;
+  _prlos = kUndefinedZero;
   InitStatusbar();
-  SetLastAction("");
-  SetPrWin(0, 0, 0);
-  SetHandrank(0);
 }
 
 COpenHoldemStatusbar::~COpenHoldemStatusbar() {
@@ -56,12 +58,20 @@ void COpenHoldemStatusbar::InitStatusbar() {
   ++position;
 }
 
+void COpenHoldemStatusbar::UpdateValues() {
+  _handrank = EngineContainer()->symbol_engine_handrank()->handrank169();
+  _prwin = EngineContainer()->symbol_engine_prwin()->IteratorThread()->prwin();
+  _prtie = EngineContainer()->symbol_engine_prwin()->IteratorThread()->prtie();
+  _prlos = EngineContainer()->symbol_engine_prwin()->IteratorThread()->prlos();
+}
+
 void COpenHoldemStatusbar::GetWindowRect(RECT *statusbar_position) {
   _status_bar.GetWindowRect(statusbar_position);
 }
 
 void COpenHoldemStatusbar::OnUpdateStatusbar() {
   if (TableState()->User()->HasKnownCards()){
+    UpdateValues();
     // Format data for display
     // Handrank
     _status_handrank.Format("%i/169", _handrank);
@@ -70,8 +80,10 @@ void COpenHoldemStatusbar::OnUpdateStatusbar() {
       100 * _prwin, 100 * _prtie, 100 * _prlos);
   } else if (EngineContainer()->symbol_engine_time()->elapsedauto() > 5) {
     // Reset display 5 seconds after last action
-    SetPrWin(0, 0, 0);
-    SetHandrank(0);
+    _handrank = kUndefinedZero;
+    _prwin = kUndefinedZero;
+    _prtie = kUndefinedZero;
+    _prlos = kUndefinedZero;
     _status_handrank = "";
     _status_prwin = "";
     _last_action = "";
@@ -101,8 +113,4 @@ CString COpenHoldemStatusbar::LastAction() {
   return _last_action;
 }
 
-void COpenHoldemStatusbar::SetPrWin(double prwin, double prtie, double prlos) {
-  _prwin = prwin;
-  _prtie = prtie;
-  _prlos = prlos;
-}
+/// To do: set and clear last action in statusbar, line number

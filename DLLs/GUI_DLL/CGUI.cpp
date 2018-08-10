@@ -42,9 +42,7 @@ void CGUI::Update() {
   if (DlgScraperOutput()) {
     DlgScraperOutput()->UpdateDisplay();
   }
-  ///OpenHoldemStatusbar()->SetHandrank(_handrank169);
-  /// To do: set and clear last action in statusbar
-  /// Query custom log-message for white info-box
+  /// to do: Query custom log-message for white info-box
 
   // Reset "ScraperOutput" dialog, if it is live
   if (GUI()->DlgScraperOutput()) {
@@ -62,7 +60,7 @@ void CGUI::Update() {
 
 /// To do: detect and call
 void CGUI::UpdateOnConnection() {
-  FlagsToolbar()->ResetButtonsOnConnect();
+  ///FlagsToolbar()->ResetButtonsOnConnect();
 }
 
 void CGUI::UpdateOnDisconnection() {
@@ -81,7 +79,7 @@ CSingleDocTemplate* CGUI::CreateCSingleDocTemplate() {
   // Document template and doc/view
   // https://msdn.microsoft.com/en-us/library/hts9a4xz.aspx
   // https://msdn.microsoft.com/en-us/library/d1e9fe7d.aspx
-  ///write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to create CSingleDocTemplate()\n");
+  write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to create CSingleDocTemplate()\n");
   pDocTemplate = new CSingleDocTemplate(
      IDR_MAINFRAME,
      RUNTIME_CLASS(COpenHoldemDoc),
