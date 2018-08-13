@@ -16,6 +16,7 @@
 #include "MainFrm.h"
 #include <io.h>
 #include <process.h>
+#include "OpenHoldemDoc.h"
 #include "..\CGUI.h"
 #include "..\formula_editor\DialogFormulaScintilla.h"
 #include "..\dialog_scraper_output\DialogScraperOutput.h"
@@ -56,7 +57,6 @@
 #include "..\dialog_scraper_output\DialogScraperOutput.h"
 #include "..\..\TableManagement_DLL\CAutoConnector.h"
 #include "..\..\TableManagement_DLL\CTableManagement.h"
-#include "..\..\..\OpenHoldem_old\OpenHoldemDoc.h" /// here?
 
 // CMainFrame
 
@@ -136,7 +136,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_SYSCOMMAND()
 
   // OpenHoldem!!!!! -> GUI
-  ///ON_COMMAND(ID_APP_ABOUT, &COpenHoldemApp::OnAppAbout)
+  ON_COMMAND(ID_APP_ABOUT, &CGUI::OnAbout)
   // Standard file based document commands
   ///ON_COMMAND(ID_FILE_NEW, &CWinApp::OnFileNew)
   ///ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)
@@ -165,6 +165,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	lpCreateStruct->dwExStyle |= WS_MINIMIZE;
 	if (CFrameWnd::OnCreate(lpCreateStruct) == kUndefined)
 		return -1;
+  GUI()->CreateFlagsToolbar(this);
+  GUI()->CreateStatusbar(this);
   /// needed ???
   // Start timer that checks for continued existence of attached HWND 		
   SetTimer(HWND_CHECK_TIMER, 200, 0);
@@ -220,7 +222,6 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs) {
   // GUI size
 	cs.cx = kMainSizeX;
 	cs.cy = kMainSizeY;
-
 	return true;
 }
 
@@ -253,10 +254,8 @@ void CMainFrame::OnScraperOutput() {
 	if (GUI()->DlgScraperOutput()) {
 		write_log(Preferences()->debug_gui(), "[GUI] m_DlgScraperOutput = %i\n", GUI()->DlgScraperOutput());
 		write_log(Preferences()->debug_gui(), "[GUI] Going to destroy existing scraper output dialog\n");
-
 		BOOL	bWasShown = ::IsWindow(GUI()->DlgScraperOutput()->m_hWnd) && GUI()->DlgScraperOutput()->IsWindowVisible();
 		write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog was visible: %s\n", Bool2CString(bWasShown));
-
     CDlgScraperOutput::DestroyWindowSafely();
 		if (bWasShown) {
 			write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog destroyed; going to return\n");
@@ -265,7 +264,6 @@ void CMainFrame::OnScraperOutput() {
 	}	else {
 		write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog does not yet exist\n");
 	}
-	
 	MessageBox_Interactive("Please note:\n"
 	  "OpenScrape scrapes everything, but OpenHoldem is optimized\n"		  
 	  "to scrape only necessary info.\n"
@@ -274,7 +272,6 @@ void CMainFrame::OnScraperOutput() {
 	  "If a players first card is \"cardback\" we don't even have to scrape the second one.\n"
 	  "This is a feature, not a bug.\n",
 	  "Info", 0);
-
 	write_log(Preferences()->debug_gui(), "[GUI] Going to create scraper output dialog\n");
 	//!!!!!m_DlgScraperOutput = new CDlgScraperOutput(this);
 	write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog: step 1 finished\n");
@@ -282,7 +279,7 @@ void CMainFrame::OnScraperOutput() {
 	write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog: step 2 finished\n");
 	GUI()->DlgScraperOutput()->ShowWindow(SW_SHOW);
 	write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog: step 3 finished\n");
-	///GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_SCRAPER_OUTPUT, true);
+	GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_SCRAPER_OUTPUT, true);
 	write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog: step 4 (final) finished\n"); 
 }
 
@@ -438,16 +435,16 @@ void CMainFrame::OnTimer(UINT_PTR nIDEvent) {
 		if (TableManagement()->AutoConnector()->IsConnectedToAnything()) 	{
       write_log(Preferences()->debug_timers(), "[GUI] OnTimer enabling buttons\n");
       write_log(Preferences()->debug_alltherest(), "[GUI] location Johnny_F\n");
-			///GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_AUTOPLAYER, true);
+			GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_AUTOPLAYER, true);
       write_log(Preferences()->debug_alltherest(), "[GUI] location Johnny_G\n");
-      ///GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_SHOOTFRAME, true);
+      GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_SHOOTFRAME, true);
       write_log(Preferences()->debug_alltherest(), "[GUI] location Johnny_L\n");
 		}	else {
       write_log(Preferences()->debug_timers(), "[GUI] OnTimer disabling buttons\n");
       write_log(Preferences()->debug_alltherest(), "[GUI] location Johnny_H\n");
-			///GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_AUTOPLAYER, false);
+			GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_AUTOPLAYER, false);
       write_log(Preferences()->debug_alltherest(), "[GUI] location Johnny_I\n");
-      ///GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_SHOOTFRAME, false);
+      GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_SHOOTFRAME, false);
       write_log(Preferences()->debug_alltherest(), "[GUI] location Johnny_N\n");
 		}
     write_log(Preferences()->debug_alltherest(), "[GUI] location Johnny_O\n");
@@ -468,13 +465,13 @@ void CMainFrame::OnAutoplayer() {
 }
 
 void CMainFrame::OnValidator() {
-	/*#if (GUI()->FlagsToolbar()->IsButtonChecked(ID_MAIN_TOOLBAR_VALIDATOR)) {
+	if (GUI()->FlagsToolbar()->IsButtonChecked(ID_MAIN_TOOLBAR_VALIDATOR)) {
 		GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_VALIDATOR, true);
-		p_validator->SetEnabledManually(true);
+		///p_validator->SetEnabledManually(true);
 	}	else {
 		GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_VALIDATOR, false);
-		p_validator->SetEnabledManually(false);
-	}*/
+		///p_validator->SetEnabledManually(false);
+	}
 }
 
 void CMainFrame::OnUpdateStatus(CCmdUI *pCmdUI) {
@@ -490,7 +487,7 @@ BOOL CMainFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) {
 }
 
 void CMainFrame::OnClickedFlags() {
-	///GUI()->FlagsToolbar()->OnClickedFlags();
+	GUI()->FlagsToolbar()->OnClickedFlags();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -561,6 +558,3 @@ CMainFrame* PMainframe() {
   CMainFrame *p_mainframe = NULL;/// (CMainFrame *)(theApp.m_pMainWnd);
 	return p_mainframe;
 }*/
-
-
-

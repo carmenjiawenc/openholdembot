@@ -95,11 +95,11 @@ void COpenHoldemDoc::Serialize(CArchive& ar)
 		//
 		// So we decided to go that route.
 		//
-		/*#if (GUI()->FlagsToolbar()->IsAutoplayerButtonChecked())
+		if (GUI()->FlagsToolbar()->IsAutoplayerButtonChecked())
 		{
 			MessageBox_Interactive("Can't load formula while autoplayer engaged.", "ERROR", 0);
 			return;
-		}*/
+		}
 		// Read ohf file
     assert(Formula()->FormulaParser() != NULL);
 		write_log(Preferences()->debug_openholdem(), "[COpenHoldemDoc::Serialize] Going to call OpenHoldem()->Formula()->FormulaParser()->ParseFormulaFileWithUserDefinedBotLogic \n");

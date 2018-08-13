@@ -131,8 +131,7 @@ BOOL COpenHoldemApp::InitInstance() {
   // https://msdn.microsoft.com/en-us/library/hts9a4xz.aspx
 	// https://msdn.microsoft.com/en-us/library/d1e9fe7d.aspx
 	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to create CSingleDocTemplate()\n");
-  CGUI gui;
-  pDocTemplate = gui.CreateCSingleDocTemplate();
+  pDocTemplate = GUI()->CreateCSingleDocTemplate();
 	AddDocTemplate(pDocTemplate);
 	write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to EnableShellOpen()\n");
 	EnableShellOpen();

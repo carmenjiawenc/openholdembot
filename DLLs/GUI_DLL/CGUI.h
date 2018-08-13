@@ -29,7 +29,12 @@ public:
   CGUI();
   ~CGUI();
 public:
+  void CreateFlagsToolbar(CFrameWnd *parent_window);
+  void CreateStatusbar(CFrameWnd *parent_window);
+public:
   void Update();
+public:
+  CSingleDocTemplate* CreateCSingleDocTemplate();
 public:
   CFlagsToolbar *FlagsToolbar() {
     return _p_flags_toolbar;
@@ -53,14 +58,12 @@ public:
     return _p_white_infobox;
   }
 public:
-  CSingleDocTemplate* CreateCSingleDocTemplate();
+  afx_msg void OnAbout();
 protected:
   DECLARE_MESSAGE_MAP()
 private:
   void UpdateOnConnection();
   void UpdateOnDisconnection();
-private:
-  afx_msg void OnAbout();
 private:
   ///!!! init
   CFlagsToolbar* _p_flags_toolbar;
@@ -86,8 +89,7 @@ delete p_openholdem_statusbar;
 }
 
 
-// Tool bar
-//guip_flags_toolbar = new CFlagsToolbar(this);
+
 // Status bar
 ///p_openholdem_statusbar = new COpenHoldemStatusbar(this);
 // Start timer that checks if we should enable buttons

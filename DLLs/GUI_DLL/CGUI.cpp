@@ -16,6 +16,7 @@
 #include "CGUI.h"
 #include "dialog_about\DialogAbout.h"
 #include "dialog_scraper_output\DialogScraperOutput.h"
+#include "Toolbar\CFlagsToolbar.h"
 #include "MainFrame\MainFrm.h"
 #include "OpenHoldem_title\COpenHoldemTitle.h"
 #include "statusbar\COpenHoldemStatusbar.h"
@@ -30,6 +31,12 @@ BEGIN_MESSAGE_MAP(CGUI, CWnd)
 END_MESSAGE_MAP()
 
 CGUI::CGUI() {
+  _p_flags_toolbar = NULL;
+  _p_main_frame = NULL;
+  _p_openholdem_statusbar = NULL;
+  _p_openholdem_title = NULL;
+  _p_dialog_scraper_output = NULL;
+  _p_white_infobox = NULL;
 }
 
 CGUI::~CGUI() {
@@ -90,6 +97,14 @@ CSingleDocTemplate* CGUI::CreateCSingleDocTemplate() {
     return NULL;
   }
   return pDocTemplate;
+}
+
+void CGUI::CreateFlagsToolbar(CFrameWnd *parent_window) {
+  _p_flags_toolbar = new CFlagsToolbar(parent_window);
+}
+
+void CGUI::CreateStatusbar(CFrameWnd *parent_window) {
+  _p_openholdem_statusbar = new COpenHoldemStatusbar(parent_window);
 }
 
 void CGUI::OnAbout() {

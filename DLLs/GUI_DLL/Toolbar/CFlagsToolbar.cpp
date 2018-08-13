@@ -161,4 +161,8 @@ bool CFlagsToolbar::IsButtonEnabled(int button_ID) {
 	return m_MainToolBar.GetToolBarCtrl().IsButtonEnabled(button_ID);
 }
 
+bool CFlagsToolbar::IsAutoplayerButtonChecked() {
+  return IsButtonChecked(ID_MAIN_TOOLBAR_AUTOPLAYER);
+}
+
 /// To do: update on heartbeat
