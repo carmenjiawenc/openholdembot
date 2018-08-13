@@ -101,7 +101,7 @@ void CSymbolEnginePrwin::CalculateNhands() {
 	// player cards
 	CardMask_RESET(plCards);
 	nplCards = 0;
-	for (int i=0; i<NumberOfCardsPerPlayer(); i++) {
+	for (int i=0; i<EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer(); i++) {
     Card* card = TableState()->User()->hole_cards(i);
     if (card->IsKnownCard()) {
       CardMask_SET(plCards, card->GetValue());
@@ -136,7 +136,7 @@ void CSymbolEnginePrwin::CalculateNhands() {
         CardMask_OR(opponentEvalCards, oppCards, comCards);
 				hv_opponent = Hand_EVAL_N(opponentEvalCards, 2+ncomCards);
 				///opp_pokval = EngineContainer()->symbol_engine_pokerval()->CalculatePokerval(hv_opponent,
-					///(NumberOfCardsPerPlayer() + ncomCards), 
+					///(EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer() + ncomCards), 
 					///&dummy, CARD_NOCARD, CARD_NOCARD);
 
 				if (pl_pokval > opp_pokval)

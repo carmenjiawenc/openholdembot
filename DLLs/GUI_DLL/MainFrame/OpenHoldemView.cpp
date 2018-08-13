@@ -945,7 +945,7 @@ void COpenHoldemView::DrawPlayerCards(const int chair) {
     // for better centralization.
     first_pos_x_right -= x_offset_to_next_card;
   }
-  int number_of_cards = NumberOfCardsPerPlayer();
+  int number_of_cards = EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer();
   write_log(Preferences()->debug_alltherest(), "[GUI] Drawing %d player cards for chair %d\n", 
     number_of_cards, chair);
   for (int i = 0; i < number_of_cards; ++i) {

@@ -207,7 +207,7 @@ void CSymbolEngineCards::CalcFlushesStraightsSets()
 	
 	// player cards
 	CardMask_RESET(plCards);
-	for (int i=0; i<NumberOfCardsPerPlayer(); i++)	{
+	for (int i=0; i<EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer(); i++)	{
     Card* card = TableState()->User()->hole_cards(i);
 		if (card->IsKnownCard())	{
 			write_log(Preferences()->debug_symbolengine(), "[CSymbolEngineCards] Setting card mask player: %i\n",
@@ -519,7 +519,7 @@ void CSymbolEngineCards::CalcUnknownCards()
 	CardMask_RESET(stdCards);
 	CardMask_RESET(commonCards);
 
-	for (int i=0; i<NumberOfCardsPerPlayer(); i++)
+	for (int i=0; i<EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer(); i++)
 	{
 		// player cards
     Card* card = TableState()->User()->hole_cards(i);

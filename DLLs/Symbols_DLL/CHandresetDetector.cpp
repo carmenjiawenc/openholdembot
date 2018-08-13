@@ -374,7 +374,7 @@ void CHandresetDetector::StoreOldValuesForComparisonOnNextHeartbeat() {
   _last_showdown_cards_visible = _showdown_cards_visible;
   _last_antes_visible = _antes_visible;
   _last_buttons_visible = _buttons_visible;
-	for (int i=0; i<NumberOfCardsPerPlayer(); i++) {
+	for (int i=0; i<EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer(); i++) {
 		last_playercards[i] = playercards[i];
 	}
   for (int i = 0; i < BasicScraper()->Tablemap()->nchairs(); ++i) {

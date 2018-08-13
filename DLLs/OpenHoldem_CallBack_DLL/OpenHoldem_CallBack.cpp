@@ -23,5 +23,9 @@
 #include "..\TableState_DLL\TableState.h"
 
 double EvaluateSymbol(CString symbol) { 
-  return 42; 
+  return 3;  ///!!!
+}
+
+int NumberOfCardsPerPlayer() {
+  return 3; ///!!!
 }

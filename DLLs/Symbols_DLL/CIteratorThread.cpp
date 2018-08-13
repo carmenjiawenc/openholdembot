@@ -398,7 +398,7 @@ void CIteratorThread::InitIteratorLoop() {
 
 	// setup masks
   AssertRange(userchair, 0, kMaxChairNumber);
-	for (int i=0; i<NumberOfCardsPerPlayer(); i++) {
+	for (int i=0; i<EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer(); i++) {
     Card *card = TableState()->User()->hole_cards(i);
     if (card->IsKnownCard()) {
       CardMask_SET(_plCards, card->GetValue());
@@ -593,7 +593,7 @@ void CIteratorThread::SwapDealingAlgorithmForMoreThan13Opponents(int nopponents)
 	// opponent cards
 	int x = 0;
 	for (int i=0; 
-		i<nopponents*NumberOfCardsPerPlayer(); 
+		i<nopponents*EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer();
 		i++)
 	{
 		while (CardMask_CARD_IS_SET(usedCards, deck[x]) 
@@ -649,15 +649,15 @@ void CIteratorThread::StandardDealingAlgorithmForUpTo13Opponents(int nopponents)
     nopponents = 1;
 	}
 	for (int i=0; 
-		i<nopponents*NumberOfCardsPerPlayer(); 
-		i+=NumberOfCardsPerPlayer())
+		i<nopponents*EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer();
+		i+= EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer())
 	{
 		temp_usedCards=usedCards;
 		do
 		{
 			usedCards = temp_usedCards; //reset the card mask to clear settings from failed card assignments
 
-			for (int j=0; j<NumberOfCardsPerPlayer(); j++)
+			for (int j=0; j<EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer(); j++)
 			{
 				card = GetRandomCard();
 				CardMask_SET(usedCards, card);

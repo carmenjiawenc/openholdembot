@@ -17,13 +17,7 @@
 #include "CVirtualSymbolEngine.h"
 #include "LibDef.h"
 
-// The number of cards per player depends on the game-type.
-// This affects cards to be scraped and evaluated.
-// The data containers must be large enough to store kMaxNumberOfCardsPerPlayer.
-SYMBOLS_DLL_API int NumberOfCardsPerPlayer();
-
-class CSymbolEngineIsOmaha: public CVirtualSymbolEngine
-{
+class SYMBOLS_DLL_API CSymbolEngineIsOmaha: public CVirtualSymbolEngine {
 public:
 	CSymbolEngineIsOmaha();
 	~CSymbolEngineIsOmaha();
@@ -41,6 +35,11 @@ public:
 public:
 	// Public accessors
   bool isomaha() { return  _isomaha; }
+public:
+  // The number of cards per player depends on the game-type.
+  // This affects cards to be scraped and evaluated.
+  // The data containers must be large enough to store kMaxNumberOfCardsPerPlayer.
+  int NumberOfCardsPerPlayer();
 private:
   bool _isomaha;
 };

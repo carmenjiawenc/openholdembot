@@ -24,6 +24,7 @@
 #include "CEngineContainer.h"
 #include "CSymbolEngineCards.h"
 #include "CSymbolEngineIsOmaha.h"
+#include "CSymbolEngineTableLimits.h"
 #include "CSymbolEngineUserchair.h"
 #include "..\CardFunctions.DLL\CardFunctions.h"
 #include "..\Debug_DLL\debug.h"
@@ -38,6 +39,7 @@ CSymbolEnginePokerval::CSymbolEnginePokerval() {
 	// As the engines get later called in the order of initialization
 	// we assure correct ordering by checking if they are initialized.
 	assert(EngineContainer()->symbol_engine_cards() != NULL);
+  assert(EngineContainer()->symbol_engine_isomaha() != NULL);
 	assert(EngineContainer()->symbol_engine_tablelimits() != NULL);
 	assert(EngineContainer()->symbol_engine_userchair() != NULL);
 }
@@ -106,7 +108,7 @@ void CSymbolEnginePokerval::PrepareConstantSuitMasks() {
 void CSymbolEnginePokerval::CalculateCardMasks() {
   CardMask_RESET(_player_cards);
   if (TableState()->User()->HasKnownCards()) {
-    for (int i = 0; i<NumberOfCardsPerPlayer(); i++) {
+    for (int i = 0; i<EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer(); i++) {
       CardMask_SET(_player_cards, TableState()->User()->hole_cards(i)->GetValue());
     }
   }
@@ -439,7 +441,7 @@ int CSymbolEnginePokerval::CalculatePokerval(HandVal hv, int n, int *pcb, int ca
 	{
 		// Set up some suit masks
 		CardMask_RESET(Cards);
-		for (int i=0; i<NumberOfCardsPerPlayer(); i++)
+		for (int i=0; i<EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer(); i++)
 		{
 			if (TableState()->User()->HasKnownCards())
 			{

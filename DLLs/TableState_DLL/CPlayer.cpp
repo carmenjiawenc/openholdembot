@@ -46,7 +46,7 @@ bool CPlayer::HasAnyCards() {
 	// but for cardbacks or cards.
 	// This way we can play all cards face-up at PokerAcademy.
 	// http://www.maxinmontreal.com/forums/viewtopic.php?f=111&t=13384
-  for (int i = 0; i < 2 /*!!!!!!!NumberOfCardsPerPlayer()*/; ++i) {
+  for (int i = 0; i < NumberOfCardsPerPlayer(); ++i) {
     if (!_hole_cards[i].IsAnyCard()) {
       return false;
     }
@@ -58,7 +58,7 @@ CString CPlayer::Cards() {
 	// log new hand
   if (HasKnownCards()) {
     CString result; 
-    for (int i = 0; i < 2 /*!!!!!!!NumberOfCardsPerPlayer()*/; ++i) {
+    for (int i = 0; i < NumberOfCardsPerPlayer(); ++i) {
       result += _hole_cards[i].ToString();
     }
     return result;
@@ -74,14 +74,14 @@ CString CPlayer::CardsAsHTML() {
   // Returning "**" on case of card-backs
   // Returning non-breaking spaces in case of no cards
   CString result;
-  for (int i = 0; i < 2 /*!!!!!!!NumberOfCardsPerPlayer()*/; ++i) {
+  for (int i = 0; i < NumberOfCardsPerPlayer(); ++i) {
     result += hole_cards(i)->ToHTML();
   }
   return result;
 }
 
 bool CPlayer::HasKnownCards() {
-  for (int i = 0; i < 2/*!!!!!!!NumberOfCardsPerPlayer()*/; ++i) {
+  for (int i = 0; i < NumberOfCardsPerPlayer(); ++i) {
     if (!_hole_cards[i].IsKnownCard()) {
       return false;
     }
@@ -123,7 +123,7 @@ bool CPlayer::IsAllin() {
 }
 
 bool CPlayer::PostingBothBlinds() {
-  if (EvaluateSymbol("betround") > kBetroundPreflop*/) {
+  if (EvaluateSymbol("betround") > kBetroundPreflop) {
     // No blind posters postflop
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=19043
     return false;

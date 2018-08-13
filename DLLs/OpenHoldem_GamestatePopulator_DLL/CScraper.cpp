@@ -678,7 +678,7 @@ void CScraper::ScrapeBet(int chair) {
 
 void CScraper::ScrapeAllPlayerCards() {
 	for (int i=0; i<kMaxNumberOfPlayers; i++){
-		for (int j=0; j<NumberOfCardsPerPlayer(); j++) {
+		for (int j=0; j<EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer(); j++) {
 			TableState()->Player(i)->hole_cards(j)->ClearValue();
 		}
 	}

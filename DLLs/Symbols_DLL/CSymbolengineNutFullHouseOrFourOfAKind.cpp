@@ -33,8 +33,8 @@ CSymbolEngineNutFullhouseOrFourOfAKind::CSymbolEngineNutFullhouseOrFourOfAKind()
   //
   // This engine does not use any other engines.
   assert(EngineContainer()->symbol_engine_cards() != NULL);
+  assert(EngineContainer()->symbol_engine_isomaha() != NULL);
   assert(EngineContainer()->symbol_engine_userchair() != NULL);
-  // Also depending on CSymbolEngineIsOmaha.h, which returns "constant" values
 }
 
 CSymbolEngineNutFullhouseOrFourOfAKind::~CSymbolEngineNutFullhouseOrFourOfAKind() {
@@ -134,7 +134,7 @@ void CSymbolEngineNutFullhouseOrFourOfAKind::CalculateNutFullhouseOrFourOfAKind(
   int n_board_cards = 0;
   // setup masks
   AssertRange(userchair, 0, kMaxChairNumber);
-  for (int i = 0; i < NumberOfCardsPerPlayer(); i++) {
+  for (int i = 0; i < EngineContainer()->symbol_engine_isomaha()->NumberOfCardsPerPlayer(); i++) {
     Card *card = TableState()->User()->hole_cards(i);
     if (card->IsKnownCard()) {
       CardMask_SET(player_cards, card->GetValue());

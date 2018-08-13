@@ -24,20 +24,6 @@
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Tablestate_DLL\TableState.h"
 
-// The number of cards per player depends on the game-type.
-// This affects cards to be scraped and evaluated.
-// The data containers must be large enough to store kMaxNumberOfCardsPerPlayer.
-int NumberOfCardsPerPlayer() {
-  if (EngineContainer()->symbol_engine_isomaha() == NULL) {
-    // Not yet initialized. Keep the OpenHoldem default
-    return kNumberOfCardsPerPlayerHoldEm;
-  }
-  if (EngineContainer()->symbol_engine_isomaha()->isomaha()) {
-    return kNumberOfCardsPerPlayerOmaha;
-  }
-  return kNumberOfCardsPerPlayerHoldEm;
-}
-
 CSymbolEngineIsOmaha::CSymbolEngineIsOmaha() {
 	// The values of some symbol-engines depend on other engines.
 	// As the engines get later called in the order of initialization
@@ -82,6 +68,16 @@ void CSymbolEngineIsOmaha::UpdateOnHeartbeat() {
     return;
   }
   write_log(Preferences()->debug_symbolengine(), "[CSymbolEngineIsOmaha] No indications for Omaha found\n");
+}
+
+// The number of cards per player depends on the game-type.
+// This affects cards to be scraped and evaluated.
+// The data containers must be large enough to store kMaxNumberOfCardsPerPlayer.
+int CSymbolEngineIsOmaha::NumberOfCardsPerPlayer() {
+  if (isomaha()) {
+    return kNumberOfCardsPerPlayerOmaha;
+  }
+  return kNumberOfCardsPerPlayerHoldEm;
 }
 
 bool CSymbolEngineIsOmaha::EvaluateSymbol(const CString name, double *result, bool log /* = false */) {
