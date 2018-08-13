@@ -14,11 +14,8 @@
 #define TABLESTATE_DLL_EXPORTS
 
 #include "CPlayer.h"
-/*!!!!!!!#include "CBetroundCalculator.h"
-#include "CEngineContainer.h"
-#include "CSymbolEngineIsOmaha.h"
-#include "CSymbolEngineTableLimits.h"*/
 #include "..\Numerical_Functions_DLL\FloatingPoint_Comparisions.h"
+#include "..\OpenHoldem_CallBack_DLL\OpenHoldem_CallBack.h"
 
 // Blobal dummy to handle access to non-existing cards easily
 Card dummy_card_nocard;
@@ -126,7 +123,7 @@ bool CPlayer::IsAllin() {
 }
 
 bool CPlayer::PostingBothBlinds() {
-  if (false/*!!!!!!!p_betround_calculator->betround() > kBetroundPreflop*/) {
+  if (EvaluateSymbol("betround") > kBetroundPreflop*/) {
     // No blind posters postflop
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=19043
     return false;
@@ -140,18 +137,18 @@ bool CPlayer::PostingBothBlinds() {
   // We have to calculate in cents here, as IsApproximatellyEqual uses rounding internally.
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=18743
   double bet_in_cents = 100 * _bet.GetValue();
-  double both_blinds_in_cents = 100 * 1; //!!!!!!! (EngineContainer()->symbol_engine_tablelimits()->sblind() + EngineContainer()->symbol_engine_tablelimits()->bblind());
+  double both_blinds_in_cents = 100 * 
+    (EvaluateSymbol("sblind") + EvaluateSymbol("bblind"));
   return (_seated && _active && HasAnyCards()
     && IsApproximatellyEqual(bet_in_cents, both_blinds_in_cents));
 }
 
 bool CPlayer::PostingAnte() {
-  /*!!!!!!!
-  if (p_betround_calculator->betround() > kBetroundPreflop) {
+  if (EvaluateSymbol("betround") > kBetroundPreflop) {
     // No ante posters postflop
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=19043
     return false;
-  }*/
+  }
   if (IsAllin()) {
     // A person who is allin for SB + BB can't be new at the table, 
     // therefore not posting antes.
@@ -161,7 +158,7 @@ bool CPlayer::PostingAnte() {
   if (_bet.GetValue() <= 0) {
     return false;
   }
-  if (_bet.GetValue() >= 1) { //!!!!!!!EngineContainer()->symbol_engine_tablelimits()->sblind()) {
+  if (_bet.GetValue() >= EvaluateSymbol("sblind")) {
     // Assuming the ante is smaller as the small blind
     // There are exceptions, but we use this function 
     // only as one of many handreset-methods.

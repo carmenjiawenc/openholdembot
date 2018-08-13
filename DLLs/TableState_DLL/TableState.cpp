@@ -18,10 +18,6 @@
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\OpenHoldem_CallBack_DLL\OpenHoldem_CallBack.h"
 
-/*!!!!!!!#include "CEngineContainer.h"
-#include "CSymbolEngineUserchair.h"
-#include "CSymbolEngineActiveDealtPlaying.h"*/
-
 CTableState::CTableState() {
   Reset();
 }
@@ -44,15 +40,11 @@ void CTableState::Reset() {
 }
 
 CPlayer *CTableState::User() {
-  /*!!!!!!!if (EngineContainer()->symbol_engine_userchair() == NULL) {
+  int userchair = EvaluateSymbol("userchair");
+  if (userchair < 0) {
     return &_players[kFakeEntryForUnknownUserchair];
   }
-  if (!EngineContainer()->symbol_engine_userchair()->userchair_confirmed()) {
-    return &_players[kFakeEntryForUnknownUserchair];
-  }*/
-  int userchair = EvaluateSymbol("userchair");
   AssertRange(userchair, 0, kLastChair);
-  ///!!! handle fake-entry
   return Player(userchair);
 }
 
