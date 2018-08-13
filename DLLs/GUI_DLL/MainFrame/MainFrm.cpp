@@ -462,9 +462,9 @@ void CMainFrame::OnTimer(UINT_PTR nIDEvent) {
 }
 
 void CMainFrame::OnAutoplayer() {
-  bool is_autoplaying = false;/// p_autoplayer->autoplayer_engaged();
+  bool is_autoplaying = GUI()->FlagsToolbar()->IsAutoplayerButtonChecked();
 	// Toggle the autoplayer-state
-	///p_autoplayer->EngageAutoplayer(!is_autoplaying);
+  GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_AUTOPLAYER, !is_autoplaying);
 }
 
 void CMainFrame::OnValidator() {
@@ -497,19 +497,19 @@ void CMainFrame::OnClickedFlags() {
 // Menu updaters
 
 void CMainFrame::OnUpdateMenuFileNew(CCmdUI* pCmdUI) {
-	///pCmdUI->Enable(!p_autoplayer->autoplayer_engaged());
+	pCmdUI->Enable(!GUI()->FlagsToolbar()->IsAutoplayerButtonChecked());
 }
 
 void CMainFrame::OnUpdateMenuFileOpen(CCmdUI* pCmdUI) {
-	///pCmdUI->Enable(!p_autoplayer->autoplayer_engaged());
+	pCmdUI->Enable(!GUI()->FlagsToolbar()->IsAutoplayerButtonChecked());
 }
 
 void CMainFrame::OnUpdateMenuFileEdit(CCmdUI* pCmdUI) {
-	///pCmdUI->Enable(!p_autoplayer->autoplayer_engaged());
+	pCmdUI->Enable(!GUI()->FlagsToolbar()->IsAutoplayerButtonChecked());
 }
 
 void CMainFrame::OnUpdateDllLoadspecificfile(CCmdUI *pCmdUI) {
-	///pCmdUI->Enable(!p_autoplayer->autoplayer_engaged());
+	pCmdUI->Enable(!GUI()->FlagsToolbar()->IsAutoplayerButtonChecked());
 }
 
 void CMainFrame::OnUpdateViewShootreplayframe(CCmdUI *pCmdUI) {

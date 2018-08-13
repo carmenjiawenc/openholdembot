@@ -34,6 +34,8 @@ class CFlagsToolbar: public CWnd {
 	void CheckButton(int button_ID, bool new_status);
 	bool IsButtonChecked(int button_ID);
 	bool IsButtonEnabled(int button_ID);
+public:
+  bool IsAutoplayerButtonChecked();
  public:
 	afx_msg void OnClickedFlags();
 	DECLARE_MESSAGE_MAP()
@@ -49,23 +51,3 @@ class CFlagsToolbar: public CWnd {
 	CFrameWnd  *_parent_window;
 	CCritSec   m_critsec;
 };
-
-
-/*#
-void CAutoplayer::EngageAutoplayer(bool to_be_enabled_or_not) {
-if (to_be_enabled_or_not)
-{
-if (!Formula()->FunctionCollection()->BotLogicCorrectlyParsed())
-{
-// Invalid formula
-// Can't autoplay
-to_be_enabled_or_not = false;
-}
-}
-// Set value at the very last to be extra safe
-// and avoid problems with multiple threads
-// despite we use synchronization ;-)
-_autoplayer_engaged = to_be_enabled_or_not;
-}
-
-*/

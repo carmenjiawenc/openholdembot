@@ -55,7 +55,10 @@ void CValidator::Validate() {
     EngineContainer()->symbol_engine_replayframe_controller()->ShootReplayFrameIfNotYetDone();
   }
   if (Preferences()->validator_stop_on_error()) {
-    ///assert(p_autoplayer != nullptr);
-    ///p_autoplayer->EngageAutoplayer(false);
+    /*#
+    To be removed probably
+    assert(p_autoplayer != nullptr);
+    p_autoplayer->EngageAutoplayer(false);
+    */
   }
 }

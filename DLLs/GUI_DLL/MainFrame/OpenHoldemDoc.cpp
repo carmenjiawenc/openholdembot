@@ -84,7 +84,7 @@ void COpenHoldemDoc::Serialize(CArchive& ar)
 		//
 		// void CMainFrame::OnUpdateLRUList(CCmdUI *pCmdUI)
 		// {
-		//	pCmdUI->Enable(!p_autoplayer->autoplayer_engaged());
+		//	pCmdUI->Enable(!GUI()->FlagsToolbar()->IsAutoplayerButtonChecked());
 		// }
 		//
 		// Unfortunatelly this does not work, 
@@ -95,7 +95,7 @@ void COpenHoldemDoc::Serialize(CArchive& ar)
 		//
 		// So we decided to go that route.
 		//
-		/*#if (p_autoplayer->autoplayer_engaged())
+		/*#if (GUI()->FlagsToolbar()->IsAutoplayerButtonChecked())
 		{
 			MessageBox_Interactive("Can't load formula while autoplayer engaged.", "ERROR", 0);
 			return;

@@ -307,7 +307,6 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
       WriteLogTableReset("NEW CONNECTION");
       TableManagement()->TablePositioner()->ResizeToTargetSize();
       TableManagement()->TablePositioner()->PositionMyWindow();
-			///p_autoplayer->EngageAutoPlayerUponConnectionIfNeeded();
 		}
 	}
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Unlocking autoconnector-mutex\n");
@@ -330,7 +329,6 @@ void CAutoConnector::Disconnect(CString reason_for_disconnection) {
   ///CDlgScraperOutput::DestroyWindowSafely();
   // Make sure autoplayer is off
   write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Stopping autoplayer\n");
-  ///p_autoplayer->EngageAutoplayer(false);
 	// Wait for mutex - "forever" if necessary, as we have to clean up.
 	ASSERT(_autoconnector_mutex->m_hObject != NULL); 
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Locking autoconnector-mutex\n");

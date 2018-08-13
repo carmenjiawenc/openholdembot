@@ -14,6 +14,8 @@
 #include "CFormulaEditor.h"
 #include <assert.h>
 #include "DialogFormulaScintilla.h"
+#include "..\CGUI.h"
+#include "..\Toolbar\CFlagsToolbar.h"
 #include "..\..\WindowFunctions_DLL\window_functions.h"
 
 CFormulaEditor::CFormulaEditor() {
@@ -27,11 +29,11 @@ void CFormulaEditor::CreateEditor() {
   if (IsCreated()) {
     return;
   }
-  /*#if (p_autoplayer->autoplayer_engaged()) {
+  if (GUI()->FlagsToolbar()->IsAutoplayerButtonChecked()) {
     // The menu item Edit->Formula is disabled,
     // this is just an extra failsafe.
     return;
-  }*/
+  }
   assert(dialog_formula_scintilla == NULL);
   dialog_formula_scintilla = new CDlgFormulaScintilla();///this);
   dialog_formula_scintilla->Create(CDlgFormulaScintilla::IDD);///, this);

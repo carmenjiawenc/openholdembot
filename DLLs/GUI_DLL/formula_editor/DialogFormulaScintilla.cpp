@@ -1535,13 +1535,13 @@ void CDlgFormulaScintilla::UpdateDebugAuto(void) {
 
 void CDlgFormulaScintilla::WarnAboutAutoplayerWhenApplyingFormula()
 {
+  GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_AUTOPLAYER, false);
 	MessageBox_Interactive("Editing the formula while the autoplayer is enabled\n"
 		"is an extremely insane idea\n"
 		"(like changing wheels while driving on the highway).\n\n"
 		"We will have to turn the autoplayer off,\n"
 		"but to avoid any problems we skip saving.",
 		"Warning", MB_OK | MB_TOPMOST);
-	///p_autoplayer->EngageAutoplayer(false);	
 	return;
 }
 
@@ -1562,9 +1562,9 @@ void CDlgFormulaScintilla::OnBnClickedApply() {
   ClearCalcResult();
   CMenu				*file_menu = this->GetMenu()->GetSubMenu(0);
   // If autoplayer is engaged, dis-engage it
-///  if (p_autoplayer->autoplayer_engaged()) {
+  if (GUI()->FlagsToolbar()->IsAutoplayerButtonChecked()) {
 	  WarnAboutAutoplayerWhenApplyingFormula();
-  ///}
+  }
   CopyTabContentsToFormulaSet();
   Formula()->FunctionCollection()->ParseAll();
   if (!Formula()->FunctionCollection()->BotLogicCorrectlyParsed()) {

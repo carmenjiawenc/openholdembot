@@ -93,7 +93,10 @@ double CFunction::Evaluate(bool log /* = false */) {
       "\n"
       "Last function: %s", _name);
 	  MessageBox_Error_Warning(error_message);
-	  ///p_autoplayer->EngageAutoplayer(false);
+	  // No longer stopping the autoplayer here
+    // (this would lead to a cyclic dependency).
+    // A warning is enough while testing,
+    // in production this error should not happen
 	  ++recursion_depth;
 	  return kUndefinedZero;
   }

@@ -27,8 +27,7 @@ public:
 	// public accessors
 	const bool autoplayer_engaged() { return _autoplayer_engaged; }
 	bool TimeToHandleSecondaryFormulas();
-public:
-	// public mutators
+private:
 	void EngageAutoplayer(bool to_be_enabled_or_not);
 private:
 	// private functions and variables - not available via accessors or mutators
