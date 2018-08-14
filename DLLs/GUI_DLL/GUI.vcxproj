@@ -156,7 +156,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;secur32.lib;$(OutDir)BasicScraper.lib;$(OutDir)CasinoInterface.lib;$(OutDir)ConfigurationCheck.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Formula.lib;$(OutDir)Preferences.lib;;$(OutDir)PokerTracker_QueryDefinitions.lib;$(OutDir)SessionCounter.lib;$(OutDir)stringFunctions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;$(OutDir)..\lib\libpq.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;secur32.lib;$(OutDir)BasicScraper.lib;$(OutDir)CasinoInterface.lib;$(OutDir)ConfigurationCheck.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Formula.lib;$(OutDir)Preferences.lib;;$(OutDir)PokerTracker_QueryDefinitions.lib;$(OutDir)SessionCounter.lib;$(OutDir)stringFunctions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;$(OutDir)..\lib\libpq.lib;..\..\scintilla\bin\SciLexer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -175,7 +175,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;secur32.lib;$(OutDir)BasicScraper.lib;$(OutDir)CasinoInterface.lib;$(OutDir)ConfigurationCheck.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Formula.lib;$(OutDir)Preferences.lib;$(OutDir)PokerTracker_QueryDefinitions.lib;$(OutDir)SessionCounter.lib;$(OutDir)stringFunctions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;$(OutDir)..\lib\libpq.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;secur32.lib;$(OutDir)BasicScraper.lib;$(OutDir)CasinoInterface.lib;$(OutDir)ConfigurationCheck.lib;$(OutDir)Debug.lib;$(OutDir)Files.lib;$(OutDir)Formula.lib;$(OutDir)Preferences.lib;$(OutDir)PokerTracker_QueryDefinitions.lib;$(OutDir)SessionCounter.lib;$(OutDir)stringFunctions.lib;$(OutDir)Symbols.lib;$(OutDir)TableManagement.lib;$(OutDir)TableState.lib;$(OutDir)WindowFunctions.lib;$(OutDir)..\lib\libpq.lib;..\..\scintilla\bin\SciLexer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

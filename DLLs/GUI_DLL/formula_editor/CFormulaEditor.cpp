@@ -18,6 +18,9 @@
 #include "..\Toolbar\CFlagsToolbar.h"
 #include "..\..\WindowFunctions_DLL\window_functions.h"
 
+extern bool Scintilla_RegisterClasses(void *hInstance);
+extern bool Scintilla_ReleaseResources();
+
 CFormulaEditor::CFormulaEditor() {
   dialog_formula_scintilla = NULL;
 }
@@ -34,6 +37,9 @@ void CFormulaEditor::CreateEditor() {
     // this is just an extra failsafe.
     return;
   }
+  Scintilla_RegisterClasses(AfxGetInstanceHandle());
+  // Initialize richedit2 library
+  AfxInitRichEdit2();
   assert(dialog_formula_scintilla == NULL);
   dialog_formula_scintilla = new CDlgFormulaScintilla();///this);
   dialog_formula_scintilla->Create(CDlgFormulaScintilla::IDD);///, this);
@@ -47,6 +53,7 @@ void CFormulaEditor::DestroyEditor() {
   ///
   dialog_formula_scintilla->DestroyWindow();
   dialog_formula_scintilla = NULL;
+  Scintilla_ReleaseResources();
 }
 
 bool CFormulaEditor::IsCreated() {

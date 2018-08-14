@@ -82,7 +82,7 @@ BOOL COpenHoldemApp::InitInstance() {
 	///!!!
   ///Scintilla_RegisterClasses(AfxGetInstanceHandle());
 	// Initialize richedit2 library
-	AfxInitRichEdit2();
+	///AfxInitRichEdit2();
 	// Change class name of Dialog
 	WNDCLASS wc;
 	GetClassInfo(AfxGetInstanceHandle(), "#32770", &wc);
