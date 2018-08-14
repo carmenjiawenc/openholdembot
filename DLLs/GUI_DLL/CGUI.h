@@ -43,7 +43,9 @@ public:
     return &_formula_editor;
   }
   CMainFrame *MainFrame() {
-    return _p_main_frame;
+    // No explicit variable for this value
+    // as the MainFrame gets initialized via MFC-magic
+    return (CMainFrame*)AfxGetApp()->m_pMainWnd;
   }
   COpenHoldemStatusbar* OpenHoldemStatusbar() {
     return _p_openholdem_statusbar;
@@ -77,6 +79,12 @@ private:
 };
 
 GUI_DLL_API CGUI* GUI();
+
+/*#unused, but might be needed again
+CMainFrame* PMainframe() {
+CMainFrame *p_mainframe = NULL;/// (CMainFrame *)(theApp.m_pMainWnd);
+return p_mainframe;
+}*/
 
 
 

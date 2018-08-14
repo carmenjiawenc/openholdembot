@@ -551,10 +551,3 @@ void CMainFrame::OnHelpProblemSolver() {
 	CProblemSolver my_problem_solver;
 	my_problem_solver.TryToDetectBeginnersProblems();
 }
-
-
-/*#unused, but might be needed again
-CMainFrame* PMainframe() {
-  CMainFrame *p_mainframe = NULL;/// (CMainFrame *)(theApp.m_pMainWnd);
-	return p_mainframe;
-}*/
