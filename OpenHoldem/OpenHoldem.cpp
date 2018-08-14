@@ -79,17 +79,13 @@ BOOL COpenHoldemApp::InitInstance() {
 	// no matter how it is named.
 	// For the technical details please see:
 	// http://msdn.microsoft.com/de-de/library/xykfyy20(v=vs.80).aspx
-	///!!!
-  ///Scintilla_RegisterClasses(AfxGetInstanceHandle());
-	// Initialize richedit2 library
-	///AfxInitRichEdit2();
 	// Change class name of Dialog
 	WNDCLASS wc;
 	GetClassInfo(AfxGetInstanceHandle(), "#32770", &wc);
 	wc.lpszClassName = "OpenHoldemFormula";
 	wc.hIcon = AfxGetApp()->LoadIcon(IDI_ICON1);
 	RegisterClass(&wc);
-  CWinApp::InitInstance();
+   CWinApp::InitInstance();
  	// Initialize OLE libraries
 	// Mandatory to call those initialisations. 
 	// This will also help win7/8 compatibility 

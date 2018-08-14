@@ -126,7 +126,14 @@
 		$(OutDir)StringFunctions.lib;
 		$(OutDir)TableState.lib;
 		$(OutDir)WindowFunctions.lib; 
-	 imm32.lib;psapi.lib;secur32.lib;..\pokereval\Release\poker-eval.lib;..\lib\libpq.lib;%(AdditionalDependencies)</AdditionalDependencies>
+	    imm32.lib;
+	    psapi.lib;
+	    secur32.lib;
+	    ..\pokereval\Release\poker-eval.lib;
+	    ..\lib\libpq.lib;
+		..\scintilla\bin\SciLexer.lib;
+	    %(AdditionalDependencies)
+	 </AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName).exe</OutputFile>
       <OutputFile>$(OutDir)OpenHoldem.exe</OutputFile>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
