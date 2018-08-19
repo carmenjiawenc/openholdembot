@@ -18,6 +18,8 @@
 #include "dialog_scraper_output\DialogScraperOutput.h"
 #include "Toolbar\CFlagsToolbar.h"
 #include "MainFrame\MainFrm.h"
+#include "MainFrame\OpenHoldemDoc.h"
+#include "MainFrame\OpenHoldemView.h"
 #include "OpenHoldem_title\COpenHoldemTitle.h"
 #include "statusbar\COpenHoldemStatusbar.h"
 #include "Toolbar\CFlagsToolbar.h"
@@ -25,6 +27,7 @@
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\Symbols_DLL\CSymbolEngineHandrank.h"
+#include "..\WindowFunctions_DLL\window_functions.h"
 
 BEGIN_MESSAGE_MAP(CGUI, CWnd)
   ON_COMMAND(ID_APP_ABOUT, &CGUI::OnAbout)
@@ -75,10 +78,6 @@ void CGUI::UpdateOnDisconnection() {
   FlagsToolbar()->ResetButtonsOnDisconnect();
 }
 
-///!!!
-#include "MainFrame\OpenHoldemDoc.h"
-#include "MainFrame\OpenHoldemView.h"
-
 CSingleDocTemplate* CGUI::CreateCSingleDocTemplate() {
   // Register the application's document templates.  Document templates
   // serve as the connection between documents, frame windows and views
@@ -107,6 +106,27 @@ void CGUI::CreateStatusbar(CFrameWnd *parent_window) {
   _p_openholdem_statusbar = new COpenHoldemStatusbar(parent_window);
 }
 
+void CGUI::CreateDialogScraperOutput(CFrameWnd *parent_window) {
+  MessageBox_Interactive("Please note:\n"
+    "OpenScrape scrapes everything, but OpenHoldem is optimized\n"
+    "to scrape only necessary info.\n"
+    "\n"
+    "For example:\n"
+    "If a players first card is \"cardback\" we don't even have to scrape the second one.\n"
+    "This is a feature, not a bug.\n",
+    "Info", 0);
+  write_log(Preferences()->debug_gui(), "[GUI] Going to create scraper output dialog\n");
+  _p_dialog_scraper_output = new CDlgScraperOutput(this);
+  write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog: step 1 finished\n");
+  DlgScraperOutput()->Create(CDlgScraperOutput::IDD, this);
+  write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog: step 2 finished\n");
+  DlgScraperOutput()->ShowWindow(SW_SHOW);
+  write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog: step 3 finished\n");
+  /// here?
+  FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_SCRAPER_OUTPUT, true);
+  write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog: step 4 (final) finished\n");
+}
+
 void CGUI::OnAbout() {
   CDlgAbout aboutDlg;
   aboutDlg.DoModal();
@@ -121,3 +141,8 @@ CGUI* GUI() {
   }
   return gui;
 }
+
+
+// Reset display
+/// not here -> heartbeat
+///InvalidateRect(AfxGetApp()->m_pMainWnd->GetSafeHwnd(), NULL, true);

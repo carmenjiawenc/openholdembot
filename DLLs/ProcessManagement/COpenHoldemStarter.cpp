@@ -107,5 +107,7 @@ void COpenHoldemStarter::CloseThisInstanceIfNoLongerNeeded() {
     return;
   }
   write_log(Preferences()->debug_autostarter(), "[COpenHoldemStarter] Shutting down this instance.\n");
-  ///PostMessage(theApp.m_pMainWnd->GetSafeHwnd(), WM_QUIT, NULL, NULL); //!!!!! Will no longer work without window
+   ///!!! Might no longer work without window
+  PostMessage(AfxGetApp()->m_pActiveWnd->GetSafeHwnd(),
+    WM_QUIT, NULL, NULL);
 }

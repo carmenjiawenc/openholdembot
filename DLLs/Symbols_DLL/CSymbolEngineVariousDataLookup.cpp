@@ -45,7 +45,7 @@ CSymbolEngineVariousDataLookup::CSymbolEngineVariousDataLookup() {
   // Other objects that we depend on
   assert(TableManagement()->AutoConnector() != NULL);
   ///assert(p_betround_calculator != NULL);
-  ///assert(OpenHoldem()->HandresetDetector() != NULL);
+  assert(EngineContainer()->HandresetDetector() != NULL);
   assert(SessionCounter() != NULL);
   ///assert(p_tablemap != NULL);
   assert(TableState()->TableTitle() != NULL);
@@ -61,9 +61,6 @@ void CSymbolEngineVariousDataLookup::UpdateOnConnection() {
 }
 
 void CSymbolEngineVariousDataLookup::UpdateOnHandreset() {
-  // Reset display
-  ///!!!!! not here -> heartbeat
-  ///InvalidateRect(theApp.m_pMainWnd->GetSafeHwnd(), NULL, true);
 }
 
 void CSymbolEngineVariousDataLookup::UpdateOnNewRound() {

@@ -66,7 +66,6 @@ LRESULT COpenHoldemHopperCommunication::OnResetFlagMessage(WPARAM, LPARAM flag_t
 	{
 		return false;
 	}
-  ///!!! Verify that pointers are not NULL if we work without gUI
   EngineContainer()->symbol_engine_flags()->SetFlag(int(flag_to_reset), false);
 	return true;
 }

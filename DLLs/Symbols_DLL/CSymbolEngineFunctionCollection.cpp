@@ -17,6 +17,7 @@
 //******************************************************************************
 
 #include "CSymbolEngineFunctionCollection.h"
+#include <afxwin.h>
 #include "..\Debug_DLL\debug.h"
 #include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFunctionCollection.h"

@@ -14,6 +14,7 @@
 #include "CSymbolEngineTableStats.h"
 #include "CBetroundCalculator.h"
 #include "CEngineContainer.h"
+#include "CHandresetDetector.h"
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include "CSymbolEngineChipAmounts.h"
 
@@ -114,7 +115,7 @@ double CSymbolEngineTableStats::SumUp(int *data_set_for_n_hands) {
 }
 
 int CSymbolEngineTableStats::NumberOfHandsStored() {
-  int hands_played = 20; /// OpenHoldem()->HandresetDetector()->hands_played();
+  int hands_played = EngineContainer()->HandresetDetector()->hands_played();
   if (hands_played > kNumberOfHands) { //!!! better baning
     // All entries contains valid date
     return kNumberOfHands;

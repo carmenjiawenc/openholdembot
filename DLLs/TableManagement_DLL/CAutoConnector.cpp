@@ -244,18 +244,6 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
   // We have to check and return very early, we must not do this
   // after locking the mutex, otherwiese we block other instances forever.
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=110&t=19407&p=140417#p140417
-  //!!!!! DONOWORKS if no GUI
-  /*#if (OpenHoldem()->TablePositioner() == NULL) return false;
-  if (p_autoplayer == NULL) return false;
-  if (p_casino_interface == NULL) return false;
-  if (EngineContainer() == NULL) return false;
-  if (p_flags_toolbar == NULL) return false;
-  if (p_scraper == NULL) return false;
-  if (TableManagement()->SharedMem() == NULL) return false;
-  if (p_tablemap == NULL) return false;
-  ///if (OpenHoldem()->TablemapLoader() == NULL) return false;
-  if (TableManagement()->TablePositioner() == NULL) return false;
-  if (TableState() == NULL) return false;*/
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Connect(..)\n");
   ASSERT(_autoconnector_mutex->m_hObject != NULL); 
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Locking autoconnector-mutex\n");
@@ -287,7 +275,6 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
       // Load correct tablemap, and save hwnd/rect/numchairs of table that we are "attached" to
 			set_attached_hwnd(g_tlist[SelectedItem].hwnd);
       CheckIfWindowMatchesMoreThanOneTablemap(attached_hwnd());
-			///assert(p_tablemap != NULL);
       CString tablemap_to_load = TableMapLoader()->GetTablemapPathToLoad(g_tlist[SelectedItem].tablemap_index);
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Selected tablemap: %s\n", tablemap_to_load);
 			BasicScraper()->Tablemap()->LoadTablemap(tablemap_to_load);

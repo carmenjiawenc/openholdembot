@@ -40,11 +40,6 @@ AFX_STATIC_DATA const TCHAR _afxFileEntry[] = _T("File%d");
 AFX_STATIC_DATA const TCHAR _afxPreviewSection[] = _T("Settings");
 AFX_STATIC_DATA const TCHAR _afxPreviewEntry[] = _T("PreviewPages");
 
-// COpenHoldemApp
-///!!!
-///extern bool Scintilla_RegisterClasses(void *hInstance);
-///extern bool Scintilla_ReleaseResources();
-
 // COpenHoldemApp construction
 
 COpenHoldemApp::COpenHoldemApp() {
@@ -53,9 +48,6 @@ COpenHoldemApp::COpenHoldemApp() {
 // COpenHoldemApp destruction
 COpenHoldemApp::~COpenHoldemApp() {
 }
-
-// The one and only COpenHoldemApp object
-COpenHoldemApp theApp;
 
 // COpenHoldemApp initialization
 BOOL COpenHoldemApp::InitInstance() {
@@ -168,8 +160,6 @@ int COpenHoldemApp::ExitInstance() {
   // timers and threads are already stopped 
   // by CMainFrame::DestroyWindow().
   // Now we cancontinue with singletons.
-	///!!!
-  ///Scintilla_ReleaseResources();
   stop_log();
 	return CWinApp::ExitInstance();
 }
@@ -232,6 +222,6 @@ void COpenHoldemApp::InitializeThreads() {
   write_log(Preferences()->debug_openholdem(), "[OpenHoldem] Going to start heartbeat thread\n");
   assert(_p_heartbeat_thread == NULL);
   _p_heartbeat_thread = &hbt; ///!!!new CHeartbeatThread();
-  assert(_p_heartbeat_thread != NULL); //duplicate!!!!! prwin missing
+  assert(_p_heartbeat_thread != NULL);
   _p_heartbeat_thread->StartThread();
 }

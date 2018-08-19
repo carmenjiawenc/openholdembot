@@ -1029,7 +1029,7 @@ void CFormulaParser::BackPatchOpenEndedWhenConditionSequence(
 
 void CFormulaParser::ParseDebugTab(CString function_text) {
   EnterParserCode();
-  ///assert(p_debug_tab != NULL);
+  assert(Formula()->FunctionCollection()->DebugTab() != NULL);
   _is_parsing_debug_tab = true;
   Formula()->FunctionCollection()->DebugTab()->Clear();
   CString next_line;
@@ -1051,7 +1051,7 @@ void CFormulaParser::ParseDebugTab(CString function_text) {
     // Care about operator precendence
     _parse_tree_rotator.Rotate(expression, &expression);
     // Add line and expression to debug-tab
-    ///assert(p_debug_tab != NULL);
+    assert(Formula()->FunctionCollection()->DebugTab() != NULL);
     Formula()->FunctionCollection()->DebugTab()->AddExpression(expression_text, expression);
   }
   _is_parsing_debug_tab = false;

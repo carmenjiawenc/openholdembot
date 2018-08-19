@@ -56,7 +56,36 @@ bool CBasicScraper::LoadTablemap(const char* path) {
 }
 
 CString CBasicScraper::ScrapeRegion(const CString name) {
-  //!!!!!
+  //!!!!!!!
+  /*#
+  __HDC_HEADER
+  write_log(Preferences()->debug_scraper(),
+    "[CScraper] EvaluateRegion %s\n", name);
+	CTransform	trans;
+	RMapCI		r_iter = BasicScraper()->Tablemap()->r$()->find(name.GetString());
+	if (r_iter != BasicScraper()->Tablemap()->r$()->end()) {
+    // Potential for optimization here
+    ++total_region_counter;
+		if (ProcessRegion(r_iter)) {
+      ++identical_region_counter;
+      write_log(Preferences()->debug_scraper(),
+        "[CScraper] Region %s identical\n", name);
+    } else {
+      write_log(Preferences()->debug_scraper(),
+        "[CScraper] Region %s NOT identical\n", name);
+    }
+		old_bitmap = (HBITMAP) SelectObject(hdcCompatible, r_iter->second.cur_bmp);
+		trans.DoTransform(r_iter, hdcCompatible, result);
+		SelectObject(hdcCompatible, old_bitmap);
+		write_log(Preferences()->debug_scraper(), "[CScraper] EvaluateRegion(), [%s] -> [%s]\n", 
+			name, *result);
+    __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
+		return true;
+	}
+	// Region does not exist
+  *result = "";
+	__HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
+	return false;*/
   return "error";
 }
 

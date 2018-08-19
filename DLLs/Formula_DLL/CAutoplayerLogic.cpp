@@ -154,10 +154,11 @@ bool CAutoplayerLogic::IsFoldAllinSituation() {
   // and not by easily misscraped bets and balances.
   // Fold and allin-button must be visible.
   // Raise. call and check must not.
-  CString fckra = "42"; ///!!!
+  double myturnbits = EvaluateSymbol("myturnbits");
+  int fold_allin = kMyTurnBitsFold | kMyTurnBitsAllin;
   write_log(Preferences()->debug_formula(),
-    "[CAutoplayerLogic] Buttons seen: %s\n", fckra);
-  if (fckra == "F...A") {
+    "[CAutoplayerLogic] Buttons seen (myturnbits): %0.f\n", myturnbits);
+  if (myturnbits == fold_allin) {
     write_log(Preferences()->debug_formula(),
       "[CAutoplayerLogic] Fold / allin situation\n");
     return true;

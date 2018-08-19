@@ -16,6 +16,7 @@
 #include "assert.h"
 #include "CFormula.h"
 #include "CFormulaparser.h"
+#include "CFunctionCollection.h"
 #include "COHScriptObject.h"
 #include "CParseErrors.h"
 #include "TokenizerConstants.h"
@@ -66,8 +67,8 @@ void CTokenizer::SetInputBufferByDebugTab(const char* expression_to_be_parsed, i
   // line_relative must be assigned after SetInputBuffer()
   // because SetInputBuffer() sets it also!
   line_relative = line;
-  ///assert(p_debug_tab != NULL);
-  //!!!!!!!_currently_tokenized_function_or_list = p_debug_tab;
+  assert(Formula()->FunctionCollection()->DebugTab() != NULL);
+  _currently_tokenized_function_or_list = Formula()->FunctionCollection()->DebugTab();
 }
 
 void CTokenizer::SetInputBuffer(const char* next_formula_to_be_parsed) {

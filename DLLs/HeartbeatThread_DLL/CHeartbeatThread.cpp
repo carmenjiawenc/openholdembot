@@ -56,16 +56,12 @@ CHeartbeatThread::CHeartbeatThread() {
 CHeartbeatThread::~CHeartbeatThread() {
 	// Trigger thread to stop
 	::SetEvent(_m_stop_thread);
-
 	// Wait until thread finished
 	::WaitForSingleObject(_m_wait_thread, k_max_time_to_wait_for_thread_to_shutdown);
-
 	// Close handles
 	::CloseHandle(_m_stop_thread);
 	::CloseHandle(_m_wait_thread);
-
 	DeleteCriticalSection(&cs_update_in_progress);
-	///OpenHoldem()->HeartbeatThread() = NULL;
 }
 
 void CHeartbeatThread::StartThread() {

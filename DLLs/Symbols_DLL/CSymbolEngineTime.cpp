@@ -16,6 +16,7 @@
 #include "CSymbolEngineTime.h"
 #include <assert.h>
 #include "CEngineContainer.h"
+#include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 
 CSymbolEngineTime::CSymbolEngineTime() {
@@ -64,10 +65,9 @@ void CSymbolEngineTime::UpdateOnHeartbeat() {
   //   b) because they were laggy in the debug-tab (flexible heartbeat)
   //   c) because we want them to be available all the time
   //      and normal calculations stop on disconnection.
-  /*!!!!!!!assert(p_casino_interface != nullptr);
   if (!CasinoInterface()->IsMyTurn()) {
     _last_heartbeat_was_my_turn = false;
-  }*/
+  }
   // Not setting anything to true here.
   // We do this in UpdateOnMyTurn() after the calculations
 }	

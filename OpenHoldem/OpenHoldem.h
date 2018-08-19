@@ -30,11 +30,9 @@ class COpenHoldemApp : public CWinApp {
 	void LoadLastRecentlyUsedFileList();
 	void OpenLastRecentlyUsedFile();
 public:
-  CHeartbeatThread* HeartBeatThread(); //!!!!!
+  CHeartbeatThread* HeartBeatThread(); 
  private:
   void InitializeThreads();
 private:
   CHeartbeatThread *_p_heartbeat_thread;
 };
-
-COpenHoldemApp* OpenHoldem(); //!!!!! not needed, GetInstance

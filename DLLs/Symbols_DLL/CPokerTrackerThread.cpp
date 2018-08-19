@@ -199,6 +199,7 @@ bool CPokerTrackerThread::IsConnected() {
    like "l", "1", "i", "." and "," */
 bool CPokerTrackerThread::NameLooksLikeBadScrape(char *oh_scraped_name)
 {
+  /// !!!-> scraper
 	int len = (int) strlen(oh_scraped_name);
 	for (int i=0; i<len; i++)
 	{

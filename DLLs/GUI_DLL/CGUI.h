@@ -29,6 +29,7 @@ public:
   CGUI();
   ~CGUI();
 public:
+  void CreateDialogScraperOutput(CFrameWnd *parent_window);
   void CreateFlagsToolbar(CFrameWnd *parent_window);
   void CreateStatusbar(CFrameWnd *parent_window);
 public:
@@ -82,7 +83,7 @@ GUI_DLL_API CGUI* GUI();
 
 /*#unused, but might be needed again
 CMainFrame* PMainframe() {
-CMainFrame *p_mainframe = NULL;/// (CMainFrame *)(theApp.m_pMainWnd);
+CMainFrame *p_mainframe = NULL;/// (CMainFrame *)(AfxGetApp()->m_pMainWnd);
 return p_mainframe;
 }*/
 

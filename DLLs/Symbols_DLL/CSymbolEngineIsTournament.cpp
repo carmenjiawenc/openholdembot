@@ -15,6 +15,7 @@
 #include "CSymbolEngineIsTournament.h"
 #include <assert.h>
 #include "CEngineContainer.h"
+#include "CHandresetDetector.h"
 #include "CSymbolEngineActiveDealtPlaying.h"
 #include "CSymbolEngineAutoplayer.h"
 #include "CSymbolEngineCasino.h"
@@ -283,7 +284,7 @@ void CSymbolEngineIsTournament::TryToDetectTournament() {
 	// Also checking for (elapsedauto < elapsed). i.e. at least one action
 	// since connection, as handsplayed does not reset if we play multiple games.
 	if ((_istournament != kUndefined)
-		  //#&& (OpenHoldem()->HandresetDetector()->hands_played() > 2)
+		  && (EngineContainer()->HandresetDetector()->hands_played() > 2)
 		  && (EngineContainer()->symbol_engine_time()->elapsedauto() < EngineContainer()->symbol_engine_time()->elapsed())) {
 		write_log(Preferences()->debug_istournament(), "[CSymbolEngineIsTournament] Enough hands played; locking current value\n");
 		_decision_locked = true;

@@ -142,7 +142,7 @@ void CFunctionCollection::Add(COHScriptObject *new_function) {
     // and must not be added to the collection
     // (to avoid deletion)
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=111&t=19616
-    ///assert(p_debug_tab != NULL);
+    assert(DebugTab() != NULL);
     DebugTab()->SetText(new_function->function_text());
     delete new_function;
     return;
@@ -255,8 +255,8 @@ COHScriptObject *CFunctionCollection::LookUp(CString name) {
     // that is a global object and not in the collection
     // (to avoid deletion)
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=111&t=19616
-    ///assert(p_debug_tab != NULL);
-    return NULL; /// p_debug_tab;
+    assert(DebugTab() != NULL);
+    return DebugTab();
   }
   write_log(Preferences()->debug_formula(), "[CFunctionCollection] Lookup %s\n", name); 
   std::map<CString, COHScriptObject*>::iterator it; 
@@ -656,7 +656,7 @@ bool CFunctionCollection::ParseAll() {
   }
   // Finally parse the debug-tab,
   // that is no longer in the collection.
-  ///assert(p_debug_tab != NULL);
+  assert(DebugTab() != NULL);
   DebugTab()->Parse();
   return true;
 }

@@ -12,7 +12,6 @@
 //
 //******************************************************************************
 
-#define _ALLOW_KEYWORD_MACROS
 #include <afxwin.h>
 #include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 

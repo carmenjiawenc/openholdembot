@@ -13,6 +13,7 @@
 
 #include "CSymbolEngineUserDLL.h"
 #include "CEngineContainer.h"
+#include "CHandresetDetector.h"
 #include "CIteratorThread.h"
 #include "CSymbolenginePrWin.h"
 #include "CSymbolengineVersus.h"
@@ -112,7 +113,7 @@ EXE_IMPLEMENTS void* GetPrw1326() {
 }
 
 EXE_IMPLEMENTS char* GetHandnumber() {
-  return "42";/// OpenHoldem()->HandresetDetector()->GetHandNumber().GetBuffer();
+  return EngineContainer()->HandresetDetector()->GetHandNumber().GetBuffer();
 }
 
 EXE_IMPLEMENTS char* GetPlayerName(int chair) {

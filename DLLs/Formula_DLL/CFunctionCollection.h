@@ -43,7 +43,6 @@ class FORMULA_DLL_API CFunctionCollection {
  public: 
   CString SymbolsProvided();
  public:
-  // Mandatory reset-functions ///!!!
   void UpdateOnHeartbeat();
  public:
   // To be called by

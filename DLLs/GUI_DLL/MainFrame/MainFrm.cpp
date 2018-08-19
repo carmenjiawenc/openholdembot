@@ -264,23 +264,8 @@ void CMainFrame::OnScraperOutput() {
 	}	else {
 		write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog does not yet exist\n");
 	}
-	MessageBox_Interactive("Please note:\n"
-	  "OpenScrape scrapes everything, but OpenHoldem is optimized\n"		  
-	  "to scrape only necessary info.\n"
-	  "\n"
-	  "For example:\n"
-	  "If a players first card is \"cardback\" we don't even have to scrape the second one.\n"
-	  "This is a feature, not a bug.\n",
-	  "Info", 0);
-	write_log(Preferences()->debug_gui(), "[GUI] Going to create scraper output dialog\n");
-	//!!!!!m_DlgScraperOutput = new CDlgScraperOutput(this);
-	write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog: step 1 finished\n");
-	GUI()->DlgScraperOutput()->Create(CDlgScraperOutput::IDD,this);
-	write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog: step 2 finished\n");
-	GUI()->DlgScraperOutput()->ShowWindow(SW_SHOW);
-	write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog: step 3 finished\n");
-	GUI()->FlagsToolbar()->EnableButton(ID_MAIN_TOOLBAR_SCRAPER_OUTPUT, true);
-	write_log(Preferences()->debug_gui(), "[GUI] Scraper output dialog: step 4 (final) finished\n"); 
+  GUI()->CreateDialogScraperOutput(this);
+	
 }
 
 void CMainFrame::OnViewShootreplayframe() {
@@ -397,7 +382,7 @@ void CMainFrame::OnFileOpen() {
 	if (cfd.DoModal() == IDOK) {				
 		pDoc->OnOpenDocument(cfd.GetPathName());
 		pDoc->SetPathName(cfd.GetPathName());
-		///theApp.StoreLastRecentlyUsedFileList();
+		///AfxGetApp()->StoreLastRecentlyUsedFileList();
 	}
 }
 

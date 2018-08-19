@@ -14,6 +14,9 @@
 #define SYMBOLS_DLL_EXPORTS
 
 #include "CSymbolEngineUserchair.h"
+#include "CBetroundCalculator.h"
+#include "CEngineContainer.h"
+#include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
@@ -42,6 +45,9 @@ void CSymbolEngineUserchair::UpdateOnConnection()
 
 void CSymbolEngineUserchair::UpdateOnHandreset()
 {
+  // Reset userchair for fast-fold-games.
+  // Some casinos change the chair every hand.
+  _userchair = kUndefined;
 }
 
 void CSymbolEngineUserchair::UpdateOnNewRound()
@@ -51,15 +57,19 @@ void CSymbolEngineUserchair::UpdateOnMyTurn()
 {}
 
 void CSymbolEngineUserchair::UpdateOnHeartbeat() {
-	if (!userchair_confirmed() /*!!!!!!!|| (CasinoInterface()->IsMyTurn())*/) {
+	if (!userchair_confirmed() || (CasinoInterface()->IsMyTurn())) {
 		CalculateUserChair();
 	}
 }
 
 bool CSymbolEngineUserchair::IsNotShowdown() {
-  int num_buttons_enabled = 2;/// CasinoInterface()->NumberOfVisibleAutoplayerButtons();
-  if (num_buttons_enabled >= k_min_buttons_needed_for_my_turn) return true;
-  ///if (EngineContainer()->BetroundCalculator()->betround() < kBetroundRiver) return true;
+  int num_buttons_enabled = CasinoInterface()->NumberOfVisibleAutoplayerButtons();
+  if (num_buttons_enabled >= k_min_buttons_needed_for_my_turn) {
+    return true;
+  }
+  if (EngineContainer()->BetroundCalculator()->betround() < kBetroundRiver) {
+    return true;
+  }
   return false;
 }
 

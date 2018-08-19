@@ -100,20 +100,21 @@ double CHeartbeatDelay::SleepingFactorNotSeated() {
       // Be more conservative
       return 2.0;
     }
-  } else { 
-    // if (OpenHoldem()->HandresetDetector()->hands_played() <= 1) {
+  } else {
     // Game not yet started
+    assert(EngineContainer()->HandresetDetector()->hands_played() <= 1);
     if (EngineContainer()->symbol_engine_istournament()->istournament()) {
       // Tournament
       // Might take some time to fill up, non-critical
       return 3.0;
-    } else { 
+    } else {
       // Cash-game without confirmed user-chair
       // Might start soon
       return 2.0;
     }
   }
 }
+
 
 double CHeartbeatDelay::SleepingFactorPlayingNotMyTurn() {
   if (EngineContainer()->symbol_engine_time()->elapsedauto() < EngineContainer()->symbol_engine_active_dealt_playing()->nopponentsplaying()) {

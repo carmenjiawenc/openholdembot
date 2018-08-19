@@ -23,12 +23,14 @@
 const int k_messagebox_standard_flags = MB_OK | MB_TOPMOST;
 const int k_messagebox_error_flags = k_messagebox_standard_flags | MB_ICONWARNING;
 
-void MessageBox_Error_Warning(const char*  Message, const char*  Title /* = "Error" */) {
+void MessageBox_Error_Warning(const char*  Message, 
+  bool disabled /* = false*/, 
+  const char*  Title /* = "Error" */) {
   // Only OpenHoldem supports this setting,
   // but not OpenScrape or other potential applications
-  /*!!!!!if (preferences.disable_msgbox()) {
+  if (disabled) {
     return;
-  }*/
+  }
   MessageBox(0, Message, Title, k_messagebox_error_flags);
 }
 

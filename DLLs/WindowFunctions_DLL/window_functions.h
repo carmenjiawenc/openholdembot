@@ -49,7 +49,10 @@ WINDOW_FUNCTIONS_API bool WinIsZeroSized(HWND window);
 
 // Errors and warnings.
 // Get displayed (or not) depending on settings
-WINDOW_FUNCTIONS_API void MessageBox_Error_Warning(const char* Message, const char*  Title = "Error");
+//!!! care about "disabled"
+WINDOW_FUNCTIONS_API void MessageBox_Error_Warning(const char* Message, 
+  bool disabled = false,
+  const char*  Title = "Error");
 // Interactive messages.
 // Get always displayed, even if they are not critical.
 // They are either a result of the users action 

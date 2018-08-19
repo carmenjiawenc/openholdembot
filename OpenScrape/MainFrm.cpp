@@ -765,7 +765,7 @@ void CMainFrame::SaveBmpPbits(void)
 	int					width, height;
 
 	// Clean up from a previous connect, if needed
-	if (pDoc->attached_bitmap != NULL) ///???
+	if (pDoc->attached_bitmap != NULL) 
 	{
 		DeleteObject(pDoc->attached_bitmap);
 		pDoc->attached_bitmap = NULL;
