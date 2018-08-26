@@ -15,6 +15,7 @@
 #include "CSymbolEngineMemorySymbols.h"
 #include <assert.h>
 #include "..\Debug_DLL\debug.h"
+#include "..\Formula_DLL\CParseErrors.h"
 #include "..\Formula_DLL\CParseTreeTerminalNodeIdentifier.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
@@ -57,7 +58,7 @@ void CSymbolEngineMemorySymbols::ErrorInvalidMemoryStoreCommand(CString command)
     "  * a value\n"
     " Example: me_st_Pi_3_141592653\n",
     command);
-  ///CParseErrors::MessageBox_Formula_Error(message, "Error");
+  CParseErrors::MessageBox_Formula_Error(message, "Error");
 }
 
 void CSymbolEngineMemorySymbols::ErrorUnnamedMemorySymbol(CString command) {
@@ -71,7 +72,7 @@ void CSymbolEngineMemorySymbols::ErrorUnnamedMemorySymbol(CString command) {
     "  * the name of the variable\n"
     " Example: me_inc_ContiBetsRaised\n",
     command);
-  ///CParseErrors::MessageBox_Formula_Error(message, "Error");
+  CParseErrors::MessageBox_Formula_Error(message, "Error");
 }
 
 void CSymbolEngineMemorySymbols::Store(CString command) {

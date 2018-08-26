@@ -81,15 +81,6 @@ private:
 
 GUI_DLL_API CGUI* GUI();
 
-/*#unused, but might be needed again
-CMainFrame* PMainframe() {
-CMainFrame *p_mainframe = NULL;/// (CMainFrame *)(AfxGetApp()->m_pMainWnd);
-return p_mainframe;
-}*/
-
-
-
-
 /*#if (p_flags_toolbar != NULL) {
 delete(p_flags_toolbar);
 }

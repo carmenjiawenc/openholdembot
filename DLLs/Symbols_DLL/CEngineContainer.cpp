@@ -316,7 +316,7 @@ void CEngineContainer::EvaluateAll() {
 		return;
 	}
 	EngineContainer()->BetroundCalculator()->OnNewHeartbeat();
-	///OpenHoldem()->HandresetDetector()->OnNewHeartbeat();
+  HandresetDetector()->OnNewHeartbeat();
 	// table-limits depend on betround
 	p_symbol_engine_tablelimits->CalcTableLimits();
 	// UpdateOnConnection() gets directly called by the auto-connector,

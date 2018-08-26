@@ -13,6 +13,7 @@
 
 #include "CValidator.h"
 #include "CAutoplayer.h"
+#include "CHeartbeatThread.h"
 #include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Symbols_DLL\CEngineContainer.h"

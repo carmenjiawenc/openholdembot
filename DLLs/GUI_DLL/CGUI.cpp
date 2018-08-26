@@ -14,6 +14,7 @@
 #define GUI_DLL_EXPORTS
 
 #include "CGUI.h"
+#include <assert.h>
 #include "dialog_about\DialogAbout.h"
 #include "dialog_scraper_output\DialogScraperOutput.h"
 #include "Toolbar\CFlagsToolbar.h"
@@ -47,24 +48,15 @@ CGUI::~CGUI() {
 
 void CGUI::Update() {
   OpenHoldemTitle()->UpdateTitle();
-  assert(MainFrame() != NULL);
-  MainFrame()->ResetDisplay();
   if (DlgScraperOutput()) {
     DlgScraperOutput()->UpdateDisplay();
   }
   /// to do: Query custom log-message for white info-box
-
-  // Reset "ScraperOutput" dialog, if it is live
-  if (GUI()->DlgScraperOutput()) {
-    GUI()->DlgScraperOutput()->Reset();
-  }
-  /*// The main GUI gets created by another thread.
+  // The main GUI gets created by another thread.
   // This can be slowed down if there are popups (parse-errors).
   // Handle the race-condition
-  /// !!!!! create timer function unmain-frame instead
-  ///WAIT_FOR_CONDITION(PMainframe() != NULL)
-  ///assert(PMainframe() != NULL);
-	// Reset display*/
+  ///WAIT_FOR_CONDITION(MainFrame() != NULL);
+  assert(MainFrame() != NULL);
 	MainFrame()->ResetDisplay();
 }
 

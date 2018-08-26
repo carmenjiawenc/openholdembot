@@ -44,10 +44,10 @@ CSymbolEngineVariousDataLookup::CSymbolEngineVariousDataLookup() {
   assert(EngineContainer()->symbol_engine_userchair() != NULL);
   // Other objects that we depend on
   assert(TableManagement()->AutoConnector() != NULL);
-  ///assert(p_betround_calculator != NULL);
+  assert(EngineContainer()->BetroundCalculator() != NULL);
   assert(EngineContainer()->HandresetDetector() != NULL);
   assert(SessionCounter() != NULL);
-  ///assert(p_tablemap != NULL);
+  assert(BasicScraper()->Tablemap() != NULL);
   assert(TableState()->TableTitle() != NULL);
 }
 

@@ -258,7 +258,6 @@ void CAutoplayerLogic::SetValue(const int function_code, double new_value) {
 void CAutoplayerLogic::CalcPrimaryFormulas() {
   write_log(Preferences()->debug_formula(), "[CAutoplayerFunctions] CalcPrimaryFormulas()\n");
   ///assert(EngineContainer()->symbol_engine_autoplayer()->isfinalanswer());
-
   // Otherwiese: OH-script
   assert(!Formula()->FunctionCollection()->IsOpenPPLProfile());
   CalcPrimaryFormulasOHScript();

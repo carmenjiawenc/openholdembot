@@ -156,7 +156,6 @@ bool CAutoplayer::DoBetPot(void) {
 			// Register the action
 			// Treat betpot like swagging, i.e. raising a user-defined amount
       EngineContainer()->UpdateAfterAutoplayerAction(k_autoplayer_function_betsize);
-      Formula()->AutoplayerTrace()->Print(ActionConstantNames(i), kAlwaysLogAutoplayerFunctions);
 			return true;
     }
 		// Else continue trying with the next betpot function
@@ -260,7 +259,6 @@ bool CAutoplayer::ExecuteRaiseCallCheckFold() {
 		if (Formula()->FunctionCollection()->Evaluate(k_standard_function_names[i])) 	{
 			if (CasinoInterface()->LogicalAutoplayerButton(i)->Click()) 			{				
         EngineContainer()->UpdateAfterAutoplayerAction(i);
-        Formula()->AutoplayerTrace()->Print(ActionConstantNames(i), kAlwaysLogAutoplayerFunctions);
 				return true;
 			}
 		}
@@ -346,7 +344,7 @@ bool CAutoplayer::ExecuteSecondaryFormulasIfNecessary() {
       // No update after action required here,
       // as prefold already cares about that
       // and the other actions don't need it.
-      Formula()->AutoplayerTrace()->Print(ActionConstantNames(executed_secondary_function), false);
+      ///Formula()->AutoplayerTrace()->Print(ActionConstantNames(executed_secondary_function), false);
     }
 		return true;
 	}
@@ -421,7 +419,6 @@ bool CAutoplayer::DoAllin(void) {
 		// as the game is over and there is no doallin-symbol,
 		// but it does not hurt to register it anyway.
     EngineContainer()->UpdateAfterAutoplayerAction(k_autoplayer_function_allin);
-    Formula()->AutoplayerTrace()->Print(ActionConstantNames(k_autoplayer_function_allin), kAlwaysLogAutoplayerFunctions);
 		return true;
 	}
 	return false;
@@ -493,7 +490,6 @@ bool CAutoplayer::DoBetsize() {
       write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] betsize %.2f (adjusted) entered\n",
         betsize);
       EngineContainer()->UpdateAfterAutoplayerAction(k_autoplayer_function_betsize);
-      Formula()->AutoplayerTrace()->Print(ActionConstantNames(k_autoplayer_function_betsize), kAlwaysLogAutoplayerFunctions);
 			return true;
 		}
     write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Failed to enter betsize %.2f\n",

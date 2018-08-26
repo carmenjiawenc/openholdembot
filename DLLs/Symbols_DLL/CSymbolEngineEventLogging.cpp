@@ -43,7 +43,19 @@ void CSymbolEngineEventLogging::InitOnStartup()
 {}
 
 void CSymbolEngineEventLogging::UpdateOnConnection() {
+  // Log a new connection, plus the version-info
+  // (because of all the guys who report "bugs" of outdated versions)
+  write_log(k_always_log_basic_information,
+    "\n"
+    "==============================================\n"
+    "%s\n"
+    "==============================================\n"
+    "%s"    // Version info already contains a newline
+    "==============================================\n",
+    "NEW CONNECTION",
+    "v13.13.13\n" /*#p_version_info->GetVersionInfo()*/);
   Formula()->AutoplayerTrace()->Clear();
+  ///!!! to do: disconnection
 }
 
 void CSymbolEngineEventLogging::UpdateOnHandreset() {
@@ -72,9 +84,12 @@ void CSymbolEngineEventLogging::UpdateOnHeartbeat() {
 }
 
 void CSymbolEngineEventLogging::UpdateAfterAutoplayerAction(int autoplayer_action_code) {
+  // !!!Probably not necessary: CSLock lock(log_critsec);
+  // as nothing else should happen when the autoplayer is finished
+
   LogPlayers(); 
-  LogBasicInfo("DUMMY"); ///
-  ///Trace
+  LogBasicInfo("DUMMY"); /// secondary
+  Formula()->AutoplayerTrace()->LogAutoPlayerTrace();
 }
 
 bool CSymbolEngineEventLogging::EvaluateSymbol(const CString name, double *result, bool log /* = false */) {

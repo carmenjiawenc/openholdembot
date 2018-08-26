@@ -22,8 +22,6 @@
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 
-CParserSymbolTable *p_parser_symbol_table = NULL;
-
 CParserSymbolTable::CParserSymbolTable() {
   Clear();
 }

@@ -24,6 +24,7 @@
 #include "CFormulaParser.h"
 #include "CFunction.h"
 #include "CParseErrors.h"
+#include "CParserSymbolTable.h"
 #include "CSelftestParserEvaluator.h"
 #include "..\Debug_DLL\debug.h"
 #include "..\Preferences_DLL\Preferences.h"
@@ -67,10 +68,10 @@ void CFunctionCollection::DeleteAll(bool delete_read_only_library_functions, boo
     p_nextObject = GetNext();
   }
   if (delete_read_only_library_functions) {
-    ///MemoryPoolLibraryLogic()->ReleaseAll();
+    MemoryPoolLibraryLogic()->ReleaseAll();
   }
   if (delete_user_defined) {
-    ///MemoryPoolUserLogic()->ReleaseAll();
+    MemoryPoolUserLogic()->ReleaseAll();
   }
 }
 
@@ -643,8 +644,8 @@ bool CFunctionCollection::ParseAll() {
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=156&t=16230
   CheckForDefaultFormulaEntries();
   CSLock lock(m_critsec);
-  assert(Formula()->FormulaParser() != NULL);
-  ///p_parser_symbol_table->Clear();
+  assert(Formula()->FormulaParser()->ParserSymbolTable() != NULL);
+  Formula()->FormulaParser()->ParserSymbolTable()->Clear();
   COHScriptObject *p_oh_script_object = GetFirst();
   while (p_oh_script_object != NULL) {
     if (p_oh_script_object->IsFunction() 

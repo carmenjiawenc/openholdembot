@@ -191,20 +191,6 @@ BOOL CALLBACK EnumProcTopLevelWindowList(HWND hwnd, LPARAM lparam) {
   return true;  // keep processing through entire list of windows
 }
 
-void CAutoConnector::WriteLogTableReset(CString event_and_reason) {
-  // Log a new connection, plus the version-info
-  // (because of all the guys who report "bugs" of outdated versions)
-	write_log(k_always_log_basic_information,
-		"\n"
-		"==============================================\n"
-		"%s\n"
-    "==============================================\n"
-		"%s"    // Version info already contains a newline
-		"==============================================\n",
-    event_and_reason,
-		"v13.13.13\n" /*#p_version_info->GetVersionInfo()*/);
-}
-
 void CAutoConnector::FailedToConnectBecauseNoWindowInList() {
 	TableManagement()->SharedMem()->RememberTimeOfLastFailedAttemptToConnect();
 	GoIntoPopupBlockingMode();
@@ -291,7 +277,6 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
       write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] UpdateOnConnection executed (during connection)\n");
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Going to continue with scraper output and scraper DLL\n");
       // log OH title bar text and table reset
-      WriteLogTableReset("NEW CONNECTION");
       TableManagement()->TablePositioner()->ResizeToTargetSize();
       TableManagement()->TablePositioner()->PositionMyWindow();
 		}
@@ -337,7 +322,7 @@ void CAutoConnector::Disconnect(CString reason_for_disconnection) {
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Going to continue with window title\n");
   CString message;
   message.Format("DISCONNECTION -- %s", reason_for_disconnection);
-	WriteLogTableReset(message);
+	///WriteLogTableReset(message);
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Disconnect done\n");
 }
 

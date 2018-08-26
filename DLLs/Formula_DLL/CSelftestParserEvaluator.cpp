@@ -12,6 +12,8 @@
 //******************************************************************************
 
 #include "CSelftestParserEvaluator.h"
+#include "CFormula.h"
+#include "CFunctionCollection.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 
@@ -22,12 +24,12 @@ CSelftestParserEvaluator::~CSelftestParserEvaluator() {
 }
 
 void CSelftestParserEvaluator::Test() {
-  ///if (!p_function_collection->Exists(kSelftestName)) {
+  if (!Formula()->FunctionCollection()->Exists(kSelftestName)) {
     MessageBox_Error_Warning("Can't find selftest-function\n"
       "Please get in contact with the developmen team.\n");
     return;
-  ///}
-  double result = -42; ///p_function_collection->Evaluate(kSelftestName);
+  }
+  double result = Formula()->FunctionCollection()->Evaluate(kSelftestName);
   if (result != kSelftestExpectedResult) {
     CString message;
     message.Format("Selftest failed.\n"
@@ -38,4 +40,3 @@ void CSelftestParserEvaluator::Test() {
     MessageBox_Error_Warning(message);
   }
 }
-

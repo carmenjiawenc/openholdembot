@@ -37,7 +37,6 @@ class TABLE_MANAGEMENT_DLL_API CAutoConnector: public CSpaceOptimizedGlobalObjec
 	const HWND attached_hwnd()    { return _attached_hwnd; }
  private:
 	int SelectTableMapAndWindowAutomatically();
-	void WriteLogTableReset(CString event_and_reason);
  private:
 	void Check_TM_Against_All_Windows_Or_TargetHWND(int tablemap_index, HWND targetHWnd);
   void CheckIfWindowMatchesMoreThanOneTablemap(HWND hwnd);

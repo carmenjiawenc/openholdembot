@@ -57,7 +57,7 @@ bool CSymbolEngineCasino::EvaluateSymbol(const CString name, double *result, boo
     else return false;
   }
   // GENERAL
-  else if (memcmp(name, "nchairs", 7) == 0 && strlen(name) == 7)	*result = 3;/// BasicScraper()->Tablemap()->nchairs();
+  else if (memcmp(name, "nchairs", 7) == 0 && strlen(name) == 7) *result = BasicScraper()->Tablemap()->nchairs();
   //PROFILE
   ///else if (memcmp(name, "sitename$", 9)==0)	*result = SitenameContainsCasinoIdentifier(name.Mid(9));
   else if (memcmp(name, "network$", 8)==0)	*result = BasicScraper()->Tablemap()->network().Find(name.Mid(8))!=-1;

@@ -108,21 +108,15 @@ CIteratorThread::CIteratorThread() {
 
 CIteratorThread::~CIteratorThread() {
 	write_log(Preferences()->debug_prwin(), "[PrWinThread] Iterator Thread ending...\n");
-  ///R!!!assert(p_iterator_thread != NULL);
-	if (_m_stop_thread)
-	{
+	if (_m_stop_thread)	{
 		// Trigger thread to die
 		::SetEvent(_m_stop_thread);
-
 		// Wait until thread finished
 		::WaitForSingleObject(_m_wait_thread, k_max_time_to_wait_for_thread_to_shutdown);
-
 		// Close handles
 		::CloseHandle(_m_stop_thread);
 		::CloseHandle(_m_wait_thread);
 	}
-	///R!!!p_iterator_thread = NULL;
-
 	write_log(Preferences()->debug_prwin(), "[PrWinThread] Iterator Thread ended.\n");
 }
 

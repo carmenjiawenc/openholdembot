@@ -150,20 +150,6 @@ CString CAutoplayerTrace::Indentation() {
   return indentation;
 }
 
-void CAutoplayerTrace::Print(const char *action_taken, bool full_log_for_primary_formulas) {
-  // Probably not necessary: CSLock lock(log_critsec);
-  // as nothing else should happen when the autoplayer is finished
-  if (full_log_for_primary_formulas) {
-    ///LogPlayers();
-    // This information is only meaningful for playing decision f$all .. f$fold
-    ///LogBasicInfo(action_taken);
-  } else {
-    LogSecondaryAction(action_taken);
-  }
-  LogAutoPlayerTrace();
-  Clear();
-}
-
 CString CAutoplayerTrace::BestAction() {
   for (int i=k_autoplayer_function_allin; i<=k_autoplayer_function_fold; ++i) {
     if (Formula()->AutoplayerLogic()->GetValue(i)) {
@@ -199,4 +185,5 @@ void CAutoplayerTrace::LogAutoPlayerTrace() {
 	  write_log_nostamp(true, "%s\n", _symboltrace_collection.GetAt(i));
   }
   write_log_separator(true, "");
+  Clear();
 }

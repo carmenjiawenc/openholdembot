@@ -20,8 +20,10 @@
 
 class FORMULA_DLL_API CAutoplayerTrace: public CSpaceOptimizedGlobalObject {
  public:
-   CAutoplayerTrace();
-   ~CAutoplayerTrace();
+  CAutoplayerTrace();
+  ~CAutoplayerTrace();
+ public:
+  void LogAutoPlayerTrace();
  public:
   void Clear();
   void Add(CString symbol, double value, bool undefined = false);
@@ -30,7 +32,6 @@ class FORMULA_DLL_API CAutoplayerTrace: public CSpaceOptimizedGlobalObject {
   int  Add(CString symbol); 
   void BackPatchValueAndLine(int index, double value, int starting_line_of_function);  
   void Indent(bool more);
-  void Print(const char *action_taken, bool full_log_for_primary_formulas);
  public:
   void SetLastEvaluatedRelativeLineNumber(int relative_line_number) { _last_evaluated_relative_line_number = relative_line_number; }
   int  GetLastEvaluatedRelativeLineNumber() { return _last_evaluated_relative_line_number; }
@@ -38,7 +39,6 @@ class FORMULA_DLL_API CAutoplayerTrace: public CSpaceOptimizedGlobalObject {
   CString BestAction();
  private:
   void LogSecondaryAction(const char *action_taken);
-  void LogAutoPlayerTrace();
   bool SymbolNeedsToBeLogged(CString name);
  private:
   CString Indentation();

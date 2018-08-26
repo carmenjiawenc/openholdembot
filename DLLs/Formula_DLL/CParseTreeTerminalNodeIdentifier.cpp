@@ -18,6 +18,7 @@
 #include <math.h>
 #include "CAutoplayerTrace.h"
 #include "CFormula.h"
+#include "CFormulaParser.h"
 #include "CFunctionCollection.h"
 #include "CParserSymbolTable.h"
 #include "..\Debug_DLL\debug.h"
@@ -34,8 +35,8 @@ CParseTreeTerminalNodeIdentifier::CParseTreeTerminalNodeIdentifier(
     CParseTreeTerminalNode(relative_line_number) {
   _node_type = kTokenIdentifier;
   _terminal_name = name;
-  ///assert(p_parser_symbol_table != NULL);
-  ///p_parser_symbol_table->VerifySymbol(name);
+  assert(Formula()->FormulaParser()->ParserSymbolTable() != NULL);
+  Formula()->FormulaParser()->ParserSymbolTable()->VerifySymbol(name);
 }
 
 CParseTreeTerminalNodeIdentifier::~CParseTreeTerminalNodeIdentifier() {

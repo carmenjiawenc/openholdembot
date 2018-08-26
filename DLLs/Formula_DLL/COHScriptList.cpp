@@ -187,7 +187,6 @@ double COHScriptList::Evaluate(bool log /* = false */) {
   write_log(Preferences()->debug_formula(), 
     "[COHScriptList] Evaluating list %s\n", _name); 
   if (!TableState()->User()->HasKnownCards()) return false;
-  ///???
   int first_rank = TableState()->User()->hole_cards(0)->GetOpenHoldemRank();
   int second_rank = TableState()->User()->hole_cards(1)->GetOpenHoldemRank();
   bool is_suited = (TableState()->User()->hole_cards(0)->GetSuit()

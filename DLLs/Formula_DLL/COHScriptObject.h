@@ -20,7 +20,7 @@
 // or created with the editor
 const CString kNoSourceFileForThisCode = "no source file";
 
-class FORMULA_DLL_API COHScriptObject /*#:public CSpaceOptimizedFormulaObject */{
+class FORMULA_DLL_API COHScriptObject /*#: public CSpaceOptimizedFormulaObject */{
   friend class CFunctionCollection;
  public:
   COHScriptObject(); 

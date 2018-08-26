@@ -32,8 +32,12 @@
 #include "LibDef.h"
 #include "..\MemoryManagement_DLL\CSpaceOptimizedGlobalObject.h"
 
+class CParserSymbolTable;
+
 class FORMULA_DLL_API CFormulaParser: public CSpaceOptimizedGlobalObject {
   friend class CDebugTab;
+  friend class CFunctionCollection;
+  friend class CParseTreeTerminalNodeIdentifier;
  public:
   CFormulaParser();
   ~CFormulaParser();
@@ -52,6 +56,7 @@ class FORMULA_DLL_API CFormulaParser: public CSpaceOptimizedGlobalObject {
   bool IsParsingDebugTab()                { return _is_parsing_debug_tab; }
  protected:
   void ParseDebugTab(CString function_text);
+  CParserSymbolTable* ParserSymbolTable(); ///!!!
  private:
   void EnterParserCode();
   void LeaveParserCode();
