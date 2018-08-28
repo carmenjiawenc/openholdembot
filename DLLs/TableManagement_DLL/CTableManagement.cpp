@@ -25,7 +25,6 @@ CTableManagement::CTableManagement() {
 }
 
 CTableManagement::~CTableManagement() {
-  ///!!! clean up
 }
 
 void CTableManagement::Initialize() {

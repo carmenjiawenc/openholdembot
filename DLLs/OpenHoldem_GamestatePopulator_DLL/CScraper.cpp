@@ -58,7 +58,6 @@ CScraper::CScraper(void) {
 
 CScraper::~CScraper(void) {
 	TableState()->Reset();
-  ///!!!release title_evaluator
   if (_leaking_GDI_objects != 0 ) {
     write_log(k_always_log_errors, "[CScraper] ERROR! Leaking GDI objects: %i\n",
       _leaking_GDI_objects);

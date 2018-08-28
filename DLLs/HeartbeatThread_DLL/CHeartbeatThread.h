@@ -46,8 +46,8 @@ class HEARTBEATTHREAD_DLL_API CHeartbeatThread: public CSpaceOptimizedGlobalObje
 	static		long int _heartbeat_counter;
  private:
   static CHeartbeatDelay _heartbeat_delay;
- private:
   static COpenHoldemGamestatePopulator* _gamestate_populator;
+  static CAutoplayer* _autoplayer;
  private:
 	HANDLE		_m_stop_thread;
 	HANDLE		_m_wait_thread;

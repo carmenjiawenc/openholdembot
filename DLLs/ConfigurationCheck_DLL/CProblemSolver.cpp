@@ -38,8 +38,7 @@ const char *k_title_string = "Problem Solver";
 
 bool CProblemSolver::NoTableMapsInScraperFolder()
 {
-	///return (OpenHoldem()->TableMapLoader()->NumberOfTableMapsLoaded() == 0);
-  return false;
+	return (TableMapLoader()->NumberOfTableMapsLoaded() == 0);
 }
 
 bool CProblemSolver::NotConnected()

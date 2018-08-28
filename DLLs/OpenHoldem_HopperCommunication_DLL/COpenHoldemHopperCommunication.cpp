@@ -20,6 +20,8 @@
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\Symbols_DLL\CSymbolEngineFlags.h"
+#include "..\TableManagement_DLL\CAutoConnector.h"
+#include "..\TableManagement_DLL\CTableManagement.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 // WM_APP = 0x8000 = 32768
@@ -44,7 +46,7 @@ END_MESSAGE_MAP()
 LRESULT COpenHoldemHopperCommunication::OnConnectedHwndMessage(WPARAM, LPARAM)
 {
 	write_log(Preferences()->debug_hopper_messages(), "[COpenHoldemHopperCommunication] Received 0x8004: OnConnectedHwndMessage\n");
-	return (LRESULT) 42;///TableManagement()->AutoConnector()->attached_hwnd();
+	return (LRESULT)TableManagement()->AutoConnector()->attached_hwnd();
 }
 
 

@@ -14,6 +14,8 @@
 #define HEARTBEATTHREAD_DLL_EXPORTS
 
 #include "CHeartbeatThread.h"
+#include <afxwin.h>
+#include <assert.h>
 #include <process.h>
 #include "CAutoplayer.h"
 #include "CHeartbeatDelay.h"
@@ -33,6 +35,7 @@
 #include "..\Symbols_DLL\CSymbolEngineUserchair.h"
 #include "..\TableManagement_DLL\CAutoConnector.h"
 #include "..\TableManagement_DLL\CTableManagement.h"
+#include "..\TableMapLoader_DLL\CTableMapLoader.h"
 #include "..\Tablestate_DLL\CTableTitle.h"
 
 ///CHeartbeatThread	 HeartbeatThread = NULL;
@@ -40,14 +43,14 @@ CRITICAL_SECTION	 CHeartbeatThread::cs_update_in_progress;
 long int			     CHeartbeatThread::_heartbeat_counter = 0;
 CHeartbeatThread   *CHeartbeatThread::pParent = NULL;
 CHeartbeatDelay    CHeartbeatThread::_heartbeat_delay;
+CAutoplayer*       CHeartbeatThread::_autoplayer = NULL;
 COpenHoldemGamestatePopulator* CHeartbeatThread::_gamestate_populator = NULL;
-
-CAutoplayer* _autoplayer; ///!!!
 
 CHeartbeatThread::CHeartbeatThread() {
 	InitializeCriticalSectionAndSpinCount(&cs_update_in_progress, 4000);
   _heartbeat_counter = 0;
-  _gamestate_populator = new COpenHoldemGamestatePopulator; ///!!! clean up
+  _gamestate_populator = new COpenHoldemGamestatePopulator;
+  _autoplayer = new CAutoplayer;
   // Create events
 	_m_stop_thread = CreateEvent(0, TRUE, FALSE, 0);
 	_m_wait_thread = CreateEvent(0, TRUE, FALSE, 0);
@@ -89,8 +92,8 @@ UINT CHeartbeatThread::HeartbeatThreadFunction(LPVOID pParam) {
 			::SetEvent(pParent->_m_wait_thread);
 			AfxEndThread(0);
 		}
-    ///assert(OpenHoldem()->TablemapLoader() != NULL);
-		///OpenHoldem()->TablemapLoader()->ReloadAllTablemapsIfChanged();
+    assert(TableMapLoader() != NULL);
+		TableMapLoader()->ReloadAllTablemapsIfChanged();
     assert(TableManagement()->AutoConnector() != NULL);
     write_log(Preferences()->debug_alltherest(), "[CHeartbeatThread] location Johnny_B\n");
     if (TableManagement()->AutoConnector()->IsConnectedToGoneWindow()) {

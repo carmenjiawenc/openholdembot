@@ -115,7 +115,7 @@ void CCasinoInterface::PressTabToSwitchOHReplayToNextFrame() {
   RECT	rect_somewhere = {1, 1, 2, 2};
 	POINT	cur_pos = {0};
 
-  ///assert(EngineContainer()->symbol_engine_casino()->ConnectedToOHReplay());
+  assert(ConnectedToOHReplay());
   SendString(TableManagement()->AutoConnector()->attached_hwnd(), 
     rect_somewhere, "\t", false);
 }
@@ -260,14 +260,14 @@ void CCasinoInterface::SendKey(const char ascii_key) {
 bool CCasinoInterface::ConnectedToManualMode() {
   const int k_max_length_of_classname = 50;
   char classname[k_max_length_of_classname] = "";
-  ///GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
+  GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
   return (strcmp(classname, "OpenHoldemManualMode") == 0);
 }
 
 bool CCasinoInterface::ConnectedToOHReplay() {
   const int k_max_length_of_classname = 50;
   char classname[k_max_length_of_classname] = "";
-  ///GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
+  GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
   return (strcmp(classname, "OHREPLAY") == 0);
 }
 
@@ -287,7 +287,7 @@ bool CCasinoInterface::ConnectedToRealCasino() {
 bool CCasinoInterface::ConnectedToBring() {
   const int k_max_length_of_classname = 50;
   char classname[k_max_length_of_classname] = "";
-  ///GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
+  GetClassName(TableManagement()->AutoConnector()->attached_hwnd(), classname, k_max_length_of_classname);
   return (strcmp(classname, "BRING") == 0);
 }
 

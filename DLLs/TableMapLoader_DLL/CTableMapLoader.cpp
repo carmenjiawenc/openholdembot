@@ -23,6 +23,7 @@
 #include "..\Files_DLL\Files.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
+#include "..\SessionCounter_DLL\CSessionCounter.h"
 #include "..\WindowFunctions_DLL\window_functions.h"
 
 std::map<int, t_tablemap_connection_data> tablemap_connection_data;
@@ -73,7 +74,7 @@ void CTableMapLoader::ParseAllTableMapsToLoadConnectionData(CString scraper_dire
       /// not here CTablemapCompletenessChecker tablemap_completeness_checker;
       // Only session 0 verifies the tablemaps
       // for better performance amd to avoid driving users crazy.
-      ///if (SessionCounter()->session_id() > 0) return;
+      if (SessionCounter()->session_id() > 0) return;
       ///tablemap_completeness_checker.VerifyMap();
 			write_log(Preferences()->debug_tablemap_loader(), "[CTablemapLoader] Number of TMs loaded: %d\n", _number_of_tablemaps_loaded);
 		}

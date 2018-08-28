@@ -23,5 +23,4 @@ CProcessManagement::CProcessManagement() {
 }
 
 CProcessManagement::~CProcessManagement() {
-  ///!!! clean up
 }

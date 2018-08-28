@@ -68,11 +68,11 @@ private:
   void UpdateOnConnection();
   void UpdateOnDisconnection();
 private:
-  ///!!! init
   CFlagsToolbar* _p_flags_toolbar;
   CMainFrame* _p_main_frame;
   COpenHoldemStatusbar* _p_openholdem_statusbar; 
   COpenHoldemTitle* _p_openholdem_title;
+  ///!init
   CDlgScraperOutput* _p_dialog_scraper_output;
   CWhiteInfoBox* _p_white_infobox;
 private:

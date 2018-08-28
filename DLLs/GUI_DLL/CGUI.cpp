@@ -69,7 +69,7 @@ void CGUI::Update() {
 
 /// To do: detect and call
 void CGUI::UpdateOnConnection() {
-  ///FlagsToolbar()->ResetButtonsOnConnect();
+  FlagsToolbar()->ResetButtonsOnConnect();
 }
 
 void CGUI::UpdateOnDisconnection() {
