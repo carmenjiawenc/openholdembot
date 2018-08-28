@@ -393,12 +393,12 @@ void CMainFrame::OnTimer(UINT_PTR nIDEvent) {
   // This is probably fixed, as we now kill the timers
   // before we delete singleton, but we keep these safety-meassures.
   // It is OK to skip CWnd::OnTimer(nIDEvent); if we terminate.
-  ///if (p_flags_toolbar == NULL) {
+  if (GUI()->FlagsToolbar() == NULL) {
     return;
-  ///}
-  /*#if (p_openholdem_statusbar == NULL) {
+  }
+  if (GUI()->OpenHoldemStatusbar() == NULL) {
     return;
-  }*/
+  }
   if (TableManagement()->AutoConnector() == NULL) {
     return;
   }

@@ -19,6 +19,7 @@
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Tablestate_DLL\TableState.h"
+#include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
 CBetroundCalculator::CBetroundCalculator() {
 	// Betround will be indirectly used 
@@ -33,6 +34,36 @@ CBetroundCalculator::CBetroundCalculator() {
 CBetroundCalculator::~CBetroundCalculator()
 {}
 
+// returns true if common cards are in the middle of an animation
+bool CBetroundCalculator::IsCommonAnimation(void) {
+  int	flop_card_count = 0;
+  // Count all the flop cards
+  for (int i = 0; i<kNumberOfFlopCards; i++) {
+    if (TableState()->CommonCards(i)->IsKnownCard()) {
+      flop_card_count++;
+    }
+  }
+  // If there are some flop cards present,
+  // but not all 3 then there is an animation going on
+  if (flop_card_count > 0 && flop_card_count < kNumberOfFlopCards) {
+    return true;
+  }
+  // If the turn card is present,
+  // but not all 3 flop cards are present then there is an animation going on
+  else if (TableState()->TurnCard()->IsKnownCard()
+    && flop_card_count != kNumberOfFlopCards) {
+    return true;
+  }
+  // If the river card is present,
+  // but the turn card isn't
+  // OR not all 3 flop cards are present then there is an animation going on
+  else if (TableState()->RiverCard()->IsKnownCard()
+    && (!TableState()->TurnCard()->IsKnownCard() || flop_card_count != kNumberOfFlopCards)) {
+    return true;
+  }
+  return false;
+}
+
 void CBetroundCalculator::OnNewHeartbeat() {
 	// Save old value first before before changing _betround
 	// Otherwise the values will be identical all the time.
@@ -43,7 +74,7 @@ void CBetroundCalculator::OnNewHeartbeat() {
 	// Betround is a very important prerequisite
 	// to determine what symbols shall be calculated.
 	// So we can hardly do it with a symbol-engine and do it here
-	if (false/*#BasicScraper()->IsCommonAnimation()*/) {
+	if (!IsCommonAnimation()) {
     if (TableState()->RiverCard()->IsKnownCard()) {
 			_betround = kBetroundRiver;
 		} else if (TableState()->TurnCard()->IsKnownCard()) {
@@ -63,6 +94,7 @@ void CBetroundCalculator::OnNewHeartbeat() {
 		if (_betround_previous_heartbeat == kUndefined)	{
 			_betround = kBetroundPreflop;
 		}
+    // else keep the previous round for a little moment
 	}
 	write_log(Preferences()->debug_alltherest(), "[CBetroundCalculator] _betround = %i\n",
 		_betround);

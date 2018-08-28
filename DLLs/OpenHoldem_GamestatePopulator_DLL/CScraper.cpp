@@ -534,38 +534,6 @@ void CScraper::ScrapeCommonCards() {
 	}
 }
 	
-// returns true if common cards are in the middle of an animation
-bool CScraper::IsCommonAnimation(void) {
-	int	flop_card_count = 0;
-
-	// Count all the flop cards
-	for (int i=0; i<kNumberOfFlopCards; i++) {
-    if (TableState()->CommonCards(i)->IsKnownCard()) {
-			flop_card_count++;
-		}
-	}
-
-	// If there are some flop cards present,
-	// but not all 3 then there is an animation going on
-	if (flop_card_count > 0 && flop_card_count < kNumberOfFlopCards) {
-		return true;
-	}
-	// If the turn card is present,
-	// but not all 3 flop cards are present then there is an animation going on
-	else if (TableState()->TurnCard()->IsKnownCard()
-      && flop_card_count != kNumberOfFlopCards) {
-		return true;
-	}
-	// If the river card is present,
-	// but the turn card isn't
-	// OR not all 3 flop cards are present then there is an animation going on
-	else if (TableState()->RiverCard()->IsKnownCard() 
-      && (!TableState()->TurnCard()->IsKnownCard() || flop_card_count != kNumberOfFlopCards)) {
-		return true;
-	}
-	return false;
-}
-
 void CScraper::ClearAllPlayerNames() {
 	for (int i=0; i<kMaxNumberOfPlayers; i++) {
     TableState()->Player(i)->set_name("");

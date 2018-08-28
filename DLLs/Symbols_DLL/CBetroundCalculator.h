@@ -32,6 +32,8 @@ public:
 public:
 	bool IsNewBetround();
 private:
+  bool IsCommonAnimation();
+private:
 	int _betround;
 	int _betround_previous_heartbeat;
 };

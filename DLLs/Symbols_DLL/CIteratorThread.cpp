@@ -14,6 +14,7 @@
 #define SYMBOLS_DLL_EXPORTS
 
 #include "CIteratorThread.h"
+#include <afxwin.h>
 #include <process.h>
 #include "mtrand.h"
 #include "inlines/eval.h"

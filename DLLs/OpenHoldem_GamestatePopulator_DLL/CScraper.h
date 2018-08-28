@@ -36,8 +36,6 @@ class CScraper: public CSpaceOptimizedGlobalObject {
   // For scraping custom regions at the DLL-level
   bool EvaluateRegion(CString name, CString *result);
   void EvaluateTrueFalseRegion(bool *result, const CString name);
- public:
-  bool IsCommonAnimation();
  protected:
 	void CreateBitmaps(void);
 	void DeleteBitmaps(void);

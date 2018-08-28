@@ -81,15 +81,7 @@ private:
 
 GUI_DLL_API CGUI* GUI();
 
-/*#if (p_flags_toolbar != NULL) {
-delete(p_flags_toolbar);
-}
-if (p_openholdem_statusbar != NULL) {
-delete p_openholdem_statusbar;
-}
-
-
-
+/*#
 // Status bar
 ///p_openholdem_statusbar = new COpenHoldemStatusbar(this);
 // Start timer that checks if we should enable buttons

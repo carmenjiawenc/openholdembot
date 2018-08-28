@@ -67,12 +67,13 @@ void COpenHoldemTitle::SetUserDefinedOpenHoldemTitle(CString new_title) {
 }
 
 void COpenHoldemTitle::UpdateTitle() {
-	/*#if (PMainframe() == NULL)	{
-		// Missing main window can happen very early during execution
+	if (GUI()->MainFrame() == NULL)	{
+		// Missing main window can happen (or could happen)
+    // very early during execution
 		// if OpenHoldem creates a default document with default title
 		// but the window does not yet exist.
 		return;
-	}*/
+	}
 	// PostMessage(WMA_SETWINDOWTEXT, 0, (LPARAM)(GetTitle().GetString()));
 	// can't be used, because that would call COpenHoldemHopperCommunication::OnSetWindowText
 	// which would then call SetUserDefinedOpenHoldemTitle()

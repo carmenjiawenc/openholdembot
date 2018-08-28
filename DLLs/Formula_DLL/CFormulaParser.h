@@ -21,6 +21,7 @@
 #include "atlstr.h"
 #include "CFormulaFileSplitter.h"
 #include "COHScriptList.h"
+#include "CParserSymbolTable.h"
 #include "CParseTreeNode.h"
 #include "CParseTreeOperatorNode.h"
 #include "CParseTreeRotator.h"
@@ -56,7 +57,10 @@ class FORMULA_DLL_API CFormulaParser: public CSpaceOptimizedGlobalObject {
   bool IsParsingDebugTab()                { return _is_parsing_debug_tab; }
  protected:
   void ParseDebugTab(CString function_text);
-  CParserSymbolTable* ParserSymbolTable(); ///!!!
+ protected:
+  CParserSymbolTable* ParserSymbolTable() {
+    return &_parser_symbol_table;
+  }
  private:
   void EnterParserCode();
   void LeaveParserCode();
@@ -122,4 +126,6 @@ class FORMULA_DLL_API CFormulaParser: public CSpaceOptimizedGlobalObject {
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=297&t=19973&p=140389#p140389
   bool _is_parsing_debug_tab;
   COHScriptObject* _currently_parsed_function_or_list;
+private:
+  CParserSymbolTable _parser_symbol_table;
 };

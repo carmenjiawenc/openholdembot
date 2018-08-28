@@ -371,7 +371,7 @@ void CAutoplayer::EngageAutoplayer(bool to_be_enabled_or_not) {
 
 bool CAutoplayer::DoChat(void) {
 	assert(Formula()->FunctionCollection()->EvaluateAutoplayerFunction(k_standard_function_chat) != 0);
-	/*#if (!IsChatAllowed())	{
+	/*if (!IsChatAllowed())	{
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] No chat, because chat turned off.\n");
 		return false;
 	}
@@ -381,8 +381,8 @@ bool CAutoplayer::DoChat(void) {
 	if (_the_chat_message == NULL) {
 		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] No chat, because wrong chat code. Please read: ""Available chat messages"" .\n");
 		return false ;
-	}*/
-	///return CasinoInterface()->EnterChatMessage(CString(_the_chat_message));
+	}
+	return CasinoInterface()->EnterChatMessage(CString(_the_chat_message));*/
   return false;
 }
 

@@ -44,6 +44,13 @@ CGUI::CGUI() {
 }
 
 CGUI::~CGUI() {
+  if (_p_flags_toolbar != NULL) {
+    delete(_p_flags_toolbar);
+  }
+  if (_p_openholdem_statusbar != NULL) {
+    delete _p_openholdem_statusbar;
+  }
+  ///
 }
 
 void CGUI::Update() {

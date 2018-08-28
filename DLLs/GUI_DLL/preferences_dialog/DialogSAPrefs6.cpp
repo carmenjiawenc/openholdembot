@@ -113,6 +113,8 @@ void CDlgSAPrefs6::OnBnClickedPtTest() {
   // Set busy cursor
 	GUI()->MainFrame()->set_wait_cursor(true);
 	GUI()->MainFrame()->BeginWaitCursor();
+
+
   // Test the connection parameters
 	PGconn	*pgconn = PQconnectdb(conn_str.GetString());
   // Unset busy cursor
