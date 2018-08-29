@@ -449,7 +449,7 @@ void CMainFrame::OnValidator() {
 	if (GUI()->FlagsToolbar()->IsButtonChecked(ID_MAIN_TOOLBAR_VALIDATOR)) {
 		GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_VALIDATOR, true);
     ///EngineContainer-> new symbol-engine!
-		p_validator->SetEnabledManually(true);
+		///p_validator->SetEnabledManually(true);
 	}	else {
 		GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_VALIDATOR, false);
 		///p_validator->SetEnabledManually(false);

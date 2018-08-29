@@ -25,3 +25,4 @@
 
 OPENHOLDEM_CALLBACK_DLL_API double EvaluateSymbol(CString symbol);
 OPENHOLDEM_CALLBACK_DLL_API int NumberOfCardsPerPlayer();
+OPENHOLDEM_CALLBACK_DLL_API int NumberOfTableMapsLoaded();

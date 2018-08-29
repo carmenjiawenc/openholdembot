@@ -29,3 +29,7 @@ double EvaluateSymbol(CString symbol) {
 int NumberOfCardsPerPlayer() {
   return 3; ///!!!
 }
+
+int NumberOfTableMapsLoaded() {
+  return 3; ///!!!
+}

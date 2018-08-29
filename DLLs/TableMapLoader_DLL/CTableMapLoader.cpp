@@ -71,11 +71,6 @@ void CTableMapLoader::ParseAllTableMapsToLoadConnectionData(CString scraper_dire
 		int ret = BasicScraper()->Tablemap()->LoadTablemap(hFile.GetFilePath().GetString());
 		if (ret == SUCCESS)	{
 			ExtractConnectionDataFromCurrentTablemap(BasicScraper()->Tablemap());
-      /// not here CTablemapCompletenessChecker tablemap_completeness_checker;
-      // Only session 0 verifies the tablemaps
-      // for better performance amd to avoid driving users crazy.
-      if (SessionCounter()->session_id() > 0) return;
-      ///tablemap_completeness_checker.VerifyMap();
 			write_log(Preferences()->debug_tablemap_loader(), "[CTablemapLoader] Number of TMs loaded: %d\n", _number_of_tablemaps_loaded);
 		}
 	}

@@ -120,7 +120,7 @@ void CTitleEvaluator::EvaluateScrapedGameInfo() {
   result = BasicScraper()->ScrapeRegion("c0ante");
   TableState()->_s_limit_info._ante.SetValue(result);
   // r$c0isfinaltable
-  BasicScraper()->EvaluateTrueFalseRegion(&TableState()->_s_limit_info._is_final_table, "c0isfinaltable");
+  ///BasicScraper()->EvaluateTrueFalseRegion(&TableState()->_s_limit_info._is_final_table, "c0isfinaltable");
   write_log(Preferences()->debug_scraper(), "[CScraper] small blind at the very end: %.2f\n",
     TableState()->_s_limit_info._sblind.GetValue());
 }

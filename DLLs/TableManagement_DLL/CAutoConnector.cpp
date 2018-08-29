@@ -24,6 +24,7 @@
 #include "..\GUI_DLL\dialog_scraper_output\DialogScraperOutput.h"
 #include "..\GUI_DLL\Toolbar\CFlagsToolbar.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
+#include "..\OpenHoldem_CallBack_DLL\OpenHoldem_CallBack.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Scraper_DLL\CTransform\CTransform.h"
@@ -115,7 +116,7 @@ void CAutoConnector::CheckIfWindowMatchesMoreThanOneTablemap(HWND hwnd) {
   // by more than one tablemap. For performance reasons we do this exactly once
   // per table at connection.
   // http://www.maxinmontreal.com/forums/viewtopic.php?f=110&t=19407&start=90#p138038
-  int num_loaded_tablemaps = 3;/// OpenHoldem()->TablemapLoader()->NumberOfTableMapsLoaded();
+  int num_loaded_tablemaps = NumberOfTableMapsLoaded();
   int num_matching_tablemaps = 0;
   CString matching_tablemaps = "";
   for (int i=0; i<num_loaded_tablemaps; ++i) {
@@ -240,10 +241,10 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
   // Clear global list for holding table candidates
 	g_tlist.RemoveAll();
 	write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Number of tablemaps loaded: %i\n",
-    TableMapLoader()->NumberOfTableMapsLoaded());
-	for (int tablemap_index=0; tablemap_index<TableMapLoader()->NumberOfTableMapsLoaded(); tablemap_index++) {
+    NumberOfTableMapsLoaded());
+	for (int tablemap_index=0; tablemap_index<NumberOfTableMapsLoaded(); tablemap_index++) {
 		write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Going to check TM nr. %d out of %d\n", 
-			tablemap_index, TableMapLoader()->NumberOfTableMapsLoaded());
+			tablemap_index, NumberOfTableMapsLoaded());
 		Check_TM_Against_All_Windows_Or_TargetHWND(tablemap_index, targetHWnd);
 	}
 	// Put global candidate table list in table select dialog variables

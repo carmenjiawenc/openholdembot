@@ -18,6 +18,7 @@
 #include "..\CasinoInterface_DLL\CCasinoInterface.h"
 #include "..\Preferences_DLL\Preferences.h"
 #include "..\Debug_DLL\debug.h"
+#include "..\OpenHoldem_CallBack_DLL\OpenHoldem_CallBack.h"
 #include "..\Symbols_DLL\CEngineContainer.h"
 #include "..\Symbols_DLL\CSymbolEngineActiveDealtPlaying.h"
 #include "..\Symbols_DLL\CSymbolEngineTime.h"
@@ -38,7 +39,7 @@ const char *k_title_string = "Problem Solver";
 
 bool CProblemSolver::NoTableMapsInScraperFolder()
 {
-	return (TableMapLoader()->NumberOfTableMapsLoaded() == 0);
+	return (NumberOfTableMapsLoaded() == 0);
 }
 
 bool CProblemSolver::NotConnected()
