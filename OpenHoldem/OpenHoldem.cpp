@@ -40,6 +40,15 @@ AFX_STATIC_DATA const TCHAR _afxFileEntry[] = _T("File%d");
 AFX_STATIC_DATA const TCHAR _afxPreviewSection[] = _T("Settings");
 AFX_STATIC_DATA const TCHAR _afxPreviewEntry[] = _T("PreviewPages");
 
+BEGIN_MESSAGE_MAP()
+  // Must be part of OpenHoldem.cpp, 
+  // as weaccess protected members of CWinApp.
+  // Standard file based document commands
+  ON_COMMAND(ID_FILE_NEW, &CWinApp::OnFileNew)
+  ///ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)
+END_MESSAGE_MAP()
+
+
 // COpenHoldemApp construction
 
 COpenHoldemApp::COpenHoldemApp() {

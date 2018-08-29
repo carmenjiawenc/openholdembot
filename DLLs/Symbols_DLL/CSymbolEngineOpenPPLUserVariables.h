@@ -17,7 +17,6 @@
 #include <map>
 #include "CVirtualSymbolEngine.h"
 
-/// Integrate UserVariables.DLL !!!
 class CSymbolEngineOpenPPLUserVariables: public CVirtualSymbolEngine {
  public:
   CSymbolEngineOpenPPLUserVariables();

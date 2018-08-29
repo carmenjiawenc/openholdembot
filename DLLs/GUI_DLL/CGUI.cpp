@@ -145,3 +145,11 @@ CGUI* GUI() {
 // Reset display
 /// not here -> heartbeat
 ///InvalidateRect(AfxGetApp()->m_pMainWnd->GetSafeHwnd(), NULL, true);
+
+/*#
+// Status bar
+// Start timer that checks if we should enable buttons
+SetTimer(ENABLE_BUTTONS_TIMER, 50, 0);
+// Start timer that updates status bar
+SetTimer(UPDATE_STATUS_BAR_TIMER, 500, 0);
+*/

@@ -12,9 +12,9 @@
 //******************************************************************************
 
 /*
-	   Author	:	spud
-	   Date		:	2007-MAR-08
-	  Notation: P(i,n)=probability that player i finishes in nth place
+    Author : spud
+    Date   : 2007-MAR-08
+    Notation: P(i,n)=probability that player i finishes in nth place
 	  P(w|z)=probability that w occurs given that z occurs
 	  I=i's stack
 	  T=SUM[I]
@@ -37,6 +37,7 @@
 #include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
 #include "..\Preferences_DLL\Preferences.h"
+#include "..\Scraper_DLL\CBasicScraper.h"
 #include "..\Scraper_DLL\CTablemap\CTablemap.h"
 #include "..\StringFunctions_DLL\string_functions.h"
 #include "..\Tablestate_DLL\TableState.h"
@@ -111,7 +112,7 @@ int CSymbolEngineICM::GetChairFromDealPos(const char* name)
 {
 	int	sym_nplayersseated =	EngineContainer()->symbol_engine_active_dealt_playing()->nplayersseated();
 	int	sym_dealerchair =		EngineContainer()->symbol_engine_dealerchair()->dealerchair();
-  int nchairs = 3;/// BasicScraper()->Tablemap()->nchairs();
+  int nchairs = BasicScraper()->Tablemap()->nchairs();
 	int	chair = -1;
 
 		if (strcmp(name,"SB")==0)
@@ -401,7 +402,7 @@ bool CSymbolEngineICM::EvaluateSymbol(const CString name, double *result, bool l
 	{
 		if (isdigit(name[11]))
 		{
-			//assume callers are n smallest stacks
+			// assume callers are n smallest stacks
 			bool callers[kMaxNumberOfPlayers] = {0};
 			int ncallers = MIN(RightDigitCharacterToNumber(name), sym_nopponentsplaying);
       
@@ -435,7 +436,7 @@ bool CSymbolEngineICM::EvaluateSymbol(const CString name, double *result, bool l
 		}
 		else
 		{
-			//assume only one particular caller
+			// assume only one particular caller
 			int oppChair = GetChairFromDealPos(name.Mid(11));
 			if (oppChair == kUndefined || oppChair == sym_userchair) {
 				*result = kUndefined;
@@ -457,7 +458,7 @@ bool CSymbolEngineICM::EvaluateSymbol(const CString name, double *result, bool l
 	{
 		if (isdigit(name[12]))
 		{
-			//assume callers are n biggest stacks
+			// assume callers are n biggest stacks
 			int ncallers = min(RightDigitCharacterToNumber(name), sym_nopponentsplaying);
 
 			if (ncallers > 0)
@@ -519,7 +520,7 @@ bool CSymbolEngineICM::EvaluateSymbol(const CString name, double *result, bool l
 		}
 		else
 		{
-			//assume only one particular caller
+			// assume only one particular caller
 			int oppChair = GetChairFromDealPos(name.Mid(12));
 			if (oppChair == kUndefined || oppChair == sym_userchair) {
 				*result = kUndefined;
@@ -539,7 +540,7 @@ bool CSymbolEngineICM::EvaluateSymbol(const CString name, double *result, bool l
 
 	else if (strncmp(name,"icm_allitie",11)==0)
 	{
-		//assume only one particular caller
+		// assume only one particular caller
 		int oppChair = GetChairFromDealPos(name.Mid(11));
 		if (oppChair == kUndefined || oppChair == sym_userchair) {
 			*result = kUndefined;

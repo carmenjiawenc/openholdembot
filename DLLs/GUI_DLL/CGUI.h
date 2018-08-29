@@ -80,12 +80,3 @@ private:
 };
 
 GUI_DLL_API CGUI* GUI();
-
-/*#
-// Status bar
-///p_openholdem_statusbar = new COpenHoldemStatusbar(this);
-// Start timer that checks if we should enable buttons
-SetTimer(ENABLE_BUTTONS_TIMER, 50, 0);
-// Start timer that updates status bar
-SetTimer(UPDATE_STATUS_BAR_TIMER, 500, 0);
-*/

@@ -65,7 +65,7 @@ bool CSymbolEngineRandom::EvaluateSymbol(const CString name, double *result, boo
     // The OpenPPL-symbol "Random" is no longer implemented in the library
     // but as a built-in symbol to prevent symbol-caching.
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=111&t=19611
-    *result = 423; /// Random(100);
+    *result = Random(100);
     return true;
   }
   FAST_EXIT_ON_OPENPPL_SYMBOLS(name);

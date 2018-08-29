@@ -137,9 +137,6 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 
   // OpenHoldem!!!!! -> GUI
   ON_COMMAND(ID_APP_ABOUT, &CGUI::OnAbout)
-  // Standard file based document commands
-  ///ON_COMMAND(ID_FILE_NEW, &CWinApp::OnFileNew)
-  ///ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)
 END_MESSAGE_MAP()
 
 // CMainFrame construction/destruction
@@ -350,7 +347,6 @@ void CMainFrame::OnEditPreferences() {
 }
 
 BOOL CMainFrame::DestroyWindow() {
-	///StopThreads();
   KillTimers();
 	// Save window position
   WINDOWPLACEMENT wp;
@@ -452,7 +448,8 @@ void CMainFrame::OnAutoplayer() {
 void CMainFrame::OnValidator() {
 	if (GUI()->FlagsToolbar()->IsButtonChecked(ID_MAIN_TOOLBAR_VALIDATOR)) {
 		GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_VALIDATOR, true);
-		///p_validator->SetEnabledManually(true);
+    ///EngineContainer-> new symbol-engine!
+		p_validator->SetEnabledManually(true);
 	}	else {
 		GUI()->FlagsToolbar()->CheckButton(ID_MAIN_TOOLBAR_VALIDATOR, false);
 		///p_validator->SetEnabledManually(false);

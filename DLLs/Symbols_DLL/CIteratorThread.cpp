@@ -40,7 +40,6 @@ HANDLE CIteratorThread::_m_stop_thread; //!!
 int CIteratorThread::_iterations_calculated;
 int CIteratorThread::_iterations_required;
 int CIteratorThread::_nopponents;
-//int CIteratorThread::_generated_numbers[1326];
 double _prwin = 0;
 double _prtie = 0;
 double _prlos = 0;
@@ -172,7 +171,7 @@ UINT CIteratorThread::IteratorThreadFunction(LPVOID pParam) {
     // Check event for thread stop signal once per main iterator loop
     // (and additionally once every 1000 iterations later)
     // !! can crash here on termination; pParent killed?
-		//if(::WaitForSingleObject(pParent->_m_stop_thread, 0) == WAIT_OBJECT_0) {
+		// if(::WaitForSingleObject(pParent->_m_stop_thread, 0) == WAIT_OBJECT_0) {
     //
     // "invalid handle was specified"
     if (WaitForSingleObject(CIteratorThread::_m_stop_thread, 0) == WAIT_OBJECT_0) {
@@ -408,7 +407,7 @@ void CIteratorThread::InitIteratorLoop() {
 		}
 	}
 
-	//Weighted prwin only for nopponents <=13
+	// Weighted prwin only for nopponents <=13
   _topclip = EngineContainer()->symbol_engine_function_collection()->Evaluate("f$prwin_topclip", Preferences()->log_prwin_functions());
   _mustplay = EngineContainer()->symbol_engine_function_collection()->Evaluate("f$prwin_mustplay", Preferences()->log_prwin_functions());
 	_willplay = EngineContainer()->symbol_engine_function_collection()->Evaluate("f$prwin_willplay", Preferences()->log_prwin_functions());
@@ -418,7 +417,7 @@ void CIteratorThread::InitIteratorLoop() {
 		  && _prw1326.usecallback==1326 
 		  && (EngineContainer()->BetroundCalculator()->betround()!= kBetroundPreflop
 			  || _prw1326.preflop==1326) ){
-		_prw1326.prw_callback(); //Matrix 2008-05-09
+		_prw1326.prw_callback(); // Matrix 2008-05-09
 	}
 }
 
@@ -427,11 +426,11 @@ void CIteratorThread::InitHandranktTableForPrwin() {
 	char	*ptr = NULL;
 	memset(_total_weight, 0, sizeof(_total_weight));
 
-	//Initialise the handrank tables used by prwin
-	vndx=0; //used to provide an offset into the vanilla table
+	// Initialise the handrank tables used by prwin
+	vndx=0; // used to provide an offset into the vanilla table
 	for (int i=0; i<kNumberOfStartingHands; i++)
 	{
-		//normal weighted prwin table
+		// normal weighted prwin table
 		ptr = prwin_handrank_table_169[i];
 		int j=(strchr(k_card_chars,*ptr)-k_card_chars)*13 + (strchr(k_card_chars,*(ptr+1))-k_card_chars);
 		if (*(ptr+2)=='s')
@@ -442,13 +441,13 @@ void CIteratorThread::InitHandranktTableForPrwin() {
 		{
 			pair2rank_offsuited[j] = i+1;
 		}
-		//prw1326 vanilla table
+		// prw1326 vanilla table
 		j=strchr(k_card_chars,*ptr)-k_card_chars;
 		int k=strchr(k_card_chars,*(ptr+1))-k_card_chars;
 		for(;;)
 		{
-			//I originally had an algorithm to do this, but it was obscure and impenetrable
-			//so now I have switched to the clumsy but simple approach.
+			// I originally had an algorithm to do this, but it was obscure and impenetrable
+			// so now I have switched to the clumsy but simple approach.
 			if(j==k)//pair
 			{
 				_prw1326.vanilla_chair.rankhi[vndx]=j;	//h
@@ -481,7 +480,7 @@ void CIteratorThread::InitHandranktTableForPrwin() {
 				break;
 			}
 		
-			//only unsuited non-pairs left
+			// only unsuited non-pairs left
 			_prw1326.vanilla_chair.rankhi[vndx]=j;		//h
 			_prw1326.vanilla_chair.rankhi[vndx+1]=j;		//h
 			_prw1326.vanilla_chair.rankhi[vndx+2]=j;		//h
@@ -662,12 +661,12 @@ void CIteratorThread::StandardDealingAlgorithmForUpTo13Opponents(int nopponents)
 			if (!_willplay)
 			{
 				write_log(Preferences()->debug_prwin(), "[PrWinThread] Weighting disabled. Willplay is 0.\n");
-				break; //0 disables weighting
+				break; // 0 disables weighting
 			}
 
-			//put break for i=0 and opponent unraised BB case (cannot assume anything about his cards)
-			//In round 1 we should really do an analysis of chairs to find out how many have still to
-			//place a bet. Not implemented since accuracy of prwin pre-flop is less critical.
+			// put break for i=0 and opponent unraised BB case (cannot assume anything about his cards)
+			// In round 1 we should really do an analysis of chairs to find out how many have still to
+			// place a bet. Not implemented since accuracy of prwin pre-flop is less critical.
 			//
       // bblimp and special handling for checking players removed in OH 9.2.8
       // as it was broken and we consider it useless / even harmful.
@@ -689,7 +688,7 @@ void CIteratorThread::StandardDealingAlgorithmForUpTo13Opponents(int nopponents)
 int CIteratorThread::EnhancedDealingAlgorithm() {
 	write_log(Preferences()->debug_prwin(), "[PrWinThread] Using ZeeZooLaa's enhanced prwin.\n");
 	unsigned int	card = 0, deadHandsCounter = 0;
-	int k = 0; //k is used as an index into ocard[]
+	int k = 0; // k is used as an index into ocard[]
 	int userchair = EngineContainer()->symbol_engine_userchair()->userchair();
 	int playersplayingbits = EngineContainer()->symbol_engine_active_dealt_playing()->playersplayingbits();
 	int chairWeight;
@@ -721,19 +720,19 @@ int CIteratorThread::EnhancedDealingAlgorithm() {
 				if (!deadHands[eachPossibleHand] && random_weight < _prw1326.chair[eachChair].weight[eachPossibleHand]) { //random hand found.
 					if(CardMask_CARD_IS_SET(usedCards, _prw1326.chair[eachChair].rankhi[eachPossibleHand] ) 
               || CardMask_CARD_IS_SET(usedCards, _prw1326.chair[eachChair].ranklo[eachPossibleHand] )) {
-						//hand contains dead card
+						// hand contains dead card
 						deadHands[eachPossibleHand] = true;
 						deadHandsCounter++;
 						chairWeight -= _prw1326.chair[eachChair].weight[eachPossibleHand];
 						if(deadHandsCounter == _prw1326.chair[eachChair].limit || chairWeight <= 0) {
-							//all range consists only of dead cards
-							//failed to satisfy the specified range, user possibly needs to expand the range of corresponding chair
+							// all range consists only of dead cards
+							// failed to satisfy the specified range, user possibly needs to expand the range of corresponding chair
 							if(eachChair == 0) return -10;
 							return 0-eachChair; 
 						}
-						break; //generate new random_weight
+						break; // generate new random_weight
 					}
-					//hand not dead, use it
+					// hand not dead, use it
 					ocard[k++] = _prw1326.chair[eachChair].rankhi[eachPossibleHand];
 					ocard[k++] = _prw1326.chair[eachChair].ranklo[eachPossibleHand];
 
@@ -742,13 +741,13 @@ int CIteratorThread::EnhancedDealingAlgorithm() {
 					random_weighted_hand_was_found = true;
 					break;
 				}
-				//keep decreasing the random_weight until it becomes less then _prw1326.chair[eachPlayer].weight
+				// keep decreasing the random_weight until it becomes less then _prw1326.chair[eachPlayer].weight
 				if(!deadHands[eachPossibleHand]) {
 					random_weight -= _prw1326.chair[eachChair].weight[eachPossibleHand];
 				}
-			}//end of eachPossibleHand
-		}//end of random_weighted_hand_was_found
-	} //end of eachPlayer
+			}// end of eachPossibleHand
+		}// end of random_weighted_hand_was_found
+	} // end of eachPlayer
 
 	// additional common cards
 	CardMask_RESET(addlcomCards);

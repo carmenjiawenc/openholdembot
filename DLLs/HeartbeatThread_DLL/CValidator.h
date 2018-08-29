@@ -18,6 +18,8 @@
 // !! Any other includes cause lots of erros
 // !! (escpecially CSpaceOptimiedObject.h).
 
+/// To be completely removed!
+
 class CValidator {
  public:
 	// public functions

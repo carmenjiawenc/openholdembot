@@ -19,6 +19,7 @@
 #include "CEngineContainer.h"
 #include "CIteratorThread.h"
 #include "CSymbolEngineIsOmaha.h"
+#include "CSymbolEnginePokerval.h"
 #include "..\Formula_DLL\CFormula.h"
 #include "..\Formula_DLL\CFunctionCollection.h"
 #include "..\Numerical_Functions_DLL\NumericalFunctions.h"
@@ -121,8 +122,8 @@ void CSymbolEnginePrwin::CalculateNhands() {
   // player/common cards and pokerval
 	CardMask_OR(playerEvalCards, plCards, comCards);
 	hv_player = Hand_EVAL_N(playerEvalCards, nplCards+ncomCards);
-	///pl_pokval = EngineContainer()->symbol_engine_pokerval()->CalculatePokerval(hv_player, 
-		///nplCards+ncomCards, &dummy, CARD_NOCARD, CARD_NOCARD);
+	pl_pokval = EngineContainer()->symbol_engine_pokerval()->CalculatePokerval(hv_player, 
+		nplCards+ncomCards, &dummy, CARD_NOCARD, CARD_NOCARD);
 	for (int i=0; i<(kNumberOfCardsPerDeck-1); i++) {
 		for (int j=(i+1); j<kNumberOfCardsPerDeck; j++)	{
 			if (!CardMask_CARD_IS_SET(plCards, i) 

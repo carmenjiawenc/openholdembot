@@ -50,10 +50,10 @@ void MTRand_int32::seed(const unsigned long* array, int size) { // init by array
   p = n; // force gen_state() to be called for next random number
 }
 
-//Use anonymous namespace to force internal linkage for instance 
+// Use anonymous namespace to force internal linkage for instance 
 namespace
 {
-    RNG* instance_RNG = 0;        //Address of the singleton 
+    RNG* instance_RNG = 0;        // Address of the singleton 
 }
  
 RNG::RNG()
@@ -67,10 +67,10 @@ RNG::~RNG()
     instance_RNG = 0;
 }
  
-//The "official" access point
+// The "official" access point
 RNG* RNG::Instance()
 {
-   //"Lazy" initialization. Singleton not created until it's needed
+   // "Lazy" initialization. Singleton not created until it's needed
    if (!instance_RNG)
    {
       instance_RNG = new RNG();

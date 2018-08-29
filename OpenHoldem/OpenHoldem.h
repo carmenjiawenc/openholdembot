@@ -29,7 +29,9 @@ class COpenHoldemApp : public CWinApp {
  private:
 	void LoadLastRecentlyUsedFileList();
 	void OpenLastRecentlyUsedFile();
-public:
+ protected:
+  DECLARE_MESSAGE_MAP()
+ public:
   CHeartbeatThread* HeartBeatThread(); 
  private:
   void InitializeThreads();
