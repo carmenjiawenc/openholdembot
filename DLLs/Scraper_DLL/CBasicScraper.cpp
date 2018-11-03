@@ -14,9 +14,9 @@
 //*******************************************************************************
 //
 // The scraper.DLL depends on
-//   * numerical_functions.DLL
-//   * string_functions.DLL
-//   * window_function.DLL
+//   * NumericalFunctions.DLL
+//   * StringFunctions.DLL
+//   * WindowFunction.DLL
 // These DLLs are expected to be in the same directory.
 //
 //*******************************************************************************

@@ -1,4 +1,4 @@
-LIBRARY	window_functions
+LIBRARY	WindowFunctions
 EXPORTS
 CalculateTotalHeightForClientHeight
 CalculateTotalWidthForClientWidth

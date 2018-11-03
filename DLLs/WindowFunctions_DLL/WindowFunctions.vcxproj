@@ -11,14 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="window_functions.def" />
+    <None Include="WindowFunctions.def" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MessageBoxes.cpp" />
-    <ClCompile Include="window_functions.cpp" />
+    <ClCompile Include="WindowFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="window_functions.h" />
+    <ClInclude Include="WindowFunctions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E87D7887-ADDE-41DB-AA09-3DDAB950FAA5}</ProjectGuid>
@@ -73,7 +73,7 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)WindowFunctions.dll</OutputFile>
-      <ModuleDefinitionFile>window_functions.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>WindowFunctions.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -91,7 +91,7 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)WindowFunctions.dll</OutputFile>
-      <ModuleDefinitionFile>window_functions.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>WindowFunctions.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>

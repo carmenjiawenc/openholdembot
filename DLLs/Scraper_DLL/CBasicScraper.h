@@ -15,9 +15,9 @@
 //*******************************************************************************
 //
 // The scraper.DLL depends on
-//   * numerical_functions.DLL
-//   * string_functions.DLL
-//   * window_function.DLL
+//   * NumericalFunctions.DLL
+//   * StringFunctions.DLL
+//   * WindowFunction.DLL
 // These DLLs are expected to be in the same directory.
 //
 //*******************************************************************************
@@ -61,9 +61,9 @@ private:
 //*******************************************************************************
 
 // Loads a tablemap (and automatically unloads the previous one)
-SCRAPER_DLL_API bool LoadTablemap(const char* path);
+SIMPLE_SCRAPER_DLL_API bool LoadTablemap(const char* path);
 
 // result-buffer has to be managed by the caller
 // returned results are usually numbers and player-names,
 // so any reasonable buffer should do OK, we recommend 255 ybtes.
-SCRAPER_DLL_API void ScrapeRegion(const char* in_name, const int in_result_buffer_size, char* out_result);
+SIMPLE_SCRAPER_DLL_API void ScrapeRegion(const char* in_name, const int in_result_buffer_size, char* out_result);

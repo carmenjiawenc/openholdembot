@@ -11,12 +11,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="window_functions.def">
+    <None Include="WindowFunctions.def">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="window_functions.cpp">
+    <ClCompile Include="WindowFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MessageBoxes.cpp">
@@ -24,7 +24,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="window_functions.h">
+    <ClInclude Include="WindowFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
