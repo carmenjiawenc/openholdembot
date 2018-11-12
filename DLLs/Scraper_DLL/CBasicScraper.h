@@ -60,6 +60,12 @@ private:
 //
 //*******************************************************************************
 
+// Assigns a table to the scraper
+// The order of ConnectScraperToWindow and LoadTablemap
+// does not matter, but both of them must have been called
+// before ScrapeRegion.
+SIMPLE_SCRAPER_DLL_API void ConnectScraperToWindow(HWND window);
+
 // Loads a tablemap (and automatically unloads the previous one)
 SIMPLE_SCRAPER_DLL_API bool LoadTablemap(const char* path);
 

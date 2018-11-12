@@ -52,7 +52,7 @@ bool CBasicScraper::LoadTablemap(const char* path) {
   // Map will be verified as long as it is not marked as popup or lobby
   CTablemapCompletenessChecker tablemap_completeness_checker;
   tablemap_completeness_checker.VerifyMap();
-  return true; //!!!
+  return true;
 }
 
 CString CBasicScraper::ScrapeRegion(const CString name) {
@@ -95,15 +95,25 @@ CString CBasicScraper::ScrapeRegion(const CString name) {
 //
 //*******************************************************************************
 
+HWND scraped_window = NULL;
+
+// Assigns a table to the scraper
+// The order of ConnectScraperToWindow and LoadTablemap
+// does not matter, but both of them must have been called
+// before ScrapeRegion.
+SIMPLE_SCRAPER_DLL_API void ConnectScraperToWindow(HWND window) {
+  scraped_window = window;
+}
+
 // Loads a tablemap (and automatically unloads the previous one)
-SCRAPER_DLL_API bool LoadTablemap(const char* path) {
+SIMPLE_SCRAPER_DLL_API bool LoadTablemap(const char* path) {
   return BasicScraper()->LoadTablemap(path);
 }
 
 // result-buffer has to be managed by the caller
 // returned results are usually numbers and player-names,
 // so any reasonable buffer should do OK, we recommend 255 ybtes.
-SCRAPER_DLL_API void ScrapeRegion(const char* in_name, const int in_result_buffer_size, char* out_result) {
+SIMPLE_SCRAPER_DLL_API void ScrapeRegion(const char* in_name, const int in_result_buffer_size, char* out_result) {
   if (out_result == NULL) {
     // Invalid buffer, do nothing
     return;
@@ -115,7 +125,7 @@ SCRAPER_DLL_API void ScrapeRegion(const char* in_name, const int in_result_buffe
   CString result = BasicScraper()->ScrapeRegion(in_name);
   if (result.GetLength() >= in_result_buffer_size){
     // Buffer too small for result + terminal null-character
-	// Clear buffer and return
+	  // Clear buffer and return
     out_result = '\0';
     return;
   }
