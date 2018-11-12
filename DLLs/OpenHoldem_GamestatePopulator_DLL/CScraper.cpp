@@ -36,100 +36,17 @@
 #include "..\TableState_DLL\TableState.h"
 #include "..\..\Shared\MagicNumbers\MagicNumbers.h"
 
-#define __HDC_HEADER 		HBITMAP		old_bitmap = NULL; \
-	HDC				hdc = GetDC(TableManagement()->AutoConnector()->attached_hwnd()); \
-	HDC				hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL); \
-	HDC				hdcCompatible = CreateCompatibleDC(hdcScreen); \
-  ++_leaking_GDI_objects;
-
-#define __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK \
-  DeleteDC(hdcCompatible); \
-	DeleteDC(hdcScreen); \
-	ReleaseDC(TableManagement()->AutoConnector()->attached_hwnd(), hdc); \
-  --_leaking_GDI_objects;
-
 CScraper::CScraper(void) {
 	TableState()->Reset();
-  _leaking_GDI_objects = 0;
-  total_region_counter = 0;
-  identical_region_counter = 0;
   title_evaluator = new CTitleEvaluator;
 }
 
 CScraper::~CScraper(void) {
 	TableState()->Reset();
-  if (_leaking_GDI_objects != 0 ) {
-    write_log(k_always_log_errors, "[CScraper] ERROR! Leaking GDI objects: %i\n",
-      _leaking_GDI_objects);
-    write_log(k_always_log_errors, "[CScraper] Please get in contact with the development team\n");
-  }
-  assert(_leaking_GDI_objects == 0);
-  write_log(true, "[CScraper] Total regions scraped %i\n",
-    total_region_counter);
-  write_log(true, "[CScraper] Identical regions scraped %i\n",
-    identical_region_counter);
-}
-
-bool CScraper::ProcessRegion(RMapCI r_iter) {
-  write_log(Preferences()->debug_scraper(),
-    "[CScraper] ProcessRegion %s (%i, %i, %i, %i)\n",
-    r_iter->first, r_iter->second.left, r_iter->second.top,
-    r_iter->second.right, r_iter->second.bottom);
-  write_log(Preferences()->debug_scraper(),
-    "[CScraper] ProcessRegion color %i radius %i transform %s\n",
-    r_iter->second.color, r_iter->second.radius, r_iter->second.transform);
-	__HDC_HEADER
-	// Get "current" bitmap
-	old_bitmap = (HBITMAP) SelectObject(hdcCompatible, r_iter->second.cur_bmp);
-	BitBlt(hdcCompatible, 0, 0, r_iter->second.right - r_iter->second.left + 1, 
-							    r_iter->second.bottom - r_iter->second.top + 1, 
-								hdc, r_iter->second.left, r_iter->second.top, SRCCOPY);
-	SelectObject(hdcCompatible, old_bitmap);
-
-	// If the bitmaps are different, then continue on
-	if (!BitmapsAreEqual(r_iter->second.last_bmp, r_iter->second.cur_bmp)) {
-    // Copy into "last" bitmap
-		old_bitmap = (HBITMAP) SelectObject(hdcCompatible, r_iter->second.last_bmp);
-		BitBlt(hdcCompatible, 0, 0, r_iter->second.right - r_iter->second.left + 1, 
-									r_iter->second.bottom - r_iter->second.top + 1, 
-									hdc, r_iter->second.left, r_iter->second.top, SRCCOPY);
-		SelectObject(hdcCompatible, old_bitmap);  
-		__HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
-		return true;
-	}
-	__HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
-	return false;
 }
 
 bool CScraper::EvaluateRegion(CString name, CString *result) {
-  __HDC_HEADER
-  write_log(Preferences()->debug_scraper(),
-    "[CScraper] EvaluateRegion %s\n", name);
-	CTransform	trans;
-	RMapCI		r_iter = BasicScraper()->Tablemap()->r$()->find(name.GetString());
-	if (r_iter != BasicScraper()->Tablemap()->r$()->end()) {
-    // Potential for optimization here
-    ++total_region_counter;
-		if (ProcessRegion(r_iter)) {
-      ++identical_region_counter;
-      write_log(Preferences()->debug_scraper(),
-        "[CScraper] Region %s identical\n", name);
-    } else {
-      write_log(Preferences()->debug_scraper(),
-        "[CScraper] Region %s NOT identical\n", name);
-    }
-		old_bitmap = (HBITMAP) SelectObject(hdcCompatible, r_iter->second.cur_bmp);
-		trans.DoTransform(r_iter, hdcCompatible, result);
-		SelectObject(hdcCompatible, old_bitmap);
-		write_log(Preferences()->debug_scraper(), "[CScraper] EvaluateRegion(), [%s] -> [%s]\n", 
-			name, *result);
-    __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
-		return true;
-	}
-	// Region does not exist
-  *result = "";
-	__HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
-	return false;
+  ///!!!!!
 }
 
 // Result will be changed to true, if "true" or something similar is found
@@ -605,18 +522,14 @@ void CScraper::ScrapeBalance(int chair) {
 
 void CScraper::ScrapeBet(int chair) {
   RETURN_IF_OUT_OF_RANGE (chair, BasicScraper()->Tablemap()->LastChair())
-
-	__HDC_HEADER;
 	CString				text = "";
 	CString				s = "", t="";
-
 	TableState()->Player(chair)->_bet.Reset();
   // Player bet pXbet
   s.Format("p%dbet", chair);
   CString result;
   EvaluateRegion(s, &result);
 	if (TableState()->Player(chair)->_bet.SetValue(result)) {
-		__HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
 		return;
 	}
   // uXbet
@@ -624,8 +537,7 @@ void CScraper::ScrapeBet(int chair) {
   result = "";
   EvaluateRegion(s, &result);
   if (TableState()->Player(chair)->_bet.SetValue(result)) {
-    __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
-      return;
+   return;
   }
 	// pXchip00
 	s.Format("p%dchip00", chair);
@@ -640,7 +552,6 @@ void CScraper::ScrapeBet(int chair) {
 		write_log(Preferences()->debug_scraper(), "[CScraper] p%dchipXY, result %f\n", 
       chair, TableState()->Player(chair)->_bet.GetValue());
 	}
-	__HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
 }
 
 void CScraper::ScrapeAllPlayerCards() {
@@ -657,7 +568,6 @@ void CScraper::ScrapeAllPlayerCards() {
 }
 
 void CScraper::ScrapePots() {
-	__HDC_HEADER
 	CString			text = "";
 	CTransform	trans;
 	CString			s = "", t="";
@@ -701,7 +611,6 @@ void CScraper::ScrapePots() {
 				ProcessRegion(r_iter);
 		}
 	}
-	__HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
 }
 
 void CScraper::ScrapeMTTRegions() {
@@ -737,40 +646,6 @@ void CScraper::ScrapeLimits() {
   title_evaluator->EvaluateTitleText();
   title_evaluator->EvaluateScrapedTitleTexts();
   title_evaluator->EvaluateScrapedGameInfo(); 
-}
-
-void CScraper::CreateBitmaps(void) {
-	HDC				hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL);
-
-	// Whole window
-	RECT			cr = {0};
-	GetClientRect(TableManagement()->AutoConnector()->attached_hwnd(), &cr);
-	_entire_window_last = CreateCompatibleBitmap(hdcScreen, cr.right, cr.bottom);
-	_entire_window_cur = CreateCompatibleBitmap(hdcScreen, cr.right, cr.bottom);
-
-	// r$regions
-	for (RMapI r_iter=BasicScraper()->Tablemap()->set_r$()->begin(); r_iter!=BasicScraper()->Tablemap()->set_r$()->end(); r_iter++)
-	{
-		int w = r_iter->second.right - r_iter->second.left + 1;
-		int h = r_iter->second.bottom - r_iter->second.top + 1;
-		r_iter->second.last_bmp = CreateCompatibleBitmap(hdcScreen, w, h);
-		r_iter->second.cur_bmp = CreateCompatibleBitmap(hdcScreen, w, h);
-	}
-
-	DeleteDC(hdcScreen);
-}
-
-void CScraper::DeleteBitmaps(void) {
-	// Whole window
-	DeleteObject(_entire_window_last);
-  delete_entire_window_cur();
-
-	// Common cards
-	for (RMapI r_iter=BasicScraper()->Tablemap()->set_r$()->begin(); r_iter!=BasicScraper()->Tablemap()->set_r$()->end(); r_iter++)
-	{
-		DeleteObject(r_iter->second.last_bmp); r_iter->second.last_bmp=NULL;
-		DeleteObject(r_iter->second.cur_bmp); r_iter->second.cur_bmp=NULL;
-	}
 }
 
 // This is the chip scrape routine
@@ -982,36 +857,6 @@ bool CScraper::IsExtendedNumberic(CString text) {
   bool currently_unused = false;
   assert(currently_unused);
   return false;
-}
-
-bool CScraper::IsIdenticalScrape() {
-  __HDC_HEADER
-	// Get bitmap of whole window
-	RECT		cr = {0};
-	GetClientRect(TableManagement()->AutoConnector()->attached_hwnd(), &cr);
-	old_bitmap = (HBITMAP) SelectObject(hdcCompatible, _entire_window_cur);
-	BitBlt(hdcCompatible, 0, 0, cr.right, cr.bottom, hdc, cr.left, cr.top, SRCCOPY);
-	SelectObject(hdcCompatible, old_bitmap);
-  TableState()->TableTitle()->UpdateTitle();
-	// If the bitmaps are the same, then return now
-	// !! How often does this happen?
-	// !! How costly is the comparison?
-	if (BitmapsAreEqual(_entire_window_last, _entire_window_cur) 
-      && !TableState()->TableTitle()->TitleChangedSinceLastHeartbeat()) 	{
-		DeleteDC(hdcCompatible);
-		DeleteDC(hdcScreen);
-		ReleaseDC(TableManagement()->AutoConnector()->attached_hwnd(), hdc);
-		write_log(Preferences()->debug_scraper(), "[CScraper] IsIdenticalScrape() true\n");
-    __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
-		return true;
-	}
-	// Copy into "last" bitmap
-	old_bitmap = (HBITMAP) SelectObject(hdcCompatible, _entire_window_last);
-	BitBlt(hdcCompatible, 0, 0, cr.right-cr.left+1, cr.bottom-cr.top+1, hdc, cr.left, cr.top, SRCCOPY);
-	SelectObject(hdc, old_bitmap);
-	__HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
-	write_log(Preferences()->debug_scraper(), "[CScraper] IsIdenticalScrape() false\n");
-	return false;
 }
 
 bool CScraper::IsStringAllin(const CString s) {

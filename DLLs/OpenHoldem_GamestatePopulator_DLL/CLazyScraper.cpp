@@ -72,6 +72,8 @@ CLazyScraper::~CLazyScraper() {
 // If in doubt be conservative.
 
 void CLazyScraper::DoScrape() {
+  ///CTableTitle()->UpdateTitle();
+  ///if identical title
 	if (scraper.IsIdenticalScrape())	{
 		_is_identical_scrape = true;
     return;

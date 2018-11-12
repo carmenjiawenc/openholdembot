@@ -25,10 +25,25 @@
 
 #include "CBasicScraper.h"
 #include "CTablemap\CTablemapCompletenessChecker.h"
+#include "CTransform\CTransform.h"
+#include "..\Bitmaps_DLL\Bitmaps.h"
 
 // Singleton for CBasicScraper
 // Gets initialized via the accessor-function once needed
 CBasicScraper* p_basic_scraper = NULL;
+HWND connected_window = NULL;
+
+#define __HDC_HEADER 		HBITMAP		old_bitmap = NULL; \
+	HDC				hdc = GetDC(connected_window); \
+	HDC				hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL); \
+	HDC				hdcCompatible = CreateCompatibleDC(hdcScreen); \
+  ++_leaking_GDI_objects;
+
+#define __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK \
+  DeleteDC(hdcCompatible); \
+	DeleteDC(hdcScreen); \
+	ReleaseDC(connected_window, hdc); \
+  --_leaking_GDI_objects;
 
 CBasicScraper* BasicScraper() {
   if (p_basic_scraper == NULL) {
@@ -39,9 +54,21 @@ CBasicScraper* BasicScraper() {
 }
 
 CBasicScraper::CBasicScraper() {
+  _leaking_GDI_objects = 0;
+  _total_region_counter = 0;
+  _identical_region_counter = 0;
 }
 
-CBasicScraper::~CBasicScraper(){
+CBasicScraper::~CBasicScraper() {
+  /*#if (_leaking_GDI_objects != 0) {
+    write_log(k_always_log_errors, "[CScraper] ERROR! Leaking GDI objects: %i\n",
+      _leaking_GDI_objects);
+    write_log(k_always_log_errors, "[CScraper] Please get in contact with the development team\n");
+  }
+  write_log(true, "[CScraper] Total regions scraped %i\n",
+    _total_region_counter);
+  write_log(true, "[CScraper] Identical regions scraped %i\n",
+    _identical_region_counter);*/
 }
 
 bool CBasicScraper::LoadTablemap(const char* path) {
@@ -55,39 +82,126 @@ bool CBasicScraper::LoadTablemap(const char* path) {
   return true;
 }
 
-CString CBasicScraper::ScrapeRegion(const CString name) {
-  //!!!!!!!
-  /*#
+void CBasicScraper::CreateBitmaps(void) {
+  HDC	hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL);
+  // Whole window
+  RECT cr = { 0 };
+  GetClientRect(connected_window, &cr);
+  _entire_window_last = CreateCompatibleBitmap(hdcScreen, cr.right, cr.bottom);
+  _entire_window_cur = CreateCompatibleBitmap(hdcScreen, cr.right, cr.bottom);
+  // r$regions
+  for (RMapI r_iter = BasicScraper()->Tablemap()->set_r$()->begin(); r_iter != BasicScraper()->Tablemap()->set_r$()->end(); r_iter++) {
+    int w = r_iter->second.right - r_iter->second.left + 1;
+    int h = r_iter->second.bottom - r_iter->second.top + 1;
+    r_iter->second.last_bmp = CreateCompatibleBitmap(hdcScreen, w, h);
+    r_iter->second.cur_bmp = CreateCompatibleBitmap(hdcScreen, w, h);
+  }
+  DeleteDC(hdcScreen);
+}
+
+void CBasicScraper::DeleteBitmaps(void) {
+  // Whole window
+  DeleteObject(_entire_window_last);
+  delete_entire_window_cur();
+  // Common cards
+  for (RMapI r_iter = BasicScraper()->Tablemap()->set_r$()->begin(); r_iter != BasicScraper()->Tablemap()->set_r$()->end(); r_iter++) {
+    DeleteObject(r_iter->second.last_bmp); r_iter->second.last_bmp = NULL;
+    DeleteObject(r_iter->second.cur_bmp); r_iter->second.cur_bmp = NULL;
+  }
+}
+
+void CBasicScraper::delete_entire_window_cur() { 
+  ///CSLock lock(m_critsec);
+  DeleteObject(_entire_window_cur); 
+}
+
+bool CBasicScraper::IsIdenticalScrape() {
   __HDC_HEADER
-  write_log(Preferences()->debug_scraper(),
-    "[CScraper] EvaluateRegion %s\n", name);
+  // Get bitmap of whole window
+  RECT		cr = { 0 };
+  GetClientRect(connected_window, &cr);
+  old_bitmap = (HBITMAP)SelectObject(hdcCompatible, _entire_window_cur);
+  BitBlt(hdcCompatible, 0, 0, cr.right, cr.bottom, hdc, cr.left, cr.top, SRCCOPY);
+  SelectObject(hdcCompatible, old_bitmap);
+  // If the bitmaps are the same, then return now
+  // !! How often does this happen?
+  // !! How costly is the comparison?
+  if (BitmapsAreEqual(_entire_window_last, _entire_window_cur)) {
+    DeleteDC(hdcCompatible);
+    DeleteDC(hdcScreen);
+    ReleaseDC(connected_window, hdc);
+    ///write_log(Preferences()->debug_scraper(), "[CScraper] IsIdenticalScrape() true\n");
+    __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
+    return true;
+  }
+  // Copy into "last" bitmap
+  old_bitmap = (HBITMAP)SelectObject(hdcCompatible, _entire_window_last);
+  BitBlt(hdcCompatible, 0, 0, cr.right - cr.left + 1, cr.bottom - cr.top + 1, hdc, cr.left, cr.top, SRCCOPY);
+  SelectObject(hdc, old_bitmap);
+  __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
+    ///write_log(Preferences()->debug_scraper(), "[CScraper] IsIdenticalScrape() false\n");
+  return false;
+}
+
+CString CBasicScraper::ScrapeRegion(const CString name) {
+  __HDC_HEADER
+  /*#write_log(Preferences()->debug_scraper(),
+    "[CScraper] EvaluateRegion %s\n", name);*/
 	CTransform	trans;
-	RMapCI		r_iter = BasicScraper()->Tablemap()->r$()->find(name.GetString());
-	if (r_iter != BasicScraper()->Tablemap()->r$()->end()) {
+	RMapCI		  r_iter = BasicScraper()->Tablemap()->r$()->find(name.GetString());
+  CString result = "";
+	if (r_iter != Tablemap()->r$()->end()) {
     // Potential for optimization here
-    ++total_region_counter;
+    ++_total_region_counter;
 		if (ProcessRegion(r_iter)) {
-      ++identical_region_counter;
-      write_log(Preferences()->debug_scraper(),
-        "[CScraper] Region %s identical\n", name);
+      ++_identical_region_counter;
+      /*#write_log(Preferences()->debug_scraper(),
+        "[CScraper] Region %s identical\n", name);*/
     } else {
-      write_log(Preferences()->debug_scraper(),
-        "[CScraper] Region %s NOT identical\n", name);
+      /*#write_log(Preferences()->debug_scraper(),
+        "[CScraper] Region %s NOT identical\n", name);*/
     }
 		old_bitmap = (HBITMAP) SelectObject(hdcCompatible, r_iter->second.cur_bmp);
-		trans.DoTransform(r_iter, hdcCompatible, result);
+		trans.DoTransform(r_iter, hdcCompatible, &result);
 		SelectObject(hdcCompatible, old_bitmap);
-		write_log(Preferences()->debug_scraper(), "[CScraper] EvaluateRegion(), [%s] -> [%s]\n", 
-			name, *result);
-    __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
-		return true;
 	}
-	// Region does not exist
-  *result = "";
+  /*#write_log(Preferences()->debug_scraper(), "[CScraper] EvaluateRegion(), [%s] -> [%s]\n",
+  name, *result);*/
 	__HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
-	return false;*/
-  return "error";
+  return result;
 }
+
+bool CBasicScraper::ProcessRegion(RMapCI r_iter) {
+  /*#write_log(Preferences()->debug_scraper(),
+    "[CScraper] ProcessRegion %s (%i, %i, %i, %i)\n",
+    r_iter->first, r_iter->second.left, r_iter->second.top,
+    r_iter->second.right, r_iter->second.bottom);
+  write_log(Preferences()->debug_scraper(),
+    "[CScraper] ProcessRegion color %i radius %i transform %s\n",
+    r_iter->second.color, r_iter->second.radius, r_iter->second.transform);
+    */
+  __HDC_HEADER
+    // Get "current" bitmap
+    old_bitmap = (HBITMAP)SelectObject(hdcCompatible, r_iter->second.cur_bmp);
+    BitBlt(hdcCompatible, 0, 0, r_iter->second.right - r_iter->second.left + 1,
+      r_iter->second.bottom - r_iter->second.top + 1,
+      hdc, r_iter->second.left, r_iter->second.top, SRCCOPY);
+    SelectObject(hdcCompatible, old_bitmap);
+    // If the bitmaps are different, then continue on
+    if (!BitmapsAreEqual(r_iter->second.last_bmp, r_iter->second.cur_bmp)) {
+      // Copy into "last" bitmap
+      old_bitmap = (HBITMAP)SelectObject(hdcCompatible, r_iter->second.last_bmp);
+      BitBlt(hdcCompatible, 0, 0, r_iter->second.right - r_iter->second.left + 1,
+        r_iter->second.bottom - r_iter->second.top + 1,
+        hdc, r_iter->second.left, r_iter->second.top, SRCCOPY);
+      SelectObject(hdcCompatible, old_bitmap);
+    __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
+    return true;
+  }
+  __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
+  return false;
+}
+
 
 //*******************************************************************************
 //
@@ -95,14 +209,12 @@ CString CBasicScraper::ScrapeRegion(const CString name) {
 //
 //*******************************************************************************
 
-HWND scraped_window = NULL;
-
 // Assigns a table to the scraper
 // The order of ConnectScraperToWindow and LoadTablemap
 // does not matter, but both of them must have been called
 // before ScrapeRegion.
 SIMPLE_SCRAPER_DLL_API void ConnectScraperToWindow(HWND window) {
-  scraped_window = window;
+  connected_window = window;
 }
 
 // Loads a tablemap (and automatically unloads the previous one)

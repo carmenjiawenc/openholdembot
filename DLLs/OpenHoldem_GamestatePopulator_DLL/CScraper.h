@@ -30,16 +30,9 @@ class CScraper: public CSpaceOptimizedGlobalObject {
 	CScraper(void);
 	~CScraper(void);
  public:
-  // For replay-frames
-	const HBITMAP	entire_window_cur() { return _entire_window_cur; }
- public:
   // For scraping custom regions at the DLL-level
   bool EvaluateRegion(CString name, CString *result);
   void EvaluateTrueFalseRegion(bool *result, const CString name);
- protected:
-	void CreateBitmaps(void);
-	void DeleteBitmaps(void);
-	bool IsIdenticalScrape();
  protected:
 	void ScrapeDealer();
 	void ScrapeActionButtons();
@@ -76,27 +69,13 @@ class CScraper: public CSpaceOptimizedGlobalObject {
 	void ScrapeLimits();
 	const double DoChipScrape(RMapCI r_iter);
  private:
-	bool ProcessRegion(RMapCI r_iter);
 	bool IsExtendedNumberic(CString text);
   bool IsStringAllin(const CString s);
  private:
   void ResetLimitInfo();
  private:
-#define ENT CSLock lock(m_critsec);
-  void delete_entire_window_cur() { ENT DeleteObject(_entire_window_cur);}
-#undef ENT
- private:
   CTitleEvaluator* title_evaluator;
  private:
 	// private variables - use public accessors and public mutators to address these
   CCritSec		m_critsec;
-  // Counter of GDI objects (potential memorz leak)
-  // Should be 0 at end of program -- will be checked.
-  int         _leaking_GDI_objects;
-  // Used for potential optimizations
-  int total_region_counter;
-  int identical_region_counter;
- private:
-	HBITMAP			_entire_window_last;
-  HBITMAP			_entire_window_cur;
 };

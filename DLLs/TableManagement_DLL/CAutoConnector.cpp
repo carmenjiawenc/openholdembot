@@ -266,8 +266,6 @@ bool CAutoConnector::Connect(HWND targetHWnd) {
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Selected tablemap: %s\n", tablemap_to_load);
 			BasicScraper()->Tablemap()->LoadTablemap(tablemap_to_load);
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Tablemap successfully loaded\n");
-  		// Create bitmaps
-			///BasicScraper()->CreateBitmaps();
 			write_log(Preferences()->debug_autoconnector(), "[CAutoConnector] Scraper-bitmaps created\n");
       // Clear scraper fields
 			TableState()->Reset();

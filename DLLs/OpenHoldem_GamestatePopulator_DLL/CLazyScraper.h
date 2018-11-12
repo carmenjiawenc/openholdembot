@@ -22,7 +22,7 @@ class CLazyScraper: public CSpaceOptimizedGlobalObject {
  public:
 	void DoScrape();
   // This function should be preferred
-  // and not cScraper::IsIdenticalScrape()
+  // and not CScraper::IsIdenticalScrape()
   // because this one just caches the function result.
   bool IsIdenticalScrape()  { return _is_identical_scrape; }
  private:

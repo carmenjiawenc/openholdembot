@@ -49,9 +49,30 @@ public:
   CString ScrapeRegion(const CString name);
   CTablemap* Tablemap() { return &_tablemap; }
   CTablemapAccess* TablemapAccess() { return &_tablemap_access; }
+public:
+  // For replay-frames
+  const HBITMAP	entire_window_cur() { return _entire_window_cur; }
+private:
+  void CreateBitmaps(void);
+  void DeleteBitmaps(void);
+  bool IsIdenticalScrape();
+private:
+  bool ProcessRegion(RMapCI r_iter);
+private:
+  void delete_entire_window_cur();
 private:
   CTablemap _tablemap;
   CTablemapAccess _tablemap_access;
+private:
+  HBITMAP	_entire_window_last;
+  HBITMAP	_entire_window_cur;
+private:
+  // Counter of GDI objects (potential memorz leak)
+  // Should be 0 at end of program -- will be checked.
+  int _leaking_GDI_objects;
+  // Used for potential optimizations
+  int _total_region_counter;
+  int _identical_region_counter;
 };
 
 //*******************************************************************************
