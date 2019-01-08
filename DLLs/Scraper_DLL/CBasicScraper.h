@@ -87,10 +87,13 @@ private:
 // before ScrapeRegion.
 SIMPLE_SCRAPER_DLL_API void ConnectScraperToWindow(HWND window);
 
-// Loads a tablemap (and automatically unloads the previous one)
+// Loads a tablemap (and automatically unloads the previous one).
+// The tablemap may contain custom regions.
+// The symbol s$islobby or s$ispopup can be used to turn the
+// tablemap-completeness-checker off.
 SIMPLE_SCRAPER_DLL_API bool LoadTablemap(const char* path);
 
-// result-buffer has to be managed by the caller
-// returned results are usually numbers and player-names,
-// so any reasonable buffer should do OK, we recommend 255 ybtes.
+// Result-buffer has to be managed by the caller.
+// Returned results are usually numbers and player-names,
+// So any reasonable buffer should do OK, we recommend 255 bytes.
 SIMPLE_SCRAPER_DLL_API void ScrapeRegion(const char* in_name, const int in_result_buffer_size, char* out_result);

@@ -252,6 +252,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenHoldem_GamestatePopulat
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenHoldem_CallBack", "DLLs\OpenHoldem_CallBack_DLL\OpenHoldem_CallBack.vcxproj", "{49099A5E-FD74-48D8-BF74-CF0483863343}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bitmaps", "DLLs\Bitmaps_DLL\Bitmaps.vcxproj", "{38BA0064-FA6D-4DFE-A038-EC26017BAD26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -812,6 +814,20 @@ Global
 		{49099A5E-FD74-48D8-BF74-CF0483863343}.Template|Any CPU.Build.0 = Release|Win32
 		{49099A5E-FD74-48D8-BF74-CF0483863343}.Template|Win32.ActiveCfg = Release|Win32
 		{49099A5E-FD74-48D8-BF74-CF0483863343}.Template|Win32.Build.0 = Release|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Debug|Win32.ActiveCfg = Debug|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Debug|Win32.Build.0 = Debug|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Release - Optimized|Any CPU.ActiveCfg = Release|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Release - Optimized|Any CPU.Build.0 = Release|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Release - Optimized|Win32.ActiveCfg = Release|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Release - Optimized|Win32.Build.0 = Release|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Release|Any CPU.ActiveCfg = Release|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Release|Win32.ActiveCfg = Release|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Release|Win32.Build.0 = Release|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Template|Any CPU.ActiveCfg = Release|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Template|Any CPU.Build.0 = Release|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Template|Win32.ActiveCfg = Release|Win32
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26}.Template|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -851,6 +867,7 @@ Global
 		{8D6B043F-A270-479C-8692-3A609E560089} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
 		{312C56D0-09EF-4E5E-A58B-9DFC6AE7E41E} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
 		{49099A5E-FD74-48D8-BF74-CF0483863343} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
+		{38BA0064-FA6D-4DFE-A038-EC26017BAD26} = {C2261860-0CF9-4EAA-A6BC-333B4810A59D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = 

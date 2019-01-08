@@ -72,13 +72,16 @@ CBasicScraper::~CBasicScraper() {
 }
 
 bool CBasicScraper::LoadTablemap(const char* path) {
-  bool success = _tablemap.LoadTablemap(path);
-  if (!success) {
+  //!!!!! bool success is WRONG, why no warning?
+  int success = _tablemap.LoadTablemap(path);
+  if (success != SUCCESS) {
+    MessageBox(0, "Fail", "LoadTablemap", 0);
     return false;
   }
   // Map will be verified as long as it is not marked as popup or lobby
   CTablemapCompletenessChecker tablemap_completeness_checker;
   tablemap_completeness_checker.VerifyMap();
+  MessageBox(0, "Success", "LoadTablemap", 0);
   return true;
 }
 
@@ -150,7 +153,12 @@ CString CBasicScraper::ScrapeRegion(const CString name) {
 	CTransform	trans;
 	RMapCI		  r_iter = BasicScraper()->Tablemap()->r$()->find(name.GetString());
   CString result = "";
-	if (r_iter != Tablemap()->r$()->end()) {
+  MessageBox(0, name, "Scraping Region", 0);
+  if (r_iter == Tablemap()->r$()->end()) {
+    // Region not found
+    MessageBox(0, "Region not found", "ScrapeRegion", 0);
+  } else {
+    MessageBox(0, "Region found", "ScrapeRegion", 0);
     // Potential for optimization here
     ++_total_region_counter;
 		if (ProcessRegion(r_iter)) {
@@ -161,6 +169,7 @@ CString CBasicScraper::ScrapeRegion(const CString name) {
       /*#write_log(Preferences()->debug_scraper(),
         "[CScraper] Region %s NOT identical\n", name);*/
     }
+    MessageBox(0, "Going to transform", "Scraping Region", 0);
 		old_bitmap = (HBITMAP) SelectObject(hdcCompatible, r_iter->second.cur_bmp);
 		trans.DoTransform(r_iter, hdcCompatible, &result);
 		SelectObject(hdcCompatible, old_bitmap);
@@ -219,6 +228,7 @@ SIMPLE_SCRAPER_DLL_API void ConnectScraperToWindow(HWND window) {
 
 // Loads a tablemap (and automatically unloads the previous one)
 SIMPLE_SCRAPER_DLL_API bool LoadTablemap(const char* path) {
+  MessageBox(0, path, "LoadTablemap", 0);
   return BasicScraper()->LoadTablemap(path);
 }
 
@@ -242,4 +252,6 @@ SIMPLE_SCRAPER_DLL_API void ScrapeRegion(const char* in_name, const int in_resul
     return;
   }
   memcpy(out_result, result.GetBuffer(), (result.GetLength() + 1));
+  //!!!!!
+  MessageBox(0, result, "ScrapeRegion Result", 0);
 }

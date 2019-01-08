@@ -11,35 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CBasicScraper.cpp" />
-    <ClCompile Include="CTablemap\CTablemap.cpp" />
-    <ClCompile Include="CTablemap\CTablemapAccess.cpp" />
-    <ClCompile Include="CTablemap\CTablemapCompletenessChecker.cpp" />
-    <ClCompile Include="CTransform\CTransform.cpp" />
-    <ClCompile Include="CTransform\hash\lookup3.cpp" />
-    <ClCompile Include="CTransform\pdiff\CompareArgs.cpp" />
-    <ClCompile Include="CTransform\pdiff\LPyramid.cpp" />
-    <ClCompile Include="CTransform\pdiff\Metric.cpp" />
-    <ClCompile Include="CTransform\pdiff\RGBAImage.cpp" />
-    <ClCompile Include="CTransform\WebSafeColours.cpp" />
+    <ClCompile Include="Bitmaps.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CBasicScraper.h" />
-    <ClInclude Include="CTablemap\CTablemap.h" />
-    <ClInclude Include="CTablemap\CTableMapAccess.h" />
-    <ClInclude Include="CTablemap\CTablemapCompletenessChecker.h" />
-    <ClInclude Include="CTransform\CTransform.h" />
-    <ClInclude Include="CTransform\hash\lookup3.h" />
-    <ClInclude Include="CTransform\pdiff\CompareArgs.h" />
-    <ClInclude Include="CTransform\pdiff\LPyramid.h" />
-    <ClInclude Include="CTransform\pdiff\Metric.h" />
-    <ClInclude Include="CTransform\pdiff\RGBAImage.h" />
-    <ClInclude Include="CTransform\WebSafeColours.h" />
+    <ClInclude Include="Bitmaps.h" />
     <ClInclude Include="LibDef.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{93F0DFB6-AE1D-4040-A3CF-51F4EC1EEC8C}</ProjectGuid>
-    <RootNamespace>ScraperDLL</RootNamespace>
+    <ProjectGuid>{38BA0064-FA6D-4DFE-A038-EC26017BAD26}</ProjectGuid>
+    <RootNamespace>ReferenceMouseDLL</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -87,14 +67,13 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>E:\OpenHoldem\pokereval\include\inlines;E:\OpenHoldem\pokereval\include;E:\OpenHoldem\pokereval;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)Scraper.dll</OutputFile>
+      <OutputFile>$(OutDir)Bitmaps.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)Bitmaps.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)StringFunctions.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -107,13 +86,13 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)Scraper.dll</OutputFile>
+      <OutputFile>$(OutDir)Bitmaps.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>psapi.lib;$(OutDir)Bitmaps.lib;$(OutDir)NumericalFunctions.lib;$(OutDir)StringFunctions.lib;$(OutDir)WindowFunctions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

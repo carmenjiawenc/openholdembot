@@ -13,7 +13,7 @@
 //******************************************************************************
 
 #ifdef BITMAPS_DLL_EXPORTS
-#define BITMAPS_API __declspec(dllexport)
+#define BITMAPS_API extern "C" __declspec(dllexport)
 #else
-#define BITMAPS_API __declspec(dllimport)
+#define BITMAPS_API extern "C" __declspec(dllimport)
 #endif

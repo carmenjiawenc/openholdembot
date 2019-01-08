@@ -264,6 +264,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 #ifdef OPENHOLDEM_PROGRAM
 	write_log(Preferences()->debug_tablemap_loader(), "[CTablemap] Loadtablemap: %s\n", _fname);
 #endif
+  MessageBox(0, _fname, "CTablemap::LoadTablemap", 0);
 	CString		strLine = "", strLineType = "", token = "", s = "", e = "", hexval = "", t = "";
 	CString		MaxFontGroup = "", MaxHashGroup = "";
 	int			  pos = 0, x = 0, y = 0;
@@ -294,6 +295,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 	if (!ar.ReadString(strLine))
 	{
 		WarnAboutGeneralTableMapError(linenum, ERR_EOF);
+    MessageBox(0, "Error 01", "CTablemap::LoadTablemap", 0);
 		return ERR_EOF;
 	}
 	// skip any blank lines
@@ -304,6 +306,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 		if (!ar.ReadString(strLine)) 
 		{
 			WarnAboutGeneralTableMapError(linenum, ERR_EOF);
+      MessageBox(0, "Error 02", "CTablemap::LoadTablemap", 0);
 			return ERR_EOF;
 		}
 	}
@@ -328,6 +331,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			_filename);
 		MessageBox_Error_Warning(error_message, "Table map load error");
 		PostQuitMessage(1);
+    MessageBox(0, "Error 03", "CTablemap::LoadTablemap", 0);
 		return ERR_VERSION;
 	}
   // Repeat while there are lines in the file left to process
@@ -361,6 +365,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (token.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 04", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 			hold_size.width = atol(token.GetString());
@@ -370,6 +375,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
 				return ERR_SYNTAX;
+        MessageBox(0, "Error 05", "CTablemap::LoadTablemap", 0);
 			}
 			hold_size.height = atol(token.GetString());
 			if (!z$_insert(hold_size))
@@ -401,6 +407,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
         // supported since version 11.0.1
         // http://www.maxinmontreal.com/forums/viewtopic.php?f=124&t=20382
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 06", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 			// Skip _s$hXtype lines
@@ -443,6 +450,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (token.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 07", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -453,6 +461,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (token.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 08", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -463,6 +472,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (token.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 09", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -473,6 +483,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (token.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 10", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -483,6 +494,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (token.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 11", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -493,6 +505,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (token.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 12", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -503,6 +516,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (hold_region.transform.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 13", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -543,6 +557,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 
 			if (font_group < 0 || font_group >= k_max_number_of_font_groups_in_tablemap) {
 				MessageBox_Error_Warning(strLine, "Invalid font group\nFont groups have to be in the range [0..k_max_number_of_font_groups_in_tablemap]");
+        MessageBox(0, "Error 14", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -584,6 +599,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			{
 
 				MessageBox_Error_Warning(strLine, "Invalid hash point group\nHash point groups have to be in the range [0..k_max_number_of_hashpoint_groups_in_tablemap]");
+        MessageBox(0, "Error 15", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -592,6 +608,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (token.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 16", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -601,6 +618,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (token.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 17", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -635,6 +653,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (hash_group < 0 || hash_group >= k_max_number_of_hash_groups_in_tablemap)
 			{
 				MessageBox_Error_Warning(strLine, "Invalid hash group\nHash groups have to be in the range [0..k_max_number_of_hash_groups_in_tablemap]");
+        MessageBox(0, "Error 18", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -646,6 +665,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (token.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 19", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -680,6 +700,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (token.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 20", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -690,6 +711,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (token.GetLength()==0)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+        MessageBox(0, "Error 21", "CTablemap::LoadTablemap", 0);
 				return ERR_SYNTAX;
 			}
 
@@ -699,6 +721,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 			if (hold_image.width * hold_image.height > MAX_IMAGE_WIDTH*MAX_IMAGE_HEIGHT)
 			{
 				WarnAboutGeneralTableMapError(linenum, ERR_REGION_SIZE);
+        MessageBox(0, "Error 22", "CTablemap::LoadTablemap", 0);
 				return ERR_REGION_SIZE;
 			}
 
@@ -713,6 +736,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 				if (!ar.ReadString(strLine)) 
 				{
 					WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
+          MessageBox(0, "Error 23", "CTablemap::LoadTablemap", 0);
 					return ERR_SYNTAX;
 				}
 				// scan across "width" of line to get values
@@ -767,6 +791,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 				"Some line in your tablemap is completely wrong\n"
 				"and can't be processed at all:\n%s", strLine);
 			MessageBox_Error_Warning(error, "TABLEMAP ERROR");
+      MessageBox(0, "Error 24", "CTablemap::LoadTablemap", 0);
 			return ERR_UNK_LN_TYPE;
 		}
 
@@ -774,6 +799,7 @@ int CTablemap::LoadTablemap(const CString _fname) {
 	} while (ar.ReadString(strLine));
   InitNChairs();
 	_valid = true;
+  MessageBox(0, "Success", "CTablemap::LoadTablemap", 0);
 	return SUCCESS;
 }
 
@@ -975,7 +1001,7 @@ int CTablemap::UpdateHashes(const HWND hwnd, const char *startup_path)
 		logpath.Format("%s\\hash creation log.txt", startup_path);
 		if (fopen_s(&fp, logpath.GetString(), "a")==0)
 		{
-			//!!!get_now_time(timebuf);
+			//!!!get_now_time(timebuf); log needed at all? this way?
 			fprintf(fp, "<%s>\nCreating _hashes\n", timebuf);
 			fprintf(fp, "Hashes with no matching image:\n");
 
