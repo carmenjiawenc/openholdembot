@@ -181,6 +181,7 @@ CString CBasicScraper::ScrapeRegion(const CString name) {
 }
 
 bool CBasicScraper::ProcessRegion(RMapCI r_iter) {
+  MessageBox(0, r_iter->first, "ProcessRegion", 0);
   /*#write_log(Preferences()->debug_scraper(),
     "[CScraper] ProcessRegion %s (%i, %i, %i, %i)\n",
     r_iter->first, r_iter->second.left, r_iter->second.top,
@@ -198,6 +199,7 @@ bool CBasicScraper::ProcessRegion(RMapCI r_iter) {
     SelectObject(hdcCompatible, old_bitmap);
     // If the bitmaps are different, then continue on
     if (!BitmapsAreEqual(r_iter->second.last_bmp, r_iter->second.cur_bmp)) {
+      MessageBox(0, "Bitmaps not equal", "ProcessRegion", 0);
       // Copy into "last" bitmap
       old_bitmap = (HBITMAP)SelectObject(hdcCompatible, r_iter->second.last_bmp);
       BitBlt(hdcCompatible, 0, 0, r_iter->second.right - r_iter->second.left + 1,
@@ -207,6 +209,7 @@ bool CBasicScraper::ProcessRegion(RMapCI r_iter) {
     __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
     return true;
   }
+    MessageBox(0, "Bitmaps equal", "ProcessRegion", 0);
   __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
   return false;
 }
