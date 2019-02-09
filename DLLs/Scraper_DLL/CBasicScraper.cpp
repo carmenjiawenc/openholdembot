@@ -28,13 +28,14 @@
 #include "CTransform\CTransform.h"
 #include "..\Bitmaps_DLL\Bitmaps.h"
 
+// !!!! take care of potential memory-leaks
+
 // Singleton for CBasicScraper
 // Gets initialized via the accessor-function once needed
 CBasicScraper* p_basic_scraper = NULL;
-HWND connected_window = NULL;
 
 #define __HDC_HEADER 		HBITMAP		old_bitmap = NULL; \
-	HDC				hdc = GetDC(connected_window); \
+	HDC				hdc = GetDC(_connected_window); \
 	HDC				hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL); \
 	HDC				hdcCompatible = CreateCompatibleDC(hdcScreen); \
   ++_leaking_GDI_objects;
@@ -42,7 +43,7 @@ HWND connected_window = NULL;
 #define __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK \
   DeleteDC(hdcCompatible); \
 	DeleteDC(hdcScreen); \
-	ReleaseDC(connected_window, hdc); \
+	ReleaseDC(_connected_window, hdc); \
   --_leaking_GDI_objects;
 
 CBasicScraper* BasicScraper() {
@@ -54,6 +55,7 @@ CBasicScraper* BasicScraper() {
 }
 
 CBasicScraper::CBasicScraper() {
+  _connected_window = NULL;
   _leaking_GDI_objects = 0;
   _total_region_counter = 0;
   _identical_region_counter = 0;
@@ -85,11 +87,15 @@ bool CBasicScraper::LoadTablemap(const char* path) {
   return true;
 }
 
+void CBasicScraper::ConnectScraperToWindow(HWND window) {
+  _connected_window = window;
+}
+
 void CBasicScraper::CreateBitmaps(void) {
   HDC	hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL);
   // Whole window
   RECT cr = { 0 };
-  GetClientRect(connected_window, &cr);
+  GetClientRect(_connected_window, &cr);
   _entire_window_last = CreateCompatibleBitmap(hdcScreen, cr.right, cr.bottom);
   _entire_window_cur = CreateCompatibleBitmap(hdcScreen, cr.right, cr.bottom);
   // r$regions
@@ -122,7 +128,7 @@ bool CBasicScraper::IsIdenticalScrape() {
   __HDC_HEADER
   // Get bitmap of whole window
   RECT		cr = { 0 };
-  GetClientRect(connected_window, &cr);
+  GetClientRect(_connected_window, &cr);
   old_bitmap = (HBITMAP)SelectObject(hdcCompatible, _entire_window_cur);
   BitBlt(hdcCompatible, 0, 0, cr.right, cr.bottom, hdc, cr.left, cr.top, SRCCOPY);
   SelectObject(hdcCompatible, old_bitmap);
@@ -132,7 +138,7 @@ bool CBasicScraper::IsIdenticalScrape() {
   if (BitmapsAreEqual(_entire_window_last, _entire_window_cur)) {
     DeleteDC(hdcCompatible);
     DeleteDC(hdcScreen);
-    ReleaseDC(connected_window, hdc);
+    ReleaseDC(_connected_window, hdc);
     ///write_log(Preferences()->debug_scraper(), "[CScraper] IsIdenticalScrape() true\n");
     __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
     return true;
@@ -147,6 +153,9 @@ bool CBasicScraper::IsIdenticalScrape() {
 }
 
 CString CBasicScraper::ScrapeRegion(const CString name) {
+  //!!! delete last
+  _entire_window_last = _entire_window_cur;
+  TakeScreenshot(_connected_window, &_entire_window_cur);
   __HDC_HEADER
   /*#write_log(Preferences()->debug_scraper(),
     "[CScraper] EvaluateRegion %s\n", name);*/
@@ -226,7 +235,7 @@ bool CBasicScraper::ProcessRegion(RMapCI r_iter) {
 // does not matter, but both of them must have been called
 // before ScrapeRegion.
 SIMPLE_SCRAPER_DLL_API void ConnectScraperToWindow(HWND window) {
-  connected_window = window;
+  BasicScraper()->ConnectScraperToWindow(window);
 }
 
 // Loads a tablemap (and automatically unloads the previous one)
@@ -234,6 +243,13 @@ SIMPLE_SCRAPER_DLL_API bool LoadTablemap(const char* path) {
   MessageBox(0, path, "LoadTablemap", 0);
   return BasicScraper()->LoadTablemap(path);
 }
+
+/*!!!// Takes a screenshot of the connected window / table.
+// Thereafter ScrapeRegion can be called.
+SIMPLE_SCRAPER_DLL_API void TakeScreenshot() {
+  MessageBox(0, "TakeScreenshot", "TakeScreenshot", 0);
+  BasicScraper()->TakeScreenshot();
+}*/
 
 // result-buffer has to be managed by the caller
 // returned results are usually numbers and player-names,

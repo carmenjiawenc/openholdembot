@@ -44,9 +44,12 @@ public:
   CBasicScraper();
   ~CBasicScraper();
 public:
-  bool LoadTablemap(const char* path);
   // Loads a tablemap (and automatically unloads the previous one)
+  bool LoadTablemap(const char* path);
+  void ConnectScraperToWindow(HWND window);
+  //!!!void TakeScreenshot();
   CString ScrapeRegion(const CString name);
+public:
   CTablemap* Tablemap() { return &_tablemap; }
   CTablemapAccess* TablemapAccess() { return &_tablemap_access; }
 public:
@@ -66,6 +69,8 @@ private:
 private:
   HBITMAP	_entire_window_last;
   HBITMAP	_entire_window_cur;
+private:
+  HWND _connected_window;
 private:
   // Counter of GDI objects (potential memorz leak)
   // Should be 0 at end of program -- will be checked.
@@ -92,6 +97,10 @@ SIMPLE_SCRAPER_DLL_API void ConnectScraperToWindow(HWND window);
 // The symbol s$islobby or s$ispopup can be used to turn the
 // tablemap-completeness-checker off.
 SIMPLE_SCRAPER_DLL_API bool LoadTablemap(const char* path);
+
+// Takes a screenshot of the connected window / table.
+// Thereafter ScrapeRegion can be called.
+//!!!SIMPLE_SCRAPER_DLL_API void TakeScreenshot();
 
 // Result-buffer has to be managed by the caller.
 // Returned results are usually numbers and player-names,

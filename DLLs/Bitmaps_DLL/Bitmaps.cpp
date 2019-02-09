@@ -199,3 +199,26 @@ void SaveBitmapToFile(HBITMAP bitmap, char* path) {
   DeleteDC(hdcCompatible);
   DeleteDC(hdcScreen);
 }
+
+void TakeScreenshot(HWND in_window, HBITMAP *out_bitmap) {
+  // Bitblt the attached windows bitmap into a HDC
+  //HDC hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL);
+  HDC hdcScreen = GetDC(in_window);
+  HDC hdcCompat = CreateCompatibleDC(hdcScreen);
+  RECT rect;
+  GetClientRect(in_window, &rect);
+  //!!!leak
+  // https://docs.microsoft.com/en-us/windows/desktop/api/wingdi/nf-wingdi-createcompatiblebitmap
+  *out_bitmap = CreateCompatibleBitmap(hdcScreen, rect.right, rect.bottom);
+  SelectObject(hdcCompat, *out_bitmap);
+  //BitBlt(*out_bitmap, 0, 0, rect.right, rect.bottom, hdcScreen/*???*/, 0, 0, SRCCOPY);
+  
+  BitBlt(hdcCompat, 0, 0, rect.right, rect.bottom, hdcScreen/*???*/, 0, 0, SRCCOPY);
+  //!!! temp
+  SaveBitmapToFile(*out_bitmap, "debug.bmp");
+  //SelectObject(hdcCompat, old_bitmap);
+  //DeleteObject(attached_bitmap);
+  DeleteDC(hdcCompat);
+  DeleteDC(hdcScreen);
+  //ReleaseDC(in_window,);
+}
