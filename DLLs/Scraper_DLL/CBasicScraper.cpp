@@ -156,6 +156,7 @@ CString CBasicScraper::ScrapeRegion(const CString name) {
   //!!! delete last
   _entire_window_last = _entire_window_cur;
   TakeScreenshot(_connected_window, &_entire_window_cur);
+  SaveBitmapToFile(_entire_window_cur, "debug2.bmp");
   __HDC_HEADER
   /*#write_log(Preferences()->debug_scraper(),
     "[CScraper] EvaluateRegion %s\n", name);*/
@@ -180,6 +181,11 @@ CString CBasicScraper::ScrapeRegion(const CString name) {
     }
     MessageBox(0, "Going to transform", "Scraping Region", 0);
 		old_bitmap = (HBITMAP) SelectObject(hdcCompatible, r_iter->second.cur_bmp);
+    SaveBitmapToFile(_entire_window_cur, "debug3_old.bmp");
+    if (r_iter->second.cur_bmp == NULL) {
+      MessageBox(0, "r_iter->second.cur_bmp is NULL", "Error", 0);
+    }
+    SaveBitmapToFile(r_iter->second.cur_bmp, "debug4_iter_cur.bmp");
 		trans.DoTransform(r_iter, hdcCompatible, &result);
 		SelectObject(hdcCompatible, old_bitmap);
 	}
