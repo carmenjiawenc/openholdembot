@@ -222,3 +222,67 @@ void TakeScreenshot(HWND in_window, HBITMAP *out_bitmap) {
   DeleteDC(hdcScreen);
   //ReleaseDC(in_window,);
 }
+
+
+void ExtractSubImage(HBITMAP source_image, HBITMAP *destination_image,
+  CRect subimage_position) {
+  MessageBox(0, "ExtractSubImage", "ExtractSubImage", 0);
+  // https://stackoverflow.com/questions/5687263/copying-a-bitmap-from-another-hbitmap 
+  HDC dc_source = CreateCompatibleDC(NULL);
+  SelectObject(dc_source, source_image);
+  HDC dc_destination = CreateCompatibleDC(NULL);
+  SelectObject(dc_destination, destination_image);
+  // copy bitmap data
+  int width = subimage_position.right - subimage_position.left + 1;
+  int height = subimage_position.bottom - subimage_position.top + 1);
+  BitBlt(dc_destination, 0, 0, 
+    width,
+    height,
+    dc_source,
+    subimage_position.left,
+    subimage_position.top,
+    SRCCOPY);
+  MessageBox(0, "ExtractSubImage done", "ExtractSubImage", 0);
+}
+
+
+void temp(HBITMAP source_image, HBITMAP *destination_image,
+  CRect subimage_position)
+{
+  /*#write_log(Preferences()->debug_scraper(),
+  "[CScraper] ProcessRegion %s (%i, %i, %i, %i)\n",
+  r_iter->first, r_iter->second.left, r_iter->second.top,
+  r_iter->second.right, r_iter->second.bottom);
+  write_log(Preferences()->debug_scraper(),
+  "[CScraper] ProcessRegion color %i radius %i transform %s\n",
+  r_iter->second.color, r_iter->second.radius, r_iter->second.transform);
+  */
+  HDC				hdc = GetDC(_connected_window);
+HDC				hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL);
+HDC				hdcCompatible = CreateCompatibleDC(hdcScreen);
+// Get "current" bitmap
+///old_bitmap = (HBITMAP)SelectObject(hdcCompatible, r_iter->second.cur_bmp);
+BitBlt(hdcCompatible, 0, 0,
+  subimage_position.right - subimage_position + 1,
+  subimage_position.bottom - subimage_position.top + 1,
+  hdc,
+  r_iter->second.left,
+  r_iter->second.top,
+  SRCCOPY);
+///SelectObject(hdcCompatible, old_bitmap);
+// If the bitmaps are different, then continue on
+/*#if (BitmapsAreEqual(r_iter->second.last_bmp, r_iter->second.cur_bmp)) {
+MessageBox(0, "Bitmaps equal", "ProcessRegion", 0);
+} else {*/
+/*#MessageBox(0, "Bitmaps not equal", "ProcessRegion", 0);
+// Copy into "last" bitmap
+old_bitmap = (HBITMAP)SelectObject(hdcCompatible, r_iter->second.last_bmp);
+BitBlt(hdcCompatible, 0, 0, r_iter->second.right - r_iter->second.left + 1,
+r_iter->second.bottom - r_iter->second.top + 1,
+hdc, r_iter->second.left, r_iter->second.top, SRCCOPY);
+SelectObject(hdcCompatible, old_bitmap);*/
+///}
+DeleteDC(hdcCompatible);
+DeleteDC(hdcScreen);
+ReleaseDC(_connected_window, hdc);
+///  return bitmaps_equal;
