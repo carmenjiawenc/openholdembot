@@ -222,3 +222,24 @@ void TakeScreenshot(HWND in_window, HBITMAP *out_bitmap) {
   DeleteDC(hdcScreen);
   //ReleaseDC(in_window,);
 }
+
+
+void ExtractSubImage(HBITMAP source_image, HBITMAP *destination_image,
+  CRect subimage_position) {
+  MessageBox(0, "ExtractSubImage", "ExtractSubImage", 0);
+  // https://stackoverflow.com/questions/5687263/copying-a-bitmap-from-another-hbitmap 
+  HDC dc_source = CreateCompatibleDC(NULL);
+  SelectObject(dc_source, source_image);
+  HDC dc_destination = CreateCompatibleDC(NULL);
+  SelectObject(dc_destination, destination_image);
+  // copy bitmap data
+  int width = subimage_position.right - subimage_position.left + 1;
+  int height = subimage_position.bottom - subimage_position.top + 1;
+  BitBlt(dc_destination, 0, 0, 
+    width,
+    height,
+    dc_source,    subimage_position.left,
+    subimage_position.top,
+    SRCCOPY);
+  MessageBox(0, "ExtractSubImage done", "ExtractSubImage", 0);
+}
