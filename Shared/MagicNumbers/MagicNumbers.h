@@ -52,9 +52,9 @@ const int kStringsEqual = 0;
 const int kNumberOfBetrounds = 4;
 const int kBetroundCurrent	 = 0;
 const int kBetroundPreflop	 = 1;
-const int kBetroundFlop		   = 2;
+const int kBetroundFlop	     = 2;
 const int kBetroundTurn	     = 3;
-const int kBetroundRiver	   = 4;
+const int kBetroundRiver     = 4;
 
 // Aztoplayer FCKRA-bits
 const int kMyTurnBitsFold = 0x01;
@@ -120,19 +120,19 @@ const int k_min_buttons_needed_for_my_turn = 2;
 const int k_my_turn_bits_fold_call_raise = 0x07;
 
 // button codes
-const int k_button_i3		  = 3;
-const int k_button_fold		= 10;
-const int k_button_allin	= 11;
-const int k_button_raise	= 12;
-const int k_button_call		= 13;
-const int k_button_check	= 14;
-const int k_button_sitin	= 20;
-const int k_button_sitout	= 21;
-const int k_button_leave	= 22;
-const int k_button_i86    = 86; 
-const int k_button_rematch  = 23;
-const int k_button_prefold	= 24;
-const int k_button_autopost	= 25;
+const int k_button_i3        = 3;
+const int k_button_fold      = 10;
+const int k_button_allin     = 11;
+const int k_button_raise     = 12;
+const int k_button_call      = 13;
+const int k_button_check     = 14;
+const int k_button_sitin     = 20;
+const int k_button_sitout    = 21;
+const int k_button_leave     = 22;
+const int k_button_i86       = 86; 
+const int k_button_rematch   = 23;
+const int k_button_prefold   = 24;
+const int k_button_autopost  = 25;
 const int k_button_undefined = -1;
 
 const int k_double_click_delay = 100; // ms
@@ -475,6 +475,7 @@ const int BETCONF_NOTHING	 = TEXTSEL_NOTHING;
 // Button click options
 const int BUTTON_SINGLECLICK = TEXTSEL_SINGLECLICK;
 const int BUTTON_DOUBLECLICK = TEXTSEL_DOUBLECLICK;
+const int BUTTON_NOTHING     = TEXTSEL_NOTHING;
 
 // Autoplayer prevaction
 #define PREVACT_FOLD		-1
@@ -581,6 +582,7 @@ const int  kMaxLogSymbolsForWhiteBox = 1;
 // For string handling
 const int kOneCharacterExtraForTerminatingNull = 1;
 
+<<<<<<< HEAD
 // thread timeout
 #define THREAD_WAIT					3000
 
@@ -687,6 +689,8 @@ static int DefaultButtonNumber(int button_code) {
   return button_number;
 }
 
+=======
+>>>>>>> 64a358fb484c228f1d453c01f336a971ad43f185
 // Function to access the name of the action constants.
 // As fold is negative we can no longer use the constants 
 // as indices for an array.

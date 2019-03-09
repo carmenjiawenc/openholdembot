@@ -1,3 +1,8 @@
+<<<<<<< HEAD:DLLs/PokerTracker_QueryDefinitions/pokertracker_query_definitions.def
 LIBRARY	pokertracker_query_definitions
 EXPORTS
 
+=======
+LIBRARY	pokertracker_query_definitions
+EXPORTS
+>>>>>>> 64a358fb484c228f1d453c01f336a971ad43f185:PokerTracker_Query_Definitions/pokertracker_query_definitions.def

@@ -32,6 +32,16 @@ void CAutoplayerButton::SetTechnicalName(const CString name) {
   _technical_name = name;
   CString hotkey_name = name + "hotkey";
   _hotkey.SetName(hotkey_name);
+
+  _default_label = p_tablemap->GetTMSymbol(_technical_name + "defaultlabel").MakeLower();
+
+  if (p_tablemap->GetTMSymbol(_technical_name + "clickmethod").MakeLower() == "double") {
+    _click_method = BUTTON_DOUBLECLICK;
+  } else if (p_tablemap->GetTMSymbol(_technical_name + "clickmethod").MakeLower() == "nothing") {
+    _click_method = BUTTON_NOTHING;
+  } else {
+    _click_method = BUTTON_SINGLECLICK;
+  }
 }
 
 void CAutoplayerButton::Reset() {
@@ -40,7 +50,7 @@ void CAutoplayerButton::Reset() {
   _button_type = kUndefined;
   SetClickable(false);
 }
-  
+
 bool CAutoplayerButton::Click() {
   if (_clickable) {
     // Try to send a hotkey first, if specified in tablemap
@@ -50,10 +60,25 @@ bool CAutoplayerButton::Click() {
     }
     // Lookup the region
     RECT button_region;
+<<<<<<< HEAD:DLLs/CasinoInterface_DLL/CAutoplayerButton.cpp
     BasicScraper()->Tablemap()->GetTMRegion(_technical_name, &button_region);
     // Otherwise: click the button the normal way
     CasinoInterface()->ClickRect(button_region);
     write_log(Preferences()->debug_autoplayer(), "[CAutoplayerButton] Clicked button [%s] [%s]\n", _label, _technical_name);
+=======
+    p_tablemap->GetTMRegion(_technical_name, &button_region);
+    if (BUTTON_NOTHING == _click_method) {
+      write_log(Preferences()->debug_autoplayer(), "[CAutoplayerButton] Doing nothing on this button [%s] [%s]\n", _label, _technical_name);
+    } else if (BUTTON_DOUBLECLICK == _click_method) {
+      // double click the button if needed
+      p_casino_interface->DoubleClickRect(button_region);
+      write_log(Preferences()->debug_autoplayer(), "[CAutoplayerButton] Clicked button [%s] [%s]\n", _label, _technical_name);
+    } else {
+      // Otherwise: click the button the normal way
+      p_casino_interface->ClickRect(button_region);
+      write_log(Preferences()->debug_autoplayer(), "[CAutoplayerButton] Clicked button [%s] [%s]\n", _label, _technical_name);
+    }
+>>>>>>> 64a358fb484c228f1d453c01f336a971ad43f185:OpenHoldem/CAutoplayerButton.cpp
     return true;
   } else {
     write_log(Preferences()->debug_autoplayer(), "[CAutoplayerButton] Could not click button %s. Either undefined or not visible.\n", _label);
@@ -171,6 +196,11 @@ bool CAutoplayerButton::IsLabelPrefold() {
   return (_label.MakeLower().Left(7) == "prefold");
 }
 
+bool CAutoplayerButton::IsNameI86() {
+  return (_technical_name.MakeLower().Left(3) == "i86");
+}
+
+
 // We precompute the button-type from the label, because their was a raise-condition
 // when COpenHoldemView::UpdateDisplay(), triggered by a timer,
 // accessed the button-labels (non-elementary data)
@@ -188,7 +218,7 @@ void CAutoplayerButton::PrecomputeButtonType() {
     _button_type = k_autoplayer_function_check;
   } else if (IsLabelFold()) {
     _button_type = k_autoplayer_function_fold;
-  } else if (IsLabelAutopost()) { 
+  } else if (IsLabelAutopost()) {
     _button_type = k_hopper_function_autopost;
   } else if (IsLabelSitin()) {
     _button_type = k_hopper_function_sitin;
@@ -198,13 +228,37 @@ void CAutoplayerButton::PrecomputeButtonType() {
     _button_type = k_hopper_function_leave;
   } else if (IsLabelRematch()) {
     _button_type = k_hopper_function_rematch;
-  } else if (IsLabelPrefold()) { 
+  } else if (IsLabelPrefold()) {
     _button_type = k_standard_function_prefold;
-  } else if (_label == "") {
-    // Clear button
-    _button_type = kUndefined;
+  } else if (IsNameI86()) {
+    _button_type = k_button_i86;
   } else {
-    write_log(Preferences()->debug_autoplayer(), 
-      "[CasinoInterface] WARNING! Unknown button type %s\n", _label);
+    /* No or wrongly scraped value, apply default label, if any */
+    if (_default_label == "allin" || _default_label == "max") {
+      _button_type = k_autoplayer_function_allin;
+    } else if (_default_label == "raise" || _default_label == "bet") {
+      _button_type = k_autoplayer_function_raise;
+    } else if (_default_label == "call") {
+      _button_type = k_autoplayer_function_call;
+    } else if (_default_label == "check") {
+      _button_type = k_autoplayer_function_check;
+    } else if (_default_label == "fold") {
+      _button_type = k_autoplayer_function_fold;
+    } else if (_default_label == "autopost") {
+      _button_type = k_hopper_function_autopost;
+    } else if (_default_label == "sitin") {
+      _button_type = k_hopper_function_sitin;
+    } else if (_default_label == "sitout") {
+      _button_type = k_hopper_function_sitout;
+    } else if (_default_label == "leave") {
+      _button_type = k_hopper_function_leave;
+    } else if (_default_label == "rematch") {
+      _button_type = k_hopper_function_rematch;
+    } else if (_default_label == "prefold") {
+      _button_type = k_standard_function_prefold;
+    } else {
+      _button_type = kUndefined;
+      write_log(Preferences()->debug_autoplayer(), "[CasinoInterface] WARNING! Unknown button type [%s] [%s]\n", _label, _default_label);
+    }
   }
 }

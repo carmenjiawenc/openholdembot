@@ -234,12 +234,11 @@ void ExtractSubImage(HBITMAP source_image, HBITMAP *destination_image,
   SelectObject(dc_destination, destination_image);
   // copy bitmap data
   int width = subimage_position.right - subimage_position.left + 1;
-  int height = subimage_position.bottom - subimage_position.top + 1);
+  int height = subimage_position.bottom - subimage_position.top + 1;
   BitBlt(dc_destination, 0, 0, 
     width,
     height,
-    dc_source,
-    subimage_position.left,
+    dc_source,    subimage_position.left,
     subimage_position.top,
     SRCCOPY);
   MessageBox(0, "ExtractSubImage done", "ExtractSubImage", 0);
