@@ -23,5 +23,5 @@ BITMAPS_API bool BitmapsAreEqual(HBITMAP HBitmapLeft, HBITMAP HBitmapRight) ;
 BITMAPS_API void SaveBitmapToFile(HBITMAP bitmap, char* path);
 BITMAPS_API void TakeScreenshot(HWND in_window, HBITMAP *out_bitmap);
 
-BITMAPS_API void ExtractSubImage(HBITMAP source_image, HBITMAP *destination_image,
+BITMAPS_API void ExtractSubBitmap(HBITMAP source_image, HBITMAP *destination_image,
   CRect subimage_position);

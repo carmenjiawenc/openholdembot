@@ -223,10 +223,9 @@ void TakeScreenshot(HWND in_window, HBITMAP *out_bitmap) {
   //ReleaseDC(in_window,);
 }
 
-
-void ExtractSubImage(HBITMAP source_image, HBITMAP *destination_image,
+void ExtractSubBitmap(HBITMAP source_image, HBITMAP *destination_image,
   CRect subimage_position) {
-  MessageBox(0, "ExtractSubImage", "ExtractSubImage", 0);
+  MessageBox(0, "ExtractSubBitmap", "ExtractSubImage", 0);
   // https://stackoverflow.com/questions/5687263/copying-a-bitmap-from-another-hbitmap 
   HDC dc_source = CreateCompatibleDC(NULL);
   SelectObject(dc_source, source_image);
@@ -241,5 +240,16 @@ void ExtractSubImage(HBITMAP source_image, HBITMAP *destination_image,
     dc_source,    subimage_position.left,
     subimage_position.top,
     SRCCOPY);
-  MessageBox(0, "ExtractSubImage done", "ExtractSubImage", 0);
+  MessageBox(0, "ExtractSubBitmap done", "ExtractSubImage", 0);
+}
+
+bool CopyBitmap(HBITMAP source_image, HBITMAP *destination_image) {
+  // https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-copyimage
+  HANDLE CopyImage(
+    source_image,
+    UINT   type,
+    int    cx,
+    int    cy,
+    UINT   flags
+  );
 }

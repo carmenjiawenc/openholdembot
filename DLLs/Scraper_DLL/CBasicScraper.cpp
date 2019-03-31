@@ -24,6 +24,7 @@
 #define SCRAPER_DLL_EXPORTS
 
 #include "CBasicScraper.h"
+#include <windows.h>
 #include "CTablemap\CTablemapCompletenessChecker.h"
 #include "CTransform\CTransform.h"
 #include "..\Bitmaps_DLL\Bitmaps.h"
@@ -206,6 +207,13 @@ bool CBasicScraper::ProcessRegion(RMapCI r_iter) {
     r_iter->second.color, r_iter->second.radius, r_iter->second.transform);
     */
   __HDC_HEADER
+    RECT r; //!!!restructure iter
+    r.bottom = r_iter->second.bottom;
+    r.left = r_iter->second.left;
+    r.right = r_iter->second.right;
+    r.top = r_iter->second.top;
+    ExtractSubBitmap(&entire_window_cur, &r_iter->second.cur_bmp, r);
+
     // Get "current" bitmap
     old_bitmap = (HBITMAP)SelectObject(hdcCompatible, r_iter->second.cur_bmp);
     BitBlt(hdcCompatible, 0, 0, r_iter->second.right - r_iter->second.left + 1,
