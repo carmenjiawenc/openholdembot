@@ -38,28 +38,28 @@ void DeleteBitmap(HBITMAP bitmap) {
   delete bitmap;
 }
 
-void ScreenToBitmap(HBITMAP *out_bitmap) {
+void ScreenToBitmap(HBITMAP out_bitmap) {
   WindowToBitmap(kHWND_Desktop, out_bitmap);
 #ifdef DEBUG
-  SaveBitmapToFile(*out_bitmap, "debug_ScreenToBitmap.bmp");
+  SaveBitmapToFile(out_bitmap, "debug_ScreenToBitmap.bmp");
 #endif
 }
 
-void WindowToBitmap(HWND in_window, HBITMAP *out_bitmap) {
+void WindowToBitmap(HWND in_window, HBITMAP out_bitmap) {
   WindowRegionToBitmap(kHWND_Desktop, 0, 0, out_bitmap);
 #ifdef DEBUG
-  SaveBitmapToFile(*out_bitmap, "debug_WindowToBitmap.bmp");
+  SaveBitmapToFile(out_bitmap, "debug_WindowToBitmap.bmp");
 #endif
 }
 
-void WindowRegionToBitmap(HWND in_window, int pos_x, int pos_y, HBITMAP *out_bitmap) {
+void WindowRegionToBitmap(HWND in_window, int pos_x, int pos_y, HBITMAP out_bitmap) {
   // Access bitmap object to evaluate size later
   BITMAP bitmap;
   GetObject(out_bitmap, sizeof(BITMAP), &bitmap);
   // Bitblt the attached windows bitmap into a HDC
   HDC hdcWindow = GetDC(in_window);
   HDC hdcCompat = CreateCompatibleDC(hdcWindow);
-  SelectObject(hdcCompat, *out_bitmap);
+  SelectObject(hdcCompat, out_bitmap);
   BitBlt(hdcCompat, 
     pos_x,
     pos_y,
@@ -72,7 +72,7 @@ void WindowRegionToBitmap(HWND in_window, int pos_x, int pos_y, HBITMAP *out_bit
   DeleteDC(hdcCompat);
   DeleteDC(hdcWindow);
 #ifdef DEBUG
-  SaveBitmapToFile(*out_bitmap, "debug_WindowRegionToBitmap.bmp");
+  SaveBitmapToFile(out_bitmap, "debug_WindowRegionToBitmap.bmp");
 #endif
 }
 

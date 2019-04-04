@@ -153,45 +153,38 @@ bool CBasicScraper::IsIdenticalScrape() {
 }
 
 CString CBasicScraper::ScrapeRegion(const CString name) {
-  //!!! delete last
-  _entire_window_last = _entire_window_cur;
-  TakeScreenshot(_connected_window, &_entire_window_cur);
-  SaveBitmapToFile(_entire_window_cur, "debug2.bmp");
-  __HDC_HEADER
-  /*#write_log(Preferences()->debug_scraper(),
-    "[CScraper] EvaluateRegion %s\n", name);*/
-	CTransform	trans;
-	RMapCI		  r_iter = BasicScraper()->Tablemap()->r$()->find(name.GetString());
-  CString result = "";
+  // Lookup region in tablemap
+  RMapCI r_iter = BasicScraper()->Tablemap()->r$()->find(name.GetString());
   MessageBox(0, name, "Scraping Region", 0);
   if (r_iter == Tablemap()->r$()->end()) {
     // Region not found
     MessageBox(0, "Region not found", "ScrapeRegion", 0);
-  } else {
-    MessageBox(0, "Region found", "ScrapeRegion", 0);
-    // Potential for optimization here
-    ++_total_region_counter;
-		if (ProcessRegion(r_iter)) {
+    return "";
+  }
+  MessageBox(0, "Region found", "ScrapeRegion", 0);
+  // Potential for optimization here
+  ++_total_region_counter;
+  // Create bitmap
+  HBITMAP bitmap = NewBitmap(r_iter->second.right,
+    r_iter->second.bottom);
+  WindowRegionToBitmap(_connected_window,
+    r_iter->second.left,
+    r_iter->second.top,
+    bitmap);
+
+    /*#if (ProcessRegion(r_iter)) {
       ++_identical_region_counter;
-      /*#write_log(Preferences()->debug_scraper(),
-        "[CScraper] Region %s identical\n", name);*/
-    } else {
-      /*#write_log(Preferences()->debug_scraper(),
-        "[CScraper] Region %s NOT identical\n", name);*/
+      write_log(Preferences()->debug_scraper(),
+      "[CScraper] Region %s identical\n", name);
     }
-    MessageBox(0, "Going to transform", "Scraping Region", 0);
-		old_bitmap = (HBITMAP) SelectObject(hdcCompatible, r_iter->second.cur_bmp);
-    SaveBitmapToFile(_entire_window_cur, "debug3_old.bmp");
-    if (r_iter->second.cur_bmp == NULL) {
-      MessageBox(0, "r_iter->second.cur_bmp is NULL", "Error", 0);
-    }
-    SaveBitmapToFile(r_iter->second.cur_bmp, "debug4_iter_cur.bmp");
-		trans.DoTransform(r_iter, hdcCompatible, &result);
-		SelectObject(hdcCompatible, old_bitmap);
-	}
-  /*#write_log(Preferences()->debug_scraper(), "[CScraper] EvaluateRegion(), [%s] -> [%s]\n",
-  name, *result);*/
-	__HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
+    else {
+      write_log(Preferences()->debug_scraper(),
+      "[CScraper] Region %s NOT identical\n", name);
+    }*/
+
+  CTransform trans;
+  CString result;
+  trans.DoTransform(r_iter, hdcCompatible, &result);
   return result;
 }
 

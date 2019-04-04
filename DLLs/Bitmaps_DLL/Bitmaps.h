@@ -19,16 +19,15 @@
 #include <afxwin.h>
 #include "LibDef.h"
 
-HBITMAP NewBitmap(int size_x, int size_y);
-void DeleteBitmap(HBITMAP bitmap);
+BITMAPS_API HBITMAP NewBitmap(int size_x, int size_y);
+BITMAPS_API void DeleteBitmap(HBITMAP bitmap);
 
 // Taking screenshots into pre-allocated bitmaps.
 // The image is assumed to be as large as the screen / window.
 // If the bitmap is smaller only a sub-image will be returned.
-BITMAPS_API void ScreenToBitmap(HBITMAP *out_bitmap);
-BITMAPS_API void WindowToBitmap(HWND in_window, HBITMAP *out_bitmap);
-BITMAPS_API void WindowRegionToBitmap(HWND in_window, int pos_x, int pos_y, HBITMAP *out_bitmap);
+BITMAPS_API void ScreenToBitmap(HBITMAP out_bitmap);
+BITMAPS_API void WindowToBitmap(HWND in_window, HBITMAP out_bitmap);
+BITMAPS_API void WindowRegionToBitmap(HWND in_window, int pos_x, int pos_y, HBITMAP out_bitmap);
 
 BITMAPS_API bool BitmapsAreEqual(HBITMAP HBitmapLeft, HBITMAP HBitmapRight) ;
 BITMAPS_API void SaveBitmapToFile(HBITMAP bitmap, char* path);
-
