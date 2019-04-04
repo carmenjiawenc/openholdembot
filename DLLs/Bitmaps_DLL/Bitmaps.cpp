@@ -18,102 +18,143 @@
 #define BITMAPS_DLL_EXPORTS
 #include "Bitmaps.h"
 
-bool BitmapsAreEqual(HBITMAP HBitmapLeft, HBITMAP HBitmapRight) 
-{
-	if (HBitmapLeft == HBitmapRight)
-		return true;
+const int kColourDepth = 32;
+const int kColourPlanes = 4; // ARGB
+const int kHWND_Desktop = NULL;
 
-	if ((HBitmapLeft == NULL) || (HBitmapRight == NULL))
-		return false;
+HBITMAP NewBitmap(int size_x, int size_y) {
+  HBITMAP new_bitmap = CreateBitmap(size_x,
+    size_y,
+    kColourPlanes,
+    kColourDepth,
+    NULL);
+#ifdef DEBUG
+  SaveBitmapToFile(new_bitmap, "debug_WindowRegionToBitmap.bmp");
+#endif
+  return new_bitmap;
+}
 
-	bool bSame = false;
+void DeleteBitmap(HBITMAP bitmap) {
+  delete bitmap;
+}
 
-	HDC hdc = GetDC(NULL);
+void ScreenToBitmap(HBITMAP *out_bitmap) {
+  WindowToBitmap(kHWND_Desktop, out_bitmap);
+#ifdef DEBUG
+  SaveBitmapToFile(*out_bitmap, "debug_ScreenToBitmap.bmp");
+#endif
+}
+
+void WindowToBitmap(HWND in_window, HBITMAP *out_bitmap) {
+  WindowRegionToBitmap(kHWND_Desktop, 0, 0, out_bitmap);
+#ifdef DEBUG
+  SaveBitmapToFile(*out_bitmap, "debug_WindowToBitmap.bmp");
+#endif
+}
+
+void WindowRegionToBitmap(HWND in_window, int pos_x, int pos_y, HBITMAP *out_bitmap) {
+  // Access bitmap object to evaluate size later
+  BITMAP bitmap;
+  GetObject(out_bitmap, sizeof(BITMAP), &bitmap);
+  // Bitblt the attached windows bitmap into a HDC
+  HDC hdcWindow = GetDC(in_window);
+  HDC hdcCompat = CreateCompatibleDC(hdcWindow);
+  SelectObject(hdcCompat, *out_bitmap);
+  BitBlt(hdcCompat, 
+    pos_x,
+    pos_y,
+    bitmap.bmWidth,
+    bitmap.bmHeight,
+    hdcWindow,
+    0, 
+    0, 
+    SRCCOPY);
+  DeleteDC(hdcCompat);
+  DeleteDC(hdcWindow);
+#ifdef DEBUG
+  SaveBitmapToFile(*out_bitmap, "debug_WindowRegionToBitmap.bmp");
+#endif
+}
+
+bool BitmapsAreEqual(HBITMAP HBitmapLeft, HBITMAP HBitmapRight) {
+#ifdef DEBUG
+  SaveBitmapToFile(HBitmapLeft, "debug_BitmapsAreEqual_Left.bmp");
+  SaveBitmapToFile(HBitmapRight, "debug_BitmapsAreEqual_Right.bmp");
+#endif
+  if (HBitmapLeft == HBitmapRight) {
+    return true;
+  }
+  if ((HBitmapLeft == NULL) || (HBitmapRight == NULL)) {
+    return false;
+  }
+  bool bSame = false;
+  HDC hdc = GetDC(NULL);
 	BITMAPINFO BitmapInfoLeft = {0};
 	BITMAPINFO BitmapInfoRight = {0};
-
-	BitmapInfoLeft.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+  BitmapInfoLeft.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	BitmapInfoRight.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-
-	if (0 != GetDIBits(hdc, HBitmapLeft, 0, 0, NULL, &BitmapInfoLeft, DIB_RGB_COLORS) &&
-			0 != GetDIBits(hdc, HBitmapRight, 0, 0, NULL, &BitmapInfoRight, DIB_RGB_COLORS))
-	{
-		// Compare the BITMAPINFOHEADERs of the two bitmaps
-		if (0 == memcmp(&BitmapInfoLeft.bmiHeader, &BitmapInfoRight.bmiHeader, sizeof(BITMAPINFOHEADER)))
-		{
-			// The BITMAPINFOHEADERs are the same so now compare the actual bitmap bits
-			BYTE *pLeftBits = new BYTE[BitmapInfoLeft.bmiHeader.biSizeImage];
-			BYTE *pRightBits = new BYTE[BitmapInfoRight.bmiHeader.biSizeImage];
-			BYTE *pByteLeft = NULL;
-			BYTE *pByteRight = NULL;
-
-			PBITMAPINFO pBitmapInfoLeft = &BitmapInfoLeft;
-			PBITMAPINFO pBitmapInfoRight = &BitmapInfoRight;
-
-			// calculate the size in BYTEs of the additional
-			// memory needed for the bmiColor table
-			int AdditionalMemory = 0;
-			switch (BitmapInfoLeft.bmiHeader.biBitCount)
-			{
-			case 1:
-				AdditionalMemory = 1 * sizeof(RGBQUAD);
-				break;
-			case 4:
-				AdditionalMemory = 15 * sizeof(RGBQUAD);
-				break;
-			case 8:
-				AdditionalMemory = 255 * sizeof(RGBQUAD);
-				break;
-			case 16:
-			case 32:
-				AdditionalMemory = 2 * sizeof(RGBQUAD);
-			}
-
-			if (AdditionalMemory)
-			{
-				// we have to allocate room for the bmiColor table that will be
-				// attached to our BITMAPINFO variables
-				pByteLeft = new BYTE[sizeof(BITMAPINFO) + AdditionalMemory];
-				if (pByteLeft)
-				{
-					memset(pByteLeft, 0, sizeof(BITMAPINFO) + AdditionalMemory);
-					memcpy(pByteLeft, pBitmapInfoLeft, sizeof(BITMAPINFO));
-					pBitmapInfoLeft = (PBITMAPINFO)pByteLeft;
-				}
-
-				pByteRight = new BYTE[sizeof(BITMAPINFO) + AdditionalMemory];
-				if (pByteRight)
-				{
-					memset(pByteRight, 0, sizeof(BITMAPINFO) + AdditionalMemory);
-					memcpy(pByteRight, pBitmapInfoRight, sizeof(BITMAPINFO));
-					pBitmapInfoRight = (PBITMAPINFO)pByteRight;
-				}
-			}
-
-			if (pLeftBits && pRightBits && pBitmapInfoLeft && pBitmapInfoRight)
-			{
-				// zero out the bitmap bit buffers
-				memset(pLeftBits, 0, BitmapInfoLeft.bmiHeader.biSizeImage);
-				memset(pRightBits, 0, BitmapInfoRight.bmiHeader.biSizeImage);
-
-				// fill the bit buffers with the actual bitmap bits
-				if (0 != GetDIBits(hdc, HBitmapLeft, 0, pBitmapInfoLeft->bmiHeader.biHeight, pLeftBits, pBitmapInfoLeft, DIB_RGB_COLORS) &&
-						0 != GetDIBits(hdc, HBitmapRight, 0, pBitmapInfoRight->bmiHeader.biHeight, pRightBits, pBitmapInfoRight, DIB_RGB_COLORS))
-				{
-					// compare the actual bitmap bits of the two bitmaps
-					bSame = (0 == memcmp(pLeftBits, pRightBits, pBitmapInfoLeft->bmiHeader.biSizeImage));
-				}
-			}
-
-			// clean up
-			delete[] pLeftBits;
-			delete[] pRightBits;
-			delete[] pByteLeft;
-			delete[] pByteRight;
-		}
-	}
-	ReleaseDC(NULL, hdc);
-
+  if (0 != GetDIBits(hdc, HBitmapLeft, 0, 0, NULL, &BitmapInfoLeft, DIB_RGB_COLORS) && 0 != GetDIBits(hdc, HBitmapRight, 0, 0, NULL, &BitmapInfoRight, DIB_RGB_COLORS))	{
+	  // Compare the BITMAPINFOHEADERs of the two bitmaps
+	  if (0 == memcmp(&BitmapInfoLeft.bmiHeader, &BitmapInfoRight.bmiHeader, sizeof(BITMAPINFOHEADER))) {
+		  // The BITMAPINFOHEADERs are the same so now compare the actual bitmap bits
+		  BYTE *pLeftBits = new BYTE[BitmapInfoLeft.bmiHeader.biSizeImage];
+		  BYTE *pRightBits = new BYTE[BitmapInfoRight.bmiHeader.biSizeImage];
+		  BYTE *pByteLeft = NULL;
+		  BYTE *pByteRight = NULL;
+      PBITMAPINFO pBitmapInfoLeft = &BitmapInfoLeft;
+		  PBITMAPINFO pBitmapInfoRight = &BitmapInfoRight;
+      // calculate the size in BYTEs of the additional
+		  // memory needed for the bmiColor table
+		  int AdditionalMemory = 0;
+		  switch (BitmapInfoLeft.bmiHeader.biBitCount)
+		  {
+			  case 1:
+				  AdditionalMemory = 1 * sizeof(RGBQUAD);
+				  break;
+			  case 4:
+				  AdditionalMemory = 15 * sizeof(RGBQUAD);
+				  break;
+			  case 8:
+				  AdditionalMemory = 255 * sizeof(RGBQUAD);
+				  break;
+			  case 16:
+			  case 32:
+				  AdditionalMemory = 2 * sizeof(RGBQUAD);
+		  }
+  	  if (AdditionalMemory) {
+			  // we have to allocate room for the bmiColor table that will be
+			  // attached to our BITMAPINFO variables
+			  pByteLeft = new BYTE[sizeof(BITMAPINFO) + AdditionalMemory];
+			  if (pByteLeft) {
+				  memset(pByteLeft, 0, sizeof(BITMAPINFO) + AdditionalMemory);
+				  memcpy(pByteLeft, pBitmapInfoLeft, sizeof(BITMAPINFO));
+				  pBitmapInfoLeft = (PBITMAPINFO)pByteLeft;
+			  }
+        pByteRight = new BYTE[sizeof(BITMAPINFO) + AdditionalMemory];
+			  if (pByteRight)	{
+				  memset(pByteRight, 0, sizeof(BITMAPINFO) + AdditionalMemory);
+				  memcpy(pByteRight, pBitmapInfoRight, sizeof(BITMAPINFO));
+				  pBitmapInfoRight = (PBITMAPINFO)pByteRight;
+			  }
+		  }
+  	  if (pLeftBits && pRightBits && pBitmapInfoLeft && pBitmapInfoRight)	{
+			  // zero out the bitmap bit buffers
+			  memset(pLeftBits, 0, BitmapInfoLeft.bmiHeader.biSizeImage);
+			  memset(pRightBits, 0, BitmapInfoRight.bmiHeader.biSizeImage);
+        // fill the bit buffers with the actual bitmap bits
+			  if (0 != GetDIBits(hdc, HBitmapLeft, 0, pBitmapInfoLeft->bmiHeader.biHeight, pLeftBits, pBitmapInfoLeft, DIB_RGB_COLORS) && 0 != GetDIBits(hdc, HBitmapRight, 0, pBitmapInfoRight->bmiHeader.biHeight, pRightBits, pBitmapInfoRight, DIB_RGB_COLORS))	{
+				  // compare the actual bitmap bits of the two bitmaps
+				  bSame = (0 == memcmp(pLeftBits, pRightBits, pBitmapInfoLeft->bmiHeader.biSizeImage));
+			  }
+		  }
+      // clean up
+		  delete[] pLeftBits;
+		  delete[] pRightBits;
+		  delete[] pByteLeft;
+		  delete[] pByteRight;
+	  }
+  }
+  ReleaseDC(NULL, hdc);
 	return bSame;
 }
 
@@ -130,7 +171,6 @@ void SaveBitmapToFile(HBITMAP bitmap, char* path) {
   BYTE				*hp = NULL; // byte pointer
   DWORD				dwTmp = 0;
   BITMAP			bmp;
-
   memset(&bmp, 0, sizeof(BITMAP));
   GetObject(bitmap, sizeof(BITMAP), &bmp);
   memset(&hdr, 0, sizeof(hdr));
@@ -138,8 +178,7 @@ void SaveBitmapToFile(HBITMAP bitmap, char* path) {
   if (cClrBits>8) {
     // No Palette (normally)
     pbmi = (PBITMAPINFO)calloc(1, sizeof(BITMAPINFOHEADER));
-  }
-  else {
+  } else {
     pbmi = (PBITMAPINFO)calloc(1, sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD) * (1 << (min(8, cClrBits))));
     pbmi->bmiHeader.biClrUsed = (1 << cClrBits);
   }
@@ -189,8 +228,7 @@ void SaveBitmapToFile(HBITMAP bitmap, char* path) {
   if (!CloseHandle(hf)) {
     goto to_return;
   }
-  to_return:
-  ;
+to_return:
   // Free memory.
   if (pbmi)free(pbmi);
   if (lpBits) {
@@ -198,27 +236,4 @@ void SaveBitmapToFile(HBITMAP bitmap, char* path) {
   }
   DeleteDC(hdcCompatible);
   DeleteDC(hdcScreen);
-}
-
-void TakeScreenshot(HWND in_window, HBITMAP *out_bitmap) {
-  // Bitblt the attached windows bitmap into a HDC
-  //HDC hdcScreen = CreateDC("DISPLAY", NULL, NULL, NULL);
-  HDC hdcScreen = GetDC(in_window);
-  HDC hdcCompat = CreateCompatibleDC(hdcScreen);
-  RECT rect;
-  GetClientRect(in_window, &rect);
-  //!!!leak
-  // https://docs.microsoft.com/en-us/windows/desktop/api/wingdi/nf-wingdi-createcompatiblebitmap
-  *out_bitmap = CreateCompatibleBitmap(hdcScreen, rect.right, rect.bottom);
-  SelectObject(hdcCompat, *out_bitmap);
-  //BitBlt(*out_bitmap, 0, 0, rect.right, rect.bottom, hdcScreen/*???*/, 0, 0, SRCCOPY);
-  
-  BitBlt(hdcCompat, 0, 0, rect.right, rect.bottom, hdcScreen/*???*/, 0, 0, SRCCOPY);
-  //!!! temp
-  SaveBitmapToFile(*out_bitmap, "debug.bmp");
-  //SelectObject(hdcCompat, old_bitmap);
-  //DeleteObject(attached_bitmap);
-  DeleteDC(hdcCompat);
-  DeleteDC(hdcScreen);
-  //ReleaseDC(in_window,);
 }
