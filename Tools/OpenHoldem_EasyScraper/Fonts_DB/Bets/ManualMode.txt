@@ -1,0 +1,4 @@
+s$t0type   fuzzy
+width      41
+height     13
+font already defined
