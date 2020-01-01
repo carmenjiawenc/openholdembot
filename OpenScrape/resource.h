@@ -122,6 +122,7 @@
 #define ID_VIEW_PREV                    32787
 #define ID_VIEW_NEXT                    32788
 #define ID_TOOLS_CLONEREGIONS           32789
+#define IDC_COMMENT                     32790
 
 // Next default values for new objects
 // 

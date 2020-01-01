@@ -394,9 +394,22 @@ int CTablemap::LoadTablemap(const CString _fname) {
 		{
 			// name
 			hold_symbol.name = strLineType.Mid(2);
-			// text
-			hold_symbol.text = strLine.Mid(strLineType.GetLength());
+			
+			// If no comment is present, all the remaining line is the text. If there is a commment, we have to separate text and comment
+			// rfind is used to get the last instance of "//" to not interfere with values that already contains "//", as could be ttlimit
+			int commentPos = std::string((LPCSTR)strLine).rfind("//");
+			if (commentPos == -1) { // There is no comment
+				// text
+				hold_symbol.text = strLine.Mid(strLineType.GetLength());
+				hold_symbol.comment = "";
+			}
+			else { // comment is present
+				hold_symbol.text = strLine.Mid(strLineType.GetLength(), commentPos - strLineType.GetLength());
+				hold_symbol.comment = strLine.Mid(commentPos + 2).Trim();
+			}
 			hold_symbol.text.Trim();
+			hold_symbol.comment.Trim();
+
 			if ((hold_symbol.text.GetLength() == 0) && (hold_symbol.name != "titletext"))
 			{
         // Symbols must be non-empty.
@@ -508,6 +521,16 @@ int CTablemap::LoadTablemap(const CString _fname) {
 				WarnAboutGeneralTableMapError(linenum, ERR_SYNTAX);
 				return ERR_SYNTAX;
 			}
+
+			// comment
+			int commentPos = strLine.Find("//");
+			if (commentPos != -1) {
+				token = strLine.Mid(commentPos + 2).Trim();
+			}
+			else {
+				token = "";
+			}
+			hold_region.comment = token.GetString();
 
 			// flags
 			//token = strLine.Tokenize(" \t", pos);
@@ -825,7 +848,11 @@ int CTablemap::SaveTablemap(CArchive& ar, const char *version_text)
 	WriteSectionHeader(ar, "strings");
 	for (SMapCI s_iter=_s$.begin(); s_iter!=_s$.end(); s_iter++)
 	{
-		s.Format("s$%-25s %s\r\n", s_iter->second.name.GetString(), s_iter->second.text.GetString());
+		s.Format("s$%-25s %s", s_iter->second.name.GetString(), s_iter->second.text.GetString());
+		if (s_iter->second.comment.GetLength() > 0) {
+			s.Append("\t// " + s_iter->second.comment);
+		}
+		s.Append("\r\n");
 		ar.WriteString(s);
 	}
 	ar.WriteString("\r\n");
@@ -834,9 +861,13 @@ int CTablemap::SaveTablemap(CArchive& ar, const char *version_text)
 	WriteSectionHeader(ar, "regions");
 	for (RMapCI r_iter=_r$.begin(); r_iter!=_r$.end(); r_iter++)
 	{
-		s.Format("r$%-18s %3d %3d %3d %3d %8x %4d %s\r\n", r_iter->second.name.GetString(),
+		s.Format("r$%-18s %3d %3d %3d %3d %8x %4d %s", r_iter->second.name.GetString(),
 			r_iter->second.left, r_iter->second.top, r_iter->second.right, r_iter->second.bottom,
 			r_iter->second.color, r_iter->second.radius, r_iter->second.transform);
+		if (r_iter->second.comment.GetLength() > 0) {
+			s.Append("\t// " + r_iter->second.comment);
+		}
+		s.Append("\r\n");
 		ar.WriteString(s);
 	}
 	ar.WriteString("\r\n");

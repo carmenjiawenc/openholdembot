@@ -129,7 +129,7 @@ public:
 	HTREEITEM FindItem(CString s, HTREEITEM start);
 
 	CTreeCtrl			m_TableMapTree;
-	CEdit				m_Left, m_Top, m_Bottom, m_Right, m_xy;
+	CEdit				m_Left, m_Top, m_Bottom, m_Right, m_xy, m_comment;
 	CStickyButton		m_DrawRect;
 	int					region_grouping;
 

@@ -30,7 +30,7 @@ public:
 
 	CString						titletext;
 	CArray <CString, CString>	strings;
-	CString						titlebartext, name, value;
+	CString						titlebartext, name, value, comment;
 
 // Dialog Data
 	enum { IDD = IDD_EDIT_SYMBOLS };
@@ -49,4 +49,5 @@ protected:
   CEdit m_Titletext_preprocessed;
 	CEdit m_ParseResults;
 	CButton m_ParseButton;
+	CEdit m_Comment;
 };

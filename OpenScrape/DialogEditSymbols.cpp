@@ -41,6 +41,7 @@ void CDlgEditSymbols::DoDataExchange(CDataExchange* pDX)
   DDX_Control(pDX, IDC_TITLETEXT_PREPROCESSED, m_Titletext_preprocessed);
 	DDX_Control(pDX, IDC_PARSERESULTS, m_ParseResults);
 	DDX_Control(pDX, IDC_PARSEBUTTON, m_ParseButton);
+	DDX_Control(pDX, IDC_COMMENT, m_Comment);
 }
 
 
@@ -66,12 +67,14 @@ BOOL CDlgEditSymbols::OnInitDialog()
   SetWindowText(tabletitle.Title());
   m_Titletext.SetWindowText(tabletitle.Title());
   m_Titletext_preprocessed.SetWindowText(tabletitle.PreprocessedTitle());
+  
 	// Set drop down choices for "Record name" field and select current
 	for (int i=0; i<strings.GetSize(); i++)  m_Name.AddString(strings[i]);
 	m_Name.SelectString(-1, name);
 	m_Name.SetWindowPos(NULL, 0, 0, 145, 300, SWP_NOMOVE | SWP_NOZORDER);
 
 	m_Value.SetWindowText(value);
+	m_Comment.SetWindowText(comment);
 	OnCbnSelchangeName();		
 
 	m_Name.SetFocus();
@@ -84,6 +87,7 @@ void CDlgEditSymbols::OnBnClickedOk()
 {
 	m_Name.GetWindowText(name);
 	m_Value.GetWindowText(value);
+	m_Comment.GetWindowText(comment);
 	OnOK();
 }
 

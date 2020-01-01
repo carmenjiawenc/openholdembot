@@ -148,6 +148,7 @@ void CDlgTableMap::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CREATE_HASH1, m_CreateHash1);
 	DDX_Control(pDX, IDC_CREATE_HASH2, m_CreateHash2);
 	DDX_Control(pDX, IDC_CREATE_HASH3, m_CreateHash3);
+	DDX_Control(pDX, IDC_COMMENT, m_comment);
 }
 
 
@@ -209,6 +210,9 @@ BEGIN_MESSAGE_MAP(CDlgTableMap, CDialog)
 	ON_BN_CLICKED(IDC_CREATE_HASH1, &CDlgTableMap::OnBnClickedCreateHash1)
 	ON_BN_CLICKED(IDC_CREATE_HASH2, &CDlgTableMap::OnBnClickedCreateHash2)
 	ON_BN_CLICKED(IDC_CREATE_HASH3, &CDlgTableMap::OnBnClickedCreateHash3)
+
+	ON_EN_KILLFOCUS(IDC_COMMENT, &CDlgTableMap::OnRegionChange)
+
 END_MESSAGE_MAP()
 
 // Mandatory value for the spin-buttons.
@@ -755,6 +759,9 @@ void CDlgTableMap::OnRegionChange()
 		text == "None" ? "N" : 
 		"";
 
+	m_comment.GetWindowText(text);
+	sel_region->second.comment = text.GetString();
+
 	update_display();
 	theApp.m_pMainWnd->Invalidate(false);
 	Invalidate(false);
@@ -834,6 +841,7 @@ void CDlgTableMap::update_display(void)
 	// A leaf item was selected
 	else 
 	{
+
 		if (type_text == "Sizes")
 		{
 			disable_and_clear_all();
@@ -866,6 +874,7 @@ void CDlgTableMap::update_display(void)
 				SMap::const_iterator s_iter = p_tablemap->s$()->find(sel_text.GetString());
 				if (s_iter != p_tablemap->s$()->end())
 					m_Result.SetWindowText(s_iter->second.text.GetString());
+					m_comment.SetWindowText(s_iter->second.comment.GetString());
 			}
 		}
 
@@ -908,6 +917,7 @@ void CDlgTableMap::update_display(void)
 			m_NudgeDown.EnableWindow(true);
 			m_NudgeDownLeft.EnableWindow(true);
 			m_NudgeLeft.EnableWindow(true);
+			m_comment.EnableWindow(true);
 
 			update_r$_display(false);
 		}
@@ -1070,6 +1080,9 @@ void CDlgTableMap::disable_and_clear_all(void)
 	m_NudgeDown.EnableWindow(false);
 	m_NudgeDownLeft.EnableWindow(false);
 	m_NudgeLeft.EnableWindow(false);
+
+	m_comment.EnableWindow(false);
+	m_comment.SetWindowText("");
 }
 
 void CDlgTableMap::update_r$_display(bool dont_update_spinners)
@@ -1254,6 +1267,8 @@ void CDlgTableMap::update_r$_display(bool dont_update_spinners)
 	{
 		m_CreateFont.EnableWindow(false);
 	}
+
+	m_comment.SetWindowText(sel_region->second.comment);
 
 	// Clean up
 	SelectObject(hdc_bitmap_transform, old_bitmap_transform);
@@ -1980,6 +1995,7 @@ void CDlgTableMap::OnBnClickedEdit()
 		dlgsymbols.titletext = "Edit Symbol record";
 		dlgsymbols.name = s_iter->second.name;
 		dlgsymbols.value = s_iter->second.text;
+		dlgsymbols.comment = s_iter->second.comment;
 		char title[200];
 		::GetWindowText(pDoc->attached_hwnd, title, 200);
 		dlgsymbols.titlebartext = title;
@@ -2012,6 +2028,7 @@ void CDlgTableMap::OnBnClickedEdit()
 		STablemapSymbol new_symbol;
 		new_symbol.name = dlgsymbols.name;
 		new_symbol.text = dlgsymbols.value;
+		new_symbol.comment = dlgsymbols.comment;
 
 		if (!p_tablemap->s$_insert(new_symbol))
 		{
@@ -3809,3 +3826,4 @@ void CDlgTableMap::OnTvnKeydownTablemapTree(NMHDR *pNMHDR, LRESULT *pResult)
 	}
 	*pResult = 0;
 }
+

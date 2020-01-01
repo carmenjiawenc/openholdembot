@@ -38,6 +38,7 @@ typedef ZMap::const_iterator ZMapCI;
 struct STablemapSymbol {
 	CString			name;
 	CString			text;
+	CString			comment;
 };
 
 typedef std::pair<CString, STablemapSymbol> SPair;
@@ -56,6 +57,7 @@ struct STablemapRegion {
 	CString			  transform;
 	HBITMAP			cur_bmp;
 	HBITMAP			last_bmp;
+	CString			comment;
 };
 
 typedef std::pair<CString, STablemapRegion> RPair;
