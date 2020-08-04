@@ -28,7 +28,7 @@ namespace OpenReplayShooter
         public frmMain()
         {
             InitializeComponent();
-            txtOutputFolder.Text = Properties.Settings.Default.OutputFolder;
+            txtOutputFolder.Text = WindowsCapture.Properties.Settings.Default.OutputFolder;
             searchWindows();
         }
 
@@ -135,7 +135,7 @@ namespace OpenReplayShooter
                 { }
             else
             {
-                Properties.Settings.Default.OutputFolder = txtOutputFolder.Text;
+                WindowsCapture.Properties.Settings.Default.OutputFolder = txtOutputFolder.Text;
                 this.Close();
             }
         }
@@ -168,10 +168,12 @@ namespace OpenReplayShooter
             // get the size
             User32.RECT windowRect = new User32.RECT();
             User32.GetWindowRect(handle, ref windowRect);
-            int borderSize = Math.Abs(this.Width - this.ClientRectangle.Width) / 2;
-            int titleBarSize = Math.Abs(this.Height - borderSize - this.ClientRectangle.Height);
-            int width = windowRect.right - windowRect.left - 2 * borderSize;
-            int height = windowRect.bottom - windowRect.top - titleBarSize - borderSize;
+            //int borderSize = Math.Abs(this.Width - this.ClientRectangle.Width) / 2;
+            //int titleBarSize = Math.Abs(this.Height - borderSize - this.ClientRectangle.Height);
+            //int width = windowRect.right - windowRect.left - 2 * borderSize;
+            //int height = windowRect.bottom - windowRect.top - titleBarSize - borderSize;
+            int width = windowRect.right - windowRect.left;
+            int height = windowRect.bottom - windowRect.top;
             // create a device context we can copy to
             IntPtr hdcDest = GDI32.CreateCompatibleDC(hdcSrc);
             // create a bitmap we can copy it to,
@@ -180,8 +182,8 @@ namespace OpenReplayShooter
             // select the bitmap object
             IntPtr hOld = GDI32.SelectObject(hdcDest, hBitmap);
             // bitblt over
-            //GDI32.BitBlt(hdcDest, 0, 0, width, height, hdcSrc, 0, 0, GDI32.SRCCOPY);
-            GDI32.BitBlt(hdcDest, 0, 0, width, height, hdcSrc, borderSize, titleBarSize, GDI32.SRCCOPY);
+            GDI32.BitBlt(hdcDest, 0, 0, width, height, hdcSrc, 0, 0, GDI32.SRCCOPY);
+            //GDI32.BitBlt(hdcDest, 0, 0, width, height, hdcSrc, borderSize, titleBarSize, GDI32.SRCCOPY);
             // restore selection
             GDI32.SelectObject(hdcDest, hOld);
             // clean up
