@@ -493,6 +493,11 @@ int CScraper::ScrapeCard(CString name) {
     if (result != CARD_UNDEFINED) {
       return result;
     }
+	// Again: try to scrape suits and ranks individually
+	result = ScrapeCardByRankAndSuit(uname);
+	if (result != CARD_UNDEFINED) {
+		return result;
+	}
   }
   // Nothing found
   write_log(k_always_log_errors, 

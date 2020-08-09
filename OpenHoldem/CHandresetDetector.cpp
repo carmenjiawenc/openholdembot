@@ -137,8 +137,8 @@ int CHandresetDetector::BitVectorFiringHandresetMethods() {
   // Highest (9th) bit is for first method
   handresetmethods_fired |= (IsHandresetByDealerChair() ? 1 : 0);
   handresetmethods_fired <<= 1;
-  handresetmethods_fired |= (IsHandresetByUserCards() ? 1 : 0);
-  handresetmethods_fired <<= 1;
+ // handresetmethods_fired |= (IsHandresetByUserCards() ? 1 : 0);
+ // handresetmethods_fired <<= 1;
   handresetmethods_fired |= (IsHandresetByHandNumber() ? 1 : 0);
   handresetmethods_fired <<= 1;
   handresetmethods_fired |= (IsHandresetByCommunityCards() ? 1 : 0);
@@ -153,8 +153,8 @@ int CHandresetDetector::BitVectorFiringHandresetMethods() {
   handresetmethods_fired <<= 1;
   handresetmethods_fired |= (IsHandresetByNewSmallBlind() ? 1 : 0 );
   handresetmethods_fired <<= 1;
-  handresetmethods_fired |= (IsHandresetByOHReplayFrameNumber() ? 1 : 0);
-  handresetmethods_fired <<= 1;
+  //handresetmethods_fired |= (IsHandresetByOHReplayFrameNumber() ? 1 : 0);
+  //handresetmethods_fired <<= 1;
   handresetmethods_fired |= (IsHandresetByVisibleAntes() ? 1 : 0);
   handresetmethods_fired <<= 1;
   handresetmethods_fired |= (IsHandresetByDisappearingShowdownCards() ? 1 : 0);

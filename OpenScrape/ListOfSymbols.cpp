@@ -114,7 +114,11 @@ CString ListOfRegions() {
   list += RangeOfSymbols("u%ibalance", 0, 9);
   list += RangeOfSymbols("u%ibet", 0, 9);
   list += RangeOfSymbols("u%icardface0", 0, 9);
+  list += RangeOfSymbols("u%icardface0rank", 0, 9);
+  list += RangeOfSymbols("u%icardface0suit", 0, 9);
   list += RangeOfSymbols("u%icardface1", 0, 9);
+  list += RangeOfSymbols("u%icardface1rank", 0, 9);
+  list += RangeOfSymbols("u%icardface1suit", 0, 9);
   list += RangeOfSymbols("u%idealer", 0, 9);
   list += RangeOfSymbols("u%iname", 0, 9);
   list += RangeOfSymbols("u%iseated", 0, 9);
