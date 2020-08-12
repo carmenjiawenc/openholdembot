@@ -60,6 +60,7 @@ class CAutoplayerButton {
   // only the first N characters.
   bool IsLabelAllin();
   bool IsLabelRaise();
+  bool IsLabelConfirm();
   bool IsLabelCall();
   bool IsLabelCheck();
   bool IsLabelFold();

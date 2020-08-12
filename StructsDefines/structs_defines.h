@@ -48,8 +48,9 @@
 #define MAX_CHIP_STACKS		10
 
 // Button click options
-#define BETPOT_DEFAULT	0
-#define BETPOT_RAISE	1
+#define BETPOT_DEFAULT		 0
+#define BETPOT_RAISE		 1
+#define RAISE_BETPOT_CONFIRM 2
 
 // For drawing
 // Card sizes

@@ -80,9 +80,14 @@ CLazyScraper::~CLazyScraper() {
 void CLazyScraper::DoScrape() {
 	if (p_scraper->IsIdenticalScrape())	{
 		_is_identical_scrape = true;
-    return;
+		return;
 	}
-  _is_identical_scrape = false;
+	_is_identical_scrape = false;
+
+	if (p_scraper->ScrapeInterfaceZero()) {
+		//i860 is true, we want to ignore this heartbeat
+		return;
+	}
 	p_scraper->ScrapeLimits();
 	if (NeedDealerChair()) { 
 		p_scraper->ScrapeDealer();

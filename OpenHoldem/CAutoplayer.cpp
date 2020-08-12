@@ -147,7 +147,11 @@ bool CAutoplayer::DoBetPot(void) {
       }
 			if (p_tablemap->betpotmethod() == BETPOT_RAISE)	{
 				success = p_casino_interface->ClickButtonSequence(i, k_autoplayer_function_raise, Preferences()->swag_delay_3());
-			}	else {
+			}
+			else if (p_tablemap->betpotmethod() == RAISE_BETPOT_CONFIRM) {
+				success = p_casino_interface->ClickButtonSequenceThree(k_autoplayer_function_raise, i, k_autoplayer_function_confirm, Preferences()->swag_delay_3());
+			}
+			else {
 				// Default: click only betpot
 				success = p_casino_interface->LogicalAutoplayerButton(i)->Click();
 			}
@@ -267,9 +271,16 @@ bool CAutoplayer::ExecuteRaiseCallCheckFold() {
       continue;
     }
 		if (p_function_collection->Evaluate(k_standard_function_names[i])) 	{
-			if (p_casino_interface->LogicalAutoplayerButton(i)->Click()) 			{				
-        p_engine_container->UpdateAfterAutoplayerAction(i);
-        p_autoplayer_trace->Print(ActionConstantNames(i), kAlwaysLogAutoplayerFunctions);
+			if (i == k_autoplayer_function_raise) {
+				write_log(k_always_log_errors, "[AutoPlayer] evaluated to a raise\n");
+				if (p_casino_interface->ClickButtonSequence(i, k_autoplayer_function_confirm, Preferences()->swag_delay_3())) {
+					p_engine_container->UpdateAfterAutoplayerAction(i);
+					p_autoplayer_trace->Print(ActionConstantNames(i), kAlwaysLogAutoplayerFunctions);
+					return true;
+				}
+			} else if (p_casino_interface->LogicalAutoplayerButton(i)->Click()) {				
+				p_engine_container->UpdateAfterAutoplayerAction(i);
+				p_autoplayer_trace->Print(ActionConstantNames(i), kAlwaysLogAutoplayerFunctions);
 				return true;
 			}
 		}
@@ -423,14 +434,19 @@ bool CAutoplayer::DoAllin(void) {
   //	1) click max (or allin), then optionally raise, depending on allinconfirmationmethod
   //	2) use the slider if it exists in the TM
 	//	3) swag the balance 
-	if (p_tablemap->allinconfirmationmethod() != 0)	{
+	if (p_tablemap->allinconfirmationmethod() == 1)	{
 		// Clicking max (or allin) and then raise
     success = p_casino_interface->ClickButtonSequence(k_autoplayer_function_allin,
       k_autoplayer_function_raise, Preferences()->swag_delay_3());
-	}	else {
+	} else if(p_tablemap->allinconfirmationmethod() == 0) {
     // Clicking only max (or allin), but not raise
 		success = p_casino_interface->LogicalAutoplayerButton(k_autoplayer_function_allin)->Click();
-  }
+	} else if (p_tablemap->allinconfirmationmethod() == 2) {
+		success = p_casino_interface->ClickButtonSequenceThree(k_autoplayer_function_raise, k_autoplayer_function_allin, k_autoplayer_function_confirm, Preferences()->swag_delay_3());
+		if (success) {
+			write_log(Preferences()->debug_autoplayer(), "[BULLDOG] Clicked Confirm\n");
+		}
+	}
 	if (!success) {
     // Try the slider
 		success = p_casino_interface->UseSliderForAllin();

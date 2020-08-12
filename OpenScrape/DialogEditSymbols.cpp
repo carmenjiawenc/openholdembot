@@ -219,6 +219,7 @@ void CDlgEditSymbols::SetDefaultValues()
 	{
 		m_Value.AddString("Enter");
 		m_Value.AddString("Click Bet");
+		m_Value.AddString("Confirm");
 		m_Value.AddString("Nothing");
 	}
 	else if (name.MakeLower() == "buttonclickmethod")

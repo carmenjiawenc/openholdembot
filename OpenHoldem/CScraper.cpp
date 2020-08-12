@@ -161,9 +161,22 @@ void CScraper::ScrapeInterfaceButtons() {
 	for (int i=0; i<k_max_number_of_i86X_buttons; i++) {
 		button_name.Format("i86%dstate", i);
 		if (EvaluateRegion(button_name, &result))	{
-      p_casino_interface->_technical_i86X_spam_buttons[i].SetState(result);
+			p_casino_interface->_technical_i86X_spam_buttons[i].SetState(result);
 		}
 	}
+}
+
+bool CScraper::ScrapeInterfaceZero() {
+	CString result;
+	// i86X-buttons
+	CString button_name;
+	if (EvaluateRegion("i860state", &result)) {
+		p_casino_interface->_technical_i86X_spam_buttons[0].SetState(result);
+		if (p_casino_interface->_technical_i86X_spam_buttons[0].IsClickable()) {
+			return true;
+		}
+	}
+	return false;
 }
 
 void CScraper::ScrapeActionButtons() {

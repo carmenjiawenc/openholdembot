@@ -221,6 +221,7 @@ enum StandardFunctionConstants {
 	k_autoplayer_function_betpot_1_2,
 	k_autoplayer_function_betpot_1_3,
 	k_autoplayer_function_betpot_1_4,
+	k_autoplayer_function_confirm,
 	k_autoplayer_function_betsize,
 	k_autoplayer_function_raise,
 	k_autoplayer_function_call,

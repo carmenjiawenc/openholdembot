@@ -85,19 +85,20 @@ int CTablemap::GetTMSymbol(CString name, int default)
 	// "sgl click" and "single", "dbl click" and "double"
 	// are inconsistent naming, but can now be used interchangeably
 	// as the named constants have the same value
-	if (s == "sgl click") return TEXTSEL_SINGLECLICK;
-	else if (s == "dbl click") return TEXTSEL_DOUBLECLICK;
-	else if (s == "triple click") return TEXTSEL_TRIPLECLICK;
-	else if (s == "click drag") return TEXTSEL_CLICKDRAG;
-	else if (s == "nothing") return TEXTSEL_NOTHING;
-	else if (s == "delete") return TEXTDEL_DELETE;
-	else if (s == "backspace") return TEXTDEL_BACKSPACE; 
-	else if (s == "nothing") return TEXTDEL_NOTHING;
-	else if (s == "enter") return BETCONF_ENTER;
-	else if (s == "click bet") return BETCONF_CLICKBET; 
-	else if (s == "single") return BUTTON_SINGLECLICK; 
-	else if (s == "double") return BUTTON_DOUBLECLICK; 
-	else if (s == "raise") return BETPOT_RAISE; 
+  if (s == "sgl click") return TEXTSEL_SINGLECLICK;
+  else if (s == "dbl click") return TEXTSEL_DOUBLECLICK;
+  else if (s == "triple click") return TEXTSEL_TRIPLECLICK;
+  else if (s == "click drag") return TEXTSEL_CLICKDRAG;
+  else if (s == "nothing") return TEXTSEL_NOTHING;
+  else if (s == "delete") return TEXTDEL_DELETE;
+  else if (s == "backspace") return TEXTDEL_BACKSPACE;
+  else if (s == "nothing") return TEXTDEL_NOTHING;
+  else if (s == "enter") return BETCONF_ENTER;
+  else if (s == "click bet") return BETCONF_CLICKBET;
+  else if (s == "single") return BUTTON_SINGLECLICK;
+  else if (s == "double") return BUTTON_DOUBLECLICK;
+  else if (s == "raise") return BETPOT_RAISE;
+  else if (s == "confirm") return RAISE_BETPOT_CONFIRM;
 	else if (s == "true") return true;
 	else if (s == "yes") return true; 
 	else if (s != "")

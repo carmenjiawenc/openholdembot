@@ -113,6 +113,25 @@ bool CCasinoInterface::ClickButtonSequence(int first_button, int second_button, 
   return false;
 }
 
+bool CCasinoInterface::ClickButtonSequenceThree(int first_button, int second_button, int third_button, int delay_in_milli_seconds) {
+    if (LogicalAutoplayerButton(first_button)->Click()) {
+        write_log(Preferences()->debug_autoplayer(), "[BULLDOG] Clicked Raise \n");
+        Sleep(delay_in_milli_seconds);
+        if (TableLostFocus()) {
+            return false;
+        }
+        if (LogicalAutoplayerButton(second_button)->Click()) {
+            write_log(Preferences()->debug_autoplayer(), "[BULLDOG] Clicked Allin / BetPot \n");
+            Sleep(delay_in_milli_seconds);
+            if (TableLostFocus()) {
+                return false;
+            }
+            return LogicalAutoplayerButton(third_button)->Click();
+        }
+    }
+    return false;
+}
+
 bool CCasinoInterface::CloseWindow() {
 	// Hard-coded click to the "X" at the top-right
 	// of the title-bar
@@ -161,11 +180,11 @@ bool CCasinoInterface::EnterChatMessage(CString &message) {
 }
 
 int CCasinoInterface::NumberOfVisibleAutoplayerButtons() {
-  int result = LogicalAutoplayerButton(k_autoplayer_function_fold)->IsClickable()
-    + LogicalAutoplayerButton(k_autoplayer_function_call)->IsClickable()
-    + LogicalAutoplayerButton(k_autoplayer_function_check)->IsClickable()
-    + LogicalAutoplayerButton(k_autoplayer_function_raise)->IsClickable()
-    + LogicalAutoplayerButton(k_autoplayer_function_allin)->IsClickable();
+    int result = LogicalAutoplayerButton(k_autoplayer_function_fold)->IsClickable()
+        + LogicalAutoplayerButton(k_autoplayer_function_call)->IsClickable()
+        + LogicalAutoplayerButton(k_autoplayer_function_check)->IsClickable()
+        + LogicalAutoplayerButton(k_autoplayer_function_raise)->IsClickable();
+        //+ LogicalAutoplayerButton(k_autoplayer_function_allin)->IsClickable();
   write_log(Preferences()->debug_autoplayer(), "[CasinoInterface] %i autoplayer buttons visible.\n", result);
   return result;
 }

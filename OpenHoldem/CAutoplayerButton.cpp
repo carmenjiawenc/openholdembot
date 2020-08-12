@@ -117,6 +117,13 @@ bool CAutoplayerButton::IsLabelRaise() {
     || s_lower_case.Left(4) == "swag");
 }
 
+bool CAutoplayerButton::IsLabelConfirm() {
+    CString s_lower_case = _label.MakeLower();
+    s_lower_case = s_lower_case.Left(7);
+    return (s_lower_case == "confirm"
+        || s_lower_case == "conflrm");
+}
+
 bool CAutoplayerButton::IsLabelCall() {
   CString s_lower_case = _label.MakeLower();
   s_lower_case = s_lower_case.Left(4);
@@ -189,7 +196,9 @@ void CAutoplayerButton::PrecomputeButtonType() {
   if (IsLabelAllin()) {
     _button_type = k_autoplayer_function_allin;
   } else if (IsLabelRaise()) {
-    _button_type = k_autoplayer_function_raise;
+      _button_type = k_autoplayer_function_raise;
+  } else if (IsLabelConfirm()) {
+      _button_type = k_autoplayer_function_confirm;
   } else if (IsLabelCall()) {
     _button_type = k_autoplayer_function_call;
   } else if (IsLabelCheck()) {
