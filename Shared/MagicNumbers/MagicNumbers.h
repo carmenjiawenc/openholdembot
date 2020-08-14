@@ -221,12 +221,12 @@ enum StandardFunctionConstants {
 	k_autoplayer_function_betpot_1_2,
 	k_autoplayer_function_betpot_1_3,
 	k_autoplayer_function_betpot_1_4,
-	k_autoplayer_function_confirm,
 	k_autoplayer_function_betsize,
 	k_autoplayer_function_raise,
 	k_autoplayer_function_call,
 	k_autoplayer_function_check,
 	k_autoplayer_function_fold,
+	k_autoplayer_function_confirm,
 	// hopper-functions
 	k_hopper_function_sitin,
 	k_hopper_function_sitout,
