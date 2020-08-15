@@ -220,7 +220,7 @@ bool CCasinoInterface::EnterBetsize(double total_betsize_in_dollars) {
 }
 
 bool CCasinoInterface::UseSliderForAllin() {
-  return _allin_slider.SlideAllin();
+  return _allin_slider.SlideAllinVertical();
 }
 
 bool CCasinoInterface::IsMyTurn() {

@@ -74,6 +74,46 @@ bool CAllinSlider::SlideAllin() {
   return true;
 }
 
+bool CAllinSlider::SlideAllinVertical() {
+    p_casino_interface->LogicalAutoplayerButton(k_autoplayer_function_raise)->Click();
+    Sleep(Preferences()->swag_delay_3());
+    if (p_casino_interface->TableLostFocus()) {
+        return false;
+    }
+
+    if (!SlideAllinPossible()) {
+        write_log(Preferences()->debug_autoplayer(), "[AllinSlider] ...ending DoSlider early (i3handle or i3slider are not defined in the tablemap)\n");
+        return false;
+    }
+    write_log(Preferences()->debug_autoplayer(), "[AllinSlider] Starting DoSlider...\n");
+    if ((_position.x == kUndefined) || (_position.y == kUndefined)) {
+        write_log(Preferences()->debug_autoplayer(), "[AllinSlider] ...ending DoSlider early (handle not found - i3handle must use a transform that resolves to either 'handle' or 'true')\n");
+        return false;
+    }
+    // Click and drag handle
+    RECT drag_region;
+    GetSliderRegions();
+    drag_region.left = _position.x + ((_i3_handle.right - _i3_handle.left) / 2);
+    drag_region.top = _position.y + ((_i3_handle.bottom - _i3_handle.top) / 2);
+    drag_region.right = drag_region.left;
+    drag_region.bottom = _position.y + (_i3_slider.bottom - _i3_slider.top);
+
+    write_log(Preferences()->debug_autoplayer(), "[AllinSlider] Slider : Calling mouse.dll to jam from %d,%d to %d,%d\n", drag_region.left, drag_region.bottom, drag_region.right, drag_region.top);
+    // Not really (0, 0), but (-1, -1), out of the screen
+    POINT	point_null = { kUndefined, kUndefined };
+    (theApp._dll_mouse_click_drag) (p_autoconnector->attached_hwnd(), drag_region);
+
+    write_log(Preferences()->debug_autoplayer(), "[AllinSlider] Sleeping %d ms\n.", Preferences()->swag_delay_3());
+    Sleep(Preferences()->swag_delay_3());
+
+    // Click confirmation button 
+    p_casino_interface->LogicalAutoplayerButton(k_autoplayer_function_confirm)->Click();
+
+    write_log(Preferences()->debug_autoplayer(), "[AllinSlider] Jam complete: %d,%d,%d,%d\n", drag_region.left, drag_region.top, drag_region.right, drag_region.bottom);
+    write_log(Preferences()->debug_autoplayer(), "[AllinSlider] ...ending DoSlider.\n");
+    return true;
+}
+
 bool CAllinSlider::GetSliderRegions() {
   p_tablemap->GetTMRegion("i3slider", &_i3_slider);
   p_tablemap->GetTMRegion("i3handle", &_i3_handle);
@@ -93,11 +133,12 @@ bool CAllinSlider::GetSliderRegions() {
 }
 
 bool CAllinSlider::SlideAllinPossible() {
-  // Required: betsize-confirmation-button, slider and handle
-  if (p_tablemap->swagconfirmationmethod() == BETCONF_CLICKBET) {
-    if (!p_casino_interface->BetsizeConfirmationButton()->IsClickable()) {
-      return false;
-    }
+    // Required: betsize-confirmation-button, slider and handle
+  if ((p_tablemap->swagconfirmationmethod() == BETCONF_CLICKBET && 
+      !p_casino_interface->BetsizeConfirmationButton()->IsClickable()) ||
+      ((p_tablemap->allinconfirmationmethod() == 2) &&
+      !p_casino_interface->LogicalAutoplayerButton(k_autoplayer_function_confirm)->IsClickable())) {
+    return false;
   }
   if (!p_tablemap->ItemExists("i3slider")) {
     return false;

@@ -125,9 +125,9 @@ bool CAutoplayerButton::IsLabelConfirm() {
 }
 
 bool CAutoplayerButton::IsLabelCall() {
-  CString s_lower_case = _label.MakeLower();
-  s_lower_case = s_lower_case.Left(4);
-  return (s_lower_case == "call" || s_lower_case == "caii" || s_lower_case == "ca11");
+    CString s_lower_case = _label.MakeLower();
+    s_lower_case = s_lower_case.Left(4);
+    return (s_lower_case == "call" || s_lower_case == "caii" || s_lower_case == "ca11");
 }
 
 bool CAutoplayerButton::IsLabelCheck() {
