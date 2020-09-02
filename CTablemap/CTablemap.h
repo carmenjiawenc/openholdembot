@@ -148,6 +148,7 @@ class CTablemap {
 	const int swagtextmethod()		     { return GetTMSymbol("betsizeinterpretationmethod", 0); }
 	const int potmethod()			         { return GetTMSymbol("potmethod", 0); }
 	const int allinconfirmationmethod(){ return GetTMSymbol("allinconfirmationmethod", 0); }
+	const int betsizemethod(){ return GetTMSymbol("betsizemethod", 0); }
 	const int swagselectionmethod()    { return GetTMSymbol("betsizeselectionmethod", TEXTSEL_DOUBLECLICK); }
 	const int swagdeletionmethod()	   { return GetTMSymbol("betsizedeletionmethod", TEXTDEL_DELETE); }
 	const int swagconfirmationmethod() { return GetTMSymbol("betsizeconfirmationmethod", BETCONF_ENTER); }

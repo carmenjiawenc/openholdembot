@@ -430,22 +430,20 @@ bool CAutoplayer::DoAllin(void) {
 	if (p_tablemap->buttonclickmethod() == BUTTON_DOUBLECLICK) 	{
 		number_of_clicks = 2;
 	}
-  // Trying to go allin using these 3 methods in the following order:
-  //	1) click max (or allin), then optionally raise, depending on allinconfirmationmethod
-  //	2) use the slider if it exists in the TM
+	// Trying to go allin using these 3 methods in the following order:
+	//	1) click max (or allin), then optionally raise, depending on allinconfirmationmethod
+	//	2) use the slider if it exists in the TM
 	//	3) swag the balance 
 	if (p_tablemap->allinconfirmationmethod() == 1)	{
 		// Clicking max (or allin) and then raise
-    success = p_casino_interface->ClickButtonSequence(k_autoplayer_function_allin,
-      k_autoplayer_function_raise, Preferences()->swag_delay_3());
+		success = p_casino_interface->ClickButtonSequence(k_autoplayer_function_allin,
+		k_autoplayer_function_raise, Preferences()->swag_delay_3());
 	} else if(p_tablemap->allinconfirmationmethod() == 0) {
-    // Clicking only max (or allin), but not raise
+		// Clicking only max (or allin), but not raise
 		success = p_casino_interface->LogicalAutoplayerButton(k_autoplayer_function_allin)->Click();
 	} else if (p_tablemap->allinconfirmationmethod() == 2) {
+		//click max raise, max/allin and then confirm
 		success = p_casino_interface->ClickButtonSequenceThree(k_autoplayer_function_raise, k_autoplayer_function_allin, k_autoplayer_function_confirm, Preferences()->swag_delay_3());
-		if (success) {
-			write_log(Preferences()->debug_autoplayer(), "[BULLDOG] Clicked Confirm\n");
-		}
 	}
 	if (!success) {
     // Try the slider
@@ -514,30 +512,39 @@ AutoPlayerCleanupAndFinalization:
 }
 
 bool CAutoplayer::DoBetsize() { 
-  double betsize = p_function_collection->EvaluateAutoplayerFunction(k_autoplayer_function_betsize);
+	double betsize = p_function_collection->EvaluateAutoplayerFunction(k_autoplayer_function_betsize);
 	if (betsize > 0) 	{
-    if (!_already_executing_allin_adjustment) {
-      // We have to prevent a potential endless loop here>
-      // swag -> adjusted allin -> swag allin -> adjusted allin ...
-      if (ChangeBetsizeToAllin(betsize)) {
-        _already_executing_allin_adjustment = true;
-        write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Adjusting betsize to allin.\n");
-        bool success = DoAllin();
-        _already_executing_allin_adjustment = false;
-        return success;
-      }
-    }
-		int success = p_casino_interface->EnterBetsize(betsize);
+		if (!_already_executing_allin_adjustment) {
+				// We have to prevent a potential endless loop here>
+				// swag -> adjusted allin -> swag allin -> adjusted allin ...
+				if (ChangeBetsizeToAllin(betsize)) {
+				_already_executing_allin_adjustment = true;
+				write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Adjusting betsize to allin.\n");
+				_already_executing_allin_adjustment = false;
+				return DoAllin();
+			}
+		}
+	
+		//Do betsize
+		// 1) use number pad
+		// 2) enter betsize
+		bool success = false;
+		if (p_tablemap->betsizemethod() == 1) {
+			write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Attempting to use number pad\n");
+			success = p_casino_interface->EnterBetsizeNumpad(betsize, Preferences()->swag_delay_3());
+		}
+		else {
+			success = p_casino_interface->EnterBetsize(betsize);
+		}
+
 		if (success) {
-      write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] betsize %.2f (adjusted) entered\n",
-        betsize);
-      p_engine_container->UpdateAfterAutoplayerAction(k_autoplayer_function_betsize);
-      p_autoplayer_trace->Print(ActionConstantNames(k_autoplayer_function_betsize), kAlwaysLogAutoplayerFunctions);
+			write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] betsize %.2f (adjusted) entered\n", betsize);
+			p_engine_container->UpdateAfterAutoplayerAction(k_autoplayer_function_betsize);
+			p_autoplayer_trace->Print(ActionConstantNames(k_autoplayer_function_betsize), kAlwaysLogAutoplayerFunctions);
 			return true;
 		}
-    write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Failed to enter betsize %.2f\n",
-      betsize);
-    return false;
+		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Failed to enter betsize %.2f\n", betsize);
+		return false;
 	}
 	write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Don't f$betsize, because f$betsize evaluates to 0.\n");
 	return false;

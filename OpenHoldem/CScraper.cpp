@@ -184,6 +184,20 @@ bool CScraper::ScrapeIgnoreStates() {
 	return false;
 }
 
+void CScraper::ScrapeNumpadButtons() {
+	CString button_name;
+	CString result;
+	for (int i = k_autoplayer_function_numpad_zero; i <= k_autoplayer_function_numpad_toggle; ++i) {
+		int numpad_idx = i - numpad_button_offset;
+		button_name.Format("inumpad%cstate", HexadecimalChar(numpad_idx));
+		write_log(Preferences()->debug_autoplayer(), "[CScraper] scrapping numpad %s\n", button_name);
+		if (EvaluateRegion(button_name, &result)) {
+			p_casino_interface->_technical_numpad_buttons[numpad_idx].SetState(result);
+			p_casino_interface->_technical_numpad_buttons[numpad_idx].SetLabel(button_name.Left(8));
+		}
+	}
+}
+
 void CScraper::ScrapeActionButtons() {
 	CString button_name;
 	CString result;

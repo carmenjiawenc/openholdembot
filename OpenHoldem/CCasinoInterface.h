@@ -35,6 +35,7 @@ class CCasinoInterface: public CSpaceOptimizedGlobalObject {
 	bool ClickButtonSequence(int first_button, int second_button, int delay_in_milli_seconds);
 	bool ClickButtonSequenceThree(int first_button, int second_button, int third_button, int delay_in_milli_seconds);
 	bool EnterBetsize(double total_betsize_in_dollars);
+	bool EnterBetsizeNumpad(double total_betsize_in_dollars, int delay_in_milli_seconds);
   bool EnterBetsizeForAllin();
 	bool UseSliderForAllin();
 	bool CloseWindow();
@@ -60,6 +61,7 @@ class CCasinoInterface: public CSpaceOptimizedGlobalObject {
   // To be used by the scraper
   CAutoplayerButton _technical_autoplayer_buttons[k_max_number_of_buttons];
   CAutoplayerButton _technical_betpot_buttons[k_max_betpot_buttons];
+  CAutoplayerButton _technical_numpad_buttons[k_max_numpad_buttons];
   CAutoplayerButton _technical_i86X_spam_buttons[k_max_number_of_i86X_buttons];
   CAllinSlider _allin_slider;
  protected:

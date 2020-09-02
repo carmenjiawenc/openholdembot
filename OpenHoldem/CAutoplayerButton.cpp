@@ -190,6 +190,10 @@ bool CAutoplayerButton::IsNameI86() {
   return (_technical_name.Left(3).MakeLower() == "i86");
 }
 
+bool CAutoplayerButton::IsNameINumpad() {
+    return (_technical_name.Left(7).MakeLower() == "inumpad");
+}
+
 
 // We precompute the button-type from the label, because their was a raise-condition
 // when COpenHoldemView::UpdateDisplay(), triggered by a timer,
@@ -224,7 +228,11 @@ void CAutoplayerButton::PrecomputeButtonType() {
     _button_type = k_standard_function_prefold;
   } else if (IsNameI86()) {
     _button_type = k_button_i86;
-  } else {
+  }
+  else if (IsNameINumpad()) {
+      _button_type = numpad_button_offset + (int)std::strtol(_technical_name.Mid(7).Left(1), nullptr, 16);
+  }
+  else {
     /* No or wrongly scraped value, apply default label, if any */
     if (_default_label == "allin" || _default_label == "max") {
       _button_type = k_autoplayer_function_allin;

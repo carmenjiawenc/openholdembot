@@ -21,6 +21,7 @@
 //   (Same problem like the singletons in OpenHoldem.cpp)
 
 #include "assert.h"
+#include <map>
 
 // Constants that are used in the DLL-interface
 // are defined there: user.h
@@ -117,23 +118,24 @@ const int k_max_number_of_buttons = 36;      // Indexed as 0..9, A..Z
 const int k_max_number_of_i86X_buttons = 10;
 const int k_max_number_of_i88X_states = 10;
 const int k_max_betpot_buttons = 7;				   // 2/1, 1/1, 3/4, 2/3, 1/2, 1/3, 1/4
+const int k_max_numpad_buttons = 11; //0-9 and toggle
 const int k_min_buttons_needed_for_my_turn = 2;
 const int k_my_turn_bits_fold_call_raise = 0x07;
 
 // button codes
-const int k_button_i3        = 3;
-const int k_button_fold      = 10;
-const int k_button_allin     = 11;
-const int k_button_raise     = 12;
-const int k_button_call      = 13;
-const int k_button_check     = 14;
-const int k_button_sitin     = 20;
-const int k_button_sitout    = 21;
-const int k_button_leave     = 22;
+//const int k_button_i3        = 3;
+//const int k_button_fold      = 10;
+//const int k_button_allin     = 11;
+//const int k_button_raise     = 12;
+//const int k_button_call      = 13;
+//const int k_button_check     = 14;
+//const int k_button_sitin     = 20;
+//const int k_button_sitout    = 21;
+//const int k_button_leave     = 22;
 const int k_button_i86       = 86; 
-const int k_button_rematch   = 23;
-const int k_button_prefold   = 24;
-const int k_button_autopost  = 25;
+//const int k_button_rematch   = 23;
+//const int k_button_prefold   = 24;
+//const int k_button_autopost  = 25;
 const int k_button_undefined = -1;
 
 const int k_double_click_delay = 100; // ms
@@ -269,6 +271,23 @@ enum StandardFunctionConstants {
   k_icm_prize9,
 	// Attention! Always keep this at last place.
 	k_number_of_standard_functions
+};
+
+
+const int numpad_button_offset = 100;
+enum StandardFunctionNumPad{
+	// number-pad
+	k_autoplayer_function_numpad_zero = numpad_button_offset, //inumpad0
+	k_autoplayer_function_numpad_one,
+	k_autoplayer_function_numpad_two,
+	k_autoplayer_function_numpad_three,
+	k_autoplayer_function_numpad_four,
+	k_autoplayer_function_numpad_five,
+	k_autoplayer_function_numpad_six,
+	k_autoplayer_function_numpad_seven,
+	k_autoplayer_function_numpad_eight,
+	k_autoplayer_function_numpad_nine,   //inumpad9
+	k_autoplayer_function_numpad_toggle, //inumpadA
 };
 
 const int k_max_length_betpot_button_name = 17;

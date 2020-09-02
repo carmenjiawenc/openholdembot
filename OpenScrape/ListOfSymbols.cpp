@@ -35,6 +35,7 @@ CString ListOfSymbols() {
   list += RangeOfSymbols("i86%ibuttonclickmethod", 0, 9);
   list += RangeOfSymbols("t%itype", 0, 3);
   list += "allinconfirmationmethod ";
+  list += "betsizemethod";
   list += "betpotmethod ";
   list += "betpot_2_1buttonhotkey ";
   list += "betpot_1_1buttonhotkey ";

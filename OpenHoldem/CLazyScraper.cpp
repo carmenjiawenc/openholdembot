@@ -111,6 +111,7 @@ void CLazyScraper::DoScrape() {
 	if (NeedActionbuttons()) {
 		p_scraper->ScrapeActionButtons();
 		p_scraper->ScrapeActionButtonLabels();
+		p_scraper->ScrapeNumpadButtons();
 	}
 	if (NeedInterfaceButtons())	{
 		p_scraper->ScrapeInterfaceButtons();
