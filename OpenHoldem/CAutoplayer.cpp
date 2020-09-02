@@ -273,7 +273,7 @@ bool CAutoplayer::ExecuteRaiseCallCheckFold() {
 		if (p_function_collection->Evaluate(k_standard_function_names[i])) 	{
 			if (i == k_autoplayer_function_raise) {
 				if (p_casino_interface->ClickButtonSequence(i, k_autoplayer_function_confirm, Preferences()->swag_delay_3())) {
-					write_log(k_always_log_errors, "[AutoPlayer] evaluated to a raise\n");
+					write_log(k_always_log_errors, "[AutoPlayer] clicked raise and confirm\n");
 					p_engine_container->UpdateAfterAutoplayerAction(i);
 					p_autoplayer_trace->Print(ActionConstantNames(i), kAlwaysLogAutoplayerFunctions);
 					return true;

@@ -122,7 +122,7 @@ bool CCasinoInterface::ClickButtonSequenceThree(int first_button, int second_but
         }
         if (LogicalAutoplayerButton(second_button)->Click()) {
             write_log(Preferences()->debug_autoplayer(), "[BULLDOG] Clicked Allin / BetPot \n");
-            Sleep(delay_in_milli_seconds);
+            Sleep(delay_in_milli_seconds - 400);
             if (TableLostFocus()) {
                 return false;
             }
@@ -183,8 +183,8 @@ int CCasinoInterface::NumberOfVisibleAutoplayerButtons() {
     int result = LogicalAutoplayerButton(k_autoplayer_function_fold)->IsClickable()
         + LogicalAutoplayerButton(k_autoplayer_function_call)->IsClickable()
         + LogicalAutoplayerButton(k_autoplayer_function_check)->IsClickable()
-        + LogicalAutoplayerButton(k_autoplayer_function_raise)->IsClickable();
-        //+ LogicalAutoplayerButton(k_autoplayer_function_allin)->IsClickable();
+        + LogicalAutoplayerButton(k_autoplayer_function_raise)->IsClickable()
+        + LogicalAutoplayerButton(k_autoplayer_function_allin)->IsClickable();
   write_log(Preferences()->debug_autoplayer(), "[CasinoInterface] %i autoplayer buttons visible.\n", result);
   return result;
 }

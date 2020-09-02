@@ -84,8 +84,8 @@ void CLazyScraper::DoScrape() {
 	}
 	_is_identical_scrape = false;
 
-	if (p_scraper->ScrapeInterfaceZero()) {
-		//i860 is true, we want to ignore this heartbeat
+	if (p_scraper->ScrapeIgnoreStates()) {
+		//i88X is true, we want to ignore this heartbeat
 		return;
 	}
 	p_scraper->ScrapeLimits();

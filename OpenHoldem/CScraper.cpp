@@ -94,7 +94,7 @@ bool CScraper::ProcessRegion(RMapCI r_iter) {
 
 	// If the bitmaps are different, then continue on
 	if (!BitmapsAreEqual(r_iter->second.last_bmp, r_iter->second.cur_bmp)) {
-    // Copy into "last" bitmap
+		// Copy into "last" bitmap
 		old_bitmap = (HBITMAP) SelectObject(hdcCompatible, r_iter->second.last_bmp);
 		BitBlt(hdcCompatible, 0, 0, r_iter->second.right - r_iter->second.left + 1, 
 									r_iter->second.bottom - r_iter->second.top + 1, 
@@ -114,22 +114,20 @@ bool CScraper::EvaluateRegion(CString name, CString *result) {
 	CTransform	trans;
 	RMapCI		r_iter = p_tablemap->r$()->find(name.GetString());
 	if (r_iter != p_tablemap->r$()->end()) {
-    // Potential for optimization here
-    ++total_region_counter;
+		// Potential for optimization here
+		++total_region_counter;
 		if (ProcessRegion(r_iter)) {
-      ++identical_region_counter;
-      write_log(Preferences()->debug_scraper(),
-        "[CScraper] Region %s identical\n", name);
-    } else {
-      write_log(Preferences()->debug_scraper(),
-        "[CScraper] Region %s NOT identical\n", name);
-    }
+			++identical_region_counter;
+			write_log(Preferences()->debug_scraper(),"[CScraper] Region %s identical\n", name);
+		} else {
+			write_log(Preferences()->debug_scraper(),"[CScraper] Region %s NOT identical\n", name);
+		}
 		old_bitmap = (HBITMAP) SelectObject(hdcCompatible, r_iter->second.cur_bmp);
 		trans.DoTransform(r_iter, hdcCompatible, result);
 		SelectObject(hdcCompatible, old_bitmap);
 		write_log(Preferences()->debug_scraper(), "[CScraper] EvaluateRegion(), [%s] -> [%s]\n", 
 			name, *result);
-    __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
+		 __HDC_FOOTER_ATTENTION_HAS_TO_BE_CALLED_ON_EVERY_FUNCTION_EXIT_OTHERWISE_MEMORY_LEAK
 		return true;
 	}
 	// Region does not exist
@@ -166,14 +164,21 @@ void CScraper::ScrapeInterfaceButtons() {
 	}
 }
 
-bool CScraper::ScrapeInterfaceZero() {
+bool CScraper::ScrapeIgnoreStates() {
 	CString result;
-	// i86X-buttons
-	CString button_name;
-	if (EvaluateRegion("i860state", &result)) {
-		p_casino_interface->_technical_i86X_spam_buttons[0].SetState(result);
-		if (p_casino_interface->_technical_i86X_spam_buttons[0].IsClickable()) {
-			return true;
+	CString state_name;
+	for (int i = 0; i < k_max_number_of_i88X_states; i++) {
+		state_name.Format("i88%dstate", i);
+		if (EvaluateRegion(state_name, &result)) {
+			//code copied from CAutoplayerButton::SetState
+			result.MakeLower();
+			if (result.Left(4) == "true"
+				|| result.Left(2) == "on"
+				|| result.Left(3) == "yes"
+				|| result.Left(7) == "checked"
+				|| result.Left(3) == "lit") {
+				return true;
+			}
 		}
 	}
 	return false;

@@ -28,6 +28,8 @@ class CStringMatch : public CSpaceOptimizedGlobalObject {
 	const bool IsStringCardback(const CString s); // !!! unused
 	const bool IsStringDealer(const CString s);
   const bool IsStringAllin(const CString s);
+  const CString MatchByLevenshteinDistance(const CString s);
+  const int CStringMatch::uiLevenshteinDistance(const std::string& s1, const std::string& s2);
 };
 
 extern CStringMatch *p_string_match;

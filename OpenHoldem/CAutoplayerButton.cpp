@@ -108,38 +108,43 @@ bool CAutoplayerButton::IsLabelAllin() {
 
 bool CAutoplayerButton::IsLabelRaise() {
   CString s_lower_case = _label.MakeLower();
-  s_lower_case = s_lower_case.Left(5);
-  return (s_lower_case == "raise"
-    || s_lower_case == "ra1se"
-    || s_lower_case == "ralse"
+  return (s_lower_case.Left(5) == "raise"
+    || s_lower_case.Left(5) == "ra1se"
+    || s_lower_case.Left(5) == "ralse"
     || s_lower_case.Left(3) == "bet"
     // Last occurence of swag for backward compatibility
-    || s_lower_case.Left(4) == "swag");
+    || s_lower_case.Left(4) == "swag"
+    || p_string_match->MatchByLevenshteinDistance(s_lower_case) == "raise"
+    || p_string_match->MatchByLevenshteinDistance(s_lower_case) == "bet");
 }
 
 bool CAutoplayerButton::IsLabelConfirm() {
     CString s_lower_case = _label.MakeLower();
     s_lower_case = s_lower_case.Left(7);
-    return (s_lower_case == "confirm"
-        || s_lower_case == "conflrm");
+    return (s_lower_case == "confirm");
 }
 
 bool CAutoplayerButton::IsLabelCall() {
-  CString s_lower_case = _label.MakeLower();
-  s_lower_case = s_lower_case.Left(4);
-  return (s_lower_case == "call" || s_lower_case == "caii" || s_lower_case == "ca11");
+    CString s_lower_case = _label.MakeLower();
+    return (s_lower_case.Left(4) == "call"
+        || s_lower_case.Left(4) == "caii"
+        || s_lower_case.Left(4) == "ca11"
+        || p_string_match->MatchByLevenshteinDistance(s_lower_case) == "call");
 }
 
 bool CAutoplayerButton::IsLabelCheck() {
   CString s_lower_case = _label.MakeLower();
-  s_lower_case = s_lower_case.Left(5);
-  return (s_lower_case == "check" || s_lower_case == "cheok");
+  return (s_lower_case.Left(5) == "check"
+      || s_lower_case.Left(5) == "cheok"
+      || p_string_match->MatchByLevenshteinDistance(s_lower_case) == "check");
 }
 
 bool CAutoplayerButton::IsLabelFold() {
   CString s_lower_case = _label.MakeLower();
-  s_lower_case = s_lower_case.Left(4);
-  return (s_lower_case == "fold" || s_lower_case == "fo1d" || s_lower_case == "foid");
+  return (s_lower_case.Left(4) == "fold"
+      || s_lower_case.Left(4) == "fo1d"
+      || s_lower_case.Left(4) == "foid"
+      || p_string_match->MatchByLevenshteinDistance(s_lower_case) == "fold");
 }
 
 bool CAutoplayerButton::IsLabelAutopost() {
@@ -195,10 +200,10 @@ bool CAutoplayerButton::IsNameI86() {
 void CAutoplayerButton::PrecomputeButtonType() {
   if (IsLabelAllin()) {
     _button_type = k_autoplayer_function_allin;
-  } else if (IsLabelRaise()) {
-      _button_type = k_autoplayer_function_raise;
   } else if (IsLabelConfirm()) {
       _button_type = k_autoplayer_function_confirm;
+  } else if (IsLabelRaise()) {
+      _button_type = k_autoplayer_function_raise;
   } else if (IsLabelCall()) {
     _button_type = k_autoplayer_function_call;
   } else if (IsLabelCheck()) {

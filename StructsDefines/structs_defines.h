@@ -85,7 +85,7 @@
 #define MAX_HASH_HEIGHT		150
 #define MAX_IMAGE_WIDTH		200
 #define MAX_IMAGE_HEIGHT	150
-#define MAX_SINGLE_CHAR_WIDTH	31
+#define MAX_SINGLE_CHAR_WIDTH   31
 #define MAX_SINGLE_CHAR_HEIGHT	32
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

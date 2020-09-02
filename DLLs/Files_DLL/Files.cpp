@@ -12,6 +12,7 @@
 //******************************************************************************
 
 #define FILES_DLL_EXPORTS
+#define INFO_BUFFER_SIZE 32767
 
 #include "files.h"
 #include <assert.h>
@@ -164,7 +165,15 @@ CString ReplaySessionDirectory(int session_ID) {
   assert(session_ID >= 0);
   assert(OpenHoldemDirectory() != "");
   CString path;
-  path.Format("%sreplay\\session_%lu\\", OpenHoldemDirectory(), session_ID);
+
+  TCHAR  infoBuf[INFO_BUFFER_SIZE];
+  DWORD  bufCharCount = INFO_BUFFER_SIZE;
+  if (GetComputerName(infoBuf, &bufCharCount)) {
+      path.Format("%sreplay\\%s_session_%lu\\", OpenHoldemDirectory(), infoBuf, session_ID);
+  }
+  else {
+      path.Format("%sreplay\\session_%lu\\", OpenHoldemDirectory(), session_ID);
+  }
   return path;
 }
 
@@ -178,6 +187,7 @@ CString ReplayBitmapFilename(int session_ID, int frame_number) {
 CString ReplayHTMLFilename(int session_ID, int frame_number) {
   assert(frame_number >= 0);
   CString path;
+
   path.Format("%sframe%06d.htm", ReplaySessionDirectory(session_ID), frame_number);
   return path;
 }
@@ -194,7 +204,15 @@ CString LogsDirectory() {
 CString LogFilePath(int session_ID) {
   assert(session_ID >= 0);
   CString path;
-  path.Format("%soh_%lu.log", LogsDirectory(), session_ID);
+
+  TCHAR  infoBuf[INFO_BUFFER_SIZE];
+  DWORD  bufCharCount = INFO_BUFFER_SIZE;
+  if (GetComputerName(infoBuf, &bufCharCount)) {
+      path.Format("%s%s_oh_%lu.log", LogsDirectory(), infoBuf, session_ID);
+  }
+  else {
+      path.Format("%soh_%lu.log", LogsDirectory(), session_ID);
+  }
   return path;
 }
 
