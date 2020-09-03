@@ -46,7 +46,7 @@ class CScraper : public CSpaceOptimizedGlobalObject {
 	void ScrapeDealer();
 	void ScrapeActionButtons();
 	void ScrapeActionButtonLabels();
-	void ScrapeNumpadButtons();
+	void ScrapeFixedFunctionJButtons();
 	bool ScrapeIgnoreStates();
 	void ScrapeInterfaceButtons();
 	void ScrapeBetpotButtons();

@@ -71,7 +71,6 @@ class CAutoplayerButton {
   bool IsLabelRematch();
   bool IsLabelPrefold();
   bool IsNameI86();
-  bool IsNameINumpad();
 
   void PrecomputeButtonType();
 

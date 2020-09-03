@@ -74,7 +74,7 @@ bool CAutoplayerButton::Click() {
     }
     return true;
   } else {
-    write_log(Preferences()->debug_autoplayer(), "[CAutoplayerButton] Could not click button %s. Either undefined or not visible.\n", _label);
+    write_log(Preferences()->debug_autoplayer(), "[CAutoplayerButton] Could not click button %s. Either undefined or not visible.\n", _technical_name);
     return false;
   }
 }
@@ -190,11 +190,6 @@ bool CAutoplayerButton::IsNameI86() {
   return (_technical_name.Left(3).MakeLower() == "i86");
 }
 
-bool CAutoplayerButton::IsNameINumpad() {
-    return (_technical_name.Left(7).MakeLower() == "inumpad");
-}
-
-
 // We precompute the button-type from the label, because their was a raise-condition
 // when COpenHoldemView::UpdateDisplay(), triggered by a timer,
 // accessed the button-labels (non-elementary data)
@@ -228,9 +223,8 @@ void CAutoplayerButton::PrecomputeButtonType() {
     _button_type = k_standard_function_prefold;
   } else if (IsNameI86()) {
     _button_type = k_button_i86;
-  }
-  else if (IsNameINumpad()) {
-      _button_type = numpad_button_offset + (int)std::strtol(_technical_name.Mid(7).Left(1), nullptr, 16);
+  } else if (_technical_name.Left(1).MakeLower() == "j") {
+      _button_type = j_button_offset + (int)std::strtol(_technical_name.Mid(7).Left(1), nullptr, 36);
   }
   else {
     /* No or wrongly scraped value, apply default label, if any */

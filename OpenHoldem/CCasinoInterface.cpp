@@ -71,11 +71,14 @@ void CCasinoInterface::Reset() {
     _technical_i86X_spam_buttons[i].Reset();
     _technical_i86X_spam_buttons[i].SetTechnicalName(button_name);
   }
-  for (int i = 0; i < k_max_numpad_buttons; ++i) {
-      button_name.Format("inumpad%cbutton", HexadecimalChar(i));
-      _technical_numpad_buttons[i].Reset();
-      _technical_numpad_buttons[i].SetTechnicalName(button_name);
+
+  //buttoons that are always available
+  for (int i = 0; i < k_max_j_buttons; ++i) {
+      button_name.Format("j%cbutton", HexadecimalChar(i));
+      _technical_j_buttons[i].Reset();
+      _technical_j_buttons[i].SetTechnicalName(button_name);
   }
+
   _next_i86_starting_button = 0;
 }
 
@@ -120,18 +123,20 @@ bool CCasinoInterface::ClickButtonSequence(int first_button, int second_button, 
   return false;
 }
 
-bool CCasinoInterface::ClickButtonSequenceThree(int first_button, int second_button, int third_button, int delay_in_milli_seconds) {
-    if (LogicalAutoplayerButton(first_button)->Click()) {
-        Sleep(delay_in_milli_seconds);
+bool CCasinoInterface::RaiseBetPotConfirmSequence(int betpot_button) {
+    if (LogicalAutoplayerButton(k_autoplayer_function_raise)->Click()) {
+        write_log(Preferences()->debug_autoplayer(), "[CRaiseConfirmSequence] Sleeping %dms.\n", Preferences()->swag_delay_3());
+        Sleep(Preferences()->swag_delay_3());
         if (TableLostFocus()) {
             return false;
         }
-        if (LogicalAutoplayerButton(second_button)->Click()) {
-            Sleep(200);
+        if (LogicalAutoplayerButton(betpot_button)->Click()) {
+            write_log(Preferences()->debug_autoplayer(), "[CRaiseConfirmSequence] Sleeping %dms.\n", Preferences()->click_delay());
+            Sleep(Preferences()->click_delay());
             if (TableLostFocus()) {
                 return false;
             }
-            return LogicalAutoplayerButton(third_button)->Click();
+            return LogicalAutoplayerButton(k_autoplayer_function_confirm)->Click();
         }
     }
     return false;
@@ -224,30 +229,35 @@ bool CCasinoInterface::EnterBetsize(double total_betsize_in_dollars) {
   return false;
 }
 
-bool CCasinoInterface::EnterBetsizeNumpad(double total_betsize_in_dollars, int delay_in_milli_seconds) {
+bool CCasinoInterface::EnterBetsizeNumpad(double total_betsize_in_dollars) {
     if (LogicalAutoplayerButton(k_autoplayer_function_raise)->Click()) {
-        Sleep(delay_in_milli_seconds);
+        write_log(Preferences()->debug_autoplayer(), "[CBetsizeNumpad] Sleeping %dms.\n", Preferences()->swag_delay_3());
+        Sleep(Preferences()->swag_delay_3());
         if (TableLostFocus()) {
             return false;
         }
         if (LogicalAutoplayerButton(k_autoplayer_function_numpad_toggle)->Click()) {
+            write_log(Preferences()->debug_autoplayer(), "[CBetsizeNumpad] Sleeping %dms.\n", Preferences()->click_delay());
+            Sleep(Preferences()->click_delay());
             if (TableLostFocus()) {
                 return false;
             }
             std::vector<int> button_sequence;
             std::string betsize_string = std::to_string(static_cast<int>(total_betsize_in_dollars));
             for (char& c : betsize_string) {
-                button_sequence.push_back((int)(c - '0') + numpad_button_offset);
+                button_sequence.push_back((int)(c - '0') + j_button_offset);
             }
 
             for (auto it = button_sequence.begin(); it != button_sequence.end(); it++) {
                 LogicalAutoplayerButton(*it)->Click();
-                Sleep(200);
+                write_log(Preferences()->debug_autoplayer(), "[CBetsizeNumpad] Sleeping %dms.\n", Preferences()->click_delay());
+                Sleep(Preferences()->click_delay());
                 if (TableLostFocus()) {
                     return false;
                 }
             }
-            Sleep(200);
+            write_log(Preferences()->debug_autoplayer(), "[CBetsizeNumpad] Sleeping %dms.\n", Preferences()->click_delay());
+            Sleep(Preferences()->click_delay());
             return LogicalAutoplayerButton(k_autoplayer_function_confirm)->Click();;
         }
     }
@@ -290,7 +300,9 @@ CAutoplayerButton* CCasinoInterface::LogicalAutoplayerButton(int autoplayer_func
   case k_autoplayer_function_numpad_eight:
   case k_autoplayer_function_numpad_nine:
   case k_autoplayer_function_numpad_toggle:
-      return &_technical_numpad_buttons[autoplayer_function_code - numpad_button_offset];
+  case k_autoplayer_function_numpad_dot:
+  case k_hopper_function_menu:
+      return &_technical_j_buttons[autoplayer_function_code - j_button_offset];
   default:
     // The i86-autoplayer-buttons are flexible
     // and have to be searched by label.

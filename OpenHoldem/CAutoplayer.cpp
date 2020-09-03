@@ -149,7 +149,7 @@ bool CAutoplayer::DoBetPot(void) {
 				success = p_casino_interface->ClickButtonSequence(i, k_autoplayer_function_raise, Preferences()->swag_delay_3());
 			}
 			else if (p_tablemap->betpotmethod() == RAISE_BETPOT_CONFIRM) {
-				success = p_casino_interface->ClickButtonSequenceThree(k_autoplayer_function_raise, i, k_autoplayer_function_confirm, Preferences()->swag_delay_3());
+				success = p_casino_interface->RaiseBetPotConfirmSequence(i);
 			}
 			else {
 				// Default: click only betpot
@@ -441,9 +441,6 @@ bool CAutoplayer::DoAllin(void) {
 	} else if(p_tablemap->allinconfirmationmethod() == 0) {
 		// Clicking only max (or allin), but not raise
 		success = p_casino_interface->LogicalAutoplayerButton(k_autoplayer_function_allin)->Click();
-	} else if (p_tablemap->allinconfirmationmethod() == 2) {
-		//click max raise, max/allin and then confirm
-		success = p_casino_interface->ClickButtonSequenceThree(k_autoplayer_function_raise, k_autoplayer_function_allin, k_autoplayer_function_confirm, Preferences()->swag_delay_3());
 	}
 	if (!success) {
     // Try the slider
@@ -530,8 +527,7 @@ bool CAutoplayer::DoBetsize() {
 		// 2) enter betsize
 		bool success = false;
 		if (p_tablemap->betsizemethod() == 1) {
-			write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Attempting to use number pad\n");
-			success = p_casino_interface->EnterBetsizeNumpad(betsize, Preferences()->swag_delay_3());
+			success = p_casino_interface->EnterBetsizeNumpad(betsize);
 		}
 		else {
 			success = p_casino_interface->EnterBetsize(betsize);

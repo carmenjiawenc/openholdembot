@@ -118,7 +118,7 @@ const int k_max_number_of_buttons = 36;      // Indexed as 0..9, A..Z
 const int k_max_number_of_i86X_buttons = 10;
 const int k_max_number_of_i88X_states = 10;
 const int k_max_betpot_buttons = 7;				   // 2/1, 1/1, 3/4, 2/3, 1/2, 1/3, 1/4
-const int k_max_numpad_buttons = 11; //0-9 and toggle
+const int k_max_j_buttons = 36; //0-9, toggle, dot, menu
 const int k_min_buttons_needed_for_my_turn = 2;
 const int k_my_turn_bits_fold_call_raise = 0x07;
 
@@ -274,10 +274,11 @@ enum StandardFunctionConstants {
 };
 
 
-const int numpad_button_offset = 100;
+//MUST BE IN THIS ORDER
+const int j_button_offset = 100;
 enum StandardFunctionNumPad{
 	// number-pad
-	k_autoplayer_function_numpad_zero = numpad_button_offset, //inumpad0
+	k_autoplayer_function_numpad_zero = j_button_offset, //j0
 	k_autoplayer_function_numpad_one,
 	k_autoplayer_function_numpad_two,
 	k_autoplayer_function_numpad_three,
@@ -286,8 +287,26 @@ enum StandardFunctionNumPad{
 	k_autoplayer_function_numpad_six,
 	k_autoplayer_function_numpad_seven,
 	k_autoplayer_function_numpad_eight,
-	k_autoplayer_function_numpad_nine,   //inumpad9
-	k_autoplayer_function_numpad_toggle, //inumpadA
+	k_autoplayer_function_numpad_nine,   //j9
+	k_autoplayer_function_numpad_toggle, //jA
+	k_autoplayer_function_numpad_dot, //jB
+	k_hopper_function_menu, //jC
+};
+
+static const std::string k_fixed_function_button_name[k_max_j_buttons] = {
+	"numpad_0",
+	"numpad_1",
+	"numpad_2",
+	"numpad_3",
+	"numpad_4",
+	"numpad_5",
+	"numpad_6",
+	"numpad_7",
+	"numpad_8",
+	"numpad_9",
+	"numpad_toggle",
+	"numpad_dot",
+	"menu"
 };
 
 const int k_max_length_betpot_button_name = 17;
