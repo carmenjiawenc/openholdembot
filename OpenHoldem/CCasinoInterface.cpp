@@ -289,21 +289,10 @@ CAutoplayerButton* CCasinoInterface::LogicalAutoplayerButton(int autoplayer_func
     return &_technical_betpot_buttons[5];
   case k_autoplayer_function_betpot_1_4:
     return &_technical_betpot_buttons[6];
-  case k_autoplayer_function_numpad_zero:
-  case k_autoplayer_function_numpad_one:
-  case k_autoplayer_function_numpad_two:
-  case k_autoplayer_function_numpad_three:
-  case k_autoplayer_function_numpad_four:
-  case k_autoplayer_function_numpad_five:
-  case k_autoplayer_function_numpad_six:
-  case k_autoplayer_function_numpad_seven:
-  case k_autoplayer_function_numpad_eight:
-  case k_autoplayer_function_numpad_nine:
-  case k_autoplayer_function_numpad_toggle:
-  case k_autoplayer_function_numpad_dot:
-  case k_hopper_function_menu:
-      return &_technical_j_buttons[autoplayer_function_code - j_button_offset];
   default:
+    if (autoplayer_function_code >= j_button_offset) {
+        return &_technical_j_buttons[autoplayer_function_code - j_button_offset];
+    }
     // The i86-autoplayer-buttons are flexible
     // and have to be searched by label.
     //
@@ -312,17 +301,17 @@ CAutoplayerButton* CCasinoInterface::LogicalAutoplayerButton(int autoplayer_func
     // if multiple buttons of the same type were present.
     // http://www.maxinmontreal.com/forums/viewtopic.php?f=124&t=18915
     for (int i = 0; i < k_max_number_of_buttons; ++i) {
-      if (_technical_autoplayer_buttons[i].IsButtonType(autoplayer_function_code)
+        if (_technical_autoplayer_buttons[i].IsButtonType(autoplayer_function_code)
         && _technical_autoplayer_buttons[i].IsClickable()) {
         return &_technical_autoplayer_buttons[i];
-      }
+        }
     }
     // Search again,
     // this time accepting any button, including non-clickable ones.
     for (int i = 0; i < k_max_number_of_buttons; ++i) {
-      if (_technical_autoplayer_buttons[i].IsButtonType(autoplayer_function_code)) {
+        if (_technical_autoplayer_buttons[i].IsButtonType(autoplayer_function_code)) {
         return &_technical_autoplayer_buttons[i];
-      }
+        }
     }
   }
   // k_autoplayer_function_beep and invalid input

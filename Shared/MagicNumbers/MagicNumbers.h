@@ -291,6 +291,8 @@ enum StandardFunctionNumPad{
 	k_autoplayer_function_numpad_toggle, //jA
 	k_autoplayer_function_numpad_dot, //jB
 	k_hopper_function_menu, //jC
+	k_hopper_function_standup, //jD
+	k_hopper_function_standup_confirm,  //jE
 };
 
 static const std::string k_fixed_function_button_name[k_max_j_buttons] = {
@@ -306,7 +308,9 @@ static const std::string k_fixed_function_button_name[k_max_j_buttons] = {
 	"numpad_9",
 	"numpad_toggle",
 	"numpad_dot",
-	"menu"
+	"menu",
+	"standup",
+	"standup-confirm"
 };
 
 const int k_max_length_betpot_button_name = 17;
@@ -339,6 +343,7 @@ static const char k_standard_function_names[k_number_of_standard_functions][k_ma
 	"f$call",
 	"f$check",
 	"f$fold",
+	"f$confirm",
 	// Secondary autoplayer-functions
 	"f$sitin",
 	"f$sitout",

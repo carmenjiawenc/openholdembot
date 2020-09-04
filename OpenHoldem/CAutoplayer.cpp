@@ -330,19 +330,36 @@ bool CAutoplayer::ExecuteSecondaryFormulasIfNecessary() {
 				executed_secondary_function = k_standard_function_chat;
 			}
 	}
-	// Otherwise: handle the simple simple button-click
-	// k_hopper_function_sitin,
-	// k_hopper_function_sitout,
-	// k_hopper_function_leave,
-  // k_hopper_function_rematch,
-	// k_hopper_function_autopost,
 	else {
-    for (int i=k_hopper_function_sitin; i<=k_hopper_function_autopost; ++i)	{
-  		if (p_autoplayer_functions->GetAutoplayerFunctionValue(i))	{
-        if (p_casino_interface->LogicalAutoplayerButton(i)->Click()) {
-          executed_secondary_function = i;
-          break;
-        }
+		//blindly click hopper sequence
+		if (p_tablemap->hoppermethod() == 1) {
+			if (p_autoplayer_functions->GetAutoplayerFunctionValue(k_hopper_function_sitout)) {
+				//click menu button
+				if (p_casino_interface->LogicalAutoplayerButton(k_hopper_function_menu)->Click()) {
+					Sleep(Preferences()->swag_delay_3());
+					//click hopper function
+					if (p_casino_interface->LogicalAutoplayerButton(k_hopper_function_standup)->Click()) {
+						Sleep(Preferences()->swag_delay_3());
+						p_casino_interface->LogicalAutoplayerButton(k_hopper_function_standup_confirm)->Click();
+						executed_secondary_function = k_hopper_function_standup;
+					};
+				};
+			}
+		}
+		else {
+			// Otherwise: handle the simple simple button-click
+			// k_hopper_function_sitin,
+			// k_hopper_function_sitout,
+			// k_hopper_function_leave,
+			// k_hopper_function_rematch,
+			// k_hopper_function_autopost,
+			for (int i = k_hopper_function_sitin; i <= k_hopper_function_autopost; ++i) {
+				if (p_autoplayer_functions->GetAutoplayerFunctionValue(i)) {
+					if (p_casino_interface->LogicalAutoplayerButton(i)->Click()) {
+						executed_secondary_function = i;
+						break;
+					}
+				}
 			}
 		}
 	}

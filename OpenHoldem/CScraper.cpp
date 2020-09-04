@@ -186,7 +186,7 @@ bool CScraper::ScrapeIgnoreStates() {
 
 void CScraper::ScrapeFixedFunctionJButtons() {
 	CString button_name;
-	for (int i = k_autoplayer_function_numpad_zero; i <= k_autoplayer_function_numpad_toggle; ++i) {
+	for (int i = k_autoplayer_function_numpad_zero; i < k_max_j_buttons + j_button_offset; ++i) {
 		int idx = i - j_button_offset;
 		p_casino_interface->_technical_j_buttons[idx].SetClickable(true);
 		p_casino_interface->_technical_j_buttons[idx].SetLabel(k_fixed_function_button_name[idx].c_str());
