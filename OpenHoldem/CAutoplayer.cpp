@@ -141,10 +141,11 @@ bool CAutoplayer::DoBetPot(void) {
 		if (p_autoplayer_functions->GetAutoplayerFunctionValue(i)) 	{
 			write_log(Preferences()->debug_autoplayer(), 
         "[AutoPlayer] Function %s true.\n", k_standard_function_names[i]);
-      if (ChangeBetPotActionToAllin(i)) {
-        write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Adjusting bhetpot_X_Y to allin.\n");
-        return DoAllin();
-      }
+	  //disable change to allin
+      //if (ChangeBetPotActionToAllin(i)) {
+      //  write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Adjusting bhetpot_X_Y to allin.\n");
+      //  return DoAllin();
+      //}
 			if (p_tablemap->betpotmethod() == BETPOT_RAISE)	{
 				success = p_casino_interface->ClickButtonSequence(i, k_autoplayer_function_raise, Preferences()->swag_delay_3());
 			}
@@ -528,16 +529,17 @@ AutoPlayerCleanupAndFinalization:
 bool CAutoplayer::DoBetsize() { 
 	double betsize = p_function_collection->EvaluateAutoplayerFunction(k_autoplayer_function_betsize);
 	if (betsize > 0) 	{
-		if (!_already_executing_allin_adjustment) {
-				// We have to prevent a potential endless loop here>
-				// swag -> adjusted allin -> swag allin -> adjusted allin ...
-				if (ChangeBetsizeToAllin(betsize)) {
-				_already_executing_allin_adjustment = true;
-				write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Adjusting betsize to allin.\n");
-				_already_executing_allin_adjustment = false;
-				return DoAllin();
-			}
-		}
+		//comment betsize to all in fix
+		//if (!_already_executing_allin_adjustment) {
+		//		// We have to prevent a potential endless loop here>
+		//		// swag -> adjusted allin -> swag allin -> adjusted allin ...
+		//		if (ChangeBetsizeToAllin(betsize)) {
+		//		_already_executing_allin_adjustment = true;
+		//		write_log(Preferences()->debug_autoplayer(), "[AutoPlayer] Adjusting betsize to allin.\n");
+		//		_already_executing_allin_adjustment = false;
+		//		return DoAllin();
+		//	}
+		//}
 	
 		//Do betsize
 		// 1) use number pad
