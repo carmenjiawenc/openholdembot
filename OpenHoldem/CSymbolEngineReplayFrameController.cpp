@@ -49,9 +49,25 @@ void CSymbolEngineReplayFrameController::UpdateOnConnection() {
 }
 
 void CSymbolEngineReplayFrameController::UpdateOnHandreset() {
+	bool shoot_replay_frame_by_formula = p_function_collection->Evaluate(
+		k_standard_function_names[k_standard_function_shoot_replay_frame],
+		Preferences()->log_hopper_functions());
+	if (shoot_replay_frame_by_formula) {
+		write_log(Preferences()->debug_replayframes(), "[CSymbolEngineReplayFrameController] Replay required by f$shoot_replay_frame @UpdateOnHandreset\n");
+		ShootReplayFrameIfNotYetDone();
+		return;
+	}
 }
 
 void CSymbolEngineReplayFrameController::UpdateOnNewRound() {
+	bool shoot_replay_frame_by_formula = p_function_collection->Evaluate(
+		k_standard_function_names[k_standard_function_shoot_replay_frame],
+		Preferences()->log_hopper_functions());
+	if (shoot_replay_frame_by_formula) {
+		write_log(Preferences()->debug_replayframes(), "[CSymbolEngineReplayFrameController] Replay required by f$shoot_replay_frame @UpdateOnNewRound\n");
+		ShootReplayFrameIfNotYetDone();
+		return;
+	}
 }
 
 void CSymbolEngineReplayFrameController::UpdateOnMyTurn() {
@@ -82,11 +98,11 @@ void CSymbolEngineReplayFrameController::UpdateOnHeartbeat() {
   bool shoot_replay_frame_by_formula = p_function_collection->Evaluate(
     k_standard_function_names[k_standard_function_shoot_replay_frame], 
     Preferences()->log_hopper_functions());
-  if (shoot_replay_frame_by_formula) {
-    write_log(Preferences()->debug_replayframes(), "[CSymbolEngineReplayFrameController] Replay required by f$shoot_replay_frame\n");
-    ShootReplayFrameIfNotYetDone();
-    return;
-  }
+	if (shoot_replay_frame_by_formula) {
+		write_log(Preferences()->debug_replayframes(), "[CSymbolEngineReplayFrameController] Replay required by f$shoot_replay_frame @UpdateOnHeartbeat\n");
+		ShootReplayFrameIfNotYetDone();
+		return;
+	}
 }
 
 void CSymbolEngineReplayFrameController::UpdateAfterAutoplayerAction(int autoplayer_action_code) {
