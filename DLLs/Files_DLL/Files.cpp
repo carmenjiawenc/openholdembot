@@ -163,17 +163,19 @@ CString ToolsDirectory() {
 
 CString ReplaySessionDirectory(int session_ID) {
   assert(session_ID >= 0);
-  assert(OpenHoldemDirectory() != "");
+  //assert(OpenHoldemDirectory() != "");
   CString path;
-
-  TCHAR  infoBuf[INFO_BUFFER_SIZE];
-  DWORD  bufCharCount = INFO_BUFFER_SIZE;
-  if (GetComputerName(infoBuf, &bufCharCount)) {
-      path.Format("%sreplay\\%s_session_%lu\\", OpenHoldemDirectory(), infoBuf, session_ID);
-  }
-  else {
-      path.Format("%sreplay\\session_%lu\\", OpenHoldemDirectory(), session_ID);
-  }
+  CreateDirectory("C:\\oh_tmp", NULL); //for logs and replay
+  path.Format("C:\\oh_tmp\\replay\\session_%lu\\", session_ID);
+  //path.Format("%sreplay\\", OpenHoldemDirectory(), session_ID);
+  //TCHAR  infoBuf[INFO_BUFFER_SIZE];
+  //DWORD  bufCharCount = INFO_BUFFER_SIZE;
+  //if (GetComputerName(infoBuf, &bufCharCount)) {
+  //    path.Format("%sreplay\\%s_session_%lu\\", OpenHoldemDirectory(), infoBuf, session_ID);
+  //}
+  //else {
+  //    path.Format("%sreplay\\session_%lu\\", OpenHoldemDirectory(), session_ID);
+  //}
   return path;
 }
 
@@ -193,10 +195,11 @@ CString ReplayHTMLFilename(int session_ID, int frame_number) {
 }
 
 CString LogsDirectory() {
-  assert(OpenHoldemDirectory() != "");
-  CString path;
-  path.Format("%slogs\\", OpenHoldemDirectory());
+  //assert(OpenHoldemDirectory() != "");
+  CString path("C:\\oh_tmp\\logs\\");
+  //path.Format("%slogs\\", OpenHoldemDirectory());
   // Create logs-directoy if necessary
+  CreateDirectory("C:\\oh_tmp", NULL); //for logs and replay
   CreateDirectory(path, NULL);
   return path;
 };
@@ -204,15 +207,16 @@ CString LogsDirectory() {
 CString LogFilePath(int session_ID) {
   assert(session_ID >= 0);
   CString path;
+  path.Format("%soh_%lu.log", LogsDirectory(), session_ID);
 
-  TCHAR  infoBuf[INFO_BUFFER_SIZE];
-  DWORD  bufCharCount = INFO_BUFFER_SIZE;
-  if (GetComputerName(infoBuf, &bufCharCount)) {
-      path.Format("%s%s_oh_%lu.log", LogsDirectory(), infoBuf, session_ID);
-  }
-  else {
-      path.Format("%soh_%lu.log", LogsDirectory(), session_ID);
-  }
+  //TCHAR  infoBuf[INFO_BUFFER_SIZE];
+  //DWORD  bufCharCount = INFO_BUFFER_SIZE;
+  //if (GetComputerName(infoBuf, &bufCharCount)) {
+  //    path.Format("%s%s_oh_%lu.log", LogsDirectory(), infoBuf, session_ID);
+  //}
+  //else {
+  //    path.Format("%soh_%lu.log", LogsDirectory(), session_ID);
+  //}
   return path;
 }
 
