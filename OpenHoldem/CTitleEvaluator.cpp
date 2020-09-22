@@ -222,7 +222,7 @@ bool CTitleEvaluator::ProcessTitle(CString title, CString ttlimits_format) {
       number_type = ttlimits_format.Mid(place_in_ttlimits_format, 2);
       place_in_ttlimits_format += 2;
       token = "";
-      while (CString(title[place_in_title]).FindOneOf("$0123456789,.¢ckm") != -1 && place_in_title<title.GetLength()) {
+      while (CString(title[place_in_title]).FindOneOf("$0123456789,.¢ckmKM") != -1 && place_in_title<title.GetLength()) {
         token += title[place_in_title];
         place_in_title++;
       }
