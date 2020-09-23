@@ -636,3 +636,24 @@ CString RangeOfSymbols(CString format_string, int first, int last) {
   }
   return result;
 }
+
+// For the symbol-engines to build a ctring with a list of symbols
+// like i0..iZ, separates by spaces
+CString RangeOfSymbolsHex(CString format_string, int first, int last) {
+    CString result;
+    CString next_symbol;
+    assert(last >= first);
+    for (int i = first; i <= last; ++i) {
+        assert(i >= 0);
+        assert(i <= 35);
+        if (i < 10) {
+            next_symbol.Format(format_string, ('0' + i));
+        }
+        else {
+            next_symbol.Format(format_string, ('A' + i - 10));
+        }
+        result += next_symbol;
+        result += " ";
+    }
+    return result;
+}

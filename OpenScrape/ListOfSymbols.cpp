@@ -80,11 +80,13 @@ CString ListOfRegions() {
   list += RangeOfSymbols("c0pot%ichip10", 0, 4);
   list += "c0limits ";
   list += RangeOfSymbols("c0limits%i", 0, 9);
-  list += RangeOfSymbols("i%ibutton", 0, 9);
+  list += RangeOfSymbolsHex("i%cbutton", 0, 35);
+  list += RangeOfSymbolsHex("j%cbutton", 0, 35);
   list += RangeOfSymbols("i%ilabel", 0, 9);
   list += RangeOfSymbols("i%istate", 0, 9);
   list += RangeOfSymbols("i86%ibutton", 0, 9);
   list += RangeOfSymbols("i86%istate", 0, 9);
+  list += RangeOfSymbols("i88%istate", 0, 9);
   list += RangeOfSymbols("p%iactive", 0, 9);
   list += RangeOfSymbols("p%ibalance", 0, 9);
   list += RangeOfSymbols("p%ibet", 0, 9);
