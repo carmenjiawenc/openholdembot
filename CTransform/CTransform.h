@@ -74,7 +74,7 @@ class CTransform
 	int DoFuzzyFontScan(RMapCI region, const int width, const int height, 
 							  const bool bg[], const bool (*ch)[MAX_CHAR_HEIGHT], 
 							  const double tolerance, CString *text);
-	TMapCI GetBestHammingDistance(RMapCI region, const int width, const int height, 
+	TMapCI GetBestHammingDistance(CString* current_text, RMapCI region, const int width, const int height,
 								  const bool bg[], const bool (*ch)[MAX_CHAR_HEIGHT], const int left, 
 								  const double tolerance);
 	int CalcHammingDistance(const unsigned int x, const unsigned int y);

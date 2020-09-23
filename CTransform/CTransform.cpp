@@ -616,7 +616,7 @@ int CTransform::DoFuzzyFontScan(RMapCI region, const int width, const int height
 		}
 
 		// Find best hamming distance match within this MAX_SINGLE_CHAR_WIDTH group of bands 
-		TMapCI t_iter = GetBestHammingDistance(region, width, height, bg, ch, vert_band_left, tolerance);
+		TMapCI t_iter = GetBestHammingDistance(text, region, width, height, bg, ch, vert_band_left, tolerance);
 
 		if (t_iter != p_tablemap->t$(font_group)->end())
 		{
@@ -636,7 +636,7 @@ int CTransform::DoFuzzyFontScan(RMapCI region, const int width, const int height
 	return retval;
 }
 		
-TMapCI CTransform::GetBestHammingDistance(RMapCI region, const int width, const int height, 
+TMapCI CTransform::GetBestHammingDistance(CString* current_text, RMapCI region, const int width, const int height, 
 											 const bool bg[], const bool (*ch)[MAX_CHAR_HEIGHT], 
 											 const int left, const double tolerance)
 {
@@ -670,6 +670,23 @@ TMapCI CTransform::GetBestHammingDistance(RMapCI region, const int width, const 
 		// best hamming distance match
 		for (TMapCI t_iter=p_tablemap->t$(font_group)->begin(); t_iter!=p_tablemap->t$(font_group)->end(); t_iter++)
 		{
+			//ignoring invalid matches of . or ,
+			if (t_iter->second.ch == '.' || t_iter->second.ch == ',') {
+				if (current_text->GetLength() == 0) {
+					//first character of the string cannot be . or ,
+					continue;
+				}
+				if (current_text->Find(t_iter->second.ch) != -1) {
+					//found, allow only one occurence of . or ,
+					continue;
+				}
+				if (current_text->FindOneOf("0123456789") == -1 
+					&& current_text->Find(t_iter->second.ch) == -1) {
+					//first occurence of a number is . or ,
+					continue;
+				}
+			}
+
 			double lit_pixels = 0.000001;
 			double tot_hd = 0.000001;
 			double weighted_hd = 999999.;
