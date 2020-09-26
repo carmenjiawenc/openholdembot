@@ -124,15 +124,16 @@ bool CCasinoInterface::ClickButtonSequence(int first_button, int second_button, 
 }
 
 bool CCasinoInterface::RaiseBetPotConfirmSequence(int betpot_button) {
+    //fixed delay duration
     if (LogicalAutoplayerButton(k_autoplayer_function_raise)->Click()) {
         write_log(Preferences()->debug_autoplayer(), "[CRaiseConfirmSequence] Sleeping %dms.\n", Preferences()->swag_delay_3());
-        Sleep(Preferences()->swag_delay_3());
+        Sleep(280);
         if (TableLostFocus()) {
             return false;
         }
         if (LogicalAutoplayerButton(betpot_button)->Click()) {
             write_log(Preferences()->debug_autoplayer(), "[CRaiseConfirmSequence] Sleeping %dms.\n", Preferences()->click_delay());
-            Sleep(Preferences()->click_delay());
+            Sleep(130);
             if (TableLostFocus()) {
                 return false;
             }
@@ -230,15 +231,16 @@ bool CCasinoInterface::EnterBetsize(double total_betsize_in_dollars) {
 }
 
 bool CCasinoInterface::EnterBetsizeNumpad(double total_betsize_in_dollars) {
+    //fixed delay duration
     if (LogicalAutoplayerButton(k_autoplayer_function_raise)->Click()) {
         write_log(Preferences()->debug_autoplayer(), "[CBetsizeNumpad] Sleeping %dms.\n", Preferences()->swag_delay_3());
-        Sleep(Preferences()->swag_delay_3());
+        Sleep(280);
         if (TableLostFocus()) {
             return false;
         }
         if (LogicalAutoplayerButton(k_autoplayer_function_numpad_toggle)->Click()) {
             write_log(Preferences()->debug_autoplayer(), "[CBetsizeNumpad] Sleeping %dms.\n", Preferences()->click_delay());
-            Sleep(Preferences()->click_delay());
+            Sleep(130);
             if (TableLostFocus()) {
                 return false;
             }
@@ -251,13 +253,13 @@ bool CCasinoInterface::EnterBetsizeNumpad(double total_betsize_in_dollars) {
             for (auto it = button_sequence.begin(); it != button_sequence.end(); it++) {
                 LogicalAutoplayerButton(*it)->Click();
                 write_log(Preferences()->debug_autoplayer(), "[CBetsizeNumpad] Sleeping %dms.\n", Preferences()->click_delay());
-                Sleep(Preferences()->click_delay());
+                Sleep(130);
                 if (TableLostFocus()) {
                     return false;
                 }
             }
             write_log(Preferences()->debug_autoplayer(), "[CBetsizeNumpad] Sleeping %dms.\n", Preferences()->click_delay());
-            Sleep(Preferences()->click_delay());
+            Sleep(130);
             return LogicalAutoplayerButton(k_autoplayer_function_confirm)->Click();;
         }
     }

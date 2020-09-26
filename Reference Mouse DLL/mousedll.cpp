@@ -36,6 +36,7 @@
 
 #include <windows.h>
 #include <math.h>
+#include <time.h>
 #include "mousedll.h"
 
 MOUSEDLL_API int MouseClick(const HWND hwnd, const RECT rect, const MouseButton button, const int clicks)
@@ -98,6 +99,12 @@ MOUSEDLL_API int MouseClick(const HWND hwnd, const RECT rect, const MouseButton 
 
 	// Send input
 	Sleep(100);
+
+	// Add random sleep before mouse click
+	srand(time(nullptr));
+	auto random = ((double)rand() / (RAND_MAX)); // random [0, 1]
+	Sleep(random * 20);
+
 	SendInput(clicks*2, input, sizeof(INPUT));
 	Sleep(100);
 	return (int) true;
